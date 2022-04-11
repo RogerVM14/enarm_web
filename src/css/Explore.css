@@ -136,7 +136,7 @@ button.button-get-demo {
     border-radius: 10px;
     justify-content: flex-start;
     align-items: center; 
-    animation: cardSize 2s ease infinite alternate;
+    /* animation: cardSize 2s ease infinite alternate; */
 }
   
 .card-item-text {
@@ -187,7 +187,7 @@ button.button-get-demo {
     height: 50px;
 }
 
-@keyframes cardSize {
+/* @keyframes cardSize {
     0% { height: 128px; width: 586px; }
     100% { height: 134px; width: 596px; }
-}
+} */

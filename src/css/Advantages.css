@@ -139,3 +139,9 @@ div.advantages-container-body div.ranking-dots div.dot {
 div.advantages-container-body div.ranking-dots div.dot.selected {
     background-color: #96ACBC;
 }
+
+div.advantages-carrousel {
+    position: absolute;
+    left: 586px;
+    bottom: 124px;
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import '../css/Advantages.css';
 import starBlueIcon from '../assets/icons/star-blue.png'
+import Carrousel from './Carrousel';
 
 const Advantages = () => {
     return (
@@ -28,13 +29,8 @@ const Advantages = () => {
                             <p>Practica y presenta el ENARM las veces que quieras con nuestro Simulador idéntico en formato y preguntas. ¡Domina el examen!</p>
                         </div>
                     </div>
-                    <div className="carrousel-rankings">
-                        <div className="ranking-image"></div>
-                        <div className="ranking-dots">
-                            <div className="dot selected"></div>
-                            <div className="dot"></div>
-                            <div className="dot"></div>
-                        </div>
+                    <div className="advantages-carrousel">
+                        <Carrousel />
                     </div>
                 </div>
             </div>

@@ -1,20 +1,14 @@
 import React from 'react';
 import '../css/Witness.css';
+import Carrousel from './Carrousel';
 
 const Witness = () => {
     return (
         <div className='witness'>
             <div className='witness-container'>
-                <div className='witness-container-header'>
+                <div className='witness-container-header'> 
                     <div className='witness-carrousel'>
-                        <div className="carrousel-rankings">
-                            <div className="ranking-image"></div>
-                            <div className="ranking-dots">
-                                <div className="dot selected"></div>
-                                <div className="dot"></div>
-                                <div className="dot"></div>
-                            </div>
-                        </div>
+                        <Carrousel /> 
                     </div>
                 </div>
                 <div className='witness-container-body'>
