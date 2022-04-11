@@ -1,0 +1,189 @@
+div.hero-7 {
+    width: 1440px;
+    height: 799px;
+    background: linear-gradient(180deg, rgba(226, 236, 248, 0) 25.24%, #E2ECF8 100%);
+}
+
+div.hero-7-container {
+    padding: 100px 120px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+div.hero-7-container div.subcontainer {
+    width: 588px;
+    height: 500px;
+    position: relative;
+}
+
+div.hero-7-container div.subcontainer h1.title {
+    font-family: PoppinsBold;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 47px;
+    line-height: 70px;
+    letter-spacing: 0.03em;
+    color: #000000;
+    display: block;
+    width: 588px;
+    height: 67px;
+    margin-bottom: 16px;
+}
+
+div.hero-7-container div.subcontainer p.parraf {
+    font-family: PoppinsRegular;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    display: block;
+    color: #000000;
+    width: 588px;
+    height: 56px;
+    margin-bottom: 24px;
+} 
+
+div.follow-us-container {
+    width: 284px;
+}
+
+div.follow-us-container p {
+    font-family: PoppinsSemiBold;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #000000;
+    margin-bottom: 12px;
+}
+
+div.social-media-icons {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+div.contact-us-container {
+    margin-bottom: 40px;
+}
+
+div.contact-us-container > p {
+    font-family: PoppinsSemiBold;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px; 
+    color: #000000;
+    margin-bottom: 12px;
+}
+
+div.contact-us-container div.info-call-container {
+    display: flex;
+    flex-flow: row nowrap;
+    width: 282px;
+    height: 48px;
+    gap: 17px;
+}
+
+div.info-call-container img {
+    width: 24px;
+    height: 24px;
+    object-fit: none;
+    display: block;
+}
+div.parraf-container {
+    width: 249px;
+    height: 48px;
+    display: block;
+}
+
+div.parraf-container p.text-blue {
+    font-family: PoppinsSemiBold;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px; 
+    color: #05B2FA;
+}
+
+div.parraf-container p.p-regular {
+    font-family: PoppinsRegular;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px; 
+    color: #000000;
+}
+
+div.hero-7-container div.subcontainer > img.absolute {
+    width: 279px;
+    height: 336px;
+    position: absolute;
+    z-index: 110;
+    right: 0;
+    bottom: 0;
+}
+
+div.hero-7-container div.form-container {
+    width: 488px;
+    height: auto;
+    position: relative; 
+}
+
+div.hero-7-container div.form-container form div.form-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 120px;
+    gap: 8px;
+}
+
+div.hero-7-container div.form-container form div.form-group label {
+    font-family: PoppinsMedium;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: #000000;
+}
+
+div.hero-7-container div.form-container form div.form-group input {
+    width: 100%;
+    height: 56px;
+    border: 1px solid #96ACBC;
+    border-radius: 10px;
+    padding: 16px;
+}
+
+div.hero-7-container div.form-container form div.form-group input::placeholder {
+    font-family: PoppinsRegular;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #96ACBC;
+}
+
+div.hero-7-container div.form-container form div.form-group input.message {
+    height: 142px;
+}
+
+div.hero-7-container div.form-container form button {
+    width: 216px;
+    height: 48px;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    letter-spacing: 0.02em;
+    color: #FFFFFF;
+    margin-top: 32px;
+    background: #05B2FA;
+    border: none;
+    border-radius: 50px;
+    float: right;
+    cursor: pointer;
+}

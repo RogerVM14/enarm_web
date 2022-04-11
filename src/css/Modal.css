@@ -1,0 +1,122 @@
+div.modal {
+    width: 100vw;
+    height: 100vh;
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+}
+div.modal.modal-is-hidden {
+    display: none!important;
+}
+
+div.modal-container {
+    width: 800px;
+    height: 600px;
+    background: linear-gradient(180deg, #FFFFFF 25.24%, #E2ECF8 100%);
+    border-radius: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: 40px;
+    transform: translateX(-50%) translateY(-50%); 
+}
+
+span.close-background {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+div.modal-container h1.title { 
+    font-family: PoppinsBold;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 39px;
+    line-height: 58px; 
+    letter-spacing: 0.03em; 
+    color: #000000;  
+    display: block;
+    width: 678px;
+    height: 114px;
+
+    margin-bottom: 14px;
+}
+
+div.modal-container h2.subtitle {
+
+    font-family: PoppinsRegular;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 23px;
+    line-height: 34px;
+    color: #000000;
+    display: block;
+    width: 678px;
+    height: 70px;
+
+    margin-bottom: 16px;
+}
+
+div.modal-container ul {
+    margin-bottom: 28px;
+}
+
+.ls-none {
+    list-style: none;
+}
+
+div.modal-container li.list-ip {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+div.modal-container li.list-ip i.green {
+    color: #04B43E;
+    font-weight: bold;
+}
+
+div.modal-container li p.text-list {
+    font-family: PoppinsRegular;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px; 
+    color: #000000;
+} 
+
+div.modal-container button {
+    width: 291px;
+    height: 48px;
+    background: #05B2FA;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    letter-spacing: 0.02em;
+    color: #FFFFFF;
+}
+ 
+div.modal-container img.absolute {
+    position: absolute;
+    width: 253px;
+    height: auto;
+    transform: scaleX(-1);
+    right: 60px;
+    bottom: 24px;
+}
+
+div.modal-container img.close-button {
+    position: absolute; 
+    right: 36px;
+    top: 36px;
+}

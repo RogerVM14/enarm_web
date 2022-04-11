@@ -1,0 +1,12 @@
+div.layout-wrapper {
+    position: relative;
+}
+
+div.main-container {
+    position: relative; 
+    width: 100%;
+    max-width: 1440px;
+    height: auto;
+    margin: 0 auto; 
+    background-color: var(--white); 
+}

@@ -1,0 +1,60 @@
+div.process {
+    width: 1440px;
+    height: 534.5px;
+    position: relative;
+}
+
+div.process-container {
+    width: 1164px;
+    position: absolute;
+    height: 545px; 
+    left: 135px;
+    top: -110.5px;
+    z-index: 500;
+}
+
+div.process-container-header {
+    width: 792px;
+    height: 141px;
+    display: block;
+    margin: 0 auto;   
+}
+
+div.process-container-header h1.title {
+    font-family: PoppinsBold;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px; 
+    text-align: center;
+    letter-spacing: 0.3em;
+    text-transform: uppercase; 
+    color: #05B2FA;
+    margin-bottom: 16px;
+}
+
+div.process-container-header h2.subtitle {
+    font-family: PoppinsBold;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 39px;
+    line-height: 58px;
+    /* identical to box height, or 149% */
+
+    text-align: center;
+    letter-spacing: 0.03em;
+
+    color: #000000;
+
+    margin-bottom: 16px;
+}
+
+div.process-container-header p {
+    font-family: PoppinsRegular;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px; 
+    text-align: center; 
+    color: #000000;
+}

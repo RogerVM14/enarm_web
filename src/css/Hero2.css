@@ -1,0 +1,68 @@
+div.hero-2 {
+    width: 1440px;
+    height: 592px;
+    background: linear-gradient(180deg, rgba(226, 236, 248, 0) 25.24%, #E2ECF8 100%);
+    position: relative;
+}
+
+div.hero-2-container div.container-body {
+    display: flex;
+    flex-flow: row nowrap;
+    padding-left: 120px;
+    padding-right: 120px;
+}
+
+div.hero-2-container div.container-body div.hero-2-image,
+div.hero-2-subcontainer {
+    width: 50%;
+    position: relative;
+} 
+
+div.hero-2-image img {
+    width: 511px;
+    height: 511px;
+    position: relative;
+    top: 81px;
+}
+div.hero-2-subcontainer  {
+    position: relative;
+    top: 118px;
+}
+
+div.hero-2-subcontainer h1 {
+    font-family: PoppinsBold;
+    font-weight: 700;
+    font-size: 47px;
+    line-height: 70px;
+    letter-spacing: 0.03rem;
+    display: block;
+    width: 588px;
+    height: 203px;
+    margin-bottom: 16px;
+}
+
+div.hero-2-subcontainer p {
+    font-family: PoppinsRegular;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    display: block;
+    width: 588px;
+    height: 70px;
+    margin-bottom: 18px;
+}
+
+div.hero-2-subcontainer button {    
+    display: block;
+    width: 246px;
+    height: 48px;
+    color: white;
+    border: none;
+    background-color: var(--sky-blue);
+    border-radius: 26px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 48px;
+    cursor: pointer;
+}

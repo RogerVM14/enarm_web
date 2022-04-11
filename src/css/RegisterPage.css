@@ -1,0 +1,150 @@
+div.register {
+    width: 1440px; 
+    height: 804px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    position: relative;
+    background: linear-gradient(180deg, #FFFFFF 42.12%, #E2ECF8 72.95%);
+}
+
+div.register-container {
+    width: 100%;
+    height: 100%; 
+}
+
+div.register-container div.bg-container div.background-image { 
+    display: block;
+    width: 588px;
+    height: 702px;
+    position: absolute;
+    left: 120px;
+    bottom: 0px;
+    background-image: url('../assets/imgs/Dres/stock-photo-doctor-wearing-white-coat-stethoscope.png');
+    z-index: 440;
+}
+
+div.register-container div.bg-container div.triangle {
+    background: #FFFFFF;
+    width: 1440px;
+    height: 803.5px;
+    position: absolute;
+    z-index: 260;
+    clip-path: polygon(100% 41.5%, 0% 100%, 100% 100%);
+    bottom: -100px;
+}
+
+div.form-container {
+    width: 486px;
+    height: 592px;
+    position: absolute;
+    right: 120px;
+    top: 104px;
+    background-color: transparent;
+    z-index: 330;
+}
+
+div.register-container div.form-container h1.title {
+    font-family: PoppinsBold;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 47px;
+    line-height: 70px;
+    letter-spacing: 0.03em;
+    margin-bottom: 16px;
+    color: #000000;
+}
+
+div.register-container form div.form-group {
+    width: 485px;
+    height: auto;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 27px;
+}
+
+div.register-container form div.form-group label {
+    font-family: PoppinsMedium;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px; 
+    color: #000000;  
+}
+div.register-container form div.form-group input {
+    width: 100%;
+    height: 56px;
+    border: 1px solid #96ACBC;
+    border-radius: 10px;
+    padding: 16px;
+}
+
+div.register-container form div.form-group input::placeholder {
+    font-family: PoppinsRegular;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #96ACBC;
+}
+
+div.register-container form div.form-sub-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: -27px;
+    margin-bottom: 24px;
+}
+
+div.register-container form button {
+    background: #05B2FA;
+    border: none;
+    border-radius: 50px;
+    width: 485px;
+    height: 58px;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    letter-spacing: 0.02em;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+div.register-container form hr {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    border: 1px solid #96ACBC;
+}
+
+div.register-container form > p {
+    width: 302px;
+    height: 21px;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+div.register-container form > p span {
+    font-family: PoppinsRegular;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px; 
+    color: #000000;
+}
+
+div.register-container form > p a {
+    font-family: PoppinsRegular;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px; 
+    color: #05B2FA;
+    text-decoration: none;
+}

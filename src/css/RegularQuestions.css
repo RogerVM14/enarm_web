@@ -1,0 +1,109 @@
+div.regular-questions { width: 1440px; height: auto; }
+div.regular-questions-container { padding: 100px 324px; }
+div.regular-questions-container-head { 
+    width: 792px;
+    height: 156.09px;
+    display: block;
+    margin-bottom: 40px;
+}
+div.regular-questions-container-head h1.title { 
+    font-family: PoppinsBold;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #05B2FA;
+    display: block;
+    width: 792px;
+    margin-bottom: 16px;
+}
+
+div.regular-questions-container-head h2.subtitle { 
+    font-family: PoppinsBold;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 39px;
+    line-height: 58px; 
+    text-align: center;
+    letter-spacing: 0.03em; 
+    color: #000000;
+}
+
+
+div.regular-questions-container-body { 
+    width: 790px;
+    height: auto;
+    display: block;
+}
+
+div.regular-questions-container-body div.questions-items { 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    width: 790px;
+    height: auto;
+}
+ 
+div.questions-items div.item { 
+    width: 100%;
+    height: auto;
+    border: 2px solid var(--white);
+    border-radius: 10px;
+}
+
+div.questions-items div.item.isSelected {
+    border: 2px solid var(--sky-blue);
+}
+
+div.questions-items div.item div.item-container { 
+    padding: 16px;
+} 
+
+div.item-head { 
+    margin-bottom: 16px;
+}
+
+div.item-head h1 { 
+    font-family: PoppinsMedium;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 33px;
+    line-height: 50px; 
+    color: #05B2FA;
+}
+
+div.item-body {
+    display: flex;
+}
+
+div.item-body.flexed-row { 
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+div.item-body.flexed-column { 
+    flex-direction: column;
+    gap: 2px;
+}
+
+div.item-body p.collapsed-parraf{ 
+    font-family: PoppinsRegular;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px; 
+    color: #000000;
+}
+
+div.item-body a { 
+    font-family: PoppinsRegular;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    text-decoration-line: underline; 
+    color: #96ACBC;}
