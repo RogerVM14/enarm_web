@@ -6,6 +6,13 @@ div.witness {
     background: linear-gradient(180deg, rgba(226, 236, 248, 0) 25.24%, #E2ECF8 100%);
 } 
 
+div.witness-container {
+    width: 1440px;
+    position: relative;
+    display: block;
+    margin: 0 auto;
+}
+
 div.witness-container-body {
     width: 100%;
     height: auto;

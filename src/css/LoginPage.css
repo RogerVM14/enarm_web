@@ -1,5 +1,5 @@
 div.login {
-    width: 1440px; 
+    width: 100%; 
     height: 804px;
     overflow-x: hidden;
     overflow-y: hidden;
@@ -8,7 +8,7 @@ div.login {
 }
 
 div.login-container {
-    width: 100%;
+    width: 1440px; ;
     height: 100%; 
 }
 
@@ -25,15 +25,15 @@ div.login-container div.bg-container div.background-image {
 
 div.login-container div.bg-container div.triangle {
     background: #FFFFFF;
-    width: 1440px;
+    width: 100%;
     height: 803.5px;
     position: absolute;
     z-index: 260;
-    clip-path: polygon(100% 41.5%, 0% 100%, 100% 100%);
+    clip-path: polygon(100% 44.5%, 0% 100%, 100% 100%);
     bottom: -100px;
 }
 
-div.form-container {
+div.login-container div.form-container {
     width: 486px;
     height: 592px;
     position: absolute;
@@ -182,4 +182,17 @@ div.login-container form > p a {
     line-height: 21px; 
     color: #05B2FA;
     text-decoration: none;
+}
+
+div.login-container .reveal-load{
+    position: relative;
+    transform: translateY(150px);
+    opacity: 0;
+    transition: 950ms all ease;
+    z-index: 10001;
+}
+  
+div.login-container .reveal-load.active{
+    transform: translateY(0);
+    opacity: 1;
 }

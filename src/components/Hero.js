@@ -4,13 +4,22 @@ import doctorImage from '../assets/imgs/Dres/hero_doctor.png';
 import logoHero from '../assets/imgs/Logos_plata/logo-hero.png'
 
 const Hero = () => {
+
+    setTimeout(() => {
+        const items = document.querySelectorAll(".reveal-load");
+        items.forEach(item => {
+            item.classList.add("active");
+        })
+    }, 100);
+
+
     return (
         <div className='hero'>
             <div className='bg-rectangle'></div>
             <div className='hero-container'>
-                <div className='description-container'>
-                    <h1 className='title'>¿Te gustaría aprobar el ENARM a la Primera?</h1>
-                    <h2 className='subtitle'>
+                <div className='description-container reveal-load'>
+                    <h1 className='title '>¿Te gustaría aprobar el ENARM a la Primera?</h1>
+                    <h2 className='subtitle '>
                         Ya es posible con:
                         <img className='logo' src={logoHero} alt='logo-hero' />
                     </h2>
@@ -38,7 +47,7 @@ const Hero = () => {
                         </li>
                     </ul>
                 </div>         
-                <div className='doctor-image'>
+                <div className='doctor-image reveal-load'>
                     <img src={doctorImage} alt='doctor'/>
                     <div className='circle-with-borders'></div>
                 </div>

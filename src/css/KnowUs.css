@@ -1,7 +1,12 @@
 div.know-us {
-    width: 1440px;
+    width: 100%;
     height: 706px;
     background: var(--blue);
+}
+
+div.know-us-container {
+    width: 1440px;
+    margin: 0 auto;
 }
 
 div.know-us-container div.container-body {

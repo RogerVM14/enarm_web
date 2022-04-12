@@ -1,15 +1,13 @@
 div.resources {
-    width: 100%;
-    max-width: 1440px;
+    width: 100%; 
     height: 636px;
-    padding: 100px 0 120px 0; 
 } 
 
 div.resources-container { 
-    width: 100%;
+    width: 1440px;
     height: 416px;
-    max-width: 1200px;
     margin: 0 auto;
+    padding: 100px 120px 120px 120px;
 }
 
 div.resources-header h1.title {

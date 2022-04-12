@@ -1,10 +1,17 @@
 div.explore {
-    width: 1440px;
+    width: 100%;
     height: 796.5px;
     display: block;
     position: relative; 
     background-color: var(--blue);
+}
+
+div.explore-container {
+    position: relative;
+    display: block;
+    width: 1440px;
     padding: 0 120px;
+    margin: 0 auto;
 }
 
 div.explore-container-head h1.explore-title {

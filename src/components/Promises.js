@@ -5,7 +5,7 @@ import '../css/Promises.css';
 const Promises = () => {
     return (
         <div className='promises'>
-            <div className="promises-container">
+            <div className="promises-container reveal">
                 <div className="promises-container-body">
                     <div className="image-container">
                         <img src={doctorsImage} alt="promises-img" />

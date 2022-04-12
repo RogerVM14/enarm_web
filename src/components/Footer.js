@@ -9,10 +9,11 @@ import iconTelegram from '../assets/icons/vector-telegram.png';
 import iconMessenger from '../assets/icons/vector-messenger.png';
 import iconTwitter from '../assets/icons/vector-twitter.png';
 
+const Footer = ({ topLine }) => {
 
-const Footer = () => {
     return (
         <footer>
+            { topLine && (<hr />)}
             <div className='footer-container'>
                 <img className='footer-enarm-logo' src={footerLogo} alt='footer-logo' />
                 <div className='footer-enlaces'>

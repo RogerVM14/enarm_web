@@ -1,12 +1,14 @@
 div.news {
-    width: 1440px;
-    min-height: 1440px;
+    width: 100%;
+    min-height: 1440px; 
     position: relative;
 }
 
 div.news-container {
+    width: 1440px;
     position: relative;
     padding-top: 99px;
+    margin: 0 auto;
 }
 
 div.news-container div.container-head {  
@@ -16,8 +18,7 @@ div.news-container div.container-head {
     margin: 0 auto;
     flex-flow: column;
     justify-content: space-between;
-    margin-bottom: 40px;
-
+    margin-bottom: 40px; 
 }
 
 div.news-container div.container-head h1.title {
@@ -84,11 +85,13 @@ div.news-items div.item {
     background: #FFFFFF;
     border: 2px solid #FFFFFF; 
     border-radius: 10px;
-    margin-bottom: 12px;
+    margin-bottom: 12px; 
+    transition: border 500ms;
 }
 
 div.news-items div.item.isSelected {
     border: 2px solid #05B2FA; 
+    transition: border 350ms;
 }
 
 div.news-items div.item div.item-head {
@@ -129,9 +132,15 @@ div.news-items div.item div.item-body p {
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
-    line-height: 24px; 
+    line-height: 0px; 
     display: inline;
     margin-right: 8px;
+    transition: line-height 350ms; 
+}
+
+div.news-items div.item.isSelected div.item-body p { 
+    line-height: 24px!important;
+    transition: line-height 350ms;  
 }
 
 div.news-items div.item div.item-body a {

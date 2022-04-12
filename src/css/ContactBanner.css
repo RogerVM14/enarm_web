@@ -1,11 +1,13 @@
 div.contact-banner {
-    width: 1440px;
     height: 378px;
+    width: 100%;
     background-color: var(--blue);
 }
 
 div.contact-banner-container {
-    padding: 100px 120px;
+    padding: 100px 120px;    
+    width: 1440px;
+    margin: 0 auto;
 }
 
 div.contact-banner-container h1.title {
@@ -50,4 +52,10 @@ div.contact-banner-container div.social-media-container {
 div.social-media-container .icon-link img {
     width: 40px;
     height: 40px;
+    transition: all 350ms;
+}
+
+div.social-media-container .icon-link:hover img { 
+    transform: scale(1.5);
+    transition: all 350ms;
 }

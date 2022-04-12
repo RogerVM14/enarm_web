@@ -13,11 +13,11 @@ const Witness = () => {
                 </div>
                 <div className='witness-container-body'>
                     <h1 className='witness-title reveal'>¿Estás listo?</h1>
-                    <div className='body-sub_container bg-white'>
+                    <div className='body-sub_container bg-white reveal'>
                         <h2>Hechos que te respaldan en plataforma ENARM</h2>
                         <button className='witness-button-inscription'>Inscribirme ahora</button>
                     </div>
-                    <div className='body-sub_container bg-blue'>
+                    <div className='body-sub_container bg-blue reveal'>
                         <ul className='witness-list'>
                             <li>
                                 <i className='material-icons-outlined green'>done</i>

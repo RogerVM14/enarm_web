@@ -1,17 +1,19 @@
 div.discount {
     width: 100%;
-    max-width: 1440px;
     height: 568px;
+    position: relative;
+    display: block;
     padding: 100px 120px;
 }
 
 div.discount-container {
     width: 1200px;
+    height: 568px;
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
-    position: absolute;
-    height: 368px;
+    position: relative;
+    margin: 0 auto;
 }
 
 div.discount-container div.sub-container {

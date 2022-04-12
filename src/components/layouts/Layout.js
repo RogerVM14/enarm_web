@@ -4,12 +4,12 @@ import Footer from '../Footer';
 import Modal from '../Modal';
 import '../../css/Layout.css'
 
-const Layout = ({ children }) => {
+const Layout = ({ children, topLine }) => {
     return (
         <div className='main-container'>
             <NavBar />
             { children }
-            <Footer />        
+            <Footer topLine={topLine} />        
             <Modal />    
         </div>
     )

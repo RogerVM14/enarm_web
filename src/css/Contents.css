@@ -1,10 +1,11 @@
 div.contents {
-    width: 1440px;
+    width: 100%;
     height: 1108px;
     background: linear-gradient(180deg, rgba(226, 236, 248, 0) 25.24%, #E2ECF8 100%);
 } 
 
 div.contents-container {
+    max-width: 1440px;
     width: 100%;
     height: 100%;
     padding: 100px 120px;
@@ -12,6 +13,7 @@ div.contents-container {
     flex-flow: row nowrap;
     justify-content: space-between;
     align-items: flex-start;
+    margin: 0 auto;
 }
 
 div.contents-container-header { 

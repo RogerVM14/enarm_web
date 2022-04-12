@@ -1,5 +1,5 @@
 div.how-it-works {
-    width: 1440px;
+    width: 100%;
     height: 1714px;
     background-color: var(--blue);
     position: relative;
@@ -7,8 +7,9 @@ div.how-it-works {
 
 div.hiw-container {
     position: relative;
-    width: 100%;
+    width: 1440px;
     height: 100%;
+    margin: 0 auto;
 }
 
 div.hiw-container-header {

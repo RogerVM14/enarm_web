@@ -1,14 +1,13 @@
 div.advantages {
-    width: 1440px;
     height: 1005px;
     background: linear-gradient(180deg, rgba(226, 236, 248, 0) 25.24%, #E2ECF8 100%);
 }
 
-div.advantages-container {
-    width: 100%;
-    height: 100%;
+div.advantages-container {  
+    width: 1440px;
     padding: 100px 120px;
     position: relative;
+    margin: 0 auto;
 }
 
 div.advantages-container-header {
@@ -101,12 +100,13 @@ div.advantage p {
     color: #000000;
 }
 
-div.advantages-container-body div.carrousel-rankings {
-    position: relative;
+/* div.advantages-container-body div.carrousel-rankings {
+    position: absolute;
     display: block;
     width: 281px;
     height: 306px;
-    margin: 136px auto 0 auto; 
+    left: 716px;
+    bottom: 124px;
 }
 
 div.advantages-container-body div.carrousel-rankings div.ranking-image {
@@ -138,10 +138,10 @@ div.advantages-container-body div.ranking-dots div.dot {
 
 div.advantages-container-body div.ranking-dots div.dot.selected {
     background-color: #96ACBC;
-}
+} */
 
-div.advantages-carrousel {
+div.advantages-carrousel { 
     position: absolute;
-    left: 586px;
-    bottom: 124px;
+    left: 50%;
+    transform: translateX(-50%);
 }

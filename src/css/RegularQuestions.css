@@ -1,5 +1,5 @@
-div.regular-questions { width: 1440px; height: auto; }
-div.regular-questions-container { padding: 100px 324px; }
+div.regular-questions { width: 100%; height: auto; }
+div.regular-questions-container { padding: 100px 324px; width: 1440px; margin: 0 auto;}
 div.regular-questions-container-head { 
     width: 792px;
     height: 156.09px;
@@ -53,10 +53,12 @@ div.questions-items div.item {
     height: auto;
     border: 2px solid var(--white);
     border-radius: 10px;
+    transition: border 350ms;
 }
 
 div.questions-items div.item.isSelected {
     border: 2px solid var(--sky-blue);
+    transition: border 350ms;
 }
 
 div.questions-items div.item div.item-container { 
@@ -90,13 +92,19 @@ div.item-body.flexed-column {
     gap: 2px;
 }
 
-div.item-body p.collapsed-parraf{ 
+div.item-body p.collapsed-parraf { 
     font-family: PoppinsRegular;
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
-    line-height: 24px; 
+    line-height: 0px; 
     color: #000000;
+    transition: line-height 350ms; 
+}
+
+div.item.isSelected p.collapsed-parraf { 
+    line-height: 24px!important;
+    transition: line-height 350ms;  
 }
 
 div.item-body a { 
@@ -106,4 +114,5 @@ div.item-body a {
     font-size: 14px;
     line-height: 21px;
     text-decoration-line: underline; 
-    color: #96ACBC;}
+    color: #96ACBC;
+} 

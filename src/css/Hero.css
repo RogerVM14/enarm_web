@@ -1,11 +1,17 @@
 div.hero {
     display: block;
     position: relative;
-    width: 100%;
     height: calc(1013.5px - 104px);
     top: 0px;
     background: linear-gradient(#FFF 50%, #05B2FA40);
 } 
+
+div.hero-container {
+    display: block;
+    position: relative;
+    width: 1440px;
+    margin: 0 auto;
+}
 
 div.hero div.bg-rectangle {  
     background-color: #1E73BE;
@@ -13,10 +19,9 @@ div.hero div.bg-rectangle {
     position: absolute;
     z-index: 1001;
     top: 0px;
-    left: 0;
     display: block;
     clip-path: polygon(100% 51%, 0% 100%, 100% 100%);
-    width: 1440px;
+    width: 100%;
 } 
 
 div.hero-container div.description-container {
@@ -140,4 +145,16 @@ div.doctor-image div.circle-with-borders {
 @keyframes expandCircle {
     0% { transform: scale(1);} 
     100% { transform: scale(1.06);}
+}
+
+div.hero .reveal-load{
+    transform: translateY(150px);
+    opacity: 0;
+    transition: 950ms all ease;
+    z-index: 10001;
+}
+  
+div.hero .reveal-load.active{
+    transform: translateY(0);
+    opacity: 1;
 }

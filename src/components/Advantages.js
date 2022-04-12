@@ -28,11 +28,11 @@ const Advantages = () => {
                             <h1>SimuladorPro</h1>
                             <p>Practica y presenta el ENARM las veces que quieras con nuestro Simulador idéntico en formato y preguntas. ¡Domina el examen!</p>
                         </div>
-                    </div>
-                    <div className="advantages-carrousel">
-                        <Carrousel />
-                    </div>
+                    </div> 
                 </div>
+            </div> 
+            <div className="advantages-carrousel">
+                <Carrousel />
             </div>
         </div>
     )

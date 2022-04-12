@@ -1,13 +1,15 @@
 div.facts {
-    width: 1440px;
+    width: 100%;
     height: 741px;
     background: #1E73BE;
     display: block;
     position: relative;
 }
 
-div.facts-container {
+div.facts-container {    
+    width: 1440px;
     padding: 100px 120px;
+    margin: 0 auto;
 }
 
 div.facts-container div.container-head {
@@ -137,6 +139,11 @@ div.icon-circle-border {
     align-items: center;
     border-radius: 50%;
     border: 2px solid var(--sky-blue);
-    margin-bottom: 24px;
-
+    margin-bottom: 24px; 
+    animation: expandSpan 1s ease infinite alternate;
+}
+ 
+@keyframes expandSpan {
+    0% { transform: scale(1);}
+    100% { transform: scale(1.35);}
 }

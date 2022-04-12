@@ -5,14 +5,22 @@ import blog2Image from '../assets/imgs/blog_2.png';
 import blog3Image from '../assets/imgs/blog_3.png';
 
 const Hero4 = () => {
+
+    setTimeout(() => {
+        const items = document.querySelectorAll(".reveal-load");
+        items.forEach(item => {
+            item.classList.add("active");
+        })
+    }, 100);
+
     return (
         <div className='hero-4'>
             <div className="hero-4-container">
-                <div className="hero-4-container-header">
-                    <h2 className="title">Orientación sobre el ENARM y sus tendencias</h2>
-                    <p className="parraf">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <div className="hero-4-container-header reveal-load">
+                    <h2 className="title reveal-load">Orientación sobre el ENARM y sus tendencias</h2>
+                    <p className="parraf reveal-load">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 </div>
-                <div className="hero-4-container-body">
+                <div className="hero-4-container-body reveal-load">
                     <h1 className="title">ENTRADAS DESTACADAS</h1>
                     <div className="entries">
                         <div className="entry">

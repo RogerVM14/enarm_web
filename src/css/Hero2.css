@@ -1,8 +1,13 @@
 div.hero-2 {
-    width: 1440px;
+    width: 100%;
     height: 592px;
     background: linear-gradient(180deg, rgba(226, 236, 248, 0) 25.24%, #E2ECF8 100%);
     position: relative;
+}
+
+div.hero-2-container {
+    width: 1440px;
+    margin: 0 auto;
 }
 
 div.hero-2-container div.container-body {
@@ -54,6 +59,7 @@ div.hero-2-subcontainer p {
 }
 
 div.hero-2-subcontainer button {    
+    font-family: Montserrat;
     display: block;
     width: 246px;
     height: 48px;
@@ -61,7 +67,8 @@ div.hero-2-subcontainer button {
     border: none;
     background-color: var(--sky-blue);
     border-radius: 26px;
-    font-weight: 700;
+    font-weight: bold;
+    font-size: 18px;
     text-align: center;
     line-height: 48px;
     cursor: pointer;

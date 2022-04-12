@@ -8,14 +8,21 @@ const LoginPage = () => {
         e.preventDefault();
     }
 
+    setTimeout(() => {
+        const items = document.querySelectorAll(".reveal-load");
+        items.forEach(item => {
+            item.classList.add("active");
+        })
+    }, 100);
+
     return (
         <div className='login'>
             <div className="login-container">
                 <div className="bg-container"> 
                     <div className="triangle"></div>
-                    <div className="background-image"></div>
+                    <div className="background-image reveal-load"></div>
                 </div>
-                <div className="form-container">
+                <div className="form-container reveal-load">
                     <h1 className="title">¡Bienvenido de nuevo!</h1>
                     <form method='POST'>
                         <div className="form-group">
