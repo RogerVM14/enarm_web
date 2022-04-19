@@ -1,0 +1,26 @@
+div.know-us {
+    width: 100%;  
+}
+
+div.know-us-container div.container-body {
+    position: relative;
+    display: flex; 
+}  
+
+div.know-us-container div.subcontainer {
+    display: flex;
+} 
+
+div.list ul {
+    list-style: none; 
+    display: flex;
+}
+
+div.list ul li {
+    display: flex; 
+    flex-direction: row;
+    gap: 8px;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 12px;
+} 

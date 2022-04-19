@@ -1,68 +1,48 @@
-header {
-    position: relative;
-    z-index: 1010;
-    display: block;
-    width: 100%;
-    height: 104px;
-    padding: 0 32px;
-    top: 0;
-} 
+nav.navbar { height: 100%; }
 
-nav.navbar .navbar-container { 
+div.navbar-container { 
+    width: 100%;
+    height: 100%;
     display: flex;
+    position: relative;
     flex-flow: row nowrap;
     justify-content: space-between;
-    align-items: center;
-    max-width: 1440px;
-    margin: 0 auto;
-}
+    align-items: center;  
+} 
 
-img.navbar-logo {
-    width: 104px;
-    height: 104px;
-}
+div.navbar-logo-container { height: 100%; }
+img.navbar-logo { height: 100%; }
+  
  
-.main-routes {
+div.navbar-container ul.session .button-menu {
+    background: transparent;
+    border: none;
+}
+div.navbar-container ul.routes,
+div.navbar-container ul.actions {
     display: flex;
-    flex-flow: row nowrap;
+    flex-direction: row;
+    flex-wrap: nowrap;
     align-items: center; 
     gap: 38px;
 } 
+
+div.navbar-container ul li,
+div.navbar-container ul li {
+    list-style: none;
+}
 
 .navbar-link { 
     text-decoration: none;
     text-align: center;
     color: var(--dark);
-    height: 24px; 
+    display: block;
 }
 
 .navbar-link:hover {
-    font-weight: 700;
-}
+    transform: scale(1.1);
+} 
 
-.main-routes .navbar-link.home { width: 40px; height: 24px; }
-.main-routes .navbar-link.about-us { width: 78px; height: 24px; }
-.main-routes .navbar-link.about-course { width: 120px; height: 24px; }
-.main-routes .navbar-link.blog { width: 40px; height: 24px; }
-.main-routes .navbar-link.free-test { 
-    width: 139px; 
-    height: 35px; 
-    text-align: center;
-    line-height: 33px;
-    border-radius: 17.5px;
-    border: 1px solid var(--black)
-}
-.main-routes .navbar-link.contact { width: 78px; height: 24px; }
-.main-routes .navbar-link.get-course { 
-    width: 177px; 
-    height: 35px;
-    border-radius: 17.5px;
-    background-color: var(--sky-blue);
-    color: var(--white);
-    line-height: 33px;
-    font-weight: 700; 
-}
- 
 .navbar-link.isSelected:not(.home):not(.free-test):not(.get-course) {
     font-weight: 700;
     color: var(--sky-blue);
@@ -117,8 +97,7 @@ img.navbar-logo {
     color: var(--black);
 }
 
-.login-link:hover span {
-    font-weight: 700;
+.login-link:hover span { 
     color: var(--black);
 }
 

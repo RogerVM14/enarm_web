@@ -1,0 +1,161 @@
+div.hero {
+    display: block;
+    width: 100%;
+    height: auto;
+    position: relative;
+    top: 0px;
+    background: var(--blue);
+} 
+
+/* div.hero-container {
+    display: block;
+    position: relative;
+    width: 100%; 
+    padding: 0 24px;
+} */
+
+/* div.hero div.bg-rectangle {  
+    background-color: #1E73BE;
+    height: calc(1013.5px - 104px);
+    position: absolute;
+    z-index: 1001;
+    top: 0px;
+    display: block;
+    clip-path: polygon(100% 51%, 0% 100%, 100% 100%);
+    width: 100%;
+}  */
+
+/* div.hero-container div.description-container {
+    width: 588px;
+    position: relative;
+    top: 77px;
+    left: 120px;
+    z-index: 1005;
+} */
+
+/* div.hero-container div.description-container h1.title {
+    display: block;
+    width: 588px;
+    height: 152px;
+    margin-bottom: 16px;
+    font-family: PoppinsRegular;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 47px;
+    line-height: 70px;
+    letter-spacing: 0.03em;
+
+    color: #000000;
+} */
+
+/* div.hero-container div.description-container h2.subtitle {
+    display: block;
+    width: 588px;
+    height: 56px;
+    margin-bottom: 32px;
+    position: relative; 
+    font-family: PoppinsBold;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+} */
+
+/* div.hero-container h2.subtitle img.logo {
+    position: absolute;
+    bottom: 1px;
+    left: 163px;
+    width: 256px;
+    height: 73px;
+} */
+
+/* div.hero-container button.suscribe-now { 
+    display: block;
+    width: 246px;
+    height: 48px;
+    border: 1px solid transparent;
+    color: white;
+    background-color: var(--sky-blue);
+    border-radius: 26px;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;   
+    text-align: center;
+    letter-spacing: 0.02em;
+    margin-bottom: 40px;
+    cursor: pointer;
+} */
+
+.ls-none { list-style: none; }
+
+div.hero-container ul.hero-list li {
+    margin-bottom: 12px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+    
+}
+
+/* ul.hero-list li p {
+    font-family: PoppinsBold;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px; 
+    color: #000000;
+} */
+
+ul.hero-list li i {
+    width: 24px;
+    height: 24px;
+    color: #04B43E;
+}
+
+/* div.doctor-image {
+    position: absolute;
+    top: 77px;
+    right: 40px; 
+    display: block;
+    width: 667px;
+    height: 716px;
+} */
+
+/* div.doctor-image img {
+    position: relative;
+    z-index: 1010;
+    width: 100%;
+    height: 100%;
+} */
+
+/* div.doctor-image div.circle-with-borders {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 409px;
+    left: 55px;
+    top: 104px;
+    border: 3px solid #05B2FA;
+    border-radius: 50%;
+    z-index: 1005;
+    animation: expandCircle 1.5s ease infinite alternate;
+} */
+
+@keyframes expandCircle {
+    0% { transform: scale(1);} 
+    100% { transform: scale(1.06);}
+}
+
+/* div.hero .reveal-load{
+    transform: translateY(150px);
+    opacity: 0;
+    transition: 950ms all ease;
+    z-index: 10001;
+}
+  
+div.hero .reveal-load.active{
+    transform: translateY(0);
+    opacity: 1;
+} */

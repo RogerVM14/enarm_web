@@ -1,0 +1,28 @@
+div.hero-2 {
+    width: 100%; 
+    background: linear-gradient(180deg, rgba(226, 236, 248, 0) 25.24%, #E2ECF8 100%);
+    position: relative;
+}
+
+div.hero-2 div.container-header div.subcontainer {
+    display: flex;
+}
+
+div.hero-2-container div.container-body {
+    display: flex; 
+}
+
+div.hero-2-container div.container-body div.hero-2-image,
+div.hero-2-subcontainer { 
+    position: relative;
+} 
+
+div.hero-2-container div.image-container img { 
+    width: 100%;
+    position: relative; 
+}
+
+div.hero-2-subcontainer  {
+    position: relative; 
+}
+   

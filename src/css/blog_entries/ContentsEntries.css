@@ -1,0 +1,8 @@
+div.contents-entries { width: 100%; }
+div.contents-entries-container { width: 100%; }
+div.pagination-entries {
+    width: 155px;
+    height: 21px;
+    display: block;
+    margin: 72px auto 0 auto;
+}

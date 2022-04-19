@@ -1,0 +1,138 @@
+div.how-it-works {
+    width: 100%;  
+    position: relative;
+}
+
+div.hiw-container {
+    position: relative; 
+}
+
+div.hiw-container-header { 
+}
+  
+
+/* img.vector-line-img { 
+    position: absolute;
+    top: 0;
+    left: 135px;
+    z-index: 120;
+} */
+
+/* div.hiw-card {
+    display: flex;
+    flex-flow: row nowrap;
+    width: 508px;
+    height: 142px;
+    background-color: #FFFFFF;
+    border: 2px solid #05B2FA;
+    border-radius: 10px;
+    position: absolute;
+    z-index: 220;
+    padding: 20px 10px;
+} */
+
+/* div.hiw-card div.card-number {
+    width: 93px;
+    height: 76px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 3px;
+    margin-top: 13px;
+    margin-bottom: 13px;
+} */
+
+/* div.hiw-card div.card-number span {
+    font-family: PoppinsRegular;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 72px;
+    line-height: 108px;
+    display: flex;
+    align-items: center;
+    text-align: center; 
+    color: #05B2FA;
+} */
+ 
+
+/* div.hiw-card.no-card-1 {
+    top: 222px;
+    right: 121px;
+}
+
+div.hiw-card.no-card-2 {
+    top: 404px;
+    right: 223px;
+}
+
+div.hiw-card.no-card-3 {
+    top: 498px;
+    left: 165px;
+}
+
+div.hiw-card.no-card-4 {
+    top: 680px;
+    left: 120px;
+}
+
+div.hiw-card.no-card-5 {
+    top: 758px;
+    right: 268px;
+}
+
+div.hiw-card.no-card-6 {
+    top: 940px;
+    right: 121px;
+}
+
+div.hiw-card.no-card-7 {
+    bottom: 450px;
+    right: 223px;
+}
+
+div.hiw-card.no-card-8 {
+    bottom: 369px;
+    left: 165px;   
+}
+
+div.hiw-card.no-card-9 {
+    bottom: 187px;
+    left: 120px;
+}
+
+div.hiw-card.no-card-10 {
+    bottom: 110px;
+    right: 268px;
+}
+
+img.hiw-icon {
+    position: absolute;
+    z-index: 320;
+}
+
+img.hiw-icon.icon-1 {  
+    bottom: 82px;
+    right: 149px;
+}
+
+img.hiw-icon.icon-2 {  
+    top: 607px;
+    right: 325px;
+}
+
+img.hiw-icon.icon-3 {  
+    top: 941px;
+    left: 279px;
+}
+
+img.hiw-icon.icon-4 {  
+    top: 96px;
+    right: 528px;
+}
+
+img.hiw-icon.icon-5 {  
+    top: 375px;
+    left: 532px;
+}
+
+ */

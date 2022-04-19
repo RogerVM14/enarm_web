@@ -1,52 +1,9 @@
 div.contact-banner {
-    height: 378px;
     width: 100%;
-    background-color: var(--blue);
-}
-
-div.contact-banner-container {
-    padding: 100px 120px;    
-    width: 1440px;
-    margin: 0 auto;
-}
-
-div.contact-banner-container h1.title {
-    width: block;
-    width: 588px;
-    height: 24px;
-    margin: 0px auto 16px auto;
-    font-family: PoppinsBold;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 24px; 
-    text-align: center;
-    letter-spacing: 0.3em;
-    text-transform: uppercase; 
-    color: #05B2FA;
-}
-
-div.contact-banner-container h2.subtitle {
-    display: block;
-    width: 792px;
-    height: 58px;
-    margin: 0px auto 40px auto;
-    font-family: PoppinsBold;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 39px;
-    line-height: 58px; 
-    text-align: center;
-    letter-spacing: 0.03em; 
-    color: #FFFFFF;
-}
+} 
 
 div.contact-banner-container div.social-media-container {
-    display: flex;
-    width: 448px;
-    height: 40px;
-    margin: 0px auto;
-    justify-content: space-between;
+    display: flex;   
 }
 
 div.social-media-container .icon-link img {

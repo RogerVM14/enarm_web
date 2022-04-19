@@ -1,20 +1,9 @@
-div.promises {
-    width: 100%;
-    height: 480px;
+div.promises { 
     position: relative;    
 }
-
-div.promises-container {
-    width: 1440px;
-    height: 100%;
-    margin: 0 auto;
-}
-
+ 
 div.promises-container-body {
     display: flex;
-    flex-flow: row nowrap;
-    justify-content: flex-start;
-    align-items: center;
 }
 
 div.promises-container-body div.image-container {
@@ -27,68 +16,16 @@ div.promises-container-body div.image-container {
 div.promises-container-body div.image-container img {
     position: absolute;
     z-index: -1;
-}
+}  
 
-div.promises-subcontainer {
-    width: 588px;
-    height: 278px;
-    display: block; 
-    text-align: start;
-    margin-left: 24px;
-}
-
-div.promises-subcontainer h1.title {
-    font-family: PoppinsBold;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 24px; 
-    letter-spacing: 0.3em;
-    text-transform: uppercase; 
-    color: #05B2FA;
-
-    display: block;
-    margin-bottom: 16px;
-}
-
-
-div.promises-subcontainer h2.subtitle {
-    font-family: PoppinsBold;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 39px;
-    line-height: 58px; 
-    letter-spacing: 0.03em; 
-    color: #000000;
-    
-    display: block;
-    margin-bottom: 16px;
-}
-
-
-div.promises-subcontainer p {
-    font-family: PoppinsRegular;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
-
-    color: #000000;
-
-    display: block;
-    margin-bottom: 12px;
-}
- 
 div.promises-subcontainer button {
-    width: 266.12px;
-    height: 22px;
+    border: none;
+    background: transparent;
+    width: 100%;
     display: flex;
     flex-flow: row nowrap;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
 }
 
 div.promises-subcontainer button i {

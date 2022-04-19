@@ -1,0 +1,70 @@
+div.news {
+    width: 100%; 
+    position: relative;
+}
+
+div.news-container div.container-head {  
+    display: flex;    
+}   
+
+div.news-container div.container-body {
+    display: block;  
+}
+
+div.news-items {
+    display: block; 
+}
+
+div.news-items div.item {
+    width: 100%; 
+    padding: 1rem;
+    background: #FFFFFF;
+    border: 2px solid #FFFFFF; 
+    border-radius: 10px;
+    margin-bottom: 24px; 
+    transition: border 500ms;
+}
+
+div.news-items div.item.isSelected {
+    border: 2px solid #05B2FA; 
+    transition: border 350ms;
+}
+
+div.news-items div.item div.item-head {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+ 
+
+div.news-items div.item div.item-head button {
+    width: 24px;
+    height: 24px;
+    border: none;
+    background-color: #05B2FA;
+    border-radius: 50%;
+    color: white;
+}
+ 
+div.news-items div.item div.item-body p { 
+    line-height: 21px;  
+}
+
+div.news-items div.item.isSelected div.item-body p { 
+    line-height: 24px!important;
+    transition: line-height 350ms;  
+}
+
+div.news-items div.item div.item-body a {
+    font-family: PoppinsRegular;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px; 
+    text-decoration-line: underline; 
+    color: #96ACBC; 
+    display: block;
+}

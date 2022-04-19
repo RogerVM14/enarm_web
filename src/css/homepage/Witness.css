@@ -1,0 +1,36 @@
+div.witness {
+    display: block;
+    position: relative;
+    width: 100%; 
+    background: linear-gradient(180deg, rgba(226, 236, 248, 0) 25.24%, #E2ECF8 100%);
+} 
+
+div.witness-container { 
+    position: relative;
+    display: block; 
+    padding: 72px 24px;
+}
+
+div.witness-container-body {
+    width: 100%;
+    height: auto;
+    display: flex;       
+} 
+ 
+  
+ul.witness-list { 
+    list-style: none; 
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+ul.witness-list li {
+    display: flex;
+    flex-flow: row nowrap;   
+    gap: 8px;
+}
+
+ul.witness-list li i {
+    color: rgba(4, 180, 62, 1);
+} 

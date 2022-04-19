@@ -1,41 +1,55 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import logo from '../assets/imgs/PicsArt_11-25-01.09.59.jpg'
 import '../css/Navbar.css';
 
-const NavBar = () => { 
 
-    const navLinks = document.querySelectorAll(".navbar-link");
-   
-    const handleNavLink = (e) => {
-        const self = e.currentTarget;
-        navLinks.forEach(link => {
-            if(link.classList.contains('isSelected')) {
-                link.classList.remove('isSelected');
-            }
-        });
-        self.classList.add("isSelected"); 
-    } 
+const NavBar = ({breakpoint}) => {
+ 
+    const activeStyle = { fontWeight: "bold", color: "#05B2FA", borderColor: "#05B2FA" };
 
     return (
-        <header>
-            <nav className='navbar'>  
-                <div className='navbar-container'>
-                    <img className='navbar-logo' src={logo} alt='enarm-logo' /> 
-                    <div className='main-routes'>
-                        <Link className='navbar-link home' to='/' onClick={handleNavLink}>Inicio</Link>
-                        <Link className='navbar-link about-us' to='/nosotros' onClick={handleNavLink}>Nosotros</Link>
-                        <Link className='navbar-link about-course' to='/sobre_el_curso' onClick={handleNavLink}>Sobre el Curso</Link>
-                        <Link className='navbar-link blog' to='/blog' onClick={handleNavLink}>Blog</Link>
-                        <Link className='navbar-link free-test rounded-circle' to='/prueba_gratis' onClick={handleNavLink}>Prueba Gratis</Link>
-                        <Link className='navbar-link contact' to='/contacto' onClick={handleNavLink}>Contacto</Link>           
+        <header className={breakpoint}>
+            <nav className='navbar'>
+                <div className={`navbar-container ${breakpoint}`}>
+                    <div className="navbar-logo-container">
+                        <img className='navbar-logo' src={logo} alt='enarm-logo' />
                     </div>
-                    <div className='navbar-right-controls'>
-                        <Link className='navbar-link get-course' to='#' onClick={handleNavLink}>Obtener Curso</Link> 
-                        <Link className='navbar-link login-link' to='/iniciar_sesion' onClick={handleNavLink}>
-                            <i className='material-icons-outlined'>account_circle</i>
-                            <span>Iniciar Sesión</span>
-                        </Link> 
+                    <div className='sub-container'>
+                        <ul className='routes'>
+                            <li><NavLink className='regular-14 navbar-link home' to='/' style={({ isActive }) => isActive ? activeStyle : undefined }>Inicio</NavLink></li>
+                            <li><NavLink className='regular-14 navbar-link about-us' to='/nosotros' style={({ isActive }) => isActive ? activeStyle : undefined }>Nosotros</NavLink></li>
+                            <li><NavLink className='regular-14 navbar-link about-course' to='/sobre_el_curso' style={({ isActive }) => isActive ? activeStyle : undefined }>Sobre el Curso</NavLink></li>
+                            <li><NavLink className='regular-14 navbar-link blog' to='/blog' style={({ isActive }) => isActive ? activeStyle : undefined }>Blog</NavLink></li>
+                            <li><NavLink className='regular-14 navbar-link free-test rounded-circle' to='/prueba_gratis' style={({ isActive }) => isActive ? activeStyle : undefined }>Prueba Gratis</NavLink></li>
+                            <li><NavLink className='regular-14 navbar-link contact' to='/contacto' style={({ isActive }) => isActive ? activeStyle : undefined }>Contacto</NavLink></li>
+                            <li className={breakpoint}>
+                                <NavLink className='navbar-link login-link' to='/iniciar_sesion' style={({ isActive }) => isActive ? activeStyle : undefined }>
+                                    <i className='material-icons-outlined'>account_circle</i>
+                                    <span className='regular-14'>Iniciar Sesión</span>
+                                </NavLink>
+                            </li>
+                        </ul>
+                        <ul className='actions'>
+                            <li className='get_course'>
+                                <button className='button-rounded-blue-35 button-text-white'>
+                                    <span className="button-text">Obtener Curso</span>
+                                </button>
+                            </li>
+                            <li className='session'>
+                                <NavLink className='navbar-link login-link' to='/iniciar_sesion' style={({ isActive }) => isActive ? activeStyle : undefined }>
+                                    <i className='material-icons-outlined'>account_circle</i>
+                                    <span className='regular-14'>Iniciar Sesión</span>
+                                </NavLink>
+                            </li>
+                        </ul>    
+                        <ul className='session'>
+                            <li className='menu'>
+                                <button className='button-menu'>
+                                    <i className='material-icons-outlined'>menu</i>
+                                </button>
+                            </li>
+                        </ul>         
                     </div>
                 </div>
             </nav>
@@ -43,4 +57,4 @@ const NavBar = () => {
     )
 }
 
-export default NavBar
+export default NavBar;

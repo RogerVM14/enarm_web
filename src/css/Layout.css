@@ -1,11 +1,2 @@
-div.layout-wrapper {
-    position: relative;
-}
 
-div.main-container {
-    position: relative;  
-    min-width: 1440px;
-    height: auto;
-    margin: 0 auto; 
-    background-color: var(--white); 
-}
+

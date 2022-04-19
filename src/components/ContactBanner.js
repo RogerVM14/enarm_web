@@ -7,10 +7,10 @@ import '../css/ContactBanner.css';
 
 const ContactBanner = () => {
     return (
-        <div className='contact-banner'>
+        <div className='contact-banner bg-blue'>
             <div className="contact-banner-container">
-                <h1 className="title">CONTACTO</h1>
-                <h2 className="subtitle">¿Tienes dudas? Escríbenos</h2>
+                <h1 className="tiny-blue-title text-center">CONTACTO</h1>
+                <h2 className="subtitle white text-center">¿Tienes dudas? Escríbenos</h2>
                 <div className="social-media-container">
                     <Link className='icon-link' to="#">
                         <img src={whatsAppIcon} alt="social-media-icon" />

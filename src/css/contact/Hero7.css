@@ -1,0 +1,74 @@
+div.hero-7 { 
+    background: linear-gradient(180deg, rgba(226, 236, 248, 0) 25.24%, #E2ECF8 100%);
+}
+
+
+
+div.hero-7-container { 
+    display: flex; 
+}
+
+div.hero-7-container div.subcontainer { 
+    position: relative;
+    display: flex;
+} 
+  
+
+div.social-media-icons {
+    display: flex; 
+}
+  
+div.contact-us-container div.info-call-container {
+    display: flex; 
+}
+
+div.info-call-container img {
+    width: 24px;
+    height: 24px;
+    object-fit: none;
+    display: block;
+}  
+
+div.hero-7-container div.subcontainer > img.absolute {
+    width: 279px;   
+}
+
+div.hero-7-container div.form-container {  
+    position: relative; 
+}
+
+div.hero-7-container div.form-container form div.form-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 120px;
+    gap: 8px;
+}
+ 
+div.hero-7-container div.form-container form div.form-group input {
+    width: 100%;
+    height: 56px;
+    border: 1px solid #96ACBC;
+    border-radius: 10px;
+    padding: 16px;
+}
+
+div.hero-7-container div.form-container form div.form-group textarea {
+    width: 100%;
+    height: 160px;
+    border: 1px solid #96ACBC;
+    border-radius: 10px;
+    padding: 16px;
+    resize: none;
+}
+
+div.hero-7-container div.form-container form div.form-group input::placeholder,
+div.hero-7-container div.form-container form div.form-group textarea::placeholder {
+    font-family: PoppinsRegular;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #96ACBC; 
+}
+

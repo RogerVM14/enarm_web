@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'; 
+import React, { useState } from 'react'; 
 import imagesUrls from './CarrouselImages';
 import '../css/Carrousel.css';
  
@@ -27,11 +27,7 @@ const Carrousel = () => {
         setDot(dot + 1)
         return;
     }
-
-    useEffect(()=>{
-        console.log('Actual Position: ' + current + " | " + imagesUrls.length);
-    }, [current])
-
+ 
     setInterval(() => {
         updateCurrentCarrouselItem();
     }, 5000);

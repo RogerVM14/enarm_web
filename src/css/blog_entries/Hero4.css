@@ -1,0 +1,12 @@
+div.hero-4 { width: 100%; background: linear-gradient(180deg, rgba(226, 236, 248, 0) 25.24%, #E2ECF8 100%); }
+div.hero-4-container { position: relative; display: flex; }
+div.entries { display: flex; }
+div.entries div.entry { border: 2px solid #05B2FA; border-radius: 10px; background-color: #FFFFFF; height: 100%; }
+div.entries div.entry div.entry-image { width: 100%; height: 61%; overflow: hidden; }
+div.entries div.entry div.entry-image img { width: 100%; }
+div.entries div.entry div.entry-text { padding: 20px; }
+div.entries div.entry:hover { cursor: pointer; }
+div.entries div.entry:hover div.entry-image img { transition: all 0.3s; }
+div.entries div.entry:hover div.entry-image img { transform: scale(1.2); transition: all 0.3s; }
+/* div.hero-4 .reveal-load{ position: relative; transform: translateY(150px); opacity: 0; transition: 950ms all ease; z-index: 10001; }
+div.hero-4 .reveal-load.active{ transform: translateY(0); opacity: 1; } */

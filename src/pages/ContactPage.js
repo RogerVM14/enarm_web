@@ -1,14 +1,17 @@
-import React from 'react';
-import Hero7 from '../components/Hero7.js';
+import React, { useContext } from 'react';
+import Hero7 from '../components/contact/Hero7.js';
 import ContactBanner from '../components/ContactBanner';
-import RegularQuestions from '../components/RegularQuestions.js';
+import RegularQuestions from '../components/contact/RegularQuestions.js';
+import WidthContext from '../contexts/WidthContext';
 
 const ContactPage = () => {
+
+    const screenSize = useContext(WidthContext);
     return (
         <div className='layout-wrapper'>
-            <Hero7 />
-            <RegularQuestions />
-            <ContactBanner />
+            <Hero7 width={screenSize}/>
+            <RegularQuestions width={screenSize}/>
+            <ContactBanner width={screenSize}/>
         </div>
     )
 }

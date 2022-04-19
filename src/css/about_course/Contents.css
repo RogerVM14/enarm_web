@@ -1,0 +1,38 @@
+div.contents { 
+    background: linear-gradient(180deg, rgba(226, 236, 248, 0) 25.24%, #E2ECF8 100%);
+} 
+
+/* div.contents-container { 
+    width: 100%;
+    height: 100%;
+    padding: 100px 120px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 0 auto;
+} */
+
+div.contents-container-header { display: block; }  
+ul.ls-none { list-style: none; }
+ul.ls-darkcircle { list-style: initial; }
+li.list-ip { display: flex; flex-flow: row nowrap; gap: 8px; margin-bottom: 12px; }
+  
+div.contents-container-body { 
+    display: block; 
+    border-radius: 10px;
+    background-color: #FFF;
+}
+
+div.contents-container-body div.image-container { 
+    background-image: url('../../assets/imgs/Dres/what-doctors-say2.jpg');
+    background-repeat: none;
+    background-size: cover; 
+    width: 100%; 
+}
+  
+div.contents-container-body div.subcontainer { display: flex; }
+div.column-with-circles { width: 24px; height: 372px; position: relative; }
+div.column-with-circles div { position: absolute; }
+div.column-with-circles div.vertical-line { width: 2px; height: 336px; border-left: 3px solid #96ACBC; top: 22px; left: 11px; }
+div.column-with-circles div.circle { width: 24px; height: 24px; background-color: #FFF; border: 6px solid #96ACBC; border-radius: 50%; } 

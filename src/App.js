@@ -10,16 +10,17 @@ import FreeTestPage from './pages/FreeTestPage';
 import ContactPage from './pages/ContactPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
-import AccessLayout from './components/layouts/AccessLayout';
+import AccessLayout from './components/layouts/AccessLayout';  
+import { useEffect, useState } from 'react';
+import WidthContext from './contexts/WidthContext';
 
 function reveal() {
-    
-    var reveals = document.querySelectorAll(".reveal");
+    let reveals = document.querySelectorAll(".reveal");
   
-    for (var i = 0; i < reveals.length; i++) {
-        var windowHeight = window.innerHeight;
-        var elementTop = reveals[i].getBoundingClientRect().top;
-        var elementVisible = 100;
+    for (let i = 0; i < reveals.length; i++) {
+        let windowHeight = window.innerHeight;
+        let elementTop = reveals[i].getBoundingClientRect().top;
+        let elementVisible = 150;
     
         if (elementTop < (windowHeight - elementVisible)) {
             reveals[i].classList.add("active");
@@ -31,12 +32,12 @@ function reveal() {
   
 function revealOnLoad() {
     
-    var reveals = document.querySelectorAll(".reveal-load");
+    let reveals = document.querySelectorAll(".reveal-load");
   
-    for (var i = 0; i < reveals.length; i++) {
-        var windowHeight = window.innerHeight;
-        var elementTop = reveals[i].getBoundingClientRect().top;
-        var elementVisible = 0;
+    for (let i = 0; i < reveals.length; i++) {
+        let windowHeight = window.innerHeight;
+        let elementTop = reveals[i].getBoundingClientRect().top;
+        let elementVisible = 0;
     
         if (elementTop < (windowHeight - elementVisible)) {
             reveals[i].classList.add("active");
@@ -48,12 +49,12 @@ function revealOnLoad() {
 
 function spinAround() {
     
-    var spins = document.querySelectorAll(".spin");
+    let spins = document.querySelectorAll(".spin");
   
-    for (var i = 0; i < spins.length; i++) {
-        var windowHeight = window.innerHeight;
-        var elementTop = spins[i].getBoundingClientRect().top;
-        var elementVisible = 100;
+    for (let i = 0; i < spins.length; i++) {
+        let windowHeight = window.innerHeight;
+        let elementTop = spins[i].getBoundingClientRect().top;
+        let elementVisible = 100;
     
         if (elementTop < (windowHeight - elementVisible)) {
             spins[i].classList.add("spin-around");
@@ -61,9 +62,8 @@ function spinAround() {
             spins[i].classList.remove("spin-around");
         }
     }
-}
-  
-  
+} 
+
 window.addEventListener("scroll", () => {
     reveal();
     spinAround();
@@ -73,20 +73,47 @@ window.addEventListener("load", () => {
     revealOnLoad();
 });
 
+window.addEventListener("touchmove", () => {     
+    reveal();
+    spinAround();
+});
+ 
+const getWindowWidth = () => { 
+    let x = window.innerWidth;
+
+    if(x >= 320 && x <= 480) return 'small';
+    if(x >= 481 && x <= 768) return 'medium';
+    if(x >= 769 && x <= 1023) return 'large';
+    if(x >= 1024) return 'extra-large';
+} 
+
 const App = () => {
+
+    const [screenSize, setScreenSize] = useState(getWindowWidth())
+
+    useEffect(() => {
+        window.addEventListener('resize', () => {
+            const x = getWindowWidth();
+            setScreenSize(x);
+        }); 
+        console.log(screenSize)
+    }, [screenSize]);
+
     return ( 
-        <> 
-            <Routes>
-                <Route path='/' index={ true } element={ <Layout topLine={true}><HomePage /></Layout>} />
-                <Route path='nosotros' element={ <Layout topLine={true}><AboutUsPage /></Layout> } />
-                <Route path='sobre_el_curso' element={ <Layout topLine={false}><AboutCoursePage /></Layout> } />
-                <Route path='blog' element={ <Layout topLine={true}><BlogEntriesPage /></Layout> } />
-                <Route path='blog/:id' element={ <Layout topLine={true}><EntryDetailPage /></Layout> } />
-                <Route path='prueba_gratis' element={ <Layout topLine={true}><FreeTestPage /></Layout> } />
-                <Route path='contacto' element={ <Layout topLine={false}><ContactPage /></Layout> } />
-                <Route path='iniciar_sesion' element={ <AccessLayout><LoginPage /></AccessLayout> } />
-                <Route path='registrate' element={ <AccessLayout><RegisterPage /></AccessLayout> } />
-            </Routes> 
+        <>  
+            <WidthContext.Provider value={screenSize}>
+                <Routes>
+                    <Route path='/' index={ true } element={ <Layout topLine={true}><HomePage /></Layout>} />
+                    <Route path='nosotros' element={ <Layout topLine={true}><AboutUsPage /></Layout> } />
+                    <Route path='sobre_el_curso' element={ <Layout topLine={false}><AboutCoursePage /></Layout> } />
+                    <Route path='blog' element={ <Layout topLine={true}><BlogEntriesPage /></Layout> } />
+                    <Route path='blog/:id' element={ <Layout topLine={true}><EntryDetailPage /></Layout> } />
+                    <Route path='prueba_gratis' element={ <Layout topLine={true}><FreeTestPage /></Layout> } />
+                    <Route path='contacto' element={ <Layout topLine={false}><ContactPage /></Layout> } />
+                    <Route path='iniciar_sesion' element={ <AccessLayout><LoginPage /></AccessLayout> } />
+                    <Route path='registrate' element={ <AccessLayout><RegisterPage /></AccessLayout> } />
+                </Routes>  
+            </WidthContext.Provider>
         </>
     );
 }

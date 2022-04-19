@@ -1,56 +1,13 @@
 div.resources {
-    width: 100%; 
-    height: 636px;
+    width: 100%;  
 } 
-
-div.resources-container { 
-    width: 1440px;
-    height: 416px;
-    margin: 0 auto;
-    padding: 100px 120px 120px 120px;
-}
-
-div.resources-header h1.title {
-    display: block;
-    width: 588px;
-    height: 24px;
-    margin: 0 auto;
-    margin-bottom: 16px;
-    color: var(--sky-blue);
-    font-family: PoppinsBold;
-    font-weight: 700, bold;
-    font-size: 16px;
-    line-height: 24px;
-    letter-spacing: 3px;
-    text-align: center;
-    text-transform: uppercase;  
-}
-
-div.resources-header h1.subtitle {
-    display: block;
-    width: 792px;
-    height: 116px;
-    margin: 0 auto;
-    font-family: PoppinsBold;
-    font-weight: 700, bold;
-    font-size: 39px; 
-    line-height: 58px;
-    letter-spacing: 1px;
-    text-align: center; 
-}
-
-div.resources-body {
-    margin-top: 84px;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    align-items: flex-end;
+   
+div.resources-body { 
+    display: flex; 
 }
 
 div.resources-item {
-    display: block;
-    width: 282px;
-    height: 176px;
+    display: flex;
     position: relative;
 }
 
@@ -88,31 +45,15 @@ div.resources-item:hover i.item-icon::before {
     left: 44px; 
     transition: left 550ms;
 }
-
-div.resources-item p {
-    margin-top: 24px;
-    display: block;
-    width: 282px;
-    height: 70px;
-    font-family: PoppinsRegular;
-    font-size: 22px;
-}
-
-div.resources-item .button-link {
-    color: var(--sky-blue);
-    display: flex;
-    width: 282px;
+ 
+.link-with-icon { 
+    display: flex; 
     flex-flow: row nowrap;
     justify-content: flex-start;
     align-items: center;
-    text-decoration: none;
-    font-family: Montserrat, sans-serif;
-    font-weight: 800;
-    line-height: 21.94px;
-    font-size: 18px;
-    margin-top: 12px;
+    text-decoration: none; 
 }
-
+  
 i.item-icon.bg-green { background: #04B43E; }
 i.item-icon.bg-blue { background: #2E77AB; }
 i.item-icon.bg-gray { background: #96ACBC; }

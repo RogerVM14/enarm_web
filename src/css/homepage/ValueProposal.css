@@ -1,0 +1,38 @@
+div.value_proposal {
+    width: 100%;  
+    background-color: #1E73BE;
+}
+
+div.value_proposal-container,
+div.value_proposal-item {
+    display: flex;   
+} 
+
+div.value_proposal-item div.item-icon-container {
+    display: block;
+    width: 40px;
+    height: 40px;
+    position: relative; 
+    color: #05B2FA;
+}
+
+div.value_proposal-item div.item-icon-container span { 
+    width: 40px;
+    height: 40px;
+    border: 2px solid #05B2FA;
+    border-radius: 50%; 
+    display: block;
+    animation: expandSpan 1s ease infinite alternate;
+}
+
+div.value_proposal-item div.item-icon-container i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+@keyframes expandSpan {
+    0% { transform: scale(1);}
+    100% { transform: scale(1.35);}
+}

@@ -1,0 +1,11 @@
+ 
+div.hero-6-container { position: relative; }
+  
+div.hero-6-container div.gradient { background: linear-gradient(180deg, #FFFFFF 37.91%, #E2ECF8 65.66%); width: 100%; height: 100%; z-index: 20; }
+/* div.hero-6-container  div.triangle { background: #FFFFFF; width: 1440px; height: 803.5px; position: absolute; z-index: 260; clip-path: polygon(100% 41%, 0% 100%, 100% 100%); bottom: 0; } */
+ 
+div.hero-6-form form div.form-group { width: 100%; height: 120px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+div.hero-6-form form div.form-group input { width: 100%; height: 56px; border: 1px solid #96ACBC; border-radius: 10px; padding: 1rem; }
+div.hero-6-form div.whatsapp-input div.form-group input[type=text] { width: 100%; height: 56px; }
+div.hero-6-form form div.form-group input::placeholder { font-family: PoppinsRegular; font-weight: 400; color: #96ACBC; margin-bottom: 8px; font-size: 14px; line-height: 20px; font-style: normal; }
+ 
