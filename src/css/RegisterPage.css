@@ -1,5 +1,6 @@
 div.register {  
     position: relative;
+    overflow: hidden;
     background: linear-gradient(180deg, #FFFFFF 42.12%, #E2ECF8 72.95%);
 }
  

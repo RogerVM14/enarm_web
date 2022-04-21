@@ -5,9 +5,7 @@ import '../../css/Layout.css';
 import WidthContext from '../../contexts/WidthContext';
 
 const AccessLayout = ({ children }) => {
-    
-    window.scrollTo({ top: 0});
-
+     
     const width = useContext(WidthContext); 
 
     return (

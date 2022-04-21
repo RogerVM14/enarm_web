@@ -59,6 +59,12 @@ div.navbar-container ul li {
     border: 1px solid var(--sky-blue);
 } 
 
+.navbar-link.rounded-circle {
+    border: 2px solid var(--sky-blue);
+    border-radius: 17px;
+    padding: 6px 14px;
+}
+
 .navbar-right-controls {
     display: flex;
     flex-flow: row nowrap;

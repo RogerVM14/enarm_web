@@ -1,5 +1,5 @@
 div.login { 
-    overflow-x: hidden; 
+    overflow-x: hidden;  
     position: relative;
     background: linear-gradient(180deg, #FFFFFF 42.12%, #E2ECF8 72.95%);
 } 
@@ -31,6 +31,11 @@ div.login-container form div.form-group input[type=password] {
     border: 1px solid #96ACBC;
     border-radius: 10px;
     padding: 16px;
+}
+
+form div.form-group input[type=text]:focus,
+form div.form-group input[type=password]:focus {
+    outline: 2px solid #96ACBC;
 }
 
 div.login-container form div.form-group input::placeholder {

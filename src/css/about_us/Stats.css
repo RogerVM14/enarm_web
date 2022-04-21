@@ -2,9 +2,6 @@ div.stats {
     width: 100%; 
 }
 
-div.stats-container {  
-}
-
 div.stats-items-container {
     display: flex;
 }
@@ -86,9 +83,4 @@ div.stat span.stat-name{
     text-align: center;
     text-transform: uppercase;    
     color: #606060;
-}
-
-.spin-around {
-    transform: rotate(360deg);
-    transition: transform 2.5s;
-}
+} 

@@ -9,6 +9,8 @@ div.discount-container {
     display: flex; 
     justify-content: space-between;
     position: relative;
+    max-width: 1440px;
+    margin: 0 auto;
 }
 
 div.discount-container div.sub-container {

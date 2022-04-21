@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import logo from '../assets/imgs/PicsArt_11-25-01.09.59.jpg'
 import '../css/Navbar.css';
 
@@ -13,7 +13,9 @@ const NavBar = ({breakpoint}) => {
             <nav className='navbar'>
                 <div className={`navbar-container ${breakpoint}`}>
                     <div className="navbar-logo-container">
-                        <img className='navbar-logo' src={logo} alt='enarm-logo' />
+                        <Link to='/'>
+                            <img className='navbar-logo' src={logo} alt='enarm-logo' />
+                        </Link>
                     </div>
                     <div className='sub-container'>
                         <ul className='routes'>

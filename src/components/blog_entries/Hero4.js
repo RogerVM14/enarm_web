@@ -11,10 +11,13 @@ const Hero4 = () => {
         items.forEach(item => {
             item.classList.add("active");
         })
+        
+        const body = document.querySelector("body");
+        body.scrollTop = 0;
     }, 100);
 
     return (
-        <div className='hero-4'>
+        <div className='hero-4' >
             <div className="hero-4-container">
                 <div className="hero-4-container-header reveal-load">
                     <h2 className="title text-center mb-16 reveal-load">Orientación sobre el ENARM y sus tendencias</h2>

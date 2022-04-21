@@ -14,90 +14,71 @@ import AccessLayout from './components/layouts/AccessLayout';
 import { useEffect, useState } from 'react';
 import WidthContext from './contexts/WidthContext';
 
-function reveal() {
-    let reveals = document.querySelectorAll(".reveal");
-  
-    for (let i = 0; i < reveals.length; i++) {
-        let windowHeight = window.innerHeight;
-        let elementTop = reveals[i].getBoundingClientRect().top;
-        let elementVisible = 150;
+const App = () => { 
+
+    const getWindowWidth = () => { 
+        let x = window.innerWidth;
     
-        if (elementTop < (windowHeight - elementVisible)) {
-            reveals[i].classList.add("active");
-        } else {
-            reveals[i].classList.remove("active");
-        }
-    }
-}
-  
-function revealOnLoad() {
+        if(x >= 320 && x <= 480) return 'small';
+        if(x >= 481 && x <= 768) return 'medium';
+        if(x >= 769 && x <= 1023) return 'large';
+        if(x >= 1024) return 'extra-large';
+    } 
     
-    let reveals = document.querySelectorAll(".reveal-load");
-  
-    for (let i = 0; i < reveals.length; i++) {
-        let windowHeight = window.innerHeight;
-        let elementTop = reveals[i].getBoundingClientRect().top;
-        let elementVisible = 0;
-    
-        if (elementTop < (windowHeight - elementVisible)) {
-            reveals[i].classList.add("active");
-        } else {
-            reveals[i].classList.remove("active");
-        }
-    }
-}
-
-function spinAround() {
-    
-    let spins = document.querySelectorAll(".spin");
-  
-    for (let i = 0; i < spins.length; i++) {
-        let windowHeight = window.innerHeight;
-        let elementTop = spins[i].getBoundingClientRect().top;
-        let elementVisible = 100;
-    
-        if (elementTop < (windowHeight - elementVisible)) {
-            spins[i].classList.add("spin-around");
-        } else {
-            spins[i].classList.remove("spin-around");
-        }
-    }
-} 
-
-window.addEventListener("scroll", () => {
-    reveal();
-    spinAround();
-});
-
-window.addEventListener("load", () => {
-    revealOnLoad();
-});
-
-window.addEventListener("touchmove", () => {     
-    reveal();
-    spinAround();
-});
- 
-const getWindowWidth = () => { 
-    let x = window.innerWidth;
-
-    if(x >= 320 && x <= 480) return 'small';
-    if(x >= 481 && x <= 768) return 'medium';
-    if(x >= 769 && x <= 1023) return 'large';
-    if(x >= 1024) return 'extra-large';
-} 
-
-const App = () => {
-
     const [screenSize, setScreenSize] = useState(getWindowWidth())
 
     useEffect(() => {
         window.addEventListener('resize', () => {
             const x = getWindowWidth();
             setScreenSize(x);
-        }); 
-        console.log(screenSize)
+        });  
     }, [screenSize]);
+
+    useEffect(()=> {
+
+        function spinAround() {
+            
+            let spins = document.querySelectorAll("div.spin");
+          
+            for (let i = 0; i < spins.length; i++) {
+                let windowHeight = window.innerHeight;
+                let elementTop = spins[i].getBoundingClientRect().top;
+                let elementVisible = 150;
+            
+                if (elementTop < (windowHeight - elementVisible)) {
+                    spins[i].classList.add("spin-around");
+                } else {
+                    spins[i].classList.remove("spin-around");
+                }
+            }
+        }  
+        
+        function reveal() {
+
+            let reveals = document.querySelectorAll(".reveal");
+          
+            for (let i = 0; i < reveals.length; i++) {
+                let windowHeight = window.innerHeight;
+                let elementTop = reveals[i].getBoundingClientRect().top;
+                let elementVisible = 150;
+            
+                if (elementTop < (windowHeight - elementVisible)) {
+                    reveals[i].classList.add("active");
+                } else {
+                    reveals[i].classList.remove("active");
+                }
+            }
+        } 
+        
+        window.addEventListener("scroll", () => { 
+            reveal();
+            spinAround();
+        }, { capture: true });
+        
+        window.addEventListener("touchmove", () => {     
+            reveal(); 
+        }, { capture: true });
+    }, []);
 
     return ( 
         <>  

@@ -12,6 +12,7 @@ import iconTwitter from '../assets/icons/vector-twitter.png';
 const Footer = ({ topLine, breakpoint }) => {
 
     const activeStyle = { fontWeight: "bold" };
+
     return (
         <footer className={breakpoint}>
             { topLine && (<hr />)}
@@ -46,17 +47,32 @@ const Footer = ({ topLine, breakpoint }) => {
                 <div className='footer-contactanos'>
                     <span>Contáctanos</span>
                     <div className='contact-links'>
-                        <Link className='footer-link' to="#"><i className='material-icons-outlined contact-icon'>whatsapp</i><span className='black'>Whatsapp</span></Link>
-                        <Link className='footer-link' to="#"><img className='contact-icon' src={iconTelegram} alt='' /><span className='black'>Telegram</span></Link>
-                        <Link className='footer-link' to="#"><img className='contact-icon' src={iconMessenger} alt='' /><span className='black'>Messenger</span></Link>
+                        <Link className='footer-link' to="#">
+                            <i className='material-icons-outlined contact-icon'>whatsapp</i>
+                            <span className='black'>Whatsapp</span>
+                        </Link>
+                        <Link className='footer-link' to="#">
+                            <img className='contact-icon' src={iconTelegram} alt='' />
+                            <span className='black'>Telegram</span>
+                        </Link>
+                        <Link className='footer-link' to="#">
+                            <img className='contact-icon' src={iconMessenger} alt='' />
+                            <span className='black'>Messenger</span>
+                        </Link>
                     </div>
                 </div> 
                 { 
                     breakpoint !== 'extra-large' ? (
                         <div className='footer-social-media'>
-                            <Link to='' className='vectors'><img src={iconFacebook} alt='' /></Link>
-                            <Link to='' className='vectors'><img src={iconTwitter} alt='' /></Link>                    
-                            <Link to='' className='vectors'><img src={iconInstagram} alt='' /></Link>
+                            <Link to='' className='vectors'>
+                                <img src={iconFacebook} alt='facebook' />
+                            </Link>
+                            <Link to='' className='vectors'>
+                                <img src={iconTwitter} alt='twitter' />
+                            </Link>                    
+                            <Link to='' className='vectors'>
+                                <img src={iconInstagram} alt='instagram' />
+                            </Link>
                         </div>  
                     ) : (
                         <div className='button-with-links'>
@@ -66,10 +82,18 @@ const Footer = ({ topLine, breakpoint }) => {
                                 </span>
                             </button>
                             <div className='footer-social-media'>
-                                <Link to='' className='vectors'><img src={iconFacebook} alt='' /></Link>
-                                <Link to='' className='vectors'><img src={iconTwitter} alt='' /></Link>                    
-                                <Link to='' className='vectors'><img src={iconPinterest} alt='' /></Link>
-                                <Link to='' className='vectors'><img src={iconInstagram} alt='' /></Link>
+                                <Link to='' className='vectors'>
+                                    <img src={iconFacebook} alt='facebook' />
+                                </Link>
+                                <Link to='' className='vectors'>
+                                    <img src={iconTwitter} alt='twitter' />
+                                </Link>                    
+                                <Link to='' className='vectors'>
+                                    <img src={iconPinterest} alt='pinterest' />
+                                </Link>
+                                <Link to='' className='vectors'>
+                                    <img src={iconInstagram} alt='instagram' />
+                                </Link>
                             </div> 
                         </div>
                     )
@@ -80,4 +104,4 @@ const Footer = ({ topLine, breakpoint }) => {
     )
 }
 
-export default Footer
+export default Footer;

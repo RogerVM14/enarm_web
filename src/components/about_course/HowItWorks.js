@@ -53,8 +53,7 @@ const cards_list = [
 ];
   
 
-const HowItWorks = ({width}) => {
- 
+const HowItWorks = ({width}) => { 
 
     const imageSource = () => {
         if(width === 'small') return vectorLineSmall;
@@ -62,8 +61,7 @@ const HowItWorks = ({width}) => {
         if(width === 'large') return vectorLineMedium;
         if(width === 'extra-large') return vectorLine;
     }
-
-    console.log(width);
+    
     return (
         <div className='how-it-works bg-blue'>
             <div className="hiw-container">

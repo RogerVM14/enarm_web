@@ -1,12 +1,6 @@
 div.advantages { 
     background: linear-gradient(180deg, rgba(226, 236, 248, 0) 25.24%, #E2ECF8 100%);
-}
- 
-div.advantages-container-header { 
-}
-  
-div.advantages-container-body { 
-}
+} 
 
 div.advantages-items {
     display: flex; 
@@ -19,7 +13,8 @@ div.advantage {
 div.advantage img {
     width: 40px;
     height: 40px;
-    display: block;  
+    display: block;   
+    animation: expandSpan 1s ease infinite alternate;
 }
   
 

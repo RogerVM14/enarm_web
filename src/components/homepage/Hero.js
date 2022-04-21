@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../css/homepage/Hero.css';
 import doctorImage from '../../assets/imgs/Dres/hero_doctor.png';
-import logoHero from '../../assets/imgs/Logos_plata/logo-hero.png' 
+import logoHero from '../../assets/imgs/Logos_plata/logo-hero.png'; 
 
 const Hero = ({width}) => {
 
@@ -10,7 +10,10 @@ const Hero = ({width}) => {
         items.forEach(item => {
             item.classList.add("active");
         })
-    }, 100); 
+        
+        const body = document.querySelector("body");
+        body.scrollTop = 0;
+    }, 100);
 
     
     const heroList = [
@@ -19,7 +22,7 @@ const Hero = ({width}) => {
         'Porcentaje de aceptación del 80%.',
         'Simulador-PRO idéntico al del ENARM.',
         'Ingreso a comunidad exclusiva de Residentes.'
-    ]
+    ] 
  
     return (
         <div className={`hero ${width}`}>
@@ -47,7 +50,7 @@ const Hero = ({width}) => {
                         } 
                     </ul>
                 </div>         
-                <div className='doctor-image'>
+                <div className='doctor-image reveal-load'>
                     <img src={doctorImage} alt='doctor'/>
                     <div className='circle-with-borders'></div>
                 </div>

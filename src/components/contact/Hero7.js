@@ -11,7 +11,17 @@ import whatsappIcon from '../../assets/icons/whatsapp-blue.png';
 import phoneIcon from '../../assets/icons/phone-blue.png';
 
 const Hero7 = ({width}) => {
- 
+
+    setTimeout(() => {
+        const items = document.querySelectorAll(".reveal-load");
+        items.forEach(item => {
+            item.classList.add("active");
+        })
+        
+        const body = document.querySelector("body");
+        body.scrollTop = 0;
+    }, 100);
+
     return (
         <div className='hero-7'>
             <div className="hero-7-container">
