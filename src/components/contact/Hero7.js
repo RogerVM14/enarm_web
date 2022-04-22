@@ -28,8 +28,8 @@ const Hero7 = ({width}) => {
                 {
                     width !== 'extra-large' && (
                         <div className="container-header">
-                            <h1 className="title text-center">Habla con nosotros</h1>
-                            <p className="regular-14 text-center">Ya sea que estés buscando más información, o quieras enviar tu formato de pago. Estamos aquí para ayudarte ante cualquier inquietud.</p>
+                            <h1 className="title text-center reveal-load">Habla con nosotros</h1>
+                            <p className="regular-14 text-center reveal-load">Ya sea que estés buscando más información, o quieras enviar tu formato de pago. Estamos aquí para ayudarte ante cualquier inquietud.</p>
                         </div>
                     )
                 }
@@ -38,13 +38,13 @@ const Hero7 = ({width}) => {
                         { 
                             width === 'extra-large' && (
                                 <div className="container-header">
-                                    <h1 className="title text-center">Habla con nosotros</h1>
-                                    <p className="regular-14 text-center">Ya sea que estés buscando más información, o quieras enviar tu formato de pago. Estamos aquí para ayudarte ante cualquier inquietud.</p>
+                                    <h1 className="title text-center reveal-load">Habla con nosotros</h1>
+                                    <p className="regular-14 text-center reveal-load">Ya sea que estés buscando más información, o quieras enviar tu formato de pago. Estamos aquí para ayudarte ante cualquier inquietud.</p>
                                 </div>
                             )
                         } 
                         <div className="contact">
-                            <div className="contact-us-container">
+                            <div className="contact-us-container reveal-load">
                                 <p className='semibold-14'>Contactanos por:</p>
                                 <div className="info-call">
                                     <div className='info-call-container'>
@@ -66,7 +66,7 @@ const Hero7 = ({width}) => {
                         </div>
                         { (width === 'medium' || width === 'extra-large') && (
                         <>
-                            <div className="follow-us-container">
+                            <div className="follow-us-container reveal-load">
                                 <p className='semibold-14'>Síguenos en:</p>
                                 <div className="social-media-icons">
                                     <img src={facebookIcon} alt="facebook" />
@@ -79,11 +79,11 @@ const Hero7 = ({width}) => {
                             </div>
                         </>
                     )}
-                        <img className='doctor-coffee' src={doctorCoffee} alt="doctor-coffe" />
+                        <img className='doctor-coffee reveal-load' src={doctorCoffee} alt="doctor-coffe" />
                     </div>
                     { width === 'small' && (
                         <>
-                            <div className="follow-us-container">
+                            <div className="follow-us-container reveal-load">
                                 <p className='semibold-14'>Síguenos en:</p>
                                 <div className="social-media-icons">
                                     <img src={facebookIcon} alt="facebook" />
@@ -96,7 +96,7 @@ const Hero7 = ({width}) => {
                             </div>
                         </>
                     )}
-                    <div className="form-container">
+                    <div className="form-container reveal-load">
                         <form method='POST'>
                             <div className="form-group">
                                 <label htmlFor="name">Nombre completo*</label>

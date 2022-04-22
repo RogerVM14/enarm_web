@@ -174,7 +174,7 @@ div.layout-wrapper { position: inherit; }
     transform: translateY(150px);
     opacity: 0;
     transition: 950ms all ease;
-    z-index: 10001;
+    z-index: 1000;
 }
 .reveal-load.active{
     transform: translateY(0);
@@ -186,7 +186,7 @@ div.layout-wrapper { position: inherit; }
     transform: translateY(150px);
     opacity: 0;
     transition: 950ms all ease;
-    z-index: 10001;
+    z-index: 1000;
 }
   
 .reveal.active{
@@ -215,53 +215,13 @@ div.layout-wrapper { position: inherit; }
         header.small nav.navbar div.navbar-container.small ul.routes,
         header.small nav.navbar div.navbar-container.small ul.actions li.session { display: none; }
         div.navbar-container.small div.sub-container { flex-grow: 1; display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: flex-end; align-items: center; gap: 20px; }
-        div.menu-dropdown-list {
-            position: absolute;
-            top: 70px;
-            z-index: 10040;
-            width: 100%;
-            max-width: 240px;
-            background-color: white;
-            box-shadow: 1px 1px 4px #00000038;
-            border-radius: 4px;
-            border: 1px solid #00000038;
-            right: -8px;
-        }
-
-        div.menu-dropdown-list::after {
-            content: '';
-            width: 20px;
-            height: 20px;
-            background: white;
-            z-index: 600;
-            position: absolute;
-            top: -11px;
-            right: 8px;
-            transform: rotate(45deg);
-            border-left: 1px solid #00000038;
-            border-top: 1px solid #00000038;
-        }
-
-        div.menu-dropdown-list ul.menu-routes {
-            width: 100%;
-            max-width: 320px;
-        }
-
-        div.menu-dropdown-list ul.menu-routes li {
-            height: 38px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        div.menu-dropdown-list ul.menu-routes li .navbar-link {
-            width: 100%;
-        }
-
-        div.menu-dropdown-list ul.menu-routes hr {
-            width: 90%;
-            margin: 0 auto;
-            border: 1px solid #e9e9e9;
-        }
+        
+        div.menu-dropdown-list { position: absolute; top: 70px; z-index: 10040; width: 100%; max-width: 240px; background-color: white; box-shadow: 1px 1px 4px #00000038; border-radius: 4px; border: 1px solid #00000038; right: -8px; }
+        div.menu-dropdown-list::after { content: ''; width: 20px; height: 20px; background: white; z-index: 600; position: absolute; top: -11px; right: 8px; transform: rotate(45deg); border-left: 1px solid #00000038; border-top: 1px solid #00000038; }
+        div.menu-dropdown-list ul.menu-routes { width: 100%; max-width: 320px; }
+        div.menu-dropdown-list ul.menu-routes li { height: 38px; display: flex; align-items: center; justify-content: center; }
+        div.menu-dropdown-list ul.menu-routes li .navbar-link { width: 100%; }
+        div.menu-dropdown-list ul.menu-routes hr { width: 90%; margin: 0 auto; border: 1px solid #e9e9e9; }
 
         /* HERO #1 */
         div.hero-container { display: block; position: relative; width: 100%; padding: 60px 24px 0px 24px; background: linear-gradient(180deg, #FFF 42.12%, #E2ECF8 72.95%);}
@@ -526,6 +486,13 @@ div.layout-wrapper { position: inherit; }
         header.medium nav.navbar div.navbar-container.medium ul.actions li.session { display: none; }
         div.navbar-container.medium div.sub-container { flex-grow: 1; display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: flex-end; align-items: center; gap: 20px; }
         
+        div.menu-dropdown-list { position: absolute; top: 70px; z-index: 10040; width: 100%; max-width: 240px; background-color: white; box-shadow: 1px 1px 4px #00000038; border-radius: 4px; border: 1px solid #00000038; right: -8px; }
+        div.menu-dropdown-list::after { content: ''; width: 20px; height: 20px; background: white; z-index: 600; position: absolute; top: -11px; right: 8px; transform: rotate(45deg); border-left: 1px solid #00000038; border-top: 1px solid #00000038; }
+        div.menu-dropdown-list ul.menu-routes { width: 100%; max-width: 320px; }
+        div.menu-dropdown-list ul.menu-routes li { height: 38px; display: flex; align-items: center; justify-content: center; }
+        div.menu-dropdown-list ul.menu-routes li .navbar-link { width: 100%; }
+        div.menu-dropdown-list ul.menu-routes hr { width: 90%; margin: 0 auto; border: 1px solid #e9e9e9; }
+
         /* Hero #1 */
         div.hero-container { display: block; position: relative; width: 100%; padding: 60px 25px 0px 25px; background: linear-gradient(180deg, #FFF 42.12%, #E2ECF8 72.95%); }
         div.hero-container div.description-container { width: 100%; position: relative; left: 0; z-index: 1005;  margin-bottom: 27px; display: flex; flex-direction: column; }
@@ -848,6 +815,14 @@ div.layout-wrapper { position: inherit; }
         header.large nav.navbar div.navbar-container.large ul.routes,
         header.large nav.navbar div.navbar-container.large ul.actions li.session { display: none; }
         div.navbar-container.large div.sub-container { flex-grow: 1; display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: flex-end; align-items: center; gap: 20px; }
+
+
+        div.menu-dropdown-list { position: absolute; top: 70px; z-index: 10040; width: 100%; max-width: 240px; background-color: white; box-shadow: 1px 1px 4px #00000038; border-radius: 4px; border: 1px solid #00000038; right: -8px; }
+        div.menu-dropdown-list::after { content: ''; width: 20px; height: 20px; background: white; z-index: 600; position: absolute; top: -11px; right: 8px; transform: rotate(45deg); border-left: 1px solid #00000038; border-top: 1px solid #00000038; }
+        div.menu-dropdown-list ul.menu-routes { width: 100%; max-width: 320px; }
+        div.menu-dropdown-list ul.menu-routes li { height: 38px; display: flex; align-items: center; justify-content: center; }
+        div.menu-dropdown-list ul.menu-routes li .navbar-link { width: 100%; }
+        div.menu-dropdown-list ul.menu-routes hr { width: 90%; margin: 0 auto; border: 1px solid #e9e9e9; }
 
         /* Hero #1 */
         div.hero-container { display: block; position: relative; width: 100%; padding: 60px 25px 0px 25px; background: linear-gradient(180deg, #FFF 42.12%, #E2ECF8 72.95%); }
