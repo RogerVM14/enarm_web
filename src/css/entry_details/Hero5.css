@@ -1,0 +1,8 @@
+div.hero-5 {
+    background: linear-gradient(180deg, rgba(226, 236, 248, 0) 25.24%, #E2ECF8 100%);
+}
+
+div.hero-5-container {
+    width: 100%;
+    max-width: 1440px;
+}

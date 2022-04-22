@@ -1,8 +1,27 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../../css/blog_entries/Hero4.css'; 
 import blog1Image from '../../assets/imgs/blog_1.png';
 import blog2Image from '../../assets/imgs/blog_2.png';
 import blog3Image from '../../assets/imgs/blog_3.png';
+
+const entries_list = [
+    {
+        image: blog1Image,
+        date: "25/02/2021",
+        text: "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet"
+    },
+    {
+        image: blog2Image,
+        date: "25/02/2021",
+        text: "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet"
+    },
+    {
+        image: blog3Image,
+        date: "25/02/2021",
+        text: "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet"
+    }
+]
 
 const Hero4 = () => {
 
@@ -15,7 +34,7 @@ const Hero4 = () => {
         const body = document.querySelector("body");
         body.scrollTop = 0;
     }, 100);
-
+ 
     return (
         <div className='hero-4' >
             <div className="hero-4-container">
@@ -26,33 +45,24 @@ const Hero4 = () => {
                 <div className="hero-4-container-body reveal-load">
                     <h1 className="tiny-blue-title text-center">ENTRADAS DESTACADAS</h1>
                     <div className="entries">
-                        <div className="entry">
-                            <div className="entry-image">
-                                <img src={blog1Image} alt="entry" />
-                            </div>
-                            <div className="entry-text">
-                                <p className="gray">25/02/2021</p>
-                                <p className="regular-20">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet</p>
-                            </div>
-                        </div>
-                        <div className="entry">
-                            <div className="entry-image">
-                                <img src={blog2Image} alt="entry" />
-                            </div>
-                            <div className="entry-text">
-                                <p className="gray">25/02/2021</p>
-                                <p className="regular-20">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet</p>
-                            </div>
-                        </div>
-                        <div className="entry">
-                            <div className="entry-image">
-                                <img src={blog3Image} alt="entry" />
-                            </div>
-                            <div className="entry-text">
-                                <p className="gray">25/02/2021</p>
-                                <p className="regular-20">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet</p>
-                            </div>
-                        </div>
+
+                        {
+                            entries_list.map((item, index) => {
+                                return (
+                                    <Link to={`/blog/${index}`} key={index}>
+                                        <div className="entry" key={index}>
+                                            <div className="entry-image">
+                                                <img src={item.image} alt="entry" />
+                                            </div>
+                                            <div className="entry-text">
+                                                <p className="gray">{item.date}</p>
+                                                <p className="regular-20">{item.text}</p>
+                                            </div>
+                                        </div>
+                                    </Link>
+                                )
+                            })
+                        } 
                     </div>
                 </div>
             </div>

@@ -100,17 +100,17 @@ const HowItWorks = ({width}) => {
                     )}
                     
                 </div>
-            </div>
-            { (width === 'extra-large') && (
+                { (width === 'extra-large') && (
                     <>
-                        <img className='hiw-icon icon-1 reveal' src={drThumb} alt="drThumb" />
-                        <img className='hiw-icon icon-2 reveal' src={bookImg} alt="bookImg" />
-                        <img className='hiw-icon icon-3 reveal' src={starImg} alt="starImg" />
-                        <img className='hiw-icon icon-4 reveal' src={drWalking} alt="drWalking" />
-                        <img className='hiw-icon icon-5 reveal' src={halfDr} alt="halfDr" />
-                    </>
-                )
-            }
+                            <img className='hiw-icon icon-1 reveal' src={drThumb} alt="drThumb" />
+                            <img className='hiw-icon icon-2 reveal' src={bookImg} alt="bookImg" />
+                            <img className='hiw-icon icon-3 reveal' src={starImg} alt="starImg" />
+                            <img className='hiw-icon icon-4 reveal' src={drWalking} alt="drWalking" />
+                            <img className='hiw-icon icon-5 reveal' src={halfDr} alt="halfDr" />
+                        </>
+                    )
+                }
+            </div>
             
         </div>
     )

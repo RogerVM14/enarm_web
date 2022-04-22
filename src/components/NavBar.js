@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import logo from '../assets/imgs/PicsArt_11-25-01.09.59.jpg'
 import '../css/Navbar.css';
@@ -6,6 +6,7 @@ import '../css/Navbar.css';
 
 const NavBar = ({breakpoint}) => {
  
+    const [active, setActive] = useState(false);
     const activeStyle = { fontWeight: "bold", color: "#05B2FA", borderColor: "#05B2FA" };
 
     return (
@@ -47,11 +48,22 @@ const NavBar = ({breakpoint}) => {
                         </ul>    
                         <ul className='session'>
                             <li className='menu'>
-                                <button className='button-menu'>
+                                <button className='button-menu' onClick={() => { setActive(!active); }}>
                                     <i className='material-icons-outlined'>menu</i>
                                 </button>
                             </li>
-                        </ul>         
+                        </ul>  
+                        <div className={`menu-dropdown-list ${active ? 'menu-visible' : 'menu-hidden'}`}>
+                            <ul className='menu-routes'>
+                                <li><NavLink onClick={() => { setActive(false); }} className='regular-14 navbar-link home' to='/'>Inicio</NavLink></li> <hr />
+                                <li><NavLink onClick={() => { setActive(false); }} className='regular-14 navbar-link about-us' to='/nosotros'>Nosotros</NavLink></li> <hr />
+                                <li><NavLink onClick={() => { setActive(false); }} className='regular-14 navbar-link about-course' to='/sobre_el_curso'>Sobre el Curso</NavLink></li> <hr />
+                                <li><NavLink onClick={() => { setActive(false); }} className='regular-14 navbar-link blog' to='/blog'>Blog</NavLink></li> <hr />
+                                <li><NavLink onClick={() => { setActive(false); }} className='regular-14 navbar-link free-test' to='/prueba_gratis'>Prueba Gratis</NavLink></li> <hr />
+                                <li><NavLink onClick={() => { setActive(false); }} className='regular-14 navbar-link contact' to='/contacto'>Contacto</NavLink></li> <hr />
+                                <li><NavLink onClick={() => { setActive(false); }} className='navbar-link login-link' to='/iniciar_sesion'> <span className='regular-14'>Iniciar Sesión</span> </NavLink> </li>
+                            </ul>
+                        </div> 
                     </div>
                 </div>
             </nav>

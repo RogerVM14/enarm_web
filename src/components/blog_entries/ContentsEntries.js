@@ -3,6 +3,7 @@ import '../../css/blog_entries/ContentsEntries.css';
 import blog1Image from '../../assets/imgs/blog_1.png';
 import blog2Image from '../../assets/imgs/blog_2.png';
 import blog3Image from '../../assets/imgs/blog_3.png';
+import { Link } from 'react-router-dom';
 
 const entries_list = [
     {
@@ -64,14 +65,16 @@ const ContentsEntries = () => {
                         {
                             entries_list.map((item, index) => {
                                 return (
-                                    <div className="entry"key={index}>
-                                        <div className="entry-image">
-                                            <img src={item.image} alt="entry" />
-                                        </div>
-                                        <div className="entry-text">
-                                            <p className="gray">{ item.date }</p>
-                                            <p className="regular-20">{ item.text }</p>
-                                        </div>
+                                    <div className="entry" key={index}>
+                                        <Link to={`/blog/${index}`}>
+                                            <div className="entry-image">
+                                                <img src={item.image} alt="entry" />
+                                            </div>
+                                            <div className="entry-text">
+                                                <p className="gray">{ item.date }</p>
+                                                <p className="regular-20">{ item.text }</p>
+                                            </div>
+                                        </Link>
                                     </div>  
                                 )
                             })

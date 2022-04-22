@@ -1,0 +1,13 @@
+
+
+div.entry-component-container {
+    width: 100%;
+    position: relative;
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+div.entry-component-container div.container-body {
+    max-width: 789px;
+    margin: 0 auto;
+}

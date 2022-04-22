@@ -12,7 +12,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import AccessLayout from './components/layouts/AccessLayout';  
 import { useEffect, useState } from 'react';
-import WidthContext from './contexts/WidthContext';
+import WidthContext from './contexts/WidthContext';  
 
 const App = () => { 
 
@@ -82,18 +82,18 @@ const App = () => {
 
     return ( 
         <>  
-            <WidthContext.Provider value={screenSize}>
+            <WidthContext.Provider value={screenSize}> 
                 <Routes>
                     <Route path='/' index={ true } element={ <Layout topLine={true}><HomePage /></Layout>} />
-                    <Route path='nosotros' element={ <Layout topLine={true}><AboutUsPage /></Layout> } />
-                    <Route path='sobre_el_curso' element={ <Layout topLine={false}><AboutCoursePage /></Layout> } />
-                    <Route path='blog' element={ <Layout topLine={true}><BlogEntriesPage /></Layout> } />
-                    <Route path='blog/:id' element={ <Layout topLine={true}><EntryDetailPage /></Layout> } />
-                    <Route path='prueba_gratis' element={ <Layout topLine={true}><FreeTestPage /></Layout> } />
-                    <Route path='contacto' element={ <Layout topLine={false}><ContactPage /></Layout> } />
-                    <Route path='iniciar_sesion' element={ <AccessLayout><LoginPage /></AccessLayout> } />
-                    <Route path='registrate' element={ <AccessLayout><RegisterPage /></AccessLayout> } />
-                </Routes>  
+                    <Route path='/nosotros' element={ <Layout topLine={true}><AboutUsPage /></Layout> } />
+                    <Route path='/sobre_el_curso' element={ <Layout topLine={false}><AboutCoursePage /></Layout> } />
+                    <Route path='/blog' element={ <Layout topLine={true}><BlogEntriesPage /></Layout> } />
+                    <Route path='/blog/:id' element={ <Layout topLine={true}><EntryDetailPage /></Layout> } />
+                    <Route path='/prueba_gratis' element={ <Layout topLine={true}><FreeTestPage /></Layout> } />
+                    <Route path='/contacto' element={ <Layout topLine={false}><ContactPage /></Layout> } />
+                    <Route path='/iniciar_sesion' element={ <AccessLayout><LoginPage /></AccessLayout> } />
+                    <Route path='/registrate' element={ <AccessLayout><RegisterPage /></AccessLayout> } />
+                </Routes>   
             </WidthContext.Provider>
         </>
     );

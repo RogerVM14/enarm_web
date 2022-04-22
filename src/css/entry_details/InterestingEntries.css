@@ -1,0 +1,9 @@
+div.interesting-entries-container { display: block; }
+div.interesting-entries div.entries { display: flex; }
+div.interesting-entries div.entries div.entry { border: 2px solid #05B2FA; border-radius: 10px; background-color: #FFFFFF; height: 100%; }
+div.interesting-entries div.entries div.entry div.entry-image { width: 100%; height: 61%; overflow: hidden; }
+div.interesting-entries div.entries div.entry div.entry-image img { width: 100%; }
+div.interesting-entries div.entries div.entry div.entry-text { padding: 20px; }
+div.interesting-entries div.entries div.entry:hover { cursor: pointer; }
+div.interesting-entries div.entries div.entry:hover div.entry-image img { transition: all 0.3s; }
+div.interesting-entries div.entries div.entry:hover div.entry-image img { transform: scale(1.2); transition: all 0.3s; }
