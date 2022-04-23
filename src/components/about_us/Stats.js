@@ -40,7 +40,7 @@ const Stats = () => {
                                 <div className="inner-circle"></div>
                                 <div className="small-circle"></div>
                             </div>
-                            <span className="stat-number video-time"> {'+\n1500'} </span>
+                            <span className="stat-number video-time"><label className='plus'>+</label><label>1500</label></span>
                             <span className='stat-name'>HORAS DE VIDEO</span>
                         </div>
                         <div className="stat">

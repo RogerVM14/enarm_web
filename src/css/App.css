@@ -7,7 +7,6 @@
     --black: #000;
     --red: #F15E5E;
     --green: #04b43e;
-    --apple-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 @font-face { font-family: PoppinsLight; src: url('../assets/fonts/Poppins/Poppins-Light.ttf'); }
@@ -17,6 +16,22 @@
 @font-face { font-family: PoppinsBlack; src: url('../assets/fonts/Poppins/Poppins-Black.ttf'); }
 @font-face { font-family: PoppinsBold; src: url('../assets/fonts/Poppins/Poppins-Bold.ttf'); }
 @font-face { font-family: PoppinsSemiBold; src: url('../assets/fonts/Poppins/Poppins-SemiBold.ttf'); }
+
+@font-face { font-family: MontserratLight; src: url('../assets/fonts/Montserrat/Montserrat-Light.ttf'); }
+@font-face { font-family: MontserratMedium; src: url('../assets/fonts/Montserrat/Montserrat-Medium.ttf'); }
+@font-face { font-family: MontserratThin; src: url('../assets/fonts/Montserrat/Montserrat-Thin.ttf'); }
+@font-face { font-family: MontserratRegular; src: url('../assets/fonts/Montserrat/Montserrat-Regular.ttf'); }
+@font-face { font-family: MontserratBlack; src: url('../assets/fonts/Montserrat/Montserrat-Black.ttf'); }
+@font-face { font-family: MontserratBold; src: url('../assets/fonts/Montserrat/Montserrat-Bold.ttf'); }
+@font-face { font-family: MontserratSemiBold; src: url('../assets/fonts/Montserrat/Montserrat-SemiBold.ttf'); }
+
+@font-face { font-family: RalewayLight; src: url('../assets/fonts/Raleway/Raleway-Light.ttf'); }
+@font-face { font-family: RalewayMedium; src: url('../assets/fonts/Raleway/Raleway-Medium.ttf'); }
+@font-face { font-family: RalewayThin; src: url('../assets/fonts/Raleway/Raleway-Thin.ttf'); }
+@font-face { font-family: RalewayRegular; src: url('../assets/fonts/Raleway/Raleway-Regular.ttf'); }
+@font-face { font-family: RalewayBlack; src: url('../assets/fonts/Raleway/Raleway-Black.ttf'); }
+@font-face { font-family: RalewayBold; src: url('../assets/fonts/Raleway/Raleway-Bold.ttf'); }
+@font-face { font-family: RalewaySemiBold; src: url('../assets/fonts/Raleway/Raleway-SemiBold.ttf'); }
 
 *, *::before, *::after {
     margin: 0;
@@ -56,9 +71,9 @@ body {
 .regular-20 { font-family: PoppinsRegular; font-style: normal; font-weight: 400; font-size: 20px; line-height: 30px; }
 .regular-16 { font-family: PoppinsRegular; font-style: normal; font-weight: 400; font-size: 16px; line-height: 24px; }
 .regular-14 { font-family: PoppinsRegular; font-style: normal; font-weight: 400; font-size: 14px; line-height: 21px; }
-.blue-link { font-family: Montserrat; font-style: normal; font-weight: 800; font-size: 18px; line-height: 22px; letter-spacing: 0.02em; color: var(--sky-blue); }
-.white-link { font-family: Montserrat; font-style: normal; font-weight: 800; font-size: 18px; line-height: 22px; letter-spacing: 0.02em; color: var(--white); }
-.button-text-white { font-family: Montserrat; font-style: normal; font-weight: 700; font-size: 14px; line-height: 24px; letter-spacing: 0.02em; color: var(--white); }
+.blue-link { font-family: MontserratBold; font-style: normal; font-weight: 800; font-size: 18px; line-height: 22px; letter-spacing: 0.02em; color: var(--sky-blue); }
+.white-link { font-family: MontserratBold; font-style: normal; font-weight: 800; font-size: 18px; line-height: 22px; letter-spacing: 0.02em; color: var(--white); }
+.button-text-white { font-family: MontserratBold; font-style: normal; font-weight: 700; font-size: 14px; line-height: 24px; letter-spacing: 0.02em; color: var(--white); }
 
 /* COLORS */
 .sky-blue { color: var(--sky-blue)!important; }
@@ -88,9 +103,9 @@ body {
 
 button:hover { cursor: pointer; background-color: #00A0E2; }
 .button-rounded-blue-48 { width: 100%; height: 48px; border-radius: 50px; background: var(--sky-blue); padding: 13px 0; border: none; }
-.button-rounded-blue-48 .button-text { font-family: Montserrat; font-style: normal; font-weight: 800; font-size: 18px; line-height: 22px; text-align: center; letter-spacing: 0.02em; color: var(--white); border: none; }
+.button-rounded-blue-48 .button-text { font-family: MontserratBold; font-style: normal; font-weight: 800; font-size: 18px; line-height: 22px; text-align: center; letter-spacing: 0.02em; color: var(--white); border: none; }
 .button-rounded-blue-35 { width: 100%; height: 35px; border-radius: 17.5px; background: var(--sky-blue); padding: 5px 15px; border: none; border: none; }
-.button-rounded-blue-35 .button-text { font-family: Montserrat; font-style: normal; font-weight: 700; font-size: 14px; line-height: 24px; text-align: center; letter-spacing: 0.02em; color: var(--white); border: none; }
+.button-rounded-blue-35 .button-text { font-family: MontserratBold; font-style: normal; font-weight: 700; font-size: 14px; line-height: 24px; text-align: center; letter-spacing: 0.02em; color: var(--white); border: none; }
 
 /* Displays */
 .d-block { display: block; }
@@ -136,8 +151,18 @@ button:hover { cursor: pointer; background-color: #00A0E2; }
 .flexed-in-center { display: flex; justify-content: center; align-items: center; }
 
 /* BACKGROUND COLOR */
-.gradient-25-100 { background: linear-gradient(180deg, #e2ecf800 25.24%, #E2ECF8 100%); }
-.gradient-53-71 { background: linear-gradient(180deg, #E2ECF8 53.04%, #e2ecf800 71.38%); }
+.gradient-25-100 { 
+    background: -webkit-linear-gradient(180deg, #e2ecf800 25.24%, #E2ECF8 100%); 
+    background: -o-linear-gradient(180deg, #e2ecf800 25.24%, #E2ECF8 100%); 
+    background: -moz-linear-gradient(180deg, #e2ecf800 25.24%, #E2ECF8 100%); 
+    background: linear-gradient(180deg, #e2ecf800 25.24%, #E2ECF8 100%); 
+}
+.gradient-53-71 { 
+    background: -webkit-linear-gradient(180deg, #E2ECF8 53.04%, #e2ecf800 71.38%); 
+    background: -o-linear-gradient(180deg, #E2ECF8 53.04%, #e2ecf800 71.38%); 
+    background: -moz-linear-gradient(180deg, #E2ECF8 53.04%, #e2ecf800 71.38%); 
+    background: linear-gradient(180deg, #E2ECF8 53.04%, #e2ecf800 71.38%); 
+}
 
 /* TEXT ALIGN */
 .text-center { text-align: center; }

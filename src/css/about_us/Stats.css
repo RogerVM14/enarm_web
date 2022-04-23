@@ -54,8 +54,8 @@ div.stat div.stat-circle div.small-circle {
     transition: transform 2.5s;
 }
 
-div.stat span.stat-number {
-    font-family: Raleway;
+div.stat span.stat-number, span.stat-number.video-time label {
+    font-family: RalewayRegular;
     font-style: normal;
     font-weight: 400;
     font-size: 50px;
@@ -70,10 +70,16 @@ div.stat span.stat-number {
     top: 79px;
     transform: translateX(-50%);
 }
- 
+
+span.stat-number.video-time label.plus {
+    top: -40px !important;
+}
+span.stat-number.video-time label {
+    top: 0 !important;
+}
 
 div.stat span.stat-name{
-    font-family: Raleway;
+    font-family: RalewayRegular;
     font-style: normal;
     font-weight: 700;
     font-size: 16px;
