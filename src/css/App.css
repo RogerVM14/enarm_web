@@ -45,6 +45,7 @@ html {
     background-color: var(--white);
     overflow-x: hidden; 
     overflow-y: hidden;
+    height: -webkit-fill-available;
 }
 
 body {

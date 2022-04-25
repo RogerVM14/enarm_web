@@ -99,17 +99,17 @@ const Hero7 = ({width}) => {
                     <div className="form-container reveal-load">
                         <form method='POST'>
                             <div className="form-group">
-                                <label htmlFor="name">Nombre completo*</label>
+                                <label className={ width === 'extra-large' ? 'medium-16' : 'medium-14' } htmlFor="name">Nombre completo*</label>
                                 <input type="text" placeholder='Nombre completo' name="name" id="contact-message-name" />
                                 <span className="red regular-14">Error message ...</span>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="name">Correo electrónico*</label>
+                                <label className={ width === 'extra-large' ? 'medium-16' : 'medium-14' } htmlFor="name">Correo electrónico*</label>
                                 <input type="email" placeholder='Tu correo electrónico' name="email" id="contact-message-email" />
                                 <span className="red regular-14">Error message ...</span>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="name">Mensaje <i>(opcional)</i></label>
+                                <label className={ width === 'extra-large' ? 'medium-16' : 'medium-14' } htmlFor="name">Mensaje <i>(opcional)</i></label>
                                 <textarea name="message" id="contact-message-msg" cols="30" rows="8" placeholder='Escribe tu mensaje' ></textarea>
                                 {/* <input className='message' type="text" placeholder='Escribe tu mensaje' name="message" id="contact-message-msg" /> */}
                             </div>

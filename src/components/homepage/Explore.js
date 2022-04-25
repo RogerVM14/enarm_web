@@ -47,12 +47,12 @@ const Explore = ({width}) => {
                         <form>
                             <div className='form-group'>
                                 <label className='medium-14 white' htmlFor='name'>Nombre completo*</label>
-                                <input type='text' placeholder='Nombre completo' name="name" />
+                                <input type='text' placeholder='Nombre completo' name="name" inputMode='text'/>
                                 <span className="regular-4 red">Error Message...</span>
                             </div>
                             <div className='form-group'>
                                 <label className='medium-14 white' htmlFor="email">Correo electrónico*</label>
-                                <input type="text" placeholder='Correo electrónico' name="email"/>
+                                <input type="text" placeholder='Correo electrónico' name="email" inputMode='email'/>
                                 <span className="regular-4 red">Error Message...</span>
                             </div>
                             {
@@ -61,7 +61,7 @@ const Explore = ({width}) => {
                                         <div className='whatsapp-input'>
                                             <div className='form-group'>
                                                 <label className='medium-14 white' htmlFor="whatsapp">Whatsapp <i>(opcional)</i></label>
-                                                <input type="text" placeholder='Tu numero de Whatsapp' name='whatsapp'/>
+                                                <input type="text" placeholder='Tu numero de Whatsapp' name='whatsapp' inputMode='text'/>
                                                 <span className="regular-4 red">Error Message...</span>
                                             </div>
                                         </div>
@@ -73,7 +73,7 @@ const Explore = ({width}) => {
                                     <div className='whatsapp-input'>
                                         <div className='form-group'>
                                             <label className='medium-14 white' htmlFor="whatsapp">Whatsapp <i>(opcional)</i></label>
-                                            <input type="text" placeholder='Tu numero de Whatsapp' name='whatsapp'/>
+                                            <input type="text" placeholder='Tu numero de Whatsapp' name='whatsapp' inputMode='text'/>
                                             <span className="regular-4 red">Error Message...</span>
                                         </div>
                                         <button className='button-rounded-blue-48' type='submit'>
@@ -90,4 +90,4 @@ const Explore = ({width}) => {
     )
 }
 
-export default Explore
+export default Explore;
