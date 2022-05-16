@@ -1,28 +1,52 @@
-div.hero-2 {
-    width: 100%; 
-    background: linear-gradient(180deg, rgba(226, 236, 248, 0) 25.24%, #E2ECF8 100%);
-    position: relative;
-}
+/* // X-Small devices (portrait phones, less than 576px) */ 
+div.hero-2 { width: 100%; background: linear-gradient(180deg, rgba(226, 236, 248, 0) 25.24%, #E2ECF8 100%); position: relative; }
+div.hero-2-container { padding: 60px 24px 0px 24px; display: flex; flex-direction: column; gap: 32px; }
+div.hero-2 div.container-header div.subcontainer { display: flex; flex-direction: column; gap: 24px; }
+div.hero-2-container div.container-header div.subcontainer > h1 { letter-spacing: unset; }  
+div.hero-2-container div.container-body div.hero-2-image { position: relative; } 
+div.hero-2-container div.image-container img { width: 100%; position: relative; bottom: -4px; }
 
-div.hero-2 div.container-header div.subcontainer {
-    display: flex;
-}
-
-div.hero-2-container div.container-body {
-    display: flex; 
-}
-
-div.hero-2-container div.container-body div.hero-2-image,
-div.hero-2-subcontainer { 
-    position: relative;
+/* // Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {   
+    div.hero-2-container { max-width: 576px; margin: 0 auto; }
 } 
 
-div.hero-2-container div.image-container img { 
-    width: 100%;
-    position: relative; 
+/* // Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    div.hero-2-container { max-width: 768px; margin: 0 auto; }
+    div.hero-2-container div.container-header div.subcontainer > p { display: block; max-width: 515px; margin: 0 auto; }
+    div.hero-2-container div.container-header div.subcontainer > button { max-width: 336px; margin: 0 auto; }
+    div.hero-2-container div.image-container img { max-width: 358px; margin: 0 auto; }
+    div.hero-2-container div.container-body div.image-container { display: flex; justify-content: center; }
+    div.hero-2-container div.image-container img { bottom: 0; }
 }
 
-div.hero-2-subcontainer  {
-    position: relative; 
+/* // Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) { 
+    div.hero-2-container { max-width: 992px; margin: 0 auto; padding: 60px 32px; flex-direction: row-reverse; }
+    div.hero-2-container div.container-header div.subcontainer > h1 { font-size: 43px; text-align: start; } 
+    div.hero-2-container div.container-header div.subcontainer > p { text-align: start; }   
+    div.hero-2-container div.container-header div.subcontainer > button { max-width: 246px; }
+    div.hero-2-container div.container-body { max-width: 588px; }
+    div.hero-2-container div.image-container img { bottom: -63px; } 
 }
-   
+
+/* // X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) and (max-width: 1399.98px){ 
+    div.hero-2-container { max-width: 1200px; margin: 0 auto; padding: 100px 32px 0px 32px; flex-direction: row-reverse; }
+    div.hero-2-container div.container-header div.subcontainer > h1 { text-align: start; } 
+    div.hero-2-container div.container-header div.subcontainer > p { text-align: start; }   
+    div.hero-2-container div.container-header div.subcontainer > button { max-width: 246px; }
+    div.hero-2-container div.container-body,
+    div.hero-2-container div.container-header { max-width: 588px; } 
+}
+
+/* // XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) { 
+    div.hero-2-container { max-width: 1440px; margin: 0 auto; padding: 100px 120px 0px 120px; flex-direction: row-reverse; }
+    div.hero-2-container div.container-header div.subcontainer > h1 { text-align: start; } 
+    div.hero-2-container div.container-header div.subcontainer > p { text-align: start; }   
+    div.hero-2-container div.container-header div.subcontainer > button { max-width: 246px; }
+    div.hero-2-container div.container-body,
+    div.hero-2-container div.container-header { max-width: 588px; } 
+}

@@ -50,17 +50,14 @@ const questions_list = [
     },
 ]
 
-const RegularQuestions = () => {
-
-    
-    const [selected, setSelected] = useState(questions_list);
-
+const RegularQuestions = ({ size }) => {
+ 
+    const [selected, setSelected] = useState(questions_list); 
     const collepsedParrafToggle = (ix) => {
 
         const parraf = selected[ix].parraf;
 
         if(selected[ix].isClicked) return parraf;
-
         return parraf.slice(0, 80).concat('...');
     }
 
@@ -89,7 +86,7 @@ const RegularQuestions = () => {
                                             </div>
                                             <div className={`item-body ${selected[index].isClicked ? "flexed-column" : "flexed-row"}`}>
                                                 <p className={`collapsed-parraf`}>{ collepsedParrafToggle(index) }</p>
-                                                <Link to='#'  className='gray no-style' onClick={() => toggleItemClick(index) }>{ selected[index].isClicked ? "Contraer" : "Expandir"}</Link>
+                                                <Link to='#' className=' regular-14 text-right gray no-style' onClick={() => toggleItemClick(index) }>{ selected[index].isClicked ? "Contraer" : "Expandir"}</Link>
                                             </div>
                                         </div>
                                     </div>

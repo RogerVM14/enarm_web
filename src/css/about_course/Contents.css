@@ -1,38 +1,70 @@
-div.contents { 
-    background: linear-gradient(180deg, rgba(226, 236, 248, 0) 25.24%, #E2ECF8 100%);
+/* // X-Small devices (portrait phones, less than 576px) */ 
+div.contents { background: linear-gradient(180deg, rgba(226, 236, 248, 0) 25.24%, #E2ECF8 100%); }  
+div.contents-container { padding: 72px 24px;}
+div.contents-container-header { display: flex; flex-direction: column; gap: 16px; margin-bottom: 48px; }    
+div.contents-container-header > * { margin-bottom: 0px; }
+li.list-ip { display: flex; flex-flow: row nowrap; gap: 8px; margin-bottom: 12px; }  
+ul.courses-list { list-style: disc; margin-left: 52px; }
+div.contents-container-body { display: flex; flex-direction: column; border-radius: 10px; background-color: #FFF; }
+div.contents-container-body div.image-container { width: 100%; }
+div.contents-container-body div.image-container img { width: 100%; }
+div.contents-container-body div.subcontainer { display: flex; flex-direction: column; padding: 32px 18px; } 
+div.contents-container-body div.subcontainer > h1 { margin-bottom: 16px; }
+div.contents-container-body div.subcontainer > p { margin-bottom: 22px; }
+div.contents-container-body ul.metodology-list { list-style: none; margin-left: 58px; margin-bottom: 32px; position: relative; }
+div.contents-container-body ul.metodology-list li { margin-bottom: 8px; position: relative; }
+div.contents-container-body ul.metodology-list li:not(:last-child)::after { content: ''; width: 4px; background: #96ACBC; display: block; position: absolute; height: 70px; top: 8px; left: -32px; z-index: 1010; }
+div.contents-container-body ul.metodology-list li::before { content: ''; width: 24px; height: 24px; display: block; position: absolute; border: 6px solid #96ACBC; background: white; border-radius: 50%; left: -42px; z-index: 1060;}
+div.contents-container-body ul.metodology-list li p.sky-blue { margin-bottom: 4px; }
+
+/* // Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {   
+    div.contents-container { max-width: 694px; margin: 0 auto ; } 
 } 
 
-/* div.contents-container { 
-    width: 100%;
-    height: 100%;
-    padding: 100px 120px;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin: 0 auto;
-} */
-
-div.contents-container-header { display: block; }  
-ul.ls-none { list-style: none; }
-ul.ls-darkcircle { list-style: initial; }
-li.list-ip { display: flex; flex-flow: row nowrap; gap: 8px; margin-bottom: 12px; }
-  
-div.contents-container-body { 
-    display: block; 
-    border-radius: 10px;
-    background-color: #FFF;
+/* // Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    div.contents-container { display: flex; flex-flow: row nowrap; justify-content: space-between; max-width: 744px; margin: 0 auto; }
+    div.contents-container-header,
+    div.contents-container-body { max-width: 338px; }
+    div.contents-container-header > * { text-align: start!important; }
 }
 
-div.contents-container-body div.image-container { 
-    background-image: url('../../assets/imgs/Dres/what-doctors-say2.jpg');
-    background-repeat: none;
-    background-size: cover; 
-    width: 100%; 
+/* // Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) { 
+
+    div.contents-container { padding: 100px 32px; display: flex; flex-flow: row nowrap; justify-content: space-around; max-width: 992px; margin: 0 auto; }
+    div.contents-container-header { max-width: 515px; }
+    div.contents-container-header .subtitle { font-size: 39px; line-height: 58px;}
+    div.contents-container-body { max-width: 384px; }
+    div.contents-container-header > * { text-align: start!important; }
+    ul.metodology-list li p:last-child {
+        margin-left: 16px;
+      }
 }
-  
-div.contents-container-body div.subcontainer { display: flex; }
-div.column-with-circles { width: 24px; height: 372px; position: relative; }
-div.column-with-circles div { position: absolute; }
-div.column-with-circles div.vertical-line { width: 2px; height: 336px; border-left: 3px solid #96ACBC; top: 22px; left: 11px; }
-div.column-with-circles div.circle { width: 24px; height: 24px; background-color: #FFF; border: 6px solid #96ACBC; border-radius: 50%; } 
+
+/* // X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) and (max-width: 1399.98px){ 
+
+    div.contents-container { padding: 100px 120px; display: flex; flex-flow: row nowrap; justify-content: space-between; max-width: 1200px; margin: 0 auto; }
+    div.contents-container-header { max-width: 515px; }
+    div.contents-container-header .subtitle { font-size: 39px; line-height: 58px;}
+    div.contents-container-body { max-width: 384px; }
+    div.contents-container-header > * { text-align: start!important; }
+    ul.metodology-list li p:last-child {
+        margin-left: 16px;
+      }
+}
+
+/* // XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) { 
+
+    div.contents-container { padding: 100px 120px; display: flex; flex-flow: row nowrap; justify-content: space-between; max-width: 1200px; margin: 0 auto; }
+    div.contents-container-header { max-width: 515px; }
+    div.contents-container-header .subtitle { font-size: 39px; line-height: 58px;}
+    div.contents-container-body { max-width: 384px; }
+    div.contents-container-header > * { text-align: start!important; }
+    ul.metodology-list li p:last-child {
+        margin-left: 16px;
+      }
+}

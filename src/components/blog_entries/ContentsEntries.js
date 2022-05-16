@@ -1,9 +1,9 @@
-import React from 'react';
-import '../../css/blog_entries/ContentsEntries.css';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import blog1Image from '../../assets/imgs/blog_1.png';
 import blog2Image from '../../assets/imgs/blog_2.png';
-import blog3Image from '../../assets/imgs/blog_3.png';
-import { Link } from 'react-router-dom';
+import blog3Image from '../../assets/imgs/blog_3.png'; 
+import '../../css/blog_entries/ContentsEntries.css';
 
 const entries_list = [
     {
@@ -53,9 +53,34 @@ const entries_list = [
     },
 ]
 
-const ContentsEntries = () => {
+const ContentsEntries = ({ size, ismobile }) => {
+
+    const [mobileDevice, setMobileDevice] = useState(true); 
+    const navigate = useNavigate();
+
+    useEffect(() =>{
+        const isMobileDevice = () =>{
+            if(ismobile === 'true') {
+                setMobileDevice(true)
+                return;
+            }
+            setMobileDevice(false);
+            return;
+        }
+
+        isMobileDevice();
+    }, [ismobile]);
+
+    const goToNavigation = (i) => {
+        navigate(`/blog/${i}`, { replace: false });
+    }
+
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0 })
+    }
+    
     return (
-        <div className='contents-entries'>
+        <div className={`contents-entries ${size}`}>
             <div className="contents-entries-container">
                 <div className="contents-entries-container-header">
                     <h2 className="subtitle text-center">Todas las entradas</h2>
@@ -65,17 +90,17 @@ const ContentsEntries = () => {
                         {
                             entries_list.map((item, index) => {
                                 return (
-                                    <div className="entry" key={index}>
-                                        <Link to={`/blog/${index}`}>
-                                            <div className="entry-image">
-                                                <img src={item.image} alt="entry" />
-                                            </div>
-                                            <div className="entry-text">
-                                                <p className="gray">{ item.date }</p>
-                                                <p className="regular-20">{ item.text }</p>
-                                            </div>
-                                        </Link>
-                                    </div>  
+                                    <div className="entry" key={index} onClick={() => goToNavigation(index)}>
+                                        <div className="entry-image">
+                                            <img src={item.image} alt="entry" />
+                                        </div>
+                                        <div className="entry-text">
+                                            <Link onClick={() => scrollToTop() }className='entry-link' to={`/blog/${index}`} key={index}>
+                                                <p className={`${mobileDevice ? "regular-14" : "regular-16"} gray`}>{item.date}</p>
+                                                <p className="regular-20">{item.text}</p>
+                                            </Link>
+                                        </div>
+                                    </div>
                                 )
                             })
                         }
@@ -89,4 +114,4 @@ const ContentsEntries = () => {
     )
 }
 
-export default ContentsEntries
+export default ContentsEntries;

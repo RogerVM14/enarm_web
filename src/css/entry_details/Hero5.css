@@ -1,8 +1,42 @@
-div.hero-5 {
-    background: linear-gradient(180deg, rgba(226, 236, 248, 0) 25.24%, #E2ECF8 100%);
+/* // X-Small devices (portrait phones, less than 576px) */ 
+div.hero-5 { background: linear-gradient(180deg, rgba(226, 236, 248, 0) 25.24%, #E2ECF8 100%); }
+div.hero-5-container { width: 100%; padding: 60px 24px 72px 24px; }
+div.hero-5-container div.container-head { margin-bottom: 24px; }
+div.hero-5-container div.container-body { display: flex; flex-direction: column; gap: 28px; align-items: center; }
+div.hero-5-container div.container-body div.social-media-container { display: flex; flex-direction: column; gap: 32px; align-items: center; }
+div.hero-5-container div.social-media-container div.social-media-icons { display: flex; flex-flow: row nowrap; gap:40px; justify-content: center; }
+div.hero-5-container div.container-body p.hero-5-date { text-decoration: underline; }
+
+/* // Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {   
+    div.hero-5-container { max-width: 576px; margin: 0 auto; }
+} 
+
+/* // Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+
+    div.hero-5-container { max-width: 768px; margin: 0 auto; }
+    div.hero-5-container div.container-head { max-width: 693px; margin: 0 auto 16px auto; }
+    div.hero-5-container div.container-body { gap: 38px; }
+    div.hero-5-container div.container-body div.social-media-container { flex-direction: row; gap: 8px; }
 }
 
-div.hero-5-container {
-    width: 100%;
-    max-width: 1440px;
+/* // Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) { 
+    div.hero-5-container { max-width: 790px; margin: 0 auto; }
+    div.social-media-container { flex-direction: row!important; }
+}
+
+/* // X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) and (max-width: 1399.98px){ 
+
+    div.hero-5-container { max-width: 790px; margin: 0 auto; }
+    div.social-media-container { flex-direction: row!important; }
+}
+
+/* // XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) { 
+
+    div.hero-5-container { max-width: 790px; margin: 0 auto; }
+    div.social-media-container { flex-direction: row!important; }
 }

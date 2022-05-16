@@ -1,67 +1,60 @@
-div.facts { 
-    display: block;
-    position: relative;
-}
-
-/* div.facts-container {      
-} */
-
-div.facts-container div.container-head {
-    display: block; 
-} 
-
-div.facts-container div.container-body { 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-div.facts-items-container { 
-    display: flex; 
-}
- 
-div.facts-items-container div.item {
-    display: flex;
-}
-
-/* p.w278 {
-    width: 278px!important;
-}
-
-p.w284 {
-    width: 284px!important;
-}
-
-p.h141 {
-    height: 140px!important;
-}
-
-p.h145 {
-    height: 145px!important;
-}
-
-div.h209 {
-    height: 209px!important;
-}
-
-div.h213 {
-    height: 213px!important;
-} */
-
-  
-
-div.icon-circle-border {
-    width: 44px;
-    height: 44px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    border: 2px solid var(--sky-blue);
-    animation: expandSpan 1s ease infinite alternate;
-}
+div.facts { display: block; position: relative; }
+div.facts-container { padding: 72px 24px; }
+div.facts-container div.container-head { display: block; margin-bottom: 40px; } 
+div.facts-container div.container-body { display: flex; flex-direction: column; align-items: center; gap: 24px; }
+div.facts-items-container { display: flex; flex-direction: column; gap: 32px; }
+div.facts-items-container div.item { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+div.icon-circle-border { width: 44px; height: 44px; display: flex; justify-content: center; align-items: center; border-radius: 50%; border: 2px solid var(--sky-blue); animation: expandSpan 1s ease infinite alternate; }
  
 @keyframes expandSpan {
     0% { transform: scale(1);}
     100% { transform: scale(1.35);}
+}
+
+/* // Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {   
+    div.facts-container { max-width: 576px; margin: 0 auto; }
+    div.facts-items-container div.item {
+        max-width: 380px;
+      }
+} 
+
+/* // Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) { 
+    div.facts-container { max-width: 768px; margin: 0 auto; }
+    div.facts-container div.container-head { max-width: 558px; margin: 0 auto; }
+    div.facts-items-container div.item { max-width: 380px; }
+    div.facts-container div.container-body > button { max-width: 336px; }
+}
+
+/* // Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) { 
+ 
+    div.facts-container { padding: 100px 32px; }
+    div.facts-container div.container-head { max-width: 762px; margin: 0 auto; margin-bottom: 53px; }
+    div.facts-items-container { flex-direction: row; }
+    div.facts-items-container div.item { max-width: 282px; align-items: flex-start;}
+    div.facts-items-container div.item p { text-align: start; }
+    div.facts-container div.container-body > button { max-width: 216px; margin-top: 53px ; }
+}
+
+/* // X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) and (max-width: 1399.98px){ 
+    div.facts-container { padding: 100px 32px; max-width: 1200px ; margin: 0 auto;}
+    div.facts-container div.container-head { max-width: 762px; margin: 0 auto; margin-bottom: 53px; }
+    div.facts-items-container { flex-direction: row; }
+    div.facts-items-container div.item { max-width: 282px; align-items: flex-start;}
+    div.facts-items-container div.item p { text-align: start; }
+    div.facts-container div.container-body > button { max-width: 216px; margin-top: 53px ; }
+}
+
+/* // XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) { 
+    div.facts { padding: 100px 120px; }
+    div.facts-container { max-width: 1200px ; margin: 0 auto; padding: 0;}
+    div.facts-container div.container-head { max-width: 762px; margin: 0 auto; margin-bottom: 84px; }
+    div.facts-items-container { flex-direction: row; }
+    div.facts-items-container div.item { min-width: 282px; min-height: 209px; align-items: flex-start;}
+    div.facts-items-container div.item p { text-align: start; }
+    div.facts-container div.container-body > button { max-width: 216px; margin-top: 53px ; }
 }

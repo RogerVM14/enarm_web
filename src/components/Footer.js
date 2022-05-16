@@ -9,33 +9,90 @@ import iconTelegram from '../assets/icons/vector-telegram.png';
 import iconMessenger from '../assets/icons/vector-messenger.png';
 import iconTwitter from '../assets/icons/vector-twitter.png';
 
-const Footer = ({ topLine, breakpoint }) => {
-
+const Footer = ({ topLine, size }) => {
+ 
     const activeStyle = { fontWeight: "bold" };
+ 
+    const linkIsActive = (isActive) => {
+        return isActive ? activeStyle : undefined;
+    }
+
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0 })
+    }
 
     return (
-        <footer className={breakpoint}>
+        <footer className={size}>
             { topLine && (<hr />)}
-            <div className={`footer-container ${breakpoint}`}>
+            <div className={`footer-container ${size}`}>
 
-                <img className='footer-enarm-logo' src={footerLogo} alt='footer-logo' />
+                <img 
+                    className='footer-enarm-logo' 
+                    src={footerLogo} 
+                    alt='footer-logo' 
+                    style={ 
+                        ['xs', 'sm', 'md'].includes(size) ? 
+                        { maxHeight: "104px", maxWidth: "104px"} : 
+                        { maxHeight: "159px", maxWidth: "159px"}
+                    }
+                />
 
-                <div className='footer-enlaces'>
-                    <div className='enlaces-left'>
-                        <span>Enlaces</span>
-                        <NavLink className='footer-link home' to='/' style={({ isActive }) => isActive ? activeStyle : undefined }>Inicio</NavLink>
-                        <NavLink className='footer-link about-us' to='/nosotros' style={({ isActive }) => isActive ? activeStyle : undefined }>Nosotros</NavLink>
-                        <NavLink className='footer-link about-course' to='/sobre_el_curso' style={({ isActive }) => isActive ? activeStyle : undefined }>Curso ENARM</NavLink>
-                    </div>
-                    <div className='enlaces-right'>
-                        <NavLink className='footer-link blog' to='/blog' style={({ isActive }) => isActive ? activeStyle : undefined }>Blog</NavLink>
-                        <NavLink className='footer-link free-test rounded-circle' to='/prueba_gratis' style={({ isActive }) => isActive ? activeStyle : undefined }>Demo Gratis</NavLink>
-                        <NavLink className='footer-link contact' to='/contacto' style={({ isActive }) => isActive ? activeStyle : undefined }>Contacto</NavLink>
-                    </div>      
-                </div>
+                {
+                    !["xs", 'sm', 'md'].includes(size) && (
+                        <div className='footer-enlaces'>
+                            <div className='enlaces-left'>
+                                <span className='regular-14'>Enlaces</span>
+                                <NavLink 
+                                    onClick={() => scrollToTop() }
+                                    className='footer-link regular-14 home' 
+                                    to='/' 
+                                    style={({ isActive }) => linkIsActive(isActive) }
+                                >Inicio
+                                </NavLink>
+                                <NavLink 
+                                    onClick={() => scrollToTop() }
+                                    className='footer-link regular-14 about-us' 
+                                    to='/nosotros' 
+                                    style={({ isActive }) => linkIsActive(isActive) }
+                                >Nosotros
+                                </NavLink>
+                                <NavLink 
+                                    onClick={() => scrollToTop() }
+                                    className='footer-link regular-14 about-course' 
+                                    to='/sobre_el_curso' 
+                                    style={({ isActive }) => linkIsActive(isActive) }
+                                >Curso ENARM
+                                </NavLink>
+                            </div>
+                            <div className='enlaces-right'>
+                                <NavLink 
+                                    onClick={() => scrollToTop() }
+                                    className='footer-link regular-14 blog' 
+                                    to='/blog' 
+                                    style={({ isActive }) => linkIsActive(isActive) }
+                                >Blog
+                                </NavLink>
+                                <NavLink 
+                                    onClick={() => scrollToTop() }
+                                    className='footer-link regular-14 free-test rounded-circle' 
+                                    to='/prueba_gratis' 
+                                    style={({ isActive }) => linkIsActive(isActive) }
+                                >Demo Gratis
+                                </NavLink>
+                                <NavLink 
+                                    onClick={() => scrollToTop() }
+                                    className='footer-link regular-14 contact' 
+                                    to='/contacto' 
+                                    style={({ isActive }) => linkIsActive(isActive) }
+                                >Contacto
+                                </NavLink>
+                            </div>      
+                        </div>
+                    )
+                }
 
                 { 
-                    breakpoint !== 'extra-large' && (
+                    ['xs', 'sm'].includes(size) && (
                         <button className='button-rounded-blue-48 suscribe-button'>
                             <span className="button-text">
                                 Inscribirme ahora
@@ -45,32 +102,32 @@ const Footer = ({ topLine, breakpoint }) => {
                 }
 
                 <div className='footer-contactanos'>
-                    <span>Contáctanos</span>
+                    <span className='regular-16 gray'>Contáctanos</span>
                     <div className='contact-links'>
-                        <Link className='footer-link' to="#">
+                        <Link onClick={() => scrollToTop() }className='footer-link' to="#">
                             <i className='material-icons-outlined contact-icon'>whatsapp</i>
-                            <span className='black'>Whatsapp</span>
+                            <span className='regular-14 black'>Whatsapp</span>
                         </Link>
-                        <Link className='footer-link' to="#">
-                            <img className='contact-icon' src={iconTelegram} alt='' />
-                            <span className='black'>Telegram</span>
+                        <Link onClick={() => scrollToTop() }className='footer-link' to="#">
+                            <img className='contact-icon' src={iconTelegram} alt='telegram' />
+                            <span className='regular-14 black'>Telegram</span>
                         </Link>
-                        <Link className='footer-link' to="#">
-                            <img className='contact-icon' src={iconMessenger} alt='' />
-                            <span className='black'>Messenger</span>
+                        <Link onClick={() => scrollToTop() }className='footer-link' to="#">
+                            <img className='contact-icon' src={iconMessenger} alt='messenger' />
+                            <span className='regular-14 black'>Messenger</span>
                         </Link>
                     </div>
                 </div> 
                 { 
-                    breakpoint !== 'extra-large' ? (
+                    !['md','lg','xl', 'xxl'].includes(size)  ? (
                         <div className='footer-social-media'>
-                            <Link to='' className='vectors'>
+                            <Link onClick={() => scrollToTop() }to='#' className='vectors'>
                                 <img src={iconFacebook} alt='facebook' />
                             </Link>
-                            <Link to='' className='vectors'>
+                            <Link onClick={() => scrollToTop() }to='#' className='vectors'>
                                 <img src={iconTwitter} alt='twitter' />
                             </Link>                    
-                            <Link to='' className='vectors'>
+                            <Link onClick={() => scrollToTop() }to='#' className='vectors'>
                                 <img src={iconInstagram} alt='instagram' />
                             </Link>
                         </div>  
@@ -82,16 +139,20 @@ const Footer = ({ topLine, breakpoint }) => {
                                 </span>
                             </button>
                             <div className='footer-social-media'>
-                                <Link to='' className='vectors'>
+                                <Link onClick={() => scrollToTop() }to='#' className='vectors'>
                                     <img src={iconFacebook} alt='facebook' />
                                 </Link>
-                                <Link to='' className='vectors'>
+                                <Link onClick={() => scrollToTop() }to='#' className='vectors'>
                                     <img src={iconTwitter} alt='twitter' />
                                 </Link>                    
-                                <Link to='' className='vectors'>
-                                    <img src={iconPinterest} alt='pinterest' />
-                                </Link>
-                                <Link to='' className='vectors'>
+                                { 
+                                    size !== 'md' && (
+                                        <Link onClick={() => scrollToTop() }to='#' className='vectors'>
+                                            <img src={iconPinterest} alt='pinterest' />
+                                        </Link>
+                                    )
+                                }
+                                <Link onClick={() => scrollToTop() }to='#' className='vectors'>
                                     <img src={iconInstagram} alt='instagram' />
                                 </Link>
                             </div> 

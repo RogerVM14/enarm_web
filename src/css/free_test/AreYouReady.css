@@ -1,19 +1,45 @@
-div.are-you-ready { position: relative; }
- 
-div.cards { display: flex; }
+div.are-you-ready { position: relative; padding: 72px 24px; }
+div.are-you-ready-container { max-width: 492px; margin: 0 auto; }
+div.are-you-ready-container > h1.subtitle { margin-bottom: 40px; }
+div.cards { display: flex; flex-direction: column; gap: 40px; }
+div.cards div.card { width: 100%; border: 2px solid var(--sky-blue); border-radius: 10px; padding: 40px; }
+div.card.bg-white { display: flex; flex-direction: column; gap: 16px; align-items: flex-start; }
+li.list-ip { display: flex; flex-flow: row nowrap; gap: 8px; margin-bottom: 12px; } 
 
-div.cards div.card {
-    width: 100%; 
-    border: 2px solid var(--sky-blue);
-    border-radius: 10px;
-    padding: 40px;
-}
-  
-ul.ls-none { list-style: none; }
-
-li.list-ip {
-    display: flex;
-    flex-flow: row nowrap;
-    gap: 8px;
-    margin-bottom: 12px;
+/* // Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {    
 } 
+
+/* // Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    div.are-you-ready-container { max-width: 744px; }
+    div.cards { display: flex; flex-direction: row; justify-content: space-between; }
+    div.cards div.card { max-width: 337px; padding: 0px; }
+    div.cards div.card.bg-white { padding: 55px 18px; }
+    div.cards div.card.bg-blue { padding: 30px 18px; }
+}
+
+/* // Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) { 
+    div.are-you-ready { position: relative; padding: 100px 32px; }
+    div.cards { flex-direction: row } 
+    div.are-you-ready-container {max-width: 992px; margin: 0 auto;}
+}
+
+/* // X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) and (max-width: 1399.98px){ 
+
+    div.are-you-ready { position: relative; padding: 100px 32px; }
+    div.cards { flex-direction: row } 
+    div.are-you-ready-container {max-width: 1200px; margin: 0 auto;}
+}
+
+/* // XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) { 
+    
+    div.are-you-ready { position: relative; padding: 100px 32px; }
+    div.cards { flex-direction: row } 
+    div.are-you-ready-container {max-width: 1440px; margin: 0 auto;}
+    div.are-you-ready-container div.subcontainer { max-width: 1200px; margin: 0 auto; }
+
+}

@@ -5,19 +5,25 @@ import ContactBanner from '../components/ContactBanner';
 import Discount from '../components/Discount'
 import Advantages from '../components/free_test/Advantages';
 import WidthContext from '../contexts/WidthContext';
+
 const FreeTestPage = () => {
 
-    const screenSize = useContext(WidthContext);
+    const size = useContext(WidthContext);
 
-    return (
-        <div className='layout-wrapper'>
-            <Hero6 width={screenSize}/>
-            <AreYouReady width={screenSize}/>
-            <ContactBanner width={screenSize}/>
-            <Advantages width={screenSize}/> 
-            <Discount width={screenSize}/>
-        </div>
+    const isMobile = () => {
+        if(['xs', 'sm', 'md'].includes(size)) return 'true';
+        if(['lg', 'xl', 'xxl'].includes(size)) return 'false';
+    } 
+
+    return ( 
+        <>
+            <Hero6 size={size} />
+            <AreYouReady size={size} ismobile={isMobile().toString()} />
+            <ContactBanner size={size} ismobile={isMobile().toString()} />
+            <Advantages size={size} /> 
+            <Discount size={size} ismobile={isMobile().toString()} />
+        </>
     )
 }
 
-export default FreeTestPage
+export default FreeTestPage;

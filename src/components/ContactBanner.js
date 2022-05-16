@@ -5,9 +5,10 @@ import telegramIcon from '../assets/icons/telegram-white.png';
 import messengerIcon from '../assets/icons/messenger-white.png';
 import '../css/ContactBanner.css';
 
-const ContactBanner = () => {
+const ContactBanner = ({ size }) => {
+ 
     return (
-        <div className='contact-banner bg-blue'>
+        <div className={`contact-banner bg-blue ${size}`}>
             <div className="contact-banner-container">
                 <h1 className="tiny-blue-title text-center">CONTACTO</h1>
                 <h2 className="subtitle white text-center">¿Tienes dudas? Escríbenos</h2>

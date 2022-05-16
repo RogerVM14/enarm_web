@@ -1,41 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import NavBar from '../NavBar';
 import Footer from '../Footer';
-import Modal from '../Modal';
-import '../../css/Layout.css';
+import Modal from '../Modal'; 
+import WidthContext from '../../contexts/WidthContext';
 
 
-const Layout = ({ children, topLine }) => {
-    
-    const getWindowWidth = () => { 
-        let x = window.innerWidth;
-        
-        if(x >= 320 && x <= 480) return 'small';
-        if(x >= 481 && x <= 768) return 'medium';
-        if(x >= 769 && x <= 1023) return 'large';
-        if(x >= 1024) return 'extra-large';
-    }
+const Layout = ({ children, topLine }) => { 
 
-    const [width, setWidth] = useState(getWindowWidth()); 
-    
-    useEffect(() => { 
-        window.addEventListener('resize', event => {
-            const w = getWindowWidth();
-            setWidth(w);
-        });  
-    }, [width]);
+    const width = useContext(WidthContext);
 
-
+    const isMobile = () => {
+        if(['xs', 'sm', 'md'].includes(width)) return true;
+        if(['lg', 'xl', 'xxl'].includes(width)) return false;
+    } 
 
     return (
-        <div className='main-container'>
-            <NavBar breakpoint={width}/>
+        <>
+            <NavBar size={width} ismobile={isMobile().toString()} />
             <main className={width} >
                 { children }
             </main>
-            <Footer topLine={topLine} breakpoint={width} />        
-            <Modal breakpoint={width} />    
-        </div>
+            <Footer topLine={topLine} size={width} />
+            <Modal size={width} ismobile={isMobile().toString()} />
+        </>
     )
 }
 

@@ -1,18 +1,38 @@
-div.contact-banner {
-    width: 100%;
+div.contact-banner { width: 100%; padding: 72px 24px; margin: 0 auto; } 
+div.contact-banner-container { max-width: 380px; margin: 0 auto;}
+div.contact-banner-container div.social-media-container { display: flex; flex-flow: row nowrap; justify-content: space-between; margin-top: 32px; }
+div.social-media-container .icon-link img { width: 40px; height: 40px; transition: all 350ms; }
+div.social-media-container .icon-link:hover img { transform: scale(1.5); transition: all 350ms; }
+
+/* // Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {   
+
 } 
 
-div.contact-banner-container div.social-media-container {
-    display: flex;   
+/* // Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    div.contact-banner-container { max-width: 744px; }
+    div.contact-banner-container div.social-media-container {max-width: 368px; margin: 32px auto 0 auto; }
 }
 
-div.social-media-container .icon-link img {
-    width: 40px;
-    height: 40px;
-    transition: all 350ms;
+/* // Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) {  
+    div.contact-banner { width: 100%; padding: 100px 32px; }
+    div.contact-banner-container { max-width: 792px; }
+    div.contact-banner-container div.social-media-container {max-width: 448px; margin: 40px auto 0 auto; }
 }
 
-div.social-media-container .icon-link:hover img { 
-    transform: scale(1.5);
-    transition: all 350ms;
+/* // X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) and (max-width: 1399.98px){ 
+    div.contact-banner { width: 100%; padding: 100px; }
+    div.contact-banner-container { max-width: 792px; }
+    div.contact-banner-container div.social-media-container {max-width: 448px; margin: 40px auto 0 auto; }
+}
+
+/* // XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) { 
+
+    div.contact-banner { width: 100%; padding: 100px 120px; }
+    div.contact-banner-container { max-width: 792px; }
+    div.contact-banner-container div.social-media-container {max-width: 448px; margin: 40px auto 0 auto; }
 }

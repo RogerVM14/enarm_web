@@ -1,33 +1,45 @@
-div.value_proposal {
-    width: 100%;  
-    background-color: #1E73BE;
-}
+/* // X-Small devices (portrait phones, less than 576px) */ 
+div.value_proposal { width: 100%; background-color: #1E73BE; }
+div.value_proposal-container { display: flex; flex-direction: column; align-items: center; padding: 72px 24px; gap: 24px; }
+div.value_proposal-item { display: flex; flex-direction: column; align-items: center; gap: 12px; max-width: 346px;}
+div.value_proposal-item div.item-icon-container { display: block; width: 40px; height: 40px; position: relative; color: #05B2FA; }
+div.value_proposal-item div.item-icon-container span { width: 40px; height: 40px; border: 2px solid #05B2FA; border-radius: 50%; display: block; animation: expandSpan 1s ease infinite alternate; }
+div.value_proposal-item div.item-icon-container i { position: absolute; top: 50%; left: 50%; transform: translateX(-50%) translateY(-50%); } 
 
-div.value_proposal-container,
-div.value_proposal-item {
-    display: flex;   
+
+/* // Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {      
+    div.value_proposal-container { max-width: 576px; margin: 0 auto;}
 } 
 
-div.value_proposal-item div.item-icon-container {
-    display: block;
-    width: 40px;
-    height: 40px;
-    position: relative; 
-    color: #05B2FA;
+/* // Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {  
+    div.value_proposal-container { max-width: 768px; margin: 0 auto;}
 }
 
-div.value_proposal-item div.item-icon-container span { 
-    width: 40px;
-    height: 40px;
-    border: 2px solid #05B2FA;
-    border-radius: 50%; 
-    display: block;
-    animation: expandSpan 1s ease infinite alternate;
+/* // Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) {  
+    div.value_proposal-container { max-width: 992px; margin: 0 auto;}
 }
 
-div.value_proposal-item div.item-icon-container i {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
-} 
+/* // X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) and (max-width: 1399.98px){ 
+    div.value_proposal-container { 
+        max-width: 1200px;
+        flex-direction: row;
+        padding: 100px 32px;
+        justify-content: space-evenly; 
+        margin: 0 auto;
+    } 
+}
+
+/* // XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) { 
+    div.value_proposal-container { 
+        max-width: 1440px;
+        flex-direction: row;
+        padding: 100px 120px;
+        justify-content: space-between; 
+        margin: 0 auto;
+    } 
+}
