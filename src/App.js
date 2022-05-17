@@ -18,11 +18,12 @@ const App = () => {
 
     const getWindowWidth = () => { 
         let x = window.innerWidth;
-    
-        if(x >= 320 && x <= 480) return 'small';
-        if(x >= 481 && x <= 768) return 'medium';
-        if(x >= 769 && x <= 1023) return 'large';
-        if(x >= 1024) return 'extra-large';
+        if(x < 576) return 'xs';
+        if(x >= 576 && x <= 767) return 'sm';
+        if(x >= 768 && x <= 991) return 'md';
+        if(x >= 992 && x <= 1199) return 'lg';
+        if(x >= 1200 && x <= 1399) return 'xl';
+        if(x >= 1400) return  'xxl';
     } 
     
     const [screenSize, setScreenSize] = useState(getWindowWidth())
@@ -31,7 +32,7 @@ const App = () => {
         window.addEventListener('resize', () => {
             const x = getWindowWidth();
             setScreenSize(x);
-        });  
+        });   
     }, [screenSize]);
 
     useEffect(()=> {

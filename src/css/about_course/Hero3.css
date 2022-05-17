@@ -1,82 +1,89 @@
-div.hero-3 {  
-    position: relative;
-}
- 
+div.hero-3 { position: relative; }
+div.hero-3-container { padding: 72px 24px 0px 24px; margin: 0 auto; }
+div.hero-3-container-header { display: flex; position: relative; z-index: 1060; flex-direction: column; gap: 16px; margin-bottom: 16px; }  
+div.hero-3-container-body { display: flex; position: relative; z-index: 1060; flex-direction: column; gap: 16px; align-items: center; margin-top: 16px; } 
+div.hero-3 div.gradient { background: linear-gradient(180deg, #E2ECF8 53.04%, rgba(226, 236, 248, 0) 71.38%); position: absolute; inset: 0px 0px 0px 0px; z-index: 1040; }
+div.hero-3-container div.bg-image { width: calc(100% + 48px); height: 462px; background-position-x: center; background-size: cover; background-repeat: no-repeat; position: relative; left: -24px; }
+div.hero-3-container div.triangle { background: #FFFFFF; width: 100%; height: 100%; position: absolute; z-index: 20; clip-path: polygon(100% 55%, 0% 100%, 100% 100%); bottom: 0px; } 
+div.hero-3-container button.only-letters { height: 22px; display: flex; flex-flow: row nowrap; justify-content: flex-start; align-items: center; background-color: transparent; border: none; cursor: pointer; }
+div.hero-3-container button.only-letters i { width: 28px; font-size: 36px; color: var(--sky-blue);position: relative; left: 0px; transition: left 350ms; }
+div.hero-3-container button.only-letters span { font-family: Montserrat; font-style: normal; font-weight: 800; font-size: 18px; line-height: 22px; letter-spacing: 0.02em; color: #05B2FA; display: block; height: 22px; }
+div.hero-3-container button.only-letters:hover span { text-decoration-line: underline; }
+div.hero-3-container button.only-letters:hover i { left: 10px; transition: left 350ms; }
 
-div.hero-3-container-header,
-div.hero-3-container-body {
-    display: flex;
-}
-/* div.hero-3-container div.bg-image {
-    background-image: url('../../assets/imgs/Dres/ymlp.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    position: absolute;
-    width: 100vw;
-    height: 100%;
-    background-position-y: -33px;
-} */
+/* // Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {   
+    div.hero-3-container-header,
+    div.hero-3-container-body { max-width: 576px; margin-left: auto; margin-right: auto;}
+    div.hero-3-container div.bg-image { min-width: 576px; min-height: 462px; margin-top: 15vw; height: unset; } 
+} 
 
-/* div.hero-3-container div.gradient {
-    background: linear-gradient(180deg, #E2ECF8 53.04%, rgba(226, 236, 248, 0) 71.38%);
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    z-index: 20;
-} */
-
-div.hero-3-container div.triangle {
-    background: #FFFFFF;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    z-index: 20;
-    clip-path: polygon(100% 55%, 0% 100%, 100% 100%);
-    bottom: 0px;
+/* // Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    div.hero-3-container-body > button { max-width: 336px; }
+    div.hero-3-container-header > p { max-width: 515px; margin: 0 auto; }
+    div.hero-3-container-header > h1 { max-width: 693px; margin: 0 auto; }
+    div.hero-3 div.gradient { background: linear-gradient(180deg, #E2ECF8 43.04%, rgba(226, 236, 248, 0) 71.38%); }
 }
-/* div.hero-3-container div.sub-container {  
-    position: absolute;
-    z-index: 220;
-    top: 121.26px;
-    left: 120px;
-} */
- 
-div.hero-3-container button.only-letters { 
-    height: 22px;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: flex-start;
-    align-items: center;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
+/* // Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) { 
+    div.hero-3-container { padding: 100px 32px 180px 32px; margin: 0 auto; }
+    div.hero-3-container-header { max-width: 588px;  }
+    div.hero-3-container-header > * { text-align: start; }
+    div.hero-3-container-body { align-items: flex-start; gap: 45px; }
+    div.hero-3-container-body button.button-rounded-blue-48 { max-width: 246px; } 
+    div.hero-3-container div.triangle { z-index: 1080; left: 0;}
+    div.hero-3 div.bg-image {
+        background-size: cover;
+        width: 100%;
+        max-width: 1282px;
+        height: 100%;
+        left: 0;
+        top: 0;
+        position: absolute;
+        background-position-x: 153px;
+    }
+    div.hero-3 div.gradient { background: linear-gradient(270deg, rgba(255, 255, 255, 0) 34.66%, #E2ECF8 63.76%); }
 }
 
-div.hero-3-container button.only-letters i {
-    width: 28px;
-    font-size: 36px;
-    color: var(--sky-blue);position: relative;
-    left: 0px;
-    transition: left 350ms;
+/* // X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) and (max-width: 1399.98px){ 
+    div.hero-3-container { padding: 100px 120px 293px 120px;  margin: 0 auto; }
+    div.hero-3-container-header { max-width: 588px;  }
+    div.hero-3-container-header > * { text-align: start; }
+    div.hero-3-container-body { align-items: flex-start; gap: 45px; }
+    div.hero-3-container-body button.button-rounded-blue-48 { max-width: 246px; } 
+    div.hero-3-container div.triangle { z-index: 1080; left: 0; }
+    div.hero-3 div.gradient { background: linear-gradient(270deg, rgba(255, 255, 255, 0) 34.66%, #E2ECF8 63.76%); }
+    div.hero-3 div.bg-image { background-size: cover; width: 100%; max-width: 1282px; height: 100%; left: 153px; top: 0; position: absolute; }
+    div.hero-3-container div.triangle { left: 0;}
 }
 
-div.hero-3-container button.only-letters span {
-    font-family: Montserrat;
-    font-style: normal;
-    font-weight: 800;
-    font-size: 18px;
-    line-height: 22px;
-    letter-spacing: 0.02em;
-    color: #05B2FA;
-    display: block;
-    height: 22px;
+/* // XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) { 
+    
+    div.hero-3-container { padding: 100px 120px 293px 120px; margin: 0 auto; max-width: 1440px; }
+    div.hero-3-container-header { max-width: 588px;  }
+    div.hero-3-container-header > * { text-align: start; } 
+    div.hero-3-container-body { align-items: flex-start; gap: 45px; }
+    div.hero-3-container-body button.button-rounded-blue-48 { max-width: 246px; }  
+    div.hero-3 div.gradient { background: linear-gradient(270deg, rgba(255, 255, 255, 0) 34.66%, #E2ECF8 63.76%); }
+    div.hero-3 div.bg-image {
+        background-size: cover;
+        width: 100%;
+        max-width: 1282px;
+        height: 100%;
+        left: 20%;
+        top: 0;
+        position: absolute; 
+    }
+    div.hero-3-container div.triangle { z-index: 1080; left: 0;}
 }
 
-div.hero-3-container button.only-letters:hover span {
-    text-decoration-line: underline;    
-}
-
-div.hero-3-container button.only-letters:hover i {
-    left: 10px;
-    transition: left 350ms;
-}
+@media (min-width: 1600px) { 
+    div.hero-3 div.bg-image { 
+        width: 100%;
+        max-width: 70%; 
+        left: 30%; 
+    }
+} 

@@ -6,14 +6,22 @@ import WidthContext from '../contexts/WidthContext';
 
 const ContactPage = () => {
 
-    const screenSize = useContext(WidthContext);
+    
+    const size = useContext(WidthContext);
+
+    const isMobile = () => {
+        if(['xs', 'sm', 'md'].includes(size)) return 'true';
+        if(['lg', 'xl', 'xxl'].includes(size)) return 'false';
+    } 
+
     return (
         <div className='layout-wrapper'>
-            <Hero7 width={screenSize}/>
-            <RegularQuestions width={screenSize}/>
-            <ContactBanner width={screenSize}/>
+            <Hero7 size={size} ismobile={isMobile().toString()} />
+            <RegularQuestions size={size} />
+            <ContactBanner size={size} />
         </div>
     )
 }
 
-export default ContactPage
+export default ContactPage;
+

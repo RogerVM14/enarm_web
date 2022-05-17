@@ -1,36 +1,59 @@
-div.witness {
-    display: block;
-    position: relative;
-    width: 100%; 
-    background: linear-gradient(180deg, rgba(226, 236, 248, 0) 25.24%, #E2ECF8 100%);
+/* // X-Small devices (portrait phones, less than 576px) */ 
+div.witness { display: block; position: relative; width: 100%; background: linear-gradient(180deg, rgba(226, 236, 248, 0) 25.24%, #E2ECF8 100%); }
+div.witness-container { position: relative; display: block; padding: 72px 24px; }
+div.witness-container-header { margin-bottom: 72px; }
+div.witness-carrousel { display: flex; justify-content: center; }
+div.witness-container-body { width: 100%; height: auto; display: flex; flex-direction: column; gap: 40px; }
+div.witness-container-body > h1.subtitle { margin-bottom: 0px; }
+div.witness-container-body div.body-sub_container { border: 2px solid #05B2FA; border-radius: 10px; padding: 40px; }
+div.body-sub_container.bg-white h2 { margin-bottom: 21px; }
+ul.witness-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+ul.witness-list li { display: flex; flex-flow: row nowrap; gap: 8px; }
+
+
+/* // Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {   
+    div.witness-container { max-width: 576px; margin: 0 auto; }
 } 
 
-div.witness-container { 
-    position: relative;
-    display: block; 
-    padding: 72px 24px;
+/* // Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    div.witness-container-body { flex-direction: row; justify-content: space-between; max-width: 768px; margin: 0 auto; }
+    div.witness-container > h1.subtitle { width: 100%; margin-bottom: 40px; }
+    div.body-sub_container.bg-white h2 { margin-bottom: 32px; }
+    div.witness-container-body div.body-sub_container { min-width: 337px; max-width: 50%; }
 }
 
-div.witness-container-body {
-    width: 100%;
-    height: auto;
-    display: flex;       
-} 
- 
-  
-ul.witness-list { 
-    list-style: none; 
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+/* // Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) { 
+    div.witness-container { padding: 72px 32px; }
+    div.witness-container-body { flex-direction: row; justify-content: space-between; max-width: 992px; margin: 0 auto; }
+    div.witness-container > h1.subtitle { width: 100%; margin-bottom: 40px; }
+    div.body-sub_container.bg-white h2 { margin-bottom: 32px; }
+    div.witness-container-body div.body-sub_container { min-width: 337px; max-width: 50%; }
 }
 
-ul.witness-list li {
-    display: flex;
-    flex-flow: row nowrap;   
-    gap: 8px;
+/* // X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) and (max-width: 1399.98px){ 
+    div.witness-container { padding: 72px 32px; }
+    div.witness-container-body { flex-direction: row; justify-content: space-between; max-width: 1200px; margin: 0 auto; }
+    div.witness-container > h1.subtitle { width: 100%; margin-bottom: 40px; }
+    div.witness-container-body div.body-sub_container { min-width: 588px; min-height: 273px; }
+    div.body-sub_container.bg-white { padding: 40px 40px 60px 40px; }
+    div.body-sub_container.bg-white h2 { margin-bottom: 24px; }
+    div.body-sub_container.bg-white button { max-width: 216px;}
+    div.witness-container-body div.body-sub_container { min-width: 337px; max-width: 50%; }
 }
 
-ul.witness-list li i {
-    color: rgba(4, 180, 62, 1);
-} 
+/* // XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) { 
+    div.witness-container { padding: 100px 120px}
+    div.witness-container-body { flex-direction: row; justify-content: space-between; max-width: 1200px; margin: 0 auto; }
+    div.witness-container > h1.subtitle { width: 100%; margin-bottom: 40px; }
+    div.witness-container-body div.body-sub_container { min-width: 588px; min-height: 273px; }
+    div.body-sub_container.bg-white { padding: 40px 40px 60px 40px; }
+    div.body-sub_container.bg-white h2 { margin-bottom: 24px; }
+    div.body-sub_container.bg-white button { max-width: 216px;}
+    div.witness-container-body div.body-sub_container { min-width: 337px; max-width: 50%; }
+
+}

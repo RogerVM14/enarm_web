@@ -1,37 +1,42 @@
-div.discount {
-    width: 100%;
-    height: auto;
-    position: relative;
-    display: block; 
+/* // X-Small devices (portrait phones, less than 576px) */ 
+div.discount { width: 100%; position: relative; }
+div.discount-container { display: flex; flex-direction: column; padding: 72px 24px 0px 24px; position: relative; margin: 0 auto; }
+div.discount-container div.sub-container { width: 100%; display: flex; flex-direction: column; gap: 16px; } 
+div.ammount > * { margin: 0px; }
+div.sub-container.image-container { margin-top: 41px; }
+ul.discount-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+ul.discount-list li { display: flex; flex-flow: row nowrap; gap: 8px; }
+ul.discount-list li i { color: #04B43E; width: 24px; font-weight: bold; height: 24px; } 
+
+/* // Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {    
+    div.discount-container div.sub-container:not(.image-container) { max-width: 556px; margin: 0 auto; }     
+    div.sub-container.image-container { margin: 41px auto 0 auto; max-width: 556px; }
 }
 
-div.discount-container {
-    display: flex; 
-    justify-content: space-between;
-    position: relative;
-    max-width: 1440px;
-    margin: 0 auto;
+/* // Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    div.discount-container { flex-direction: row-reverse; padding: 72px 24px; justify-content: center; gap: 20px; max-width: 768px !important; margin: 0 auto;} 
+    div.discount-container div.sub-container h2.tiny-blue-title { margin-bottom: 0px; }
+    div.discount-container div.sub-container { max-height: 386px; max-width: 336px!important; margin-left: 0px; margin-right: 0px; } 
 }
 
-div.discount-container div.sub-container {
-    width: 100%;; 
-    display: block;
-} 
-
-ul.discount-list {
-    list-style: none;
-    margin-bottom: 24px;
+/* // Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) {  
+    div.discount-container div.sub-container h2.tiny-blue-title { margin-bottom: 0px; }
+    div.discount-container { flex-direction: row-reverse; padding: 72px 32px; justify-content: center; gap: 20px; max-width: 992px !important; margin: 0 auto;} 
 }
 
-ul.discount-list li {
-    display: flex;
-    flex-flow: row nowrap;
-    gap: 8px;
-    margin-bottom: 12px;
+/* // X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) and (max-width: 1399.98px){ 
+    div.discount-container div.sub-container h2.tiny-blue-title { margin-bottom: 0px; }
+    div.discount-container { flex-direction: row-reverse; padding: 100px 32px; justify-content: space-evenly; max-width: 1200px !important; margin: 0 auto; }
+    div.discount-container div.sub-container { max-height: 368px; max-width: 476px !important; margin-left: 0px; margin-right: 0px; }
 }
-ul.discount-list li i {
-    color: #04B43E;
-    width: 24px;
-    font-weight: bold;
-    height: 24px;
-} 
+
+/* // XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) { 
+    div.discount-container div.sub-container h2.tiny-blue-title { margin-bottom: 0px; }
+    div.discount-container { flex-direction: row-reverse; padding: 100px 120px; justify-content: space-evenly; max-width: 1440px; margin: 0 auto; }
+    div.discount-container div.sub-container button.suscribe-now { max-width: 261px; } 
+}

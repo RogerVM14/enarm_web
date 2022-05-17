@@ -1,161 +1,67 @@
-div.hero {
-    display: block;
-    width: 100%;
-    height: auto;
-    position: relative;
-    top: 0px;
-    background: var(--blue);
+ /* // X-Small devices (portrait phones, less than 576px) */  
+div.hero { background: linear-gradient(180deg, #FFF 42.12%, #E2ECF8 72.95%); }
+div.hero-container { display: block; position: relative; width: 100%; padding: 60px 24px 0px 24px; }
+div.hero-container div.description-container { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 16px; max-width: 694px; margin: 0 auto; }
+div.hero-container div.description-container img.logo { display: block; height: 73px; width: 256px;  }
+div.hero-container div.description-container button { margin-top: 16px; margin-bottom: 16px; }
+div.hero-container div.description-container ul.hero-list { list-style: none; }
+div.hero-container div.description-container ul.hero-list li { display: flex; flex-flow: row nowrap; gap: 8px; }
+div.doctor-image div.hero-image-container { max-width: 381px !important; max-height: 409px !important; position: relative; margin: 0 24px; }
+div.doctor-image { margin-top: 24px; display: flex; position: relative; background: linear-gradient(to bottom, transparent 50%, #1E73BE 50%); justify-content: center; width: calc(100% + 48px); left: -24px; }
+div.doctor-image img { position: relative; z-index: 1010; width: 100%; height: 100%; max-width: 381px; }
+div.circle-with-borders { position: absolute; display: block; width: 88%; height: 83%; border: 3px solid #05B2FA; border-radius: 50%; z-index: 1005; animation: expandCircle 1.5s ease infinite alternate; max-width: 381px; max-height: 381px; bottom: 0; right: 1%; }
+
+/* // Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {   
+
 } 
 
-/* div.hero-container {
-    display: block;
-    position: relative;
-    width: 100%; 
-    padding: 0 24px;
-} */
+/* // Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
 
-/* div.hero div.bg-rectangle {  
-    background-color: #1E73BE;
-    height: calc(1013.5px - 104px);
-    position: absolute;
-    z-index: 1001;
-    top: 0px;
-    display: block;
-    clip-path: polygon(100% 51%, 0% 100%, 100% 100%);
-    width: 100%;
-}  */
-
-/* div.hero-container div.description-container {
-    width: 588px;
-    position: relative;
-    top: 77px;
-    left: 120px;
-    z-index: 1005;
-} */
-
-/* div.hero-container div.description-container h1.title {
-    display: block;
-    width: 588px;
-    height: 152px;
-    margin-bottom: 16px;
-    font-family: PoppinsRegular;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 47px;
-    line-height: 70px;
-    letter-spacing: 0.03em;
-
-    color: #000000;
-} */
-
-/* div.hero-container div.description-container h2.subtitle {
-    display: block;
-    width: 588px;
-    height: 56px;
-    margin-bottom: 32px;
-    position: relative; 
-    font-family: PoppinsBold;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 24px;
-} */
-
-/* div.hero-container h2.subtitle img.logo {
-    position: absolute;
-    bottom: 1px;
-    left: 163px;
-    width: 256px;
-    height: 73px;
-} */
-
-/* div.hero-container button.suscribe-now { 
-    display: block;
-    width: 246px;
-    height: 48px;
-    border: 1px solid transparent;
-    color: white;
-    background-color: var(--sky-blue);
-    border-radius: 26px;
-    font-family: Montserrat;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 22px;   
-    text-align: center;
-    letter-spacing: 0.02em;
-    margin-bottom: 40px;
-    cursor: pointer;
-} */
-
-.ls-none { list-style: none; }
-
-div.hero-container ul.hero-list li {
-    margin-bottom: 12px;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 8px;
-    
+    div.description-container button { max-width: 246px; }
 }
 
-/* ul.hero-list li p {
-    font-family: PoppinsBold;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 24px; 
-    color: #000000;
-} */
-
-ul.hero-list li i {
-    width: 24px;
-    height: 24px;
-    color: #04B43E;
+/* // Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .hero-title { text-align: center; }
+    div.description-container button { max-width: 246px; }
 }
 
-/* div.doctor-image {
-    position: absolute;
-    top: 77px;
-    right: 40px; 
-    display: block;
-    width: 667px;
-    height: 716px;
-} */
+/* // X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) and (max-width: 1399.98px){ 
+    div.hero { position: relative; }
+    div.hero-container { display: flex; position: relative; width: 100%; padding: 100px 32px 180px 32px; justify-content: space-around; }
+    div.hero-container div.description-container { width: 100%; display: flex; flex-direction: column; align-items: flex-start; gap: 16px; max-width: 588px; margin: unset; }
+    h1.hero-title { font-family: PoppinsRegular; font-style: normal; font-weight: 400; font-size: 39px; line-height: 57px; letter-spacing: 0.03em; text-align: start; }
+    h2.hero-subtitle { display: flex; gap: 24px; }
+    div.hero-container div.description-container button { margin-top: 16px; margin-bottom: 16px; max-width: 246px; }
+    div.hero-container div.description-container ul.hero-list li { margin-bottom: 12px; }
+    div.doctor-image { display: flex; position: relative; justify-content: center; width: 476px; margin-top: 0; background: none; left: unset; }
+    div.doctor-image div.hero-image-container { max-height: 409px !important; position: relative; margin: unset; max-width: unset!important; }
+    div.doctor-image img { position: relative; z-index: 1010; width: 100%; height: auto; max-width: unset; }
+    div.circle-with-borders { position: absolute; display: block; width: 87%; height: 100%; border: 3px solid #05B2FA; border-radius: 50%; z-index: 1005; animation: expandCircle 1.5s ease infinite alternate; bottom: -89px; right: 1.5%; max-height: unset; max-width: unset; }
+    .bg-rectangle { position: absolute; bottom: 0px; left: 0px; height: 50%; width: 100%; clip-path: polygon(100% 0%, 0% 100%, 100% 100%); background: var(--blue); }
+}
 
-/* div.doctor-image img {
-    position: relative;
-    z-index: 1010;
-    width: 100%;
-    height: 100%;
-} */
+/* // XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) { 
+    div.hero { position: relative; }
+    div.hero-container { max-width: 1440px; margin: 0 auto; padding: 100px 120px 180px 120px; display: flex; position: relative; width: 100%; justify-content: space-around; }
+    div.hero-container div.description-container { width: 100%; display: flex; flex-direction: column; align-items: flex-start; gap: 16px; max-width: 588px; margin: unset; } 
+    h2.hero-subtitle { display: flex; gap: 24px; }
+    div.hero-container div.description-container button { margin-top: 16px; margin-bottom: 16px; max-width: 246px; }
+    div.hero-container div.description-container ul.hero-list li { margin-bottom: 12px; }
+    div.doctor-image { display: flex; position: relative; justify-content: center; width: 667px; margin-top: -27px; background: none; left: unset; }
+    div.doctor-image div.hero-image-container { max-height: 716px !important; position: relative; margin: unset; max-width: unset !important; }
+    div.doctor-image img { position: relative; z-index: 1010; width: 100%; height: auto; max-width: unset; }
+    div.circle-with-borders { position: absolute; display: block; width: 89%; height: 83%; border: 3px solid #05B2FA; border-radius: 50%; z-index: 1005; animation: expandCircle 1.5s ease infinite alternate; bottom: 1px; right: 0.5%; max-height: unset; max-width: unset; }
+    .bg-rectangle { position: absolute; bottom: 0px; left: 0px; height: 50%; width: 100%; clip-path: polygon(100% 0%, 0% 100%, 100% 100%); background: var(--blue); }
+}
 
-/* div.doctor-image div.circle-with-borders {
-    position: absolute;
-    display: block;
-    width: 100%;
-    height: 409px;
-    left: 55px;
-    top: 104px;
-    border: 3px solid #05B2FA;
-    border-radius: 50%;
-    z-index: 1005;
-    animation: expandCircle 1.5s ease infinite alternate;
-} */
 
 @keyframes expandCircle {
     0% { transform: scale(1);} 
     100% { transform: scale(1.06);}
 }
-
-/* div.hero .reveal-load{
-    transform: translateY(150px);
-    opacity: 0;
-    transition: 950ms all ease;
-    z-index: 10001;
-}
-  
-div.hero .reveal-load.active{
-    transform: translateY(0);
-    opacity: 1;
-} */
+ 

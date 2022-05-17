@@ -1,11 +1,60 @@
- 
-div.hero-6-container { position: relative; }
-  
-div.hero-6-container div.gradient { background: linear-gradient(180deg, #FFFFFF 37.91%, #E2ECF8 65.66%); width: 100%; height: 100%; z-index: 20; }
-/* div.hero-6-container  div.triangle { background: #FFFFFF; width: 1440px; height: 803.5px; position: absolute; z-index: 260; clip-path: polygon(100% 41%, 0% 100%, 100% 100%); bottom: 0; } */
- 
+
+div.hero-6 { background: linear-gradient(180deg, #FFFFFF 37.91%, #E2ECF8 65.66%); }
+div.hero-6-container { position: relative; padding: 60px 24px 0px 24px; }
+div.hero-6-container-header { display: flex; flex-direction: column; gap: 16px; }
+div.hero-6-container-body { margin-top: 16px; }
+/* div.hero-6-container div.gradient { background: linear-gradient(180deg, #FFFFFF 37.91%, #E2ECF8 65.66%); width: 100%; height: 100%; z-index: 20; } */
 div.hero-6-form form div.form-group { width: 100%; height: 120px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
 div.hero-6-form form div.form-group input { width: 100%; height: 56px; border: 1px solid #96ACBC; border-radius: 10px; padding: 1rem; }
 div.hero-6-form div.whatsapp-input div.form-group input[type=text] { width: 100%; height: 56px; }
 div.hero-6-form form div.form-group input::placeholder { font-family: PoppinsRegular; font-weight: 400; color: #96ACBC; margin-bottom: 8px; font-size: 14px; line-height: 20px; font-style: normal; }
- 
+div.hero-6-container div.bg-image { margin-top: 48px; }
+div.hero-6-container div.bg-image img { display:block; margin: 0px auto; }
+
+/* // Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {   
+    div.hero-6-container { max-width: 576px; margin: 0 auto; }
+} 
+
+/* // Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    div.hero-6-container { max-width: 693px; margin: 0 auto; }
+    div.hero-6-container-header p { max-width: 515px; margin: 0 auto; }
+    div.hero-6-container-body { max-width: 337px; margin: 16px auto 0px auto; }
+}
+
+/* // Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) { 
+    div.hero-6 { position: relative; }
+    div.hero-6-container { display: flex; flex-direction: column; align-items: flex-end; padding: 100px 32px; }
+    div.hero-6-container-header > * { text-align: start; }
+    div.hero-6 .regular-14, .medium-14 { font-size: 16px; line-height: 24px; }
+    div.hero-6-container-header, div.hero-6-container-body {max-width: 469px; width: 100%; position: relative; z-index: 1060; }
+    div.hero-6 div.bg-image { position: absolute; top: 56%; left: 6%; transform: translateY(-50%); width: 588px; z-index: 1010; } div.hero-6 div.bg-image img { width: 100%; }
+    div.hero-6 div.triangle { background: #FFFFFF; width: 100%; height: 100%; position: absolute; z-index: 1040; clip-path: polygon(100% 55%, 0% 100%, 100% 100%); bottom: -7px; }
+    
+}
+
+/* // X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) and (max-width: 1399.98px){ 
+    
+    div.hero-6 { position: relative; }
+    div.hero-6-container { display: flex; flex-direction: column; align-items: flex-end; padding: 100px 120px; }
+    div.hero-6-container-header > * { text-align: start; }
+    div.hero-6 .regular-14, .medium-14 { font-size: 16px; line-height: 24px; }
+    div.hero-6-container-header, div.hero-6-container-body {max-width: 588px; width: 100%; position: relative; z-index: 1060; }
+    div.hero-6 div.bg-image { position: absolute; top: 52%; left: 6%; transform: translateY(-50%); width: 588px; z-index: 1010; } div.hero-6 div.bg-image img { width: 100%; }
+    div.hero-6 div.triangle { background: #FFFFFF; width: 100%; height: 100%; position: absolute; z-index: 1040; clip-path: polygon(100% 55%, 0% 100%, 100% 100%); bottom: -7px; }
+}
+
+/* // XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) { 
+    
+    div.hero-6 { position: relative; }
+    div.hero-6-container { display: flex; flex-direction: column; align-items: flex-end; padding: 100px 120px; max-width: 1440px; margin: 0 auto; }
+    div.hero-6-container-header > * { text-align: start; }
+    div.hero-6 .regular-14, div.hero-6 .medium-14 { font-size: 16px; line-height: 24px; }
+    div.hero-6-container-header, div.hero-6-container-body {max-width: 588px; width: 100%; position: relative; z-index: 1060; }
+    div.hero-6 div.bg-image { position: absolute; top: 52%; left: 6%; transform: translateY(-50%); width: 588px; z-index: 1010; } div.hero-6 div.bg-image img { width: 100%; }
+    div.hero-6 div.triangle { background: #FFFFFF; width: 100%; height: 100%; position: absolute; z-index: 1040; clip-path: polygon(100% 55%, 0% 100%, 100% 100%); bottom: -7px; }
+}

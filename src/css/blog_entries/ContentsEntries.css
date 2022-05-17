@@ -1,8 +1,56 @@
+/* // X-Small devices (portrait phones, less than 576px) */ 
 div.contents-entries { width: 100%; }
-div.contents-entries-container { width: 100%; }
-div.pagination-entries {
-    width: 155px;
-    height: 21px;
-    display: block;
-    margin: 72px auto 0 auto;
+div.contents-entries-container { width: 100%; padding: 72px 24px; }
+div.pagination-entries { width: 155px; height: 21px; display: flex; margin: 72px auto 0 auto; justify-content: center;}
+div.contents-entries-container-header { margin-bottom: 38px; }
+div.contents-entries-container-header h2.subtitle { letter-spacing: 0px; } 
+div.contents-entries-container-body div.entries { display: flex; flex-direction: column; gap: 16px; align-items: center;} 
+div.contents-entries-container-body div.entries div.entry { max-width: 380px; border: 2px solid #05B2FA; border-radius: 10px; background-color: #FFFFFF; height: 100%; text-decoration: none; color: #000; }
+div.contents-entries-container-body div.entries div.entry div.entry-image { width: 100%; height: 61%; overflow: hidden; }
+div.contents-entries-container-body div.entries div.entry div.entry-image img { width: 100%; }
+div.contents-entries-container-body div.entries div.entry div.entry-text { padding: 20px; }
+div.contents-entries-container-body div.entry div.entry-text .entry-link { text-decoration: none; color: #000; }
+div.contents-entries-container-body div.entry div.entry-text .entry-link > p:first-child { text-decoration: underline; color: var(--gray); }
+div.contents-entries-container-body div.entries div.entry:hover { cursor: pointer; }
+div.contents-entries-container-body div.entries div.entry:hover div.entry-image img { transition: all 0.3s; }
+div.contents-entries-container-body div.entries div.entry:hover div.entry-image img { transform: scale(1.2); transition: all 0.3s; }
+
+/* // Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {   
+    div.contents-entries-container-body div.entries { margin: 0 auto; }
+} 
+
+/* // Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+ 
+    div.contents-entries-container-body div.entries {display: flex; flex-direction: row; gap: 16px; align-items: center; flex-wrap: wrap; justify-content: space-evenly;} 
+    div.contents-entries-container-body div.entry { min-width: 336px; width: 336px; } 
+}
+
+/* // Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) { 
+    div.contents-entries-container-body div.entries { flex-direction: row; flex-wrap: wrap; justify-content: space-evenly;} 
+    div.contents-entries-container-body div.entries div.entry { max-width: 314px; }
+}
+
+/* // X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) and (max-width: 1399.98px){ 
+    
+    div.contents-entries { padding: 100px 120px; }
+    div.contents-entries-container { max-width: 1200px; margin: 0 auto; padding: unset!important; }
+    div.contents-entries-container-header h2.subtitle { font-size: 39px; line-height: 58px; letter-spacing: 0.03em; text-align: start!important;  }
+    div.contents-entries-container-body div.entries { flex-direction: row; flex-wrap: wrap; justify-content: space-between; row-gap: 40px; } 
+}
+
+@media (min-width: 1200px) and (max-width: 1299.98px) { div.contents-entries-container-body div.entries div.entry { max-width: 306px; } }
+
+@media (min-width: 1300px) and (max-width: 1399.98px) { div.contents-entries-container-body div.entries div.entry { max-width: 340px; } }
+
+/* // XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) { 
+    div.contents-entries-container-header h2.subtitle { font-size: 39px; line-height: 58px; letter-spacing: 0.03em; text-align: start!important }
+    div.contents-entries { padding: 100px 120px; }
+    div.contents-entries-container { max-width: 1200px; margin: 0 auto; padding: unset!important; }
+    div.contents-entries-container-body div.entries { flex-direction: row; flex-wrap: wrap; justify-content: space-between; row-gap: 40px; } 
+
 }

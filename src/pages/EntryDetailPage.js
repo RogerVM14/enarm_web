@@ -7,14 +7,20 @@ import WidthContext from '../contexts/WidthContext'
 
 const EntryDetailPage = () => {
     
-    const screenSize = useContext(WidthContext);
+    const size = useContext(WidthContext);
+
+    const isMobile = () => {
+        if(['xs', 'sm', 'md'].includes(size)) return 'true';
+        if(['lg', 'xl', 'xxl'].includes(size)) return 'false';
+    } 
+
 
     return (
         <div>
-            <Hero5 width={screenSize} />
-            <Entry width={screenSize} />
-            <InterestingEntries width={screenSize} />
-            <Resources width={screenSize} />
+            <Hero5 size={size} />
+            <Entry size={size} ismobile={isMobile().toString()} />
+            <InterestingEntries size={size} ismobile={isMobile().toString()} />
+            <Resources size={size} ismobile={isMobile().toString()} />
         </div>
     )
 }
