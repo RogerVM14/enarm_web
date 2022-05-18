@@ -10,7 +10,7 @@ div.item-body.flexed-row { flex-direction: row; justify-content: space-between; 
 div.item-body.flexed-column { flex-direction: column; gap: 8px; }
 div.item-body p.collapsed-parraf { font-family: PoppinsRegular; font-style: normal; font-weight: 400; font-size: 16px; line-height: 21px; color: #000000; transition: line-height 350ms; }
 div.item.isSelected p.collapsed-parraf { line-height: 24px!important; transition: line-height 350ms; }
-
+img.image-enarm-faqs { width: 100%; max-width: 300px; }
 /* // Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) and (max-width: 767.98px) {   
     div.regular-questions div.container { max-width: 576px; margin: 0 auto;}

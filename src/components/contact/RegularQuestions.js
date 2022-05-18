@@ -80,21 +80,20 @@ const questions_list = [
                 <div>
                     <h2 className='regular-23 bold mb-12'>Precio Normal: $10,000.00</h2>
                     <h2 className='regular-23 bold mb-12'>Inscríbete hoy y obtén un increíble descuento.</h2>
-                    <h2 className='mb-12'><a className='regular-23 bold link-blue' href="https://plataformaenarm.com/" target="_blank" rel="noopener noreferrer">Para inscribirte haz → CLIC AQUI ←</a></h2>
+                    <h2 className='mb-12'><Link className='regular-23 bold link-blue' to='/registrate'>Para inscribirte haz → CLIC AQUI ←</Link></h2>
                     <p className='mb-12'>
                         <img
-                            alt=""
-                            width="300"
-                            height="300"
+                            alt="enarm"
+                            className='image-enarm-faqs'
                             src="https://plataformaenarm.com/wp-content/uploads/2021/10/PicsArt_09-13-11.41.21-1-768x768-1-300x300.jpg"
-                            />
+                        />
                     </p>
                     <p className='mb-12'>
                         <img
-                            alt=""
-                            width="300"
-                            height="300"
-                            src="https://plataformaenarm.com/wp-content/uploads/2021/10/PicsArt_09-13-12.03.02-1-768x768-1-300x300.jpg" />
+                            alt="enarm" 
+                            className='image-enarm-faqs'
+                            src="https://plataformaenarm.com/wp-content/uploads/2021/10/PicsArt_09-13-12.03.02-1-768x768-1-300x300.jpg" 
+                        />
                     </p>
                 </div>
             )
@@ -121,7 +120,7 @@ const questions_list = [
         content: () => {
             return (
                 <>
-                    <h3 className='regular-16'>Puedes inscribirte con: <a className='link-blue' href="https://bit.ly/2M5p5sB" target="_blank" rel="noopener noreferrer">Para inscribirte haz: → CLIC AQUI ←</a></h3>
+                    <h3 className='regular-16'>Puedes inscribirte con: <Link className='regular-23 bold link-blue' to='/registrate'>Para inscribirte haz → CLIC AQUI ←</Link></h3>
                     <ul className='ml-16'>
                         <li><p className="regular-14">Crédito: <span className='sky-blue'>Todas las tarjetas Visa y MasterCard.</span></p></li>
                         <li><p className="regular-14">Débito: <span className="sky-blue">Todas las tarjetas Banamex, BBVA Bancomer, Santander, HSBC, Banorte e IXE (solo tarjetas de débito de cuentas bancarias en México).</span></p></li>
