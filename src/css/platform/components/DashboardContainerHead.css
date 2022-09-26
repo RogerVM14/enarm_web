@@ -1,0 +1,107 @@
+div.c-dashboard-header {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background-color: #fff;
+    margin-left: -24px;
+    margin-right: -24px;
+    margin-top: -12px;
+    padding: 12px 24px 16px 24px;
+}
+
+div.breadcrumb {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    min-width: 302px;
+    height: 22px;
+    gap: 8px
+} 
+
+.gray-textColor {
+    color: rgba(0, 0, 0, 0.45);
+}
+
+div.c-dashboard-header div.heading-left div.content img {
+    width: 72px;
+    height: 72px;
+}
+
+div.c-dashboard-header div.heading-left div.content {
+    display: flex;
+    height: 72px;
+    max-height: 72px;
+    justify-content: space-between;
+}
+
+div.layout-blocks.horizontal {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+div.layout-blocks.vertical {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.gap24 {
+    gap: 24px;
+}
+
+.gap64 {
+    gap: 64px;
+}
+
+.pt5 {
+    padding-top: 5px;
+}
+
+.pb5 {
+    padding-bottom: 5px;
+}
+
+.roboto-20 {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 28px;
+    color: rgba(0, 0, 0, 0.85);
+}
+
+
+.alignItem-end {
+    align-items: flex-end;
+}
+
+
+
+.search-bar-container {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    padding: 0 16px;
+}
+
+.search-bar-container input {
+    flex-grow: 1;
+    height: 32px;
+    border: 1px solid #D9D9D9;
+    padding: 4px 12px;
+    color: rgba(0, 0, 0, 0.25);
+}
+
+.search-bar-container button.button-search-icon {
+    height: 32px;
+    width: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #d9d9d9;
+    border-left: none;
+    background: white;
+    flex-grow: 0;
+}

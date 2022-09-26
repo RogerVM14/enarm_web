@@ -1,0 +1,31 @@
+div.gratification-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1090;
+    width: 100%;
+    max-width: 588px;
+    padding: 40px;
+    align-items: center;
+}
+
+div.gratification-container img {
+    width: 413px;
+    position: relative;
+} 
+
+div.gratification-container h1 {
+    text-align: center;
+    width: 588px;
+    position: relative;
+    top: -32px;
+}
+
+div.gratification-container > span {
+    position: relative;
+    top: -32px;
+    display: block;
+    width: 534px;
+    text-align: center;
+}

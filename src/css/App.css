@@ -1,12 +1,14 @@
 :root {
     --sky-blue: #05B2FA;
-    --blue: #1E73BE;
+    --blue: #1E73BE; 
     --white: #FFF;
     --dark: #343a40;
     --gray: #96ACBC;
     --black: #000;
     --red: #F15E5E;
     --green: #04b43e;
+
+    --roboto: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 @font-face { font-family: PoppinsLight; src: url('../assets/fonts/Poppins/Poppins-Light.ttf'); }
@@ -60,24 +62,39 @@ body {
 .bold-44 { font-family: PoppinsBold; font-style: normal; font-weight: 700; font-size: 44px; line-height: 57px; }
 .bold-39 { font-family: PoppinsBold; font-style: normal; font-weight: 700; font-size: 39px; line-height: 58px; letter-spacing: 0.03em; }
 .bold-33 { font-family: PoppinsBold; font-style: normal; font-weight: 700; font-size: 33px; line-height: 50px; letter-spacing: 0.03em; }
+.bold-20 { font-family: PoppinsBold; font-style: normal; font-weight: 700; font-size: 20px; line-height: 30px; }
+.bold-18 { font-family: PoppinsBold; font-style: normal; font-weight: 700; font-size: 18px; line-height: 27px; }
 .bold-16-nomb { font-family: PoppinsBold; font-style: normal; font-weight: 700; font-size: 16px; line-height: 24px; }
-.bold-14 { font-family: PoppinsBold; font-style: normal; font-weight: 700; font-size: 14px; line-height: 21px; display: flex; align-items: center; }
+.bold-14 { font-family: PoppinsBold; font-style: normal; font-weight: 700; font-size: 14px; line-height: 21px;}
+.bold-14-fx { font-family: PoppinsBold; font-style: normal; font-weight: 700; font-size: 14px; line-height: 21px; display: flex; align-items: center; }
+.semibold-24 { font-family: PoppinsSemiBold; font-style: normal; font-weight: 600; font-size: 24px; line-height: 32px; }
+.semibold-22 { font-family: PoppinsSemiBold; font-style: normal; font-weight: 600; font-size: 22px; line-height: 28px; }
+.semibold-16 { font-family: PoppinsSemiBold; font-style: normal; font-weight: 600; font-size: 16px; line-height: 24px; }
 .semibold-14 { font-family: PoppinsSemiBold; font-style: normal; font-weight: 600; font-size: 14px; line-height: 21px; }
 .medium-33 { font-family: PoppinsMedium; font-style: normal; font-weight: 500; font-size: 33px; line-height: 50px; }
 .medium-29 { font-family: PoppinsMedium; font-style: normal; font-weight: 500; font-size: 29px; line-height: 44px; }
+.medium-20 { font-family: PoppinsMedium; font-style: normal; font-weight: 500; font-size: 20px; line-height: 30px; }
+.medium-18 { font-family: PoppinsMedium; font-style: normal; font-weight: 500; font-size: 18px; line-height: 28px; }
 .medium-16 { font-family: PoppinsMedium; font-style: normal; font-weight: 500; font-size: 16px; line-height: 24px; }
 .medium-14 { font-family: PoppinsMedium; font-style: normal; font-weight: 500; font-size: 14px; line-height: 21px; }
+
+.roboto-14 { font-family: var(--roboto); font-style: normal; font-weight: 500; font-size: 14px; line-height: 21px; }
+.roboto-12 { font-family: var(--roboto); font-style: normal; font-weight: 400; font-size: 12px; line-height: 20px; }
 .montse-16 { font-family: MontserratSemiBold; font-style: normal; font-weight: 500; font-size: 16px; line-height: 20px; letter-spacing: 0.02em;}
+.montse-18 { font-family: MontserratSemiBold; font-style: normal; font-weight: 500; font-size: 18px; line-height: 22px; }
 .regular-60 { font-family: PoppinsRegular; font-style: normal; font-weight: 400; font-size: 60px; line-height: 90px; display: flex; align-items: center; }
 .regular-47 { font-family: PoppinsRegular; font-style: normal; font-weight: 400; font-size: 47px; line-height: 70px; letter-spacing: 0.03em; }
 .regular-23 { font-family: PoppinsRegular; font-style: normal; font-weight: 400; font-size: 22px; line-height: 34px; }
 .regular-20 { font-family: PoppinsRegular; font-style: normal; font-weight: 400; font-size: 20px; line-height: 30px; }
 .regular-16 { font-family: PoppinsRegular; font-style: normal; font-weight: 400; font-size: 16px; line-height: 24px; }
 .regular-14 { font-family: PoppinsRegular; font-style: normal; font-weight: 400; font-size: 14px; line-height: 21px; }
+.regular-12 { font-family: PoppinsRegular; font-style: normal; font-weight: 400; font-size: 12px; line-height: 22px; }
+.regular-10 { font-family: PoppinsRegular; font-style: normal; font-weight: 400; font-size: 10px; line-height: 16px; }
 .blue-link { font-family: MontserratBold; font-style: normal; font-weight: 800; font-size: 18px; line-height: 22px; letter-spacing: 0.02em; color: var(--sky-blue); }
 .white-link { font-family: MontserratBold; font-style: normal; font-weight: 800; font-size: 18px; line-height: 22px; letter-spacing: 0.02em; color: var(--white); }
 .button-text-white { font-family: MontserratBold; font-style: normal; font-weight: 700; font-size: 14px; line-height: 24px; letter-spacing: 0.02em; color: var(--white); }
 .italic { font-style: italic!important; }
+.bold { font-weight: bold!important; }
 /* COLORS */
 .sky-blue { color: var(--sky-blue)!important; }
 .blue { color: var(--blue)!important; }
@@ -98,8 +115,11 @@ body {
 .bg-red { background: var(--red)!important; }
 .bg-green { background: var(--green)!important; }
 
+.uppercase { text-transform: uppercase;}
+.pointer { cursor: pointer; }
 /* TEXT DECORATIONS*/
 .line-through { text-decoration-line: line-through; }
+.lh-32 { line-height: 32px; }
 
 /* INPUTS */
 .form-input-text { background: var(--white); border: 1px solid var(--gray); border-radius: 10px; width: 100%; height: 58px; padding: 16px auto 16px 16px; }
@@ -176,6 +196,7 @@ button:hover { cursor: pointer; background-color: #00A0E2; }
 
 /* MARGINS */
 .mb-4 { margin-bottom: 4px; }
+.mb-12 { margin-bottom: 12px;}
 .mb-16 { margin-bottom: 16px; }
 .mb-24 { margin-bottom: 24px; }
 .mb-27 { margin-bottom: 27px; }
@@ -191,8 +212,10 @@ button:hover { cursor: pointer; background-color: #00A0E2; }
 .mt-27 { margin-top: 27px; }
 .mt-32 { margin-top: 32px; }
 
-/* GLOBAL */ 
+.ml-16 { margin-left: 16px; }
 
+/* GLOBAL */ 
+.link-blue { color: var(--sky-blue); text-decoration: none; } 
 .menu-visible { display: block; visibility: visible; opacity: 1; transition: all 0.4s linear; }
 .menu-hidden { display: none; visibility: hidden; opacity: 0; transition: all 0.4s linear; }
 

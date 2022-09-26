@@ -1,0 +1,74 @@
+div.advices-news-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px 24px 16px;
+    gap: 12px;
+
+}
+.list-styled {
+    list-style: disc;
+}
+
+.dateList-ul {
+    margin-left: 20px;
+}
+
+.dateList-ul li > * {
+    font-size: 14px;
+}
+
+.dateplans-card p > * {
+    font-size: 14px;
+}
+
+.dateplans-card:not(:last-child) {
+    margin-bottom: 20px;
+}
+
+div.advices-news-container div.content-head {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 24px;
+}
+
+div.sub_content-head {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 72px;
+    padding: 5px 0;
+}
+
+/* RESPONSIVE */
+
+.main-container.smart .advices-news-container {
+    padding: 12px;
+    background-color: #fff;
+    gap: unset !important;
+}
+
+div.main-container.smart {
+    background: #f0f2f5;
+    padding: 12px 16px;
+}
+
+.lineHeight-24 {
+    line-height: 24px;
+}
+
+.content-head.smart {
+    gap: 12px!important;
+    align-items: flex-start !important;
+    margin: 12px 0px;
+}
+.sub_content-head.smart {
+    height: unset !important;
+    padding: unset !important;
+    gap: 12px;
+}
+
+.main-container.smart .advices-news-container > span {
+    margin-bottom: 20px;
+}

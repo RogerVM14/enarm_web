@@ -1,0 +1,244 @@
+div.checkout-container {
+    display: block;
+    position: relative;
+    padding: 120px 120px 63px 120px;
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+div.payment-container {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    margin-top: 30px;
+    margin-bottom: 54px;
+}
+
+div.payment-options-box {
+    width: 100%;
+    max-width: 588px;
+    outline: 1px solid #96ACBC;
+    border-radius: 10px;
+    background: white;
+}
+
+div.payment-options-box div.options-payments {
+    display: flex;
+    flex-direction: column;
+}
+
+div.options-payments div.payment {
+    display: flex;
+    flex-direction: column;
+    outline: 1px solid #fff;
+    background: #96acbc4d;
+}
+
+div.options-payments div.payment.selected {
+    background: white !important;
+}
+
+
+div.payment div.payment__head {
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+div.payment div.payment__head div.payment-type {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    height: 28px;
+    align-items: center;
+}
+
+div.payment div.payment__head div.payment-type div.input-span {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    align-items: baseline;
+}
+
+div.payment div.payment__head p {
+    display: block;
+    max-width: 344px;
+    margin-left: 24px;
+}
+
+div.payment.oxxo-payment {
+    background: rgba(150, 172, 188, 0.3);
+    border-radius: 10px 10px 0px 0px;
+}
+
+div.payment.bank-payment {
+    border-radius: 0px 0px 10px 10px;
+}
+
+div.payment-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 27px;
+}
+
+
+div.payment-form form div.form-input {
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+div.payment-form form div.form-input input[type="text"] {
+    background: #FFFFFF;
+    border: 1px solid #96ACBC;
+    border-radius: 10px;
+    padding: 16px 17px;
+}
+
+div.payment-form form div.form-input input[type="text"]::placeholder {
+    color: #96ACBC;
+}
+
+div.two-input-forms {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 80px;
+    justify-content: space-between;
+}
+
+div.payment div.payment__body {
+    padding: 32px 32px 0px 32px;
+}
+
+
+
+div.payment-details-box {
+    width: 100%;
+    max-width: 526px;
+}
+
+div.payment-details-box div.details-payments {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+div.payment-details-box div.details-payments div.details {
+    padding: 40px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    border-radius: 10px;
+}
+
+div.details-payments div.details div.details__top,
+div.details-payments div.details div.details__calculate {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+div.details-payments div.details div.details__top h1 {
+    margin-bottom: 12px;
+}
+
+div.details-payments div.details div.details__calculate div,
+div.details-payments div.details div.details__total {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+div.details-payments div.message {
+    background: #1E73BE;
+    border-radius: 10px;
+    padding: 40px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 8px;
+}
+
+.checkout-payment {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.checkout-payment:not(.xs) p {
+    color: rgba(150, 172, 188, 1);
+    width: 415px;
+    display: block;
+    margin: 0 auto;
+}
+
+button.backpage-btn {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    justify-content: flex-start;
+    background: none;
+    align-items: center;
+    border: none;
+    color: rgba(150, 172, 188, 1);
+}
+
+.background-gradial {
+    background: linear-gradient(180deg, #fff 42.12%, #E2ECF8 72.95%);
+    width: 100vw;
+    height: 1014px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    clip-path: polygon(0 0, 100% 0, 100% 55%, 0% 100%);
+}
+
+/* Responsive */
+
+div.checkout-container.xs {
+    padding: 60px 24px 40px 24px;
+}
+
+div.checkout-container.xs div.payment-container {
+    margin-bottom: 32px;
+}
+
+div.payment-details-box.xs div.details-payments div.details {
+    padding: 28px;
+}
+
+div.payment-details-box.xs div.details-payments div.details div.details__calculate {
+    gap: 8px;
+}
+
+div.payment-details-box.xs div.details-payments div.details div.details__top {
+    gap: 4px;
+}
+
+div.payment-details-box.xs div.details-payments div.details div.details__top h1 {
+    margin-bottom: 18px;
+    white-space: nowrap;
+}
+
+div.payment-details-box.xs div.details-payments div.details div.details-payments div.message {
+    padding: 28px;
+}
+
+.payment-details-box.xs {
+    margin-top: -32px;
+}
+
+.checkout-payment.xs p {
+    color: rgba(150, 172, 188, 1);
+    text-align: center;
+}
+
+.background-gradial.xs {
+    height: 90vh;
+    clip-path: unset;
+}

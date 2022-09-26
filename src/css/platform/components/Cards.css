@@ -1,0 +1,45 @@
+div.c-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    outline: 1px solid white;
+    width: 284px;
+    height: 181px;
+}
+
+div.c-card div.c-card-head {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 16px;
+    width: 284px;
+    height: 40px;
+    background: #1E73BE;
+    outline: 1px solid white;
+}
+
+div.c-card div.c-card-head a {
+    color: #05B2FA;
+    text-decoration: none;
+}
+
+div.c-card div.c-card-head span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+div.c-card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+    gap: 8px;
+
+    outline: 1px solid white;
+    width: 284px;
+    height: 141px;
+    background: #1E73BE;
+}

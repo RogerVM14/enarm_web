@@ -1,7 +1,6 @@
 /* // X-Small devices (portrait phones, less than 576px) */
 
-header { position: relative; top: 0; left: 0; padding: 0px 24px; width: 100%; max-width: 1440px;
-    margin: 0 auto;}
+header.enarm-land { position: relative; top: 0; left: 0; padding: 0px 24px; width: 100%; max-width: 1440px; z-index: 1080; margin: 0 auto;}
 nav.navbar div.navbar-container { display: flex; flex-direction: row; max-width: 100%; max-height: 80px; }
 div.navbar-logo-container { max-width: 80px; max-height: 80px; }
 div.navbar-container div.sub-container ul.session { display: flex; flex-direction: row; flex-wrap: nowrap; list-style: none; gap: 20px; align-items: center; }

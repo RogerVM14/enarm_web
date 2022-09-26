@@ -1,0 +1,77 @@
+div.main-container.smart {
+    background: rgb(240, 242, 245);
+    padding: 12px 16px !important;
+}
+
+.study-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.wrapper-header div {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 12px;
+    align-items: center;
+}
+
+.wrapper-header.smart div {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 8px;
+    align-items: center;
+}
+
+.wrapper-body>div:first-child {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.guide-title {
+    display: flex;
+    flex-direction: column;
+}
+
+.guide-download button {
+    width: 230px;
+    height: 24px;
+    background: #FFFFFF;
+    border: 1px solid #D9D9D9;
+    box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.016);
+    border-radius: 2px;
+}
+
+.study-wrapper .wrapper-body {
+    padding: 24px;
+    background: #FFFFFF;
+}
+
+.study-wrapper .wrapper-header {
+    background: #FFFFFF;
+    box-shadow: inset 0px -1px 0px #F0F0F0;
+    padding: 16px 24px;
+}
+
+.study-wrapper.smart .wrapper-header.smart {
+    padding: 14px 0px 16px 14px;
+}
+
+.study-wrapper.smart .wrapper-body.smart {
+    padding: 16px !important;
+}
+
+.fontWeight-700 {
+    font-weight: 700;
+}
+
+.guide-download.smart {
+    margin-bottom: 8px;
+    margin-top: 24px;
+}
+
+.guide-download.smart button {
+    width: 100%;
+    text-decoration: underline;
+}
