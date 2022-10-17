@@ -1,16 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  userData: {
+  userInformation: {
     first: "",
     last: "",
     email: "",
     email_verified: false,
     picture: "",
-    updated_at: "",
+    create_at: "",
     isMemberActive: null,
+    phone: "",
+    userName: "",
   },
-  userPayData: {
+  userPaymentInformation: {
     phone: "",
     userName: "",
     email: "",
@@ -21,13 +23,16 @@ export const UserInformationSlice = createSlice({
   name: "userInformation",
   initialState,
   reducers: {
-    setUserPayData(state, { payload }) {
-      state.userPayData = payload;
+    setUserInformation(state, { payload }) {
+      state.userInformation = payload;
     },
+    setUserPaymentInformation(state, { payload}){
+      state.userPaymentInformation = payload;
+    }
   },
 });
 
-export const { setUserPayData } = UserInformationSlice.actions;
+export const { setUserInformation } = UserInformationSlice.actions;
 
 export const selectIsAuthorized = (state) => state.user.isAuthorized;
 

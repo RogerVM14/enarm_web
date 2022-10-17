@@ -73,14 +73,24 @@ const RegisterForm = ({ size }) => {
         <div className="form-container reveal-load">
             <form method='POST' onSubmit={handleSubmit}>
                 <div className="form-group">
+                    <label className={fontSizeClass('medium')} htmlFor="form-user">Nombre completo*</label>
+                    <input type="text" name="userName" id="form-user"  placeholder='Federico Peréz Ochoa'/>
+                    {/* <span className={`${fontSizeClass('medium')} red`}>Error message</span> */}
+                </div>
+                <div className="form-group">
                     <label className={fontSizeClass('medium')} htmlFor="form-user">Correo electrónico*</label>
                     <input type="text" name="user" id="form-user"  placeholder='Tu usuario o corréo electrónico'/>
-                    <span className={`${fontSizeClass('medium')} red`}>Error message</span>
+                    {/* <span className={`${fontSizeClass('medium')} red`}>Error message</span> */}
                 </div>
                 <div className="form-group">
                     <label className={fontSizeClass('medium')} htmlFor="form-password">Contraseña*</label>
                     <input type="password" name="password" id="form-password"  placeholder='Tu contraseña'/>
-                    <span className={`${fontSizeClass('medium')} red`}>Error message</span>
+                    {/* <span className={`${fontSizeClass('medium')} red`}>Error message</span> */}
+                </div> 
+                <div className="form-group">
+                    <label className={fontSizeClass('medium')} htmlFor="form-password">Numero Telefónico*</label>
+                    <input type="number" name="phoneNumber" id="form-password"  placeholder='355-5454-845'/>
+                    {/* <span className={`${fontSizeClass('medium')} red`}>Error message</span> */}
                 </div> 
                 <button className='button-rounded-blue-48' type="submit">
                     <span className="button-text">
