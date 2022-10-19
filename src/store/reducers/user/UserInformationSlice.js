@@ -2,15 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   userInformation: {
-    first: "",
-    last: "",
+    fullname: "",
     email: "",
+    password: "",
+    phoneNumber: "",
     email_verified: false,
     picture: "",
     create_at: "",
     isMemberActive: null,
-    phone: "",
-    userName: "",
   },
   userPaymentInformation: {
     phone: "",
