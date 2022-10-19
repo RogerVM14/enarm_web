@@ -19,7 +19,6 @@ const PaymentDetailsContainer = (props) => {
     return isMobile ? "bold-14" : "bold-16";
   };
 
-
   return (
     <div className={`payment-details-box ${size}`}>
       <div className="details-payments">
@@ -79,7 +78,7 @@ const PaymentDetailsContainer = (props) => {
           <button
             className="button-rounded-blue-48"
             // type="submit"
-            onClick={ ()=> handleSubmitPayment()  }
+            onClick={() => handleSubmitPayment()}
           >
             <span className="button-text">Aceptar compra</span>
           </button>

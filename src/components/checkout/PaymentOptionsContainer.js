@@ -3,6 +3,7 @@ import React from "react";
 import americanexpress from "../../assets/icons/checkout/americanexpress.png";
 import visa from "../../assets/icons/checkout/visa.png";
 import mastercard from "../../assets/icons/checkout/mastercard.png";
+
 // import paypal from "../../assets/icons/checkout/paypal.png";
 const PaymentOptionsContainer = (props) => {
   const { size, isMobile, paymentInfoSetState } = props;
@@ -21,6 +22,7 @@ const PaymentOptionsContainer = (props) => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
+    console.log(name, value);
     paymentInfoSetState((prevState) => {
       return {
         ...prevState,
@@ -29,6 +31,8 @@ const PaymentOptionsContainer = (props) => {
     });
     
   };
+
+  
 
   //   const handlePaymentProcess = (cardNumber,cvv) => {
   //     console.log(
@@ -123,7 +127,7 @@ const PaymentOptionsContainer = (props) => {
                     name="cardNumber"
                     id=""
                     placeholder="6655-8844-2233-5599"
-                    onClick={(e) => handleChange(e)}
+                    onChange={(e) => handleChange(e)}
                   />
                 </div>
                 {isMobile ? (
@@ -138,7 +142,7 @@ const PaymentOptionsContainer = (props) => {
                         name="cvv"
                         id=""
                         placeholder="xxx"
-                        onClick={(e) => handleChange(e)}
+                        onChange={(e) => handleChange(e)}
                       />
                     </div>
                     <div className="form-input">
@@ -151,7 +155,7 @@ const PaymentOptionsContainer = (props) => {
                         name="expiredDate"
                         id=""
                         placeholder="MM/YY"
-                        onClick={(e) => handleChange(e)}
+                        onChange={(e) => handleChange(e)}
                       />
                     </div>
                   </>
@@ -167,7 +171,7 @@ const PaymentOptionsContainer = (props) => {
                         name="cvv"
                         id=""
                         placeholder="xxx"
-                        onClick={(e) => handleChange(e)}
+                        onChange={(e) => handleChange(e)}
                       />
                     </div>
                     <div className="form-input">
@@ -180,7 +184,7 @@ const PaymentOptionsContainer = (props) => {
                         name="expiredDate"
                         id=""
                         placeholder="MM/YY"
-                        onClick={(e) => handleChange(e)}
+                        onChange={(e) => handleChange(e)}
                       />
                     </div>
                   </div>
@@ -195,7 +199,7 @@ const PaymentOptionsContainer = (props) => {
                     name="cardOwnerName"
                     id=""
                     placeholder="Nombre como aparece en tarjeta"
-                    onClick={(e) => handleChange(e)}
+                    onChange={(e) => handleChange(e)}
                   />
                 </div>
               </form>

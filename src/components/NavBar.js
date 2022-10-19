@@ -56,7 +56,7 @@ const NavBar = ({ size, ismobile }) => {
                                 <ul className='session'>
                                     <li className='get_course'>
                                         <button className='button-rounded-blue-35 button-text-white'
-                                            onClick={() => { navigate("/checkout") }}>
+                                            onClick={() => { navigate("/registrate") }}>
                                             <span className="button-text">Obtener Curso</span>
                                         </button>
                                     </li>
@@ -137,7 +137,7 @@ const NavBar = ({ size, ismobile }) => {
                                 <ul className='actions'>
                                     <li className='get_course'>
                                         <button className='button-rounded-blue-35 button-text-white'
-                                            onClick={() => { navigate("/checkout") }}>
+                                            onClick={() => { navigate("/registrate") }}>
                                             <span className="button-text">
                                                 Obtener Curso
                                             </span>
@@ -222,7 +222,7 @@ const NavBar = ({ size, ismobile }) => {
                         </ul>
                         <button
                             className='button-rounded-blue-48 button-text-white'
-                            onClick={() => { navigate("/checkout") }}>
+                            onClick={() => { navigate("/registrate") }}>
                             <span className="button-text" >
                                 Obtener Curso
                             </span>

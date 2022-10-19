@@ -1,4 +1,3 @@
-import {CONFIG_CONSTANTS} from './conektaConfig'
 const conektaHelper = {
   initConekta: () => {
     window.Conekta?.setPublicKey("key_OYV6AvqGFGPIu3As8AMNWqJ")

@@ -5,10 +5,12 @@ import PaymentOptionsContainer from "../components/checkout/PaymentOptionsContai
 import PaymentDetailsContainer from "../components/checkout/PaymentDetailsContainer";
 import WidthContext from "../contexts/WidthContext";
 import conektaHelper from "../utils/conekta/conektaUtils";
+import { createOrder } from "../apis/conekta/conektaApi";
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
   const [stepDetails, setStepDetails] = useState(false);
+  // const [cardTokenId, setCardTokenId] = useState("");
   const size = useContext(WidthContext);
   const isMobile = () => {
     if (["xs", "sm", "md"].includes(size)) return true;
@@ -22,23 +24,47 @@ const CheckoutPage = () => {
     cardOwnerName: "",
   });
 
-  const handleSubmitPaymentInformation = () => {
-    console.log(paymentCheckoutiInfo);
-    console.log(
-      "CardNumberValidation ",
-      conektaHelper.validateCardNumber(paymentCheckoutiInfo.cardNumber)
-    );
-    console.log(
-      "brandValidation ",
-      conektaHelper.getCardBrand(paymentCheckoutiInfo.cardNumber)
-    );
-    console.log(
-      "CardCvcValidation ",
-      conektaHelper.validateCvc(paymentCheckoutiInfo.cvv)
-    );
-    console.log(
-      "CardExpirationDateValidation ",
-      conektaHelper.validateExpirationDate(paymentCheckoutiInfo.expiredDate)
+  const successCallback = (res) => {
+    // const orderData = {
+    //   ...paymentCheckoutiInfo,
+    //   cardTokenId: res.id,
+    //   expiryMonth: paymentCheckoutiInfo.expiredDate.substring(0, 2),
+    //   expiryYear: paymentCheckoutiInfo.expiredDate.substring(
+    //     3,
+    //     paymentCheckoutiInfo.expiredDate.length
+    //   ),
+    // };
+    // console.log(orderData);
+    const order = createOrder(res.id);
+    order.then((res) => {
+      console.log(res);
+    });
+  };
+  const errorCallback = () => {
+    console.log("Todo mal");
+  };
+
+  const handleSubmitPaymentInformation = async () => {
+    // conektaHelper.tokenize(
+    //   "4242424242424242",
+    //   "Fernado Ochoa Sanchez",
+    //   "12",
+    //   "2023",
+    //   "123",
+    //   (res) => successCallback(res),
+    //   errorCallback
+    // );
+    conektaHelper.tokenize(
+      paymentCheckoutiInfo.cardNumber,
+      paymentCheckoutiInfo.cardOwnerName,
+      paymentCheckoutiInfo.expiredDate.substring(0, 2),
+      paymentCheckoutiInfo.expiredDate.substring(
+        3,
+        paymentCheckoutiInfo.expiredDate.length
+      ),
+      paymentCheckoutiInfo.cvv,
+      (res) => successCallback(res),
+      errorCallback
     );
   };
 
@@ -56,7 +82,7 @@ const CheckoutPage = () => {
           <PaymentDetailsContainer
             size={size}
             isMobile={isMobile()}
-            paymentInfo={paymentCheckoutiInfo}
+            handleSubmitPayment={handleSubmitPaymentInformation}
           />
         </div>
         <button
