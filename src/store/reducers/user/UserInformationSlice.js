@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   userInformation: {
-    fullname: "",
+    nameUser: "",
     email: "",
     password: "",
     phoneNumber: "",
@@ -25,14 +25,16 @@ export const UserInformationSlice = createSlice({
     setUserInformation(state, { payload }) {
       state.userInformation = payload;
     },
-    setUserPaymentInformation(state, { payload}){
+    setUserPaymentInformation(state, { payload }) {
       state.userPaymentInformation = payload;
-    }
+    },
+    resetUserInformation: () => initialState,
   },
 });
 
-export const { setUserInformation } = UserInformationSlice.actions;
+export const { setUserInformation, resetUserInformation } = UserInformationSlice.actions;
 
-export const selectIsAuthorized = (state) => state.user.isAuthorized;
+export const selectUserInformation = (state) => state.user.userInformation;
+export const selectUserName = (state) => state.user.userInformation.nameUser;
 
 export default UserInformationSlice.reducer;

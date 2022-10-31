@@ -5,7 +5,7 @@ import greenshield from "../../assets/icons/checkout/greenshield.png";
 const PaymentDetailsContainer = (props) => {
   const navigate = useNavigate();
 
-  const { size, isMobile, handleSubmitPayment } = props;
+  const { size, isMobile, handleSubmitPayment, isLoading } = props;
 
   const regularText = () => {
     return isMobile ? "regular-14" : "regular-16";
@@ -80,7 +80,9 @@ const PaymentDetailsContainer = (props) => {
             // type="submit"
             onClick={() => handleSubmitPayment()}
           >
-            <span className="button-text">Aceptar compra</span>
+            <span className="button-text">
+              {isLoading ? "Realizando tu pago" : "Aceptar compra"}
+            </span>
           </button>
           <p className="regular-12">
             Al presionar el botón Aceptar compra accedes a adquirir el curso.

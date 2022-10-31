@@ -14,14 +14,15 @@ export const createTokenForTransaction = () => {
   return axios(requestInfo);
 };
 
-export const createOrder = (cardToken) => {
+export const createOrder = (payload) => {
   const requestInfo = {
     method: "POST",
-    url: "http://localhost:4000/conekta",
+    url: "https://7gb741dj56.execute-api.us-west-1.amazonaws.com/v1/conekta/card-payment",
     headers: {
       "Content-Type": "application/json",
     },
-    data: { cardTokenId: cardToken },
+    data: payload,
   };
   return axios(requestInfo);
 };
+
