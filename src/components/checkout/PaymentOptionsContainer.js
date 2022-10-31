@@ -26,7 +26,6 @@ const PaymentOptionsContainer = (props) => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    console.log(name, value);
     paymentInfoSetState((prevState) => {
       return {
         ...prevState,
