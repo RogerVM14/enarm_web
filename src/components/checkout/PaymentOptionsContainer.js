@@ -1,45 +1,48 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 // import oxxopay from "../../assets/icons/checkout/oxxopay.png";
-import americanexpress from "../../assets/icons/checkout/americanexpress.png";
-import visa from "../../assets/icons/checkout/visa.png";
-import mastercard from "../../assets/icons/checkout/mastercard.png";
+// import americanexpress from "../../assets/icons/checkout/americanexpress.png";
+// import visa from "../../assets/icons/checkout/visa.png";
+// import mastercard from "../../assets/icons/checkout/mastercard.png";
+import Conekta from "../Conekta";
 
 // import paypal from "../../assets/icons/checkout/paypal.png";
 const PaymentOptionsContainer = (props) => {
-  const [cardNumber, setCardNumber] = useState("");
-  const [cvvCode, setCvvCode] = useState("");
-  const [expireDate, setExpireDate] = useState("");
+  // const [cardNumber, setCardNumber] = useState("");
+  // const [cvvCode, setCvvCode] = useState("");
+  // const [expireDate, setExpireDate] = useState("");
 
-  const { size, isMobile, paymentInfoSetState } = props;
+  const { size, handleSuccesPayment } = props;
+  // const { size, isMobile, paymentInfoSetState } = props;
 
-  const regularText = () => {
-    return isMobile ? "regular-14" : "regular-16";
-  };
+  // const regularText = () => {
+  //   return isMobile ? "regular-14" : "regular-16";
+  // };
 
-  const mediumText = () => {
-    return isMobile ? "medium-14" : "medium-16";
-  };
+  // const mediumText = () => {
+  //   return isMobile ? "medium-14" : "medium-16";
+  // };
 
-  const boldText = () => {
-    return isMobile ? "bold-14" : "bold-16";
-  };
+  // const boldText = () => {
+  //   return isMobile ? "bold-14" : "bold-16";
+  // };
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    paymentInfoSetState((prevState) => {
-      return {
-        ...prevState,
-        [name]: value,
-      };
-    });
-  };
+  useEffect(() => {}, []);
 
-  const onlyNumberValidation = (event) => {
-    if (!Number(event.target.value) && event.target.value !== "") return false;
-    handleChange(event);
-    return true;
-  };
+  // const handleChange = (event) => {
+  //   const { name, value } = event.target;
+  //   paymentInfoSetState((prevState) => {
+  //     return {
+  //       ...prevState,
+  //       [name]: value,
+  //     };
+  //   });
+  // };
 
+  // const onlyNumberValidation = (event) => {
+  //   if (!Number(event.target.value) && event.target.value !== "") return false;
+  //   handleChange(event);
+  //   return true;
+  // };
 
   //Handles Functions
   //   const handleOwnerName = (name) => setCardOwnerName(name);
@@ -50,6 +53,7 @@ const PaymentOptionsContainer = (props) => {
   return (
     <div className={`payment-options-box ${size}`}>
       <div className="options-payments">
+        <Conekta handleSuccess = { handleSuccesPayment} />
         {/* <div className="payment oxxo-payment">
           <div className="payment__head">
             <div className="payment-type">
@@ -84,7 +88,7 @@ const PaymentOptionsContainer = (props) => {
             </p>
           </div>
         </div> */}
-        <div className="payment bank-payment selected">
+        {/* <div className="payment bank-payment selected">
           <div className="payment__head">
             <div className="payment-type">
               <div className="input-span">
@@ -232,7 +236,7 @@ const PaymentOptionsContainer = (props) => {
               </form>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
