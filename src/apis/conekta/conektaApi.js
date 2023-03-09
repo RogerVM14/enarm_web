@@ -1,23 +1,22 @@
 import axios from "axios";
+const { REACT_APP_ENARM_API_GATEWAY_URL } = process.env
 
-export const createTokenForTransaction = () => {
+export const createClientConekta = (payload) => {
   const requestInfo = {
     method: "POST",
-    url: "https://api.conekta.io/tokens",
+    url: `${REACT_APP_ENARM_API_GATEWAY_URL}conekta/crear-cliente`,
     headers: {
-      Authorization: "Basic a2V5X09ZVjZBdnFHRkdQSXUzQXM4QU1OV3FK",
-      Accept: "application/vnd.conekta-v2.0.0+json",
       "Content-Type": "application/json",
     },
-    data: { checkout: { returns_control_on: "Token" } },
+    data: payload,
   };
   return axios(requestInfo);
 };
 
-export const createOrder = (payload) => {
+export const createOrderConekta = (payload) => {
   const requestInfo = {
     method: "POST",
-    url: "https://7gb741dj56.execute-api.us-west-1.amazonaws.com/v1/conekta/card-payment",
+    url: `${REACT_APP_ENARM_API_GATEWAY_URL}conekta/crear-orden`,
     headers: {
       "Content-Type": "application/json",
     },
