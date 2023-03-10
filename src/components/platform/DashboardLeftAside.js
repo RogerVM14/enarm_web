@@ -19,7 +19,7 @@ import userIcon from "../../assets/icons/platform/default-user-icon.png";
 
 import { useLogout } from "../../contexts/useLogout";
 import { useSelector } from "react-redux";
-import { selectUserName } from "../../store/reducers/user/UserInformationSlice";
+import { selectUserEmail } from "../../store/reducers/user/UserInformationSlice";
 
 const activeStyle = { color: "rgba(30, 115, 190, 1)" };
 const subMenuActiveStyle = {
@@ -105,7 +105,7 @@ const DashboardLeftAside = (props) => {
   const [isShowingSessionTools, setSessionTools] = useState(false);
   const { deviceType, isSmart, menuActive } = props;
 
-  const userName = useSelector(selectUserName);
+  const userName = useSelector(selectUserEmail);
   const { isShort, handleDashboardAsideMenu } = useContext(DashAsideContext);
   const { currentPosition, subPosition, handleNavLink, handleNavSubLink } =
     useContext(AsidePositionContext);

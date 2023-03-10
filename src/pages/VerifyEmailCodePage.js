@@ -1,8 +1,15 @@
 import React, { useRef, useState } from "react";
 import "../css/VerifyEmailCode.css";
 import verifyIcon from "../assets/icons/verify-email-icon.png";
+import { useSelector } from "react-redux";
+import { selectUserEmail } from "../store/reducers/user/UserInformationSlice";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../constants/routes";
+import { verifyEmailCode } from "../apis/auth/authApi";
 const VerifyEmailCodePage = () => {
   const [values, setValues] = useState(["", "", "", "", "", ""]);
+  const [isReadyToVerify, setIsReadyToVerify] = useState(false);
+  const navigate = useNavigate();
   const fields = useRef([
     React.createRef(),
     React.createRef(),
@@ -12,13 +19,35 @@ const VerifyEmailCodePage = () => {
     React.createRef(),
   ]);
 
+  const email = useSelector(selectUserEmail);
+
   const handleChange = (index, event) => {
     const newValues = [...values];
+    const code = values.join("");
     newValues[index] = event.target.value;
     setValues(newValues);
     if (event.target.value.length === 1) {
-      fields.current[index + 1].current.focus();
+      if (index + 1 < fields.current.length) {
+        fields.current[index + 1].current.focus();
+      }
     }
+    if (code.length + 1 === 6) {
+      setIsReadyToVerify(true);
+    } else {
+      setIsReadyToVerify(false);
+    }
+  };
+
+  const handleVerifyCode = () => {
+    const code = values.join("");
+    console.log(code);
+    verifyEmailCode(email, code)
+      .then((res) => {
+        if (res.data.ResponseMetadata.HTTPStatusCode === 200) {
+          navigate(ROUTES.CHECKOUT);
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -33,9 +62,8 @@ const VerifyEmailCodePage = () => {
         <div className="we-sent-message">
           <p>
             Hemos enviado un código de verificación a la cuenta de correo
-            electrónico <strong> ejemplo@gmail.com</strong>. Asegúrate de
-            revisar la carpeta de SPAM, en caso de no encontrarlo en tu bandeja
-            principal.
+            electrónico <strong> {email} </strong>. Asegúrate de revisar la
+            carpeta de SPAM, en caso de no encontrarlo en tu bandeja principal.
           </p>
         </div>
 
@@ -43,7 +71,7 @@ const VerifyEmailCodePage = () => {
 
         <div className="code-fields-container">
           {values.map((value, index) => (
-            <div className="input-container">
+            <div className="input-container" key={index}>
               <input
                 key={index}
                 type="text"
@@ -57,13 +85,16 @@ const VerifyEmailCodePage = () => {
           ))}
         </div>
         <div className="verify-button-container">
-          <button> Verificar </button>
+          <button disabled={!isReadyToVerify} onClick={handleVerifyCode}>
+            {" "}
+            Verificar{" "}
+          </button>
         </div>
         <div className="email-verify-footer">
           <p>Puede tomar un minuto el recibir el código.</p>
           <p>¿No haz recibido el código?</p>
-          <p style={{marginTop:"10px"}}>
-            <strong >Reenviar nuevo código</strong>
+          <p style={{ marginTop: "10px" }}>
+            <strong>Reenviar nuevo código</strong>
           </p>
         </div>
       </div>

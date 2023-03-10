@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   userInformation: {
-    nameUser: "",
+    userName: "",
     email: "",
     password: "",
     phoneNumber: "",
@@ -35,6 +35,6 @@ export const UserInformationSlice = createSlice({
 export const { setUserInformation, resetUserInformation } = UserInformationSlice.actions;
 
 export const selectUserInformation = (state) => state.user.userInformation;
-export const selectUserName = (state) => state.user.userInformation.nameUser;
+export const selectUserEmail = (state) => state.user.userInformation.email;
 
 export default UserInformationSlice.reducer;

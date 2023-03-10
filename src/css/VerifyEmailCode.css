@@ -90,6 +90,12 @@ div.verify-button-container button {
   color: #ffffff;
   margin-top: 40px;
 }
+div.verify-button-container button:disabled {
+  background: #5a8293;
+  color: #ffffff;
+  cursor: not-allowed;
+  pointer-events: all !important;
+}
 div.email-verify-footer {
   margin-top: 30px;
 }

@@ -13,15 +13,17 @@ import WidthContext from "../contexts/WidthContext";
 // import { setCookie } from "../utils/auth/cookieSession";
 // import { errorToast } from "../utils/toasts/commonToasts";
 import Conekta from "../components/Conekta";
+import { ROUTES } from "../constants/routes";
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
   const [stepDetails, setStepDetails] = useState(false);
-  const [loading, ] = useState(false);
+  const [loading] = useState(false);
   // const [cardTokenId, setCardTokenId] = useState("");
   // const { nameUser, email, phoneNumber, password } = useSelector(
   //   selectUserInformation
   // );
+
   const size = useContext(WidthContext);
   const isMobile = () => {
     if (["xs", "sm", "md"].includes(size)) return true;
@@ -141,6 +143,13 @@ const CheckoutPage = () => {
   //   }
   // };
 
+  // const handleSuccessPayment = (e) => {
+  //   console.log(e);
+  //   const paymentStatus = e.charge.status;
+  //   if (paymentStatus === "paid") {
+  //     navigate(ROUTES.CHECKOUT_SUCCESS)
+  //   }
+  // };
   return !isMobile() ? (
     <>
       <div className={`background-gradial ${size}`}></div>
@@ -152,7 +161,9 @@ const CheckoutPage = () => {
             isMobile={isMobile()}
             // paymentInfoSetState={setPaymentCheckoutInfo}
           />
-          <Conekta isReady={true}/>
+
+          <Conekta  />
+
           <PaymentDetailsContainer
             size={size}
             isMobile={isMobile()}

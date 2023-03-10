@@ -35,6 +35,7 @@ import ResourceClass from "./pages/platform/ResourceClass";
 import CheckoutPageGratification from "./pages/CheckoutPageGratification";
 import conektaHelper from "./utils/conekta/conektaUtils";
 import VerifyEmailCodePage from "./pages/VerifyEmailCodePage";
+import { ROUTES } from "./constants/routes";
 
 const AppRouter = () => {
   useEffect(() => {
@@ -208,11 +209,7 @@ const AppRouter = () => {
               />
               <Route
                 path="/verify_email_code"
-                element={
-                  
-                    <VerifyEmailCodePage />
-                  
-                }
+                element={<VerifyEmailCodePage />}
               />
 
               {/* Platform */}
@@ -328,6 +325,10 @@ const AppRouter = () => {
                     <AcademicProgramPage />
                   </PlatformPrivateRoute>
                 }
+              />
+              <Route
+                path={ROUTES.VERIFICAR_CORREO}
+                element={<VerifyEmailCodePage />}
               />
             </Routes>
           </DashboardAsideWidth>

@@ -2,7 +2,10 @@
 import React, { useContext, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
+import { CreateNewUser } from "../apis/auth/authApi";
 import doctorImage from "../assets/imgs/Dres/stock-photo-doctor-wearing-white-coat-stethoscope-small.png";
+import { TYPE_USER } from "../constants/generals";
+import { ROUTES } from "../constants/routes";
 import WidthContext from "../contexts/WidthContext";
 import "../css/RegisterPage.css";
 import { setUserInformation } from "../store/reducers/user/UserInformationSlice";
@@ -24,8 +27,25 @@ const RegisterPage = (props) => {
   });
 
   const handleRegisterInformation = () => {
-    dispatch(setUserInformation(userRegisterInformation));
-    navigate("/checkout");
+    const { nameUser, email, password, phoneNumber } = userRegisterInformation;
+    const userInformation = {
+      userName: nameUser,
+      email,
+      password,
+      phone: `+52${phoneNumber}`,
+    };
+    dispatch(setUserInformation(userInformation));
+    CreateNewUser(
+      email,
+      password,
+      nameUser,
+      phoneNumber,
+      TYPE_USER.USER_PREMIUM
+    ).then((res) => {
+      if (res.data.ResponseMetadata.HTTPStatusCode === 200) {
+        navigate(ROUTES.VERIFICAR_CORREO);
+      }
+    });
   };
 
   setTimeout(() => {

@@ -1,10 +1,16 @@
 import axios from "axios";
-const { REACT_APP_ENARM_API_GATEWAY_URL } = process.env
+const { REACT_APP_ENARM_API_GATEWAY_URL } = process.env;
+const contektaUrl = `${REACT_APP_ENARM_API_GATEWAY_URL}conekta`;
+export const createClientConekta = (userName, email, phone) => {
+  const payload = {
+    name: userName,
+    email,
+    phone,
+  };
 
-export const createClientConekta = (payload) => {
   const requestInfo = {
     method: "POST",
-    url: `${REACT_APP_ENARM_API_GATEWAY_URL}conekta/crear-cliente`,
+    url: `${contektaUrl}/crear-cliente`,
     headers: {
       "Content-Type": "application/json",
     },
@@ -13,10 +19,35 @@ export const createClientConekta = (payload) => {
   return axios(requestInfo);
 };
 
-export const createOrderConekta = (payload) => {
+export const createOrderConekta = (
+  customer_id,
+  phoneNumber,
+  userName,
+  email
+) => {
+  const orderInfo = {
+    customer_id,
+    producto: "Pago curso Enarm",
+    costo: "600000",
+    telefono: phoneNumber,
+    cliente: userName,
+    correo: email,
+  };
   const requestInfo = {
     method: "POST",
-    url: `${REACT_APP_ENARM_API_GATEWAY_URL}conekta/crear-orden`,
+    url: `${contektaUrl}/crear-orden`,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: orderInfo,
+  };
+  return axios(requestInfo);
+};
+
+export const saveConektaPayment = (payload) => {
+  const requestInfo = {
+    method: "POST",
+    url: `${contektaUrl}/crear-orden`,
     headers: {
       "Content-Type": "application/json",
     },
@@ -24,4 +55,3 @@ export const createOrderConekta = (payload) => {
   };
   return axios(requestInfo);
 };
-

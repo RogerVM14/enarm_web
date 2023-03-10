@@ -8,7 +8,7 @@ import "../../css/platform/components/NavbarHeader.css";
 import SearchBarSmart from "./subComponents/SearchBarSmart";
 import { useLogout } from "../../contexts/useLogout";
 import { useSelector } from "react-redux";
-import { selectUserName } from "../../store/reducers/user/UserInformationSlice";
+import { selectUserEmail } from "../../store/reducers/user/UserInformationSlice";
 
 const DashboardNavbar = (props) => {
   const [usermodal, setUserModal] = useState(false);
@@ -16,7 +16,7 @@ const DashboardNavbar = (props) => {
   const [searchButton, setSearchButton] = useState(false);
   const { device } = useContext(PlatformResponsiveContext);
   const logout = useLogout();
-  const userName = useSelector(selectUserName);
+  const userName = useSelector(selectUserEmail);
   return (
     <header
       className={`platform-el ${device}`}

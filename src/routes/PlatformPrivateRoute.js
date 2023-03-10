@@ -6,7 +6,6 @@ import { getCookie } from "../utils/auth/cookieSession";
 
 const PlatformPrivateRoute = (props) => {
   const isAuthenticated = getCookie("accessToken");
-
   return isAuthenticated ? (
     <PlatformResponsiveProvider>
       <DashboardLayout hasAside={props.hasAside}>
