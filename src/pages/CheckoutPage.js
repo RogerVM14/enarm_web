@@ -156,11 +156,11 @@ const CheckoutPage = () => {
       <div className={`checkout-container ${size}`}>
         <h1 className="bold-47">Información de Pago</h1>
         <div className="payment-container">
-          <PaymentOptionsContainer
+          {/* <PaymentOptionsContainer
             size={size}
             isMobile={isMobile()}
             // paymentInfoSetState={setPaymentCheckoutInfo}
-          />
+          /> */}
 
           <Conekta  />
 

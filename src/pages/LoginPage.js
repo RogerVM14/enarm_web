@@ -78,9 +78,9 @@ const FormLogin = ({ size }) => {
     e.preventDefault();
     const isValidEmail = validateEmailFormat(userEmail);
     if (isValidEmail && userPass) {
-      loginUser({ email: userEmail, password: userPass })
+      loginUser({ username: userEmail, password: userPass })
         .then((res) => {
-          setCookie("accessToken", res.data.token);
+          setCookie("accessToken", res.data.AuthenticationResult.AccessToken);
           console.log("Iniciando Sesion", res);
           navigate("/u/dashboard", { replace: true });
         })
