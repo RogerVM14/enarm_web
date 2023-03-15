@@ -1,4 +1,4 @@
-import React, { useState, createContext, useEffect } from 'react';
+import React, { useState, createContext } from 'react';
 
 export const PlanRoutesContext = createContext(null);
 
@@ -6,9 +6,9 @@ const PlanRoutesProvider = (props) => {
 
     const [routeString, setRouteString] = useState("");
 
-    useEffect(()=> {
-        console.log(routeString)
-    },[routeString])
+    // useEffect(()=> {
+    //     console.log(routeString)
+    // },[routeString])
 
     return (
         <PlanRoutesContext.Provider value={{routeString, setRouteString}}>

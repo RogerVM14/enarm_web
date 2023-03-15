@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { CreateNewUser } from "../apis/auth/authApi";
 import doctorImage from "../assets/imgs/Dres/stock-photo-doctor-wearing-white-coat-stethoscope-small.png";
+import ValidatePasswordInput from "../components/validate_password/ValidatePasswordInput";
 import { TYPE_USER } from "../constants/generals";
 import { ROUTES } from "../constants/routes";
 import WidthContext from "../contexts/WidthContext";
@@ -170,11 +171,8 @@ const RegisterForm = ({
   };
 
   const handleChangeUserInformation = (event) => {
-    // if (!Number(event.target.value)) return;
-
     const { name, value } = event.target;
-
-    console.log({ name, value });
+    // console.log({ name, value });
     setUserRegisterInformationHandler((prevState) => {
       return {
         ...prevState,
@@ -188,7 +186,7 @@ const RegisterForm = ({
     handleChangeUserInformation(event);
     return true;
   };
-
+console.log("Password from pattern ", passwordUser);
   return (
     <div className="form-container reveal-load">
       <form method="POST" onSubmit={handleSubmit}>
@@ -238,15 +236,10 @@ const RegisterForm = ({
           <label className={fontSizeClass("medium")} htmlFor="form-password">
             Contraseña*
           </label>
-          <input
-            type="password"
-            name="password"
-            id="form-password"
-            placeholder="Tu contraseña"
-            onChange={(e) => {
-              handleChangeUserInformation(e);
-              setPasswordUser(e.target.value);
-            }}
+          <ValidatePasswordInput
+            password={passwordUser}
+            setPassword={setPasswordUser}
+            handleChange = { handleChangeUserInformation }
           />
           {passwordError && (
             <span className={`${fontSizeClass("medium")} red`}>

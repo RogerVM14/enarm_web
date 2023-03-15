@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import SimulatorAsideLeftContainer from '../../components/platform/subComponents/simulador/SimulatorAsideLeftContainer';
 import SimulatorAsideRightContainer from '../../components/platform/subComponents/simulador/SimulatorAsideRightContainer';
 import { ModalRetroSimulatorContext } from '../../contexts/platform/ModalRetroSimulator';
 import SimulatorModalRetro from '../../components/platform/subComponents/simulador/SimulatorModalRetro';
 import { FeedbackQuestionsResultsContext } from '../../contexts/platform/FeedbackQuestionsResultsContext';
-import { CountDownContext } from '../../contexts/platform/CountDownContext';
+// import { CountDownContext } from '../../contexts/platform/CountDownContext';
 import { AdviceModalContext } from '../../contexts/platform/AdviceModalContext';
-import { AttemptsContext } from '../../contexts/platform/AttemptsContext';
+// import { AttemptsContext } from '../../contexts/platform/AttemptsContext';
 import SimuladorAdviceModal from '../../components/platform/subComponents/simulador/SimuladorAdviceModal';
 import '../../css/platform/pages/SimulatorCoursePage.css';
 import { PlatformResponsiveContext } from '../../contexts/platform/PlatformResponsiveContext';
@@ -19,13 +19,15 @@ const SimulatorCourse = () => {
     const [selectedQuestion, setSelectedQuestion] = useState(0);
     const [currentNext, setCurrentNext] = useState(true);
     const { questions, setQuestion } = useContext(FeedbackQuestionsResultsContext);
-    const { isModalRetroVisible, showSimulatorRetroModal } = useContext(ModalRetroSimulatorContext);
+    // const { isModalRetroVisible, showSimulatorRetroModal } = useContext(ModalRetroSimulatorContext);
+    const { isModalRetroVisible } = useContext(ModalRetroSimulatorContext);
     const { device, isSmart } = useContext(PlatformResponsiveContext);
 
-    let navigate = useNavigate()
+    // let navigate = useNavigate()
 
     // const { setStartCountDown } = useContext(CountDownContext);
-    const { isAdviceModalActive, setAdviceModal } = useContext(AdviceModalContext);
+    // const { isAdviceModalActive, setAdviceModal } = useContext(AdviceModalContext);
+    const { isAdviceModalActive } = useContext(AdviceModalContext);
     // const { numAttempt, handleAttempt} = useContext(AttemptsContext);
 
     useEffect(() => {
@@ -48,7 +50,7 @@ const SimulatorCourse = () => {
     }
 
     const handleAnswers = (e) => {
-        console.log(e.event)
+        // console.log(e.event)
         setQuestion((items) => {
 
             const NEW_ARRAY = items.map(question => {

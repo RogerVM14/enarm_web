@@ -57,7 +57,9 @@ const Conekta = (props) => {
           if (estadoPag === "paid") {
             console.log("Pagado");
             localStorage.setItem("accessToken","ASDADASDASDASDAS")
-            window.location.replace('${REACT_APP_APP_HOST}${ROUTES.CHECKOUT_SUCCESS}');
+            setTimeout(() => {
+              window.location.replace('${REACT_APP_APP_HOST}${ROUTES.CHECKOUT_SUCCESS}');
+            }, 3000);
           } else {
             console.log("En espera de pago");
           }

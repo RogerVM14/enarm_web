@@ -8,6 +8,7 @@ import "../css/LoginPage.css";
 import { setCookie } from "../utils/auth/cookieSession";
 import { validateEmailFormat } from "../utils/commons/commonFunctions";
 import { errorToast } from "../utils/toasts/commonToasts";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 const LoginPage = () => {
   setTimeout(() => {
@@ -73,6 +74,12 @@ const LoginPage = () => {
 const FormLogin = ({ size }) => {
   const [userEmail, setEmail] = useState("");
   const [userPass, setPass] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -80,11 +87,21 @@ const FormLogin = ({ size }) => {
     if (isValidEmail && userPass) {
       loginUser({ username: userEmail, password: userPass })
         .then((res) => {
-          setCookie("accessToken", res.data.AuthenticationResult.AccessToken);
-          console.log("Iniciando Sesion", res);
-          navigate("/u/dashboard", { replace: true });
+          if (res.data.AuthenticationResult) {
+            console.log(
+              "Iniciando Sesion",
+              res.data.AuthenticationResult.AccessToken
+            );
+            setCookie("accessToken", res.data.AuthenticationResult.AccessToken);
+            navigate("/u/dashboard", { replace: true });
+          } else if (res.data.statusCode) {
+            if (res.data.statusCode !== 200) {
+              errorToast(res.data.message);
+            }
+          }
         })
         .catch((err) => {
+          console.log(err.message);
           const error = err.response.data.message;
           errorToast(ERROR_MESSAGES[error]);
         });
@@ -122,15 +139,19 @@ const FormLogin = ({ size }) => {
           <label className={fontSizeClass("medium")} htmlFor="form-password">
             Contraseña*
           </label>
-          <input
-            type="password"
-            name="password"
-            id="form-password"
-            placeholder="Tu contraseña"
-            onChange={(e) => {
-              setPass(e.currentTarget.value);
-            }}
-          />
+          <div className="password-input">
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              value={userPass}
+              onChange={(e) => {
+                setPass(e.currentTarget.value);
+              }}
+            />
+            <div className="password-login-icon" onClick={toggleShowPassword}>
+              {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
+            </div>
+          </div>
 
           <div className="sub-group">
             <Link

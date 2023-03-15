@@ -40,7 +40,7 @@ const VerifyEmailCodePage = () => {
 
   const handleVerifyCode = () => {
     const code = values.join("");
-    console.log(code);
+    // console.log(code);
     verifyEmailCode(email, code)
       .then((res) => {
         if (res.data.ResponseMetadata.HTTPStatusCode === 200) {
