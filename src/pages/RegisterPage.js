@@ -43,7 +43,7 @@ const RegisterPage = (props) => {
       phoneNumber,
       TYPE_USER.USER_PREMIUM
     ).then((res) => {
-      if (res.data.ResponseMetadata.HTTPStatusCode === 200) {
+      if (res.data.statusCode === 200) {
         navigate(ROUTES.VERIFICAR_CORREO);
       }
     });
@@ -186,7 +186,6 @@ const RegisterForm = ({
     handleChangeUserInformation(event);
     return true;
   };
-console.log("Password from pattern ", passwordUser);
   return (
     <div className="form-container reveal-load">
       <form method="POST" onSubmit={handleSubmit}>

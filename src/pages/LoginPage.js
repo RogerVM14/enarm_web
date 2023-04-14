@@ -87,12 +87,12 @@ const FormLogin = ({ size }) => {
     if (isValidEmail && userPass) {
       loginUser({ username: userEmail, password: userPass })
         .then((res) => {
-          if (res.data.AuthenticationResult) {
+          if (res.data.statusCode === 200) {
             console.log(
               "Iniciando Sesion",
-              res.data.AuthenticationResult.AccessToken
+              res.data.responseData.AccessToken
             );
-            setCookie("accessToken", res.data.AuthenticationResult.AccessToken);
+            setCookie("accessToken",  res.data.responseData.AccessToken);
             navigate("/u/dashboard", { replace: true });
           } else if (res.data.statusCode) {
             if (res.data.statusCode !== 200) {

@@ -1,20 +1,19 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   createClientConekta,
   createOrderConekta,
 } from "../../apis/conekta/conektaApi";
-import { ROUTES } from "../../constants/routes";
 import { selectUserInformation } from "../../store/reducers/user/UserInformationSlice";
-const { REACT_APP_CONEKTA_API_KEY, REACT_APP_APP_HOST } = process.env;
+const { REACT_APP_CONEKTA_API_KEY } = process.env;
 
 const Conekta = (props) => {
   const [checkoutId, setCheckoutId] = useState("");
   const [orderId, setOrderId] = useState("");
   const [isReadyToRenderIFrame, setisReadyToRenderIFrame] = useState(false);
-  console.log(orderId);
   const userInformation = useSelector(selectUserInformation);
-
+  const navigate = useNavigate();
   const handleCreateOrderAndClientConekta = useCallback(() => {
     const { userName, email, phone } = userInformation;
     createClientConekta(userName, email, phone).then(({ data }) => {
@@ -36,11 +35,10 @@ const Conekta = (props) => {
       const s = document.createElement("script");
       s.type = "text/javascript";
       s.async = true;
-      s.innerHTML = `
-    window.ConektaCheckoutComponents.Integration({
+      s.innerHTML = window.ConektaCheckoutComponents.Integration({
         targetIFrame: "#conektaIframeContainer",
-        checkoutRequestId: "${checkoutId}",
-        publicKey: "${REACT_APP_CONEKTA_API_KEY}",
+        checkoutRequestId: checkoutId,
+        publicKey: REACT_APP_CONEKTA_API_KEY,
         options: {
           styles: {
             logo: {
@@ -52,27 +50,23 @@ const Conekta = (props) => {
           },
         },
         onFinalizePayment: function (e) {
-          console.log(e.charge.status)
+          console.log(e.charge.status);
           var estadoPag = e.charge.status;
           if (estadoPag === "paid") {
             console.log("Pagado");
-            localStorage.setItem("accessToken","ASDADASDASDASDAS")
-            setTimeout(() => {
-              window.location.replace('${REACT_APP_APP_HOST}${ROUTES.CHECKOUT_SUCCESS}');
-            }, 3000);
+            navigate('/checkout_thankful')
           } else {
             console.log("En espera de pago");
           }
         },
-    })
-    `;
+      });
 
       document.body.appendChild(s);
       return () => {
         document.body.removeChild(s);
       };
     }
-  }, [checkoutId, isReadyToRenderIFrame]);
+  }, [checkoutId, isReadyToRenderIFrame, navigate]);
 
   return <div id="conektaIframeContainer" style={{ height: "1350px" }}></div>;
 };
