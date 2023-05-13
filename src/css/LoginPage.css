@@ -1,88 +1,298 @@
-div.login-container { max-width: 428px; margin: 0 auto; padding: 60px 24px 0px 24px; }
-div.login-container div.container-head { margin-bottom: 16px; }
-div.login-container div.container-bottom { margin-bottom: 144px; }
-div.login div.image-container img { position: relative ; bottom: -4px; width: 100%; }
-div.login-container form div.form-group { width: 100%; height: auto; min-height: 120px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+div.login-container {
+    max-width: 428px;
+    margin: 0 auto;
+    padding: 60px 24px 0px 24px;
+}
+
+div.login-container div.container-head {
+    margin-bottom: 16px;
+}
+
+div.login-container div.container-bottom {
+    margin-bottom: 144px;
+}
+
+div.login div.image-container img {
+    position: relative;
+    bottom: -4px;
+    width: 100%;
+}
+
+div.login-container form div.form-group {
+    width: 100%;
+    height: auto;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
 div.login-container form div.form-group input[type=text],
-div.login-container form div.form-group input[type=password] { width: 100%; height: 56px; border: 1px solid #96ACBC; border-radius: 10px; padding: 16px; }
+div.login-container form div.form-group input[type=password] {
+    width: 100%;
+    height: 56px;
+    border: 1px solid #96ACBC;
+    border-radius: 10px;
+    padding: 16px;
+}
+
 div.login-container form div.form-group input[type=text]:focus,
-div.login-container form div.form-group input[type=password]:focus { outline: 2px solid #96ACBC; }
-div.login-container form div.form-group input::placeholder { font-family: PoppinsRegular; font-style: normal; font-weight: 400; font-size: 14px; line-height: 20px; color: #96ACBC; }
-div.login-container form div.form-group div.sub-group div.checkbox input[type=checkbox] { width: 16px; height: 16px; }
-div.login-container form hr { margin: 40px auto 20px auto; }
-div.login-container form div.form-group div.sub-group div.checkbox label { line-height: 21px; position: relative; top: -1px; }
-div.login-container form div.form-group div.sub-group { display: flex; flex-flow: row nowrap; justify-content: space-between; }
-div.login-container form div.form-group div.sub-group div.checkbox { display: flex; gap: 4px; }
+div.login-container form div.form-group input[type=password]:focus {
+    outline: 2px solid #96ACBC;
+}
+
+div.login-container form div.form-group input::placeholder {
+    font-family: PoppinsRegular;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #96ACBC;
+}
+
+div.login-container form div.form-group div.sub-group div.checkbox input[type=checkbox] {
+    width: 16px;
+    height: 16px;
+}
+
+div.login-container form hr {
+    margin: 40px auto 20px auto;
+}
+
+div.login-container form div.form-group div.sub-group div.checkbox label {
+    line-height: 21px;
+    position: relative;
+    top: -1px;
+}
+
+div.login-container form div.form-group div.sub-group {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+div.login-container form div.form-group div.sub-group div.checkbox {
+    display: flex;
+    gap: 4px;
+}
+
 .password-input {
     position: relative;
 }
-  
+
 .password-input input {
-padding: 10px;
-border: none;
-border-radius: 5px;
-box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-width: 100%;
-font-size: 16px;
-outline: none;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    font-size: 16px;
+    outline: none;
 }
 
 .password-login-icon {
-position: absolute;
-right: 10px;
-top: 50%;
-transform: translateY(-50%);
-cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
 }
 
 .password-login-icon svg {
-font-size: 25px;
-margin-right: 5px;
+    font-size: 25px;
+    margin-right: 5px;
 }
+
 /* // Small devices (landscape phones, 576px and up) */
-@media (min-width: 576px) and (max-width: 767.98px) {   
-    div.login div.container { max-width: 576px; margin: 0px auto; }
-} 
+@media (min-width: 576px) and (max-width: 767.98px) {
+    div.login div.container {
+        max-width: 576px;
+        margin: 0px auto;
+    }
+}
 
 /* // Medium devices (tablets, 768px and up) */
-@media (min-width: 768px) and (max-width: 991.98px) {
-
-}
+@media (min-width: 768px) and (max-width: 991.98px) {}
 
 /* // Large devices (desktops, 992px and up) */
-@media (min-width: 992px) and (max-width: 1199.98px) {   
-    div.login { width: 100%; position: relative; overflow-y: hidden; overflow-x: hidden; height: 100vh; background: linear-gradient(180deg, #FFFFFF 42.12%, #E2ECF8 72.95%); }
-    div.login-container { max-width: 1440px; margin: 0 auto; padding: 72px; }
-    div.login-container div.__container { display: flex; flex-direction: column; max-width: 409px; align-items: flex-start; margin-left: auto; position: relative; z-index: 1080;}
-    div.login-container div.container-head > * { text-align: start; }
-    div.login-container div.container-body { width: 100%; margin: unset; }
-    div.login div.image-container { position: absolute; top: 104px; height: calc(100vh - 205px); z-index: 1040; }
-    div.login div.image-container img { max-height: 702px; height: 100%; } 
-    div.login div.triangle { width: 83vw; height: 40%; background: white; position: absolute; bottom: 0; right: 0; clip-path: polygon(0% 100%, 100% 100%, 100% 0%); z-index: 990; }    
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    div.login {
+        width: 100%;
+        position: relative;
+        overflow-y: hidden;
+        overflow-x: hidden;
+        height: 100vh;
+        background: linear-gradient(180deg, #FFFFFF 42.12%, #E2ECF8 72.95%);
+    }
+
+    div.login-container {
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 72px;
+    }
+
+    div.login-container div.__container {
+        display: flex;
+        flex-direction: column;
+        max-width: 409px;
+        align-items: flex-start;
+        margin-left: auto;
+        position: relative;
+        z-index: 1080;
+    }
+
+    div.login-container div.container-head>* {
+        text-align: start;
+    }
+
+    div.login-container div.container-body {
+        width: 100%;
+        margin: unset;
+    }
+
+    div.login div.image-container {
+        position: absolute;
+        top: 104px;
+        height: calc(100vh - 205px);
+        z-index: 1040;
+    }
+
+    div.login div.image-container img {
+        max-height: 702px;
+        height: 100%;
+    }
+
+    div.login div.triangle {
+        width: 83vw;
+        height: 40%;
+        background: white;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        clip-path: polygon(0% 100%, 100% 100%, 100% 0%);
+        z-index: 990;
+    }
 }
 
 /* // X-Large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) and (max-width: 1399.98px){ 
+@media (min-width: 1200px) and (max-width: 1399.98px) {
 
-    div.login { width: 100%; position: relative; overflow-y: hidden; overflow-x: hidden; background: linear-gradient(180deg, #FFFFFF 42.12%, #E2ECF8 72.95%); }
-    div.login-container { max-width: 1440px; margin: 0 auto; padding: 100px 120px; height: 100vh; }
-    div.login-container div.__container { display: flex; flex-direction: column; max-width: 469px; align-items: flex-start; margin-left: auto; position: relative; z-index: 1080;}
-    div.login-container div.container-head > * { text-align: start; }
-    div.login-container div.container-body { width: 100%; margin: unset; }
-    div.login div.image-container { position: absolute; top: 104px; height: calc(100vh - 205px); z-index: 1040; }
-    div.login div.image-container img { height: 702px;  } 
-    div.login div.triangle { width: 83vw; height: 40%; background: white; position: absolute; bottom: 0; right: 0; clip-path: polygon(0% 100%, 100% 100%, 100% 0%); z-index: 990; }
+    div.login {
+        width: 100%;
+        position: relative;
+        overflow-y: hidden;
+        overflow-x: hidden;
+        background: linear-gradient(180deg, #FFFFFF 42.12%, #E2ECF8 72.95%);
+    }
+
+    div.login-container {
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 100px 120px;
+        height: 100vh;
+    }
+
+    div.login-container div.__container {
+        display: flex;
+        flex-direction: column;
+        max-width: 469px;
+        align-items: flex-start;
+        margin-left: auto;
+        position: relative;
+        z-index: 1080;
+    }
+
+    div.login-container div.container-head>* {
+        text-align: start;
+    }
+
+    div.login-container div.container-body {
+        width: 100%;
+        margin: unset;
+    }
+
+    div.login div.image-container {
+        position: absolute;
+        top: 104px;
+        height: calc(100vh - 205px);
+        z-index: 1040;
+    }
+
+    div.login div.image-container img {
+        height: 702px;
+    }
+
+    div.login div.triangle {
+        width: 83vw;
+        height: 40%;
+        background: white;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        clip-path: polygon(0% 100%, 100% 100%, 100% 0%);
+        z-index: 990;
+    }
 }
 
 /* // XX-Large devices (larger desktops, 1400px and up) */
-@media (min-width: 1400px) { 
+@media (min-width: 1400px) {
 
-    div.login { width: 100%; position: relative; overflow-y: hidden; overflow-x: hidden; max-height: calc(100vh - 104px); background: linear-gradient(180deg, #FFFFFF 42.12%, #E2ECF8 72.95%); min-height: 802px;}
-    div.login-container { max-width: 1440px; margin: 0 auto; padding: 100px 120px; height: 100vh; }
-    div.login-container div.__container { display: flex; flex-direction: column; max-width: 488px; align-items: flex-start; margin-left: auto; position: relative; z-index: 1080;}
-    div.login-container div.container-head > * { text-align: start; }
-    div.login-container div.container-body { width: 100%; margin: unset; }
-    div.login div.image-container { position: absolute; top: 104px; height: calc(100vh - 205px); z-index: 1040; }
-    div.login div.image-container img { height: 80vh; bottom: -8px; }
-    div.login div.triangle { width: 83vw; height: 40%; background: white; position: absolute; bottom: 0; right: 0; clip-path: polygon(0% 100%, 100% 100%, 100% 0%); z-index: 990; }
+    div.login {
+        width: 100%;
+        position: relative;
+        overflow-y: hidden;
+        overflow-x: hidden;
+        max-height: calc(100vh - 104px);
+        background: linear-gradient(180deg, #FFFFFF 42.12%, #E2ECF8 72.95%);
+        min-height: 802px;
+    }
+
+    div.login-container {
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 100px 120px;
+        height: 100vh;
+    }
+
+    div.login-container div.__container {
+        display: flex;
+        flex-direction: column;
+        max-width: 488px;
+        align-items: flex-start;
+        margin-left: auto;
+        position: relative;
+        z-index: 1080;
+    }
+
+    div.login-container div.container-head>* {
+        text-align: start;
+    }
+
+    div.login-container div.container-body {
+        width: 100%;
+        margin: unset;
+    }
+
+    div.login div.image-container {
+        position: absolute;
+        top: 104px;
+        height: calc(100vh - 205px);
+        z-index: 1040;
+    }
+
+    div.login div.image-container img {
+        height: 80vh;
+        bottom: -8px;
+    }
+
+    div.login div.triangle {
+        width: 83vw;
+        height: 40%;
+        background: white;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        clip-path: polygon(0% 100%, 100% 100%, 100% 0%);
+        z-index: 990;
+    }
 }

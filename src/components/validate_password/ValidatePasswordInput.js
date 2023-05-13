@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { BsPatchCheckFill } from "react-icons/bs";
-
+import ui from "./index.module.css";
 import "../../css/validate_password/ValidatePasswordInput.css";
 
 function ValidatePasswordInput(props) {

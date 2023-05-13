@@ -9,7 +9,7 @@ import EntryDetailPage from "./pages/EntryDetailPage";
 import FreeTestPage from "./pages/FreeTestPage";
 import ContactPage from "./pages/ContactPage";
 import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
+import RegisterPage from "./pages/register";
 import AccessLayout from "./components/layouts/AccessLayout";
 import { /*useContext,*/ useEffect, useState } from "react";
 import WidthContext from "./contexts/WidthContext";
@@ -118,218 +118,36 @@ const AppRouter = () => {
         <AuthProvider>
           <DashboardAsideWidth>
             <Routes>
-              <Route
-                path="/"
-                index={true}
-                element={
-                  <Layout topLine={true}>
-                    <HomePage />
-                  </Layout>
-                }
-              />
-              <Route
-                path="/nosotros"
-                element={
-                  <Layout topLine={true}>
-                    <AboutUsPage />
-                  </Layout>
-                }
-              />
-              <Route
-                path="/sobre_el_curso"
-                element={
-                  <Layout topLine={false}>
-                    <AboutCoursePage />
-                  </Layout>
-                }
-              />
-              <Route
-                path="/blog"
-                element={
-                  <Layout topLine={true}>
-                    <BlogEntriesPage />
-                  </Layout>
-                }
-              />
-              <Route
-                path="/blog/:id"
-                element={
-                  <Layout topLine={true}>
-                    <EntryDetailPage />
-                  </Layout>
-                }
-              />
-              <Route
-                path="/prueba_gratis"
-                element={
-                  <Layout topLine={true}>
-                    <FreeTestPage />
-                  </Layout>
-                }
-              />
-              <Route
-                path="/contacto"
-                element={
-                  <Layout topLine={false}>
-                    <ContactPage />
-                  </Layout>
-                }
-              />
-              <Route
-                path="/iniciar_sesion"
-                element={
-                  <AccessLayout>
-                    <LoginPage />
-                  </AccessLayout>
-                }
-              />
-              <Route
-                path="/registrate"
-                element={
-                  <AccessLayout>
-                    <RegisterPage />
-                  </AccessLayout>
-                }
-              />
-              <Route
-                path="/checkout"
-                element={
-                  <AccessLayout>
-                    <CheckoutPage />
-                  </AccessLayout>
-                }
-              />
-              <Route
-                path="/checkout_thankful"
-                element={
-                  <AccessLayout>
-                    <CheckoutPageGratification />
-                  </AccessLayout>
-                }
-              />
-              <Route
-                path="/verify_email_code"
-                element={<VerifyEmailCodePage />}
-              />
+              <Route path="/" index={true} element={ <Layout topLine={true}> <HomePage /> </Layout> } />
+              <Route path="/nosotros" element={ <Layout topLine={true}> <AboutUsPage /> </Layout> } />
+              <Route path="/sobre_el_curso" element={ <Layout topLine={false}> <AboutCoursePage /> </Layout> } />
+              <Route path="/blog" element={ <Layout topLine={true}> <BlogEntriesPage /> </Layout> } />
+              <Route path="/blog/:id" element={ <Layout topLine={true}> <EntryDetailPage /> </Layout> } />
+              <Route path="/prueba_gratis" element={ <Layout topLine={true}> <FreeTestPage /> </Layout> } />
+              <Route path="/contacto" element={ <Layout topLine={false}> <ContactPage /> </Layout> } />
+              <Route path="/iniciar_sesion" element={ <AccessLayout> <LoginPage /> </AccessLayout> } />
+              <Route path="/registrate" element={ <AccessLayout><RegisterPage /> </AccessLayout> } />
+              <Route path="/checkout" element={ <AccessLayout> <CheckoutPage /> </AccessLayout> } />
+              <Route path="/checkout_thankful" element={ <AccessLayout> <CheckoutPageGratification /> </AccessLayout> } />
+              <Route path="/verify_email_code" element={<VerifyEmailCodePage />} />
 
               {/* Platform */}
-              <Route
-                path="/u/dashboard"
-                element={
-                  <PlatformPrivateRoute hasAside={false}>
-                    <DashboardPage />
-                  </PlatformPrivateRoute>
-                }
-              />
-              <Route
-                path="/u/planes"
-                element={
-                  <PlatformPrivateRoute hasAside={true}>
-                    <StudyPlansPage />
-                  </PlatformPrivateRoute>
-                }
-              />
-              <Route
-                path="/u/planes/:id"
-                element={
-                  <PlatformPrivateRoute hasAside={true}>
-                    <PlanMonthPage />
-                  </PlatformPrivateRoute>
-                }
-              />
-              <Route
-                path="/u/planes/:id/contenido/:id"
-                element={
-                  <PlatformPrivateRoute hasAside={true}>
-                    <StudyCourseContentPage />
-                  </PlatformPrivateRoute>
-                }
-              />
-              <Route
-                path="/u/planes/:id/panel_resultados/:id"
-                element={
-                  <PlatformPrivateRoute hasAside={true}>
-                    <SimulatorPanelResultsPage />
-                  </PlatformPrivateRoute>
-                }
-              />
-              <Route
-                path="/u/planes/:id/simulador/:id"
-                element={
-                  <PlatformPrivateRoute hasAside={true}>
-                    <SimulatorCoursePage />
-                  </PlatformPrivateRoute>
-                }
-              />
-              <Route
-                path="/u/planes/:id/retro"
-                element={
-                  <PlatformPrivateRoute hasAside={true}>
-                    <FeedbakToPage />
-                  </PlatformPrivateRoute>
-                }
-              />
-              <Route
-                path="/u/planes/aviso_novedades"
-                element={
-                  <PlatformPrivateRoute hasAside={true}>
-                    <AdvicesNewsPage />
-                  </PlatformPrivateRoute>
-                }
-              />
-              <Route
-                path="/u/recursos"
-                element={
-                  <PlatformPrivateRoute hasAside={false}>
-                    <ResourcesPage />
-                  </PlatformPrivateRoute>
-                }
-              />
-              <Route
-                path="/u/recursos/:id"
-                element={
-                  <PlatformPrivateRoute hasAside={false}>
-                    <ResourceClass />
-                  </PlatformPrivateRoute>
-                }
-              />
+              <Route path="/u/dashboard" element={ <PlatformPrivateRoute hasAside={false}> <DashboardPage /> </PlatformPrivateRoute> } />
+              <Route path="/u/planes" element={ <PlatformPrivateRoute hasAside={true}> <StudyPlansPage /> </PlatformPrivateRoute> } />
+              <Route path="/u/planes/:id" element={ <PlatformPrivateRoute hasAside={true}> <PlanMonthPage /> </PlatformPrivateRoute> } />
+              <Route path="/u/planes/:id/contenido/:id" element={ <PlatformPrivateRoute hasAside={true}> <StudyCourseContentPage /> </PlatformPrivateRoute> } />
+              <Route path="/u/planes/:id/panel_resultados/:id" element={ <PlatformPrivateRoute hasAside={true}> <SimulatorPanelResultsPage /> </PlatformPrivateRoute> } />
+              <Route path="/u/planes/:id/simulador/:id" element={ <PlatformPrivateRoute hasAside={true}> <SimulatorCoursePage /> </PlatformPrivateRoute> } />
+              <Route path="/u/planes/:id/retro" element={ <PlatformPrivateRoute hasAside={true}> <FeedbakToPage /> </PlatformPrivateRoute> } />
+              <Route path="/u/planes/aviso_novedades" element={ <PlatformPrivateRoute hasAside={true}> <AdvicesNewsPage /> </PlatformPrivateRoute> } />
+              <Route path="/u/recursos" element={ <PlatformPrivateRoute hasAside={false}> <ResourcesPage /> </PlatformPrivateRoute> } />
+              <Route path="/u/recursos/:id" element={ <PlatformPrivateRoute hasAside={false}> <ResourceClass /> </PlatformPrivateRoute> } />
               {/* <Route path='/u/recursos/:id' element={<DashboardLayout hasAside={false}><ResourcesPage /> } /> */}
-              <Route
-                path="/u/simulador"
-                element={
-                  <PlatformPrivateRoute hasAside={false}>
-                    <SimulatorsPage />
-                  </PlatformPrivateRoute>
-                }
-              />
-              <Route
-                path="/u/documentos"
-                element={
-                  <PlatformPrivateRoute hasAside={false}>
-                    <DocumentsPage />
-                  </PlatformPrivateRoute>
-                }
-              />
-              <Route
-                path="/u/documentos/guia"
-                element={
-                  <PlatformPrivateRoute hasAside={false}>
-                    <StudyGuidePage />
-                  </PlatformPrivateRoute>
-                }
-              />
-              <Route
-                path="/u/documentos/programa_academico"
-                element={
-                  <PlatformPrivateRoute hasAside={false}>
-                    <AcademicProgramPage />
-                  </PlatformPrivateRoute>
-                }
-              />
-              <Route
-                path={ROUTES.VERIFICAR_CORREO}
-                element={<VerifyEmailCodePage />}
-              />
+              <Route path="/u/simulador" element={ <PlatformPrivateRoute hasAside={false}> <SimulatorsPage /> </PlatformPrivateRoute> } />
+              <Route path="/u/documentos" element={ <PlatformPrivateRoute hasAside={false}> <DocumentsPage /> </PlatformPrivateRoute> } />
+              <Route path="/u/documentos/guia" element={ <PlatformPrivateRoute hasAside={false}> <StudyGuidePage /> </PlatformPrivateRoute> } />
+              <Route path="/u/documentos/programa_academico" element={ <PlatformPrivateRoute hasAside={false}> <AcademicProgramPage /> </PlatformPrivateRoute> } />
+              <Route path={ROUTES.VERIFICAR_CORREO} element={<VerifyEmailCodePage />} />
             </Routes>
           </DashboardAsideWidth>
         </AuthProvider>

@@ -2,14 +2,15 @@
 import React, { useContext, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
-import { CreateNewUser } from "../apis/auth/authApi";
-import doctorImage from "../assets/imgs/Dres/stock-photo-doctor-wearing-white-coat-stethoscope-small.png";
-import ValidatePasswordInput from "../components/validate_password/ValidatePasswordInput";
-import { TYPE_USER } from "../constants/generals";
-import { ROUTES } from "../constants/routes";
-import WidthContext from "../contexts/WidthContext";
-import { setUserInformation } from "../store/reducers/user/UserInformationSlice";
-import "../css/RegisterPage.css";
+import { CreateNewUser } from "../../apis/auth/authApi";
+import doctorImage from "../../assets/imgs/Dres/stock-photo-doctor-wearing-white-coat-stethoscope-small.png";
+import ValidatePasswordInput from "../../components/validate_password/ValidatePasswordInput";
+import { TYPE_USER } from "../../constants/generals";
+import { ROUTES } from "../../constants/routes";
+import { setUserInformation } from "../../store/reducers/user/UserInformationSlice";
+import "../../css/RegisterPage.css";
+import ui from "./index.module.css";
+import { useWindowSize } from "../../hooks/useWindowSize";
 
 const EMAIL_REGEX =
   /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -19,6 +20,7 @@ const RegisterPage = (props) => {
   //Redux dispatch function
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { windowSize } = useWindowSize();
 
   const [userRegisterInformation, setUserRegisterInformation] = useState({
     nameUser: "",
@@ -28,6 +30,7 @@ const RegisterPage = (props) => {
   });
 
   const handleRegisterInformation = () => {
+
     const { nameUser, email, password, phoneNumber } = userRegisterInformation;
     const userInformation = {
       userName: nameUser,
@@ -35,7 +38,9 @@ const RegisterPage = (props) => {
       password,
       phone: `+52${phoneNumber}`,
     };
+
     dispatch(setUserInformation(userInformation));
+
     CreateNewUser(
       email,
       password,
@@ -50,62 +55,36 @@ const RegisterPage = (props) => {
   };
 
   setTimeout(() => {
+
     const items = document.querySelectorAll(".reveal-load");
-    items.forEach((item) => {
-      item.classList.add("active");
-    });
+
+    items.forEach((item) => item.classList.add("active"));
+
   }, 100);
 
-  const size = useContext(WidthContext);
-
-  const isMobile = () => {
-    if (["xs", "sm", "md"].includes(size)) return true;
-    if (["lg", "xl", "xxl"].includes(size)) return false;
-  };
-
   return (
-    <div className="register">
-      <div className="register-container">
-        {!isMobile() ? (
-          <>
-            <div className="__container">
-              <div className="container-head">
-                <h1 className="title text-center fade-in-title">
-                  <span className={isMobile() ? "bold-44" : "bold-47"}>
-                    Registro
-                  </span>
-                </h1>
-              </div>
-              <div className="container-body">
-                <RegisterForm
-                  size={size}
-                  setUserRegisterInformationHandler={setUserRegisterInformation}
-                  handleRegister={handleRegisterInformation}
-                />
-              </div>
-            </div>
-            <div className="image-container">
-              <img src={doctorImage} alt="doctor-pic" />
-            </div>
-            <div className="triangle"></div>
-          </>
-        ) : (
-          <>
-            <div className="container-head">
-              <h1 className="title text-center">Registro</h1>
-            </div>
-            <div className="container-body">
-              <RegisterForm
-                size={size}
-                setUserRegisterInformationHandler={setUserRegisterInformation}
-                handleRegister={handleRegisterInformation}
-              />
-            </div>
-            <div className="image-container">
-              <img src={doctorImage} alt="doctor-pic" />
-            </div>
-          </>
-        )}
+    <div className={ui.register}>
+
+      <div className={ui.registerContainer}>
+        <div className={ui.subContainer}>
+          <div className={ui.containerHead}>
+            <h1 className="title fade-in-title">
+              <span className={ui.containerTitle}>
+                Registro
+              </span>
+            </h1>
+          </div>
+          <div className="container-body">
+            <RegisterForm
+              setUserRegisterInformationHandler={setUserRegisterInformation}
+              handleRegister={handleRegisterInformation}
+            />
+          </div>
+        </div>
+        <div className={ui.imageContainer}>
+          <img src={doctorImage} alt="doctor-pic" />
+        </div>
+        <div className={ui.triangle}></div>
       </div>
     </div>
   );
@@ -160,16 +139,6 @@ const RegisterForm = ({
     handleRegister();
   };
 
-  const isMobile = () => {
-    if (["xs", "sm", "md"].includes(size)) return true;
-    if (["lg", "xl", "xxl"].includes(size)) return false;
-  };
-
-  const fontSizeClass = (type) => {
-    const fontSizePixels = isMobile() === true ? "14" : "16";
-    return `${type}-${fontSizePixels}`;
-  };
-
   const handleChangeUserInformation = (event) => {
     const { name, value } = event.target;
     // console.log({ name, value });
@@ -186,11 +155,12 @@ const RegisterForm = ({
     handleChangeUserInformation(event);
     return true;
   };
+
   return (
     <div className="form-container reveal-load">
       <form method="POST" onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label className={fontSizeClass("medium")} htmlFor="form-user">
+        <div className={ui.formGroup}>
+          <label className={ui.formLabel} htmlFor="form-user">
             Nombre completo*
           </label>
           <input
@@ -204,14 +174,16 @@ const RegisterForm = ({
               setNameUser(e.target.value);
             }}
           />
-          {nameUserError && (
-            <span className={`${fontSizeClass("medium")} red`}>
-              introduce un nombre personal válido
-            </span>
-          )}
+          {
+            nameUserError && (
+              <span className={`${ui.formLabel} red`}>
+                introduce un nombre personal válido
+              </span>
+            )
+          }
         </div>
-        <div className="form-group">
-          <label className={fontSizeClass("medium")} htmlFor="form-user">
+        <div className={ui.formGroup}>
+          <label className={ui.formLabel} htmlFor="form-user">
             Correo electrónico*
           </label>
           <input
@@ -225,14 +197,16 @@ const RegisterForm = ({
               setEmailUser(e.target.value);
             }}
           />
-          {emailError && (
-            <span className={`${fontSizeClass("medium")} red`}>
-              Introduce un correo válido
-            </span>
-          )}
+          {
+            emailError && (
+              <span className={`${ui.formLabel} red`}>
+                Introduce un correo válido
+              </span>
+            )
+          }
         </div>
-        <div className="form-group">
-          <label className={fontSizeClass("medium")} htmlFor="form-password">
+        <div className={ui.formGroup} style={{ marginBottom: "0" }}>
+          <label className={ui.formLabel} htmlFor="form-password">
             Contraseña*
           </label>
           <ValidatePasswordInput
@@ -240,14 +214,16 @@ const RegisterForm = ({
             setPassword={setPasswordUser}
             handleChange={handleChangeUserInformation}
           />
-          {passwordError && (
-            <span className={`${fontSizeClass("medium")} red`}>
-              Introduzca una contraseña válida
-            </span>
-          )}
+          {
+            passwordError && (
+              <span className={`${ui.formLabel} red`}>
+                Introduzca una contraseña válida
+              </span>
+            )
+          }
         </div>
-        <div className="form-group">
-          <label className={fontSizeClass("medium")} htmlFor="form-password">
+        <div className={ui.formGroup}>
+          <label className={ui.formLabel} htmlFor="form-password">
             Numero Telefónico*
           </label>
           <input
@@ -263,18 +239,19 @@ const RegisterForm = ({
               setPhoneNumber(e.target.value);
             }}
           />
-          {phoneNumberError && (
-            <span className={`${fontSizeClass("medium")} red`}>
-              introduce un numero teléfonico válido
-            </span>
-          )}
+          {
+            phoneNumberError && (
+              <span className={`${ui.formLabel} red`}>
+                introduce un numero teléfonico válido
+              </span>
+            )
+          }
         </div>
-        <button className="button-rounded-blue-48" type="submit">
+        <button className={ui.submitButton} type="submit">
           <span className="button-text">Registrar</span>
         </button>
-        <hr />
         <p className="flex-row-nw jc-center gap-8">
-          <span className={fontSizeClass("regular")}>¿Ya eres miembro?</span>
+          <span className={ui.linkLabel}>¿Ya eres miembro?</span>
           <Link className="regular-14 sky-blue no-style" to="/iniciar_sesion">
             Iniciar Sesión
           </Link>
@@ -283,4 +260,5 @@ const RegisterForm = ({
     </div>
   );
 };
+
 export default RegisterPage;
