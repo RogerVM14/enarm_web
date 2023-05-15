@@ -1,5 +1,5 @@
 /* eslint-disable no-useless-escape */
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { CreateNewUser } from "../../apis/auth/authApi";
@@ -10,7 +10,6 @@ import { ROUTES } from "../../constants/routes";
 import { setUserInformation } from "../../store/reducers/user/UserInformationSlice";
 import "../../css/RegisterPage.css";
 import ui from "./index.module.css";
-import { useWindowSize } from "../../hooks/useWindowSize";
 
 const EMAIL_REGEX =
   /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -20,7 +19,6 @@ const RegisterPage = (props) => {
   //Redux dispatch function
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { windowSize } = useWindowSize();
 
   const [userRegisterInformation, setUserRegisterInformation] = useState({
     nameUser: "",
@@ -64,7 +62,6 @@ const RegisterPage = (props) => {
 
   return (
     <div className={ui.register}>
-
       <div className={ui.registerContainer}>
         <div className={ui.subContainer}>
           <div className={ui.containerHead}>
@@ -91,7 +88,6 @@ const RegisterPage = (props) => {
 };
 
 const RegisterForm = ({
-  size,
   setUserRegisterInformationHandler,
   handleRegister,
 }) => {

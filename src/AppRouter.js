@@ -8,7 +8,7 @@ import BlogEntriesPage from "./pages/BlogEntriesPage";
 import EntryDetailPage from "./pages/EntryDetailPage";
 import FreeTestPage from "./pages/FreeTestPage";
 import ContactPage from "./pages/ContactPage";
-import LoginPage from "./pages/LoginPage";
+import LoginPage from "./pages/login";
 import RegisterPage from "./pages/register";
 import AccessLayout from "./components/layouts/AccessLayout";
 import { /*useContext,*/ useEffect, useState } from "react";
@@ -38,6 +38,7 @@ import VerifyEmailCodePage from "./pages/VerifyEmailCodePage";
 import { ROUTES } from "./constants/routes";
 
 const AppRouter = () => {
+
   useEffect(() => {
     conektaHelper.initConekta();
   }, []);
@@ -55,10 +56,15 @@ const AppRouter = () => {
   const [screenSize, setScreenSize] = useState(getWindowWidth());
 
   useEffect(() => {
+
     window.addEventListener("resize", () => {
+
       const x = getWindowWidth();
+
       setScreenSize(x);
+
     });
+
   }, [screenSize]);
 
   useEffect(() => {
@@ -94,18 +100,14 @@ const AppRouter = () => {
       }
     }
 
-    window.addEventListener(
-      "scroll",
-      () => {
+    window.addEventListener( "scroll", () => {
         reveal();
         spinAround();
       },
       { capture: true }
     );
 
-    window.addEventListener(
-      "touchmove",
-      () => {
+    window.addEventListener( "touchmove", () => {
         reveal();
       },
       { capture: true }
@@ -142,6 +144,7 @@ const AppRouter = () => {
               <Route path="/u/planes/aviso_novedades" element={ <PlatformPrivateRoute hasAside={true}> <AdvicesNewsPage /> </PlatformPrivateRoute> } />
               <Route path="/u/recursos" element={ <PlatformPrivateRoute hasAside={false}> <ResourcesPage /> </PlatformPrivateRoute> } />
               <Route path="/u/recursos/:id" element={ <PlatformPrivateRoute hasAside={false}> <ResourceClass /> </PlatformPrivateRoute> } />
+              
               {/* <Route path='/u/recursos/:id' element={<DashboardLayout hasAside={false}><ResourcesPage /> } /> */}
               <Route path="/u/simulador" element={ <PlatformPrivateRoute hasAside={false}> <SimulatorsPage /> </PlatformPrivateRoute> } />
               <Route path="/u/documentos" element={ <PlatformPrivateRoute hasAside={false}> <DocumentsPage /> </PlatformPrivateRoute> } />
