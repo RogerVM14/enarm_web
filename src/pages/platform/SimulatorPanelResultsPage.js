@@ -9,31 +9,31 @@ import '../../css/platform/pages/SimulatorPanelResultsPage.css';
 
 const SimulatorPanelResultsPage = () => {
 
-    const { device, isSmart } = useContext(PlatformResponsiveContext);
+  const { device, isSmart } = useContext(PlatformResponsiveContext);
 
-    return (
-        <div className={`main-container ${device}`}>
-            <div className={`resources-wrapper panel-results-container ${device}`}>
-                <PanelHeader
-                    deviceType={device}
-                    isSmart={isSmart}
-                />
-                {
-                    isSmart ? (
-                        <PanelAttemptsContainer
-                            deviceType={device}
-                            isSmart={isSmart}
-                        />
-                    ) : (
-                        <PanelBody>
-                            <PanelLeftResults />
-                            <PanelRightGraphic />
-                        </PanelBody>
-                    )
-                }
-            </div>
-        </div>
-    )
+  return (
+    <div className={`main-container ${device}`}>
+      <div className={`resources-wrapper panel-results-container ${device}`}>
+        <PanelHeader
+          deviceType={device}
+          isSmart={isSmart}
+        />
+        {
+          isSmart ? (
+            <PanelAttemptsContainer
+              deviceType={device}
+              isSmart={isSmart}
+            />
+          ) : (
+            <PanelBody>
+              <PanelLeftResults />
+              <PanelRightGraphic />
+            </PanelBody>
+          )
+        }
+      </div>
+    </div>
+  )
 }
 
 export default SimulatorPanelResultsPage;

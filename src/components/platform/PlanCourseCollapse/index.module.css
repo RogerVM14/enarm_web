@@ -1,0 +1,188 @@
+.courseContainer {
+  margin-top: 8px;
+}
+
+.courseItem {
+  border-top: 1px solid #D9D9D9;
+  border-left: 1px solid #D9D9D9;
+  border-bottom: none;
+  border-right: 1px solid #D9D9D9;
+  background: var(--Neutral-2, #FAFAFA);
+}
+
+.itemContent {
+  position: relative; 
+}
+
+
+.contentHead {
+  padding: 11px 16px;
+  background-color: transparent;
+  border-bottom: 1px solid #D9D9D9; 
+}
+
+.headTop,
+.headBottom {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+.headTop {
+  justify-content: space-between;
+}
+
+.courseWeekTitle {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.classDays {
+  padding-left: 20px;
+}
+
+.weekStatus {
+  font-family: Roboto;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+  color: rgba(0, 0, 0, 0.45);
+  position: relative;
+}
+
+.weekStatus[data-status="0"]::before {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 5px;
+  height: 5px;
+  background-color: rgb(30, 115, 190);
+  border-radius: 50%;
+  left: -8px;
+  top: 8px;
+
+}
+
+.weekStatus[data-status="1"]::before {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 5px;
+  height: 5px;
+  background-color: rgba(82, 196, 26, 1);
+  border-radius: 50%;
+  left: -8px;
+  top: 8px;
+
+}
+
+.weekStatus[data-status="2"]::before {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 5px;
+  height: 5px;
+  background-color: rgba(250, 173, 20, 1);
+  border-radius: 50%;
+  left: -8px;
+  top: 8px;
+
+}
+
+.headBottom {
+  justify-content: flex-start;
+}
+
+.courseWeek {
+  font-family: PoppinsRegular;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 22px;
+  color: rgba(0, 0, 0, 0.85);
+}
+
+.dayClass *,
+.dayClass {
+  display: inline-block;
+}
+
+.dayClass:not(:last-child) {
+  margin-right: 12px;
+}
+
+.dayClass p {
+  font-family: PoppinsRegular;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+}
+
+.dayClass span {
+  font-family: Roboto;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  color: rgba(0, 0, 0, 0.45);
+  margin-left: 12px;
+}
+
+.contentBody {
+  padding: 16px;
+  background-color: #FFF; 
+}
+
+.contentBody[data-expanded=true] {
+  display: block; 
+}
+
+.contentBody[data-expanded=false] {
+  display: none; 
+}
+
+
+.bodyClassLinks {
+  display: flex;
+  flex-direction: column;
+}
+
+.classLink {
+  height: 32px;
+  display: flex;
+  padding: 0px 24px;
+  align-items: center;
+  align-self: stretch;
+  background: transparent;
+  box-shadow: 0px 0px 0px 0px #05B2FA inset;
+  transition: all 200ms linear;
+}
+
+.classLink:hover {
+  background: #E6F7FF;
+  box-shadow: 0px 0px 3px 0px #05B2FA inset;
+  transition: all 200ms linear;
+}
+
+.classLink a {
+  font-family: Roboto;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  color: #1e73be;
+  text-decoration: none;
+}
+
+.chevronIcon[data-pointer="right"] {
+  transform: rotate(0deg);
+  transition: transform 200ms linear;
+}
+
+.chevronIcon[data-pointer="bottom"] {
+  transform: rotate(90deg);
+  transition: transform 200ms linear;
+}

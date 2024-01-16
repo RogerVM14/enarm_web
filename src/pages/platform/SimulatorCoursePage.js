@@ -14,95 +14,95 @@ import { PlatformResponsiveContext } from '../../contexts/platform/PlatformRespo
 
 const SimulatorCourse = () => {
 
-    const [currentQuestion, setCurrentQuestion] = useState({});
-    const [nextQuestion, setNextQuestion] = useState({});
-    const [selectedQuestion, setSelectedQuestion] = useState(0);
-    const [currentNext, setCurrentNext] = useState(true);
-    const { questions, setQuestion } = useContext(FeedbackQuestionsResultsContext);
-    // const { isModalRetroVisible, showSimulatorRetroModal } = useContext(ModalRetroSimulatorContext);
-    const { isModalRetroVisible } = useContext(ModalRetroSimulatorContext);
-    const { device, isSmart } = useContext(PlatformResponsiveContext);
+  const [currentQuestion, setCurrentQuestion] = useState({});
+  const [nextQuestion, setNextQuestion] = useState({});
+  const [selectedQuestion, setSelectedQuestion] = useState(0);
+  const [currentNext, setCurrentNext] = useState(true);
+  const { questions, setQuestion } = useContext(FeedbackQuestionsResultsContext);
+  // const { isModalRetroVisible, showSimulatorRetroModal } = useContext(ModalRetroSimulatorContext);
+  const { isModalRetroVisible } = useContext(ModalRetroSimulatorContext);
+  const { device, isSmart } = useContext(PlatformResponsiveContext);
 
-    // let navigate = useNavigate()
+  // let navigate = useNavigate()
 
-    // const { setStartCountDown } = useContext(CountDownContext);
-    // const { isAdviceModalActive, setAdviceModal } = useContext(AdviceModalContext);
-    const { isAdviceModalActive } = useContext(AdviceModalContext);
-    // const { numAttempt, handleAttempt} = useContext(AttemptsContext);
+  // const { setStartCountDown } = useContext(CountDownContext);
+  // const { isAdviceModalActive, setAdviceModal } = useContext(AdviceModalContext);
+  const { isAdviceModalActive } = useContext(AdviceModalContext);
+  // const { numAttempt, handleAttempt} = useContext(AttemptsContext);
 
-    useEffect(() => {
+  useEffect(() => {
 
-        if (currentNext === false) return;
-        setCurrentQuestion(questions[0]);
-        setNextQuestion(questions[1]);
-        setCurrentNext(false);
-    }, [questions, currentNext]);
+    if (currentNext === false) return;
+    setCurrentQuestion(questions[0]);
+    setNextQuestion(questions[1]);
+    setCurrentNext(false);
+  }, [questions, currentNext]);
 
-    const handleSelectQuestion = (e) => {
-        if (e.event !== undefined) {
-            const element_tag = e.event.currentTarget;
-            if (element_tag.classList.contains("is_answered")) return;
-        }
-        setCurrentQuestion((item) => { return { ...item, ...questions[e.i] } });
-        setNextQuestion((item) => { return { ...item, ...questions[e.i + 1] } });
-
-        setSelectedQuestion(e.i);
+  const handleSelectQuestion = (e) => {
+    if (e.event !== undefined) {
+      const element_tag = e.event.currentTarget;
+      if (element_tag.classList.contains("is_answered")) return;
     }
+    setCurrentQuestion((item) => { return { ...item, ...questions[e.i] } });
+    setNextQuestion((item) => { return { ...item, ...questions[e.i + 1] } });
 
-    const handleAnswers = (e) => {
-        // console.log(e.event)
-        setQuestion((items) => {
+    setSelectedQuestion(e.i);
+  }
 
-            const NEW_ARRAY = items.map(question => {
-                if (question.question_id === e.id) { return { ...question, answer_selected: e.answer, isAnswered: true } }
-                return { ...question }
-            })
+  const handleAnswers = (e) => {
+    // console.log(e.event)
+    setQuestion((items) => {
 
-            return [...NEW_ARRAY];
-        });
+      const NEW_ARRAY = items.map(question => {
+        if (question.question_id === e.id) { return { ...question, answer_selected: e.answer, isAnswered: true } }
+        return { ...question }
+      })
 
-        if (e.pos === 0) {
-            setCurrentQuestion((item) => { return { ...item, answer_selected: e.answer } })
-        } else {
-            setNextQuestion((item) => { return { ...item, answer_selected: e.answer } })
-        }
+      return [...NEW_ARRAY];
+    });
+
+    if (e.pos === 0) {
+      setCurrentQuestion((item) => { return { ...item, answer_selected: e.answer } })
+    } else {
+      setNextQuestion((item) => { return { ...item, answer_selected: e.answer } })
     }
+  }
 
-    return (
-        <div className={`main-container ${device}`}>
-            <div className={`resources-wrapper ${device}`}>
-                <SimulatorAsideLeftContainer
-                    questionList={questions}
-                    selectQuestion={(e) => handleSelectQuestion(e)}
-                    selected={selectedQuestion}
-                    deviceType={device}
-                    isSmart={isSmart}
-                />
-                <SimulatorAsideRightContainer
-                    currentQuestion={currentQuestion}
-                    currentAnswers={currentQuestion.answers_list}
-                    nextQuestion={nextQuestion}
-                    nextAnswers={nextQuestion.answers_list}
-                    getNextQuestions={(e) => handleSelectQuestion(e)}
-                    handleSelectAnswer={(e) => handleAnswers(e)}
-                    deviceType={device}
-                    isSmart={isSmart}
+  return (
+    <div className={`main-container ${device}`}>
+      <div className={`resources-wrapper ${device}`}>
+        <SimulatorAsideLeftContainer
+          questionList={questions}
+          selectQuestion={(e) => handleSelectQuestion(e)}
+          selected={selectedQuestion}
+          deviceType={device}
+          isSmart={isSmart}
+        />
+        <SimulatorAsideRightContainer
+          currentQuestion={currentQuestion}
+          currentAnswers={currentQuestion.answers_list}
+          nextQuestion={nextQuestion}
+          nextAnswers={nextQuestion.answers_list}
+          getNextQuestions={(e) => handleSelectQuestion(e)}
+          handleSelectAnswer={(e) => handleAnswers(e)}
+          deviceType={device}
+          isSmart={isSmart}
 
-                />
-            </div>
-            {
-                isModalRetroVisible && (
-                    <SimulatorModalRetro
-                        deviceType={device}
-                        isSmart={isSmart}
-                    />
-                )
-            }
-            {
-                isAdviceModalActive && <SimuladorAdviceModal />
-            }
-        </div>
-    )
+        />
+      </div>
+      {
+        isModalRetroVisible && (
+          <SimulatorModalRetro
+            deviceType={device}
+            isSmart={isSmart}
+          />
+        )
+      }
+      {
+        isAdviceModalActive && <SimuladorAdviceModal />
+      }
+    </div>
+  )
 }
 
 export default SimulatorCourse;

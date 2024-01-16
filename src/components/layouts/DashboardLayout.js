@@ -20,79 +20,79 @@ import '../../css/platform/layouts/Dashboard.css'
 
 const DashboardLayout = (props) => {
 
-    const { isShort } = useContext(DashAsideContext);
-    const { device } = useContext(PlatformResponsiveContext);
-    const [isSmartMenu, setStartMenu] = useState(false);
-    const [isSmart, setIsSmart] = useState((() => {
-        return device === "smart";
-    })());
+  const { isShort } = useContext(DashAsideContext);
+  const { device } = useContext(PlatformResponsiveContext);
+  const [isSmartMenu, setStartMenu] = useState(false);
+  const [isSmart, setIsSmart] = useState((() => {
+    return device === "smart";
+  })());
 
-    useEffect(() => {
+  useEffect(() => {
 
-        const isSmartphoneDevice = () => {
-            return device === "smart";
-        }
+    const isSmartphoneDevice = () => {
+      return device === "smart";
+    }
 
-        setIsSmart(isSmartphoneDevice);
+    setIsSmart(isSmartphoneDevice);
 
-    }, [device])
+  }, [device])
 
-    return (
-        <>
-            <PlatformResponsiveProvider>
-                <CurrentGuideContext>
-                    <CurrentWeekStudyContext>
-                        <CurrentCourseProvider>
-                            <AsideLeftPositionContext>
-                                <ModalStartingSimulator>
-                                    <ModalRetroSimulator>
-                                        <CountDownProvider>
-                                            <FeedbackQuestionsResultsProvider>
-                                                <AdviceModalProvider>
-                                                    <PlanRoutesProvider>
-                                                        <CategoryResultsProvider>
-                                                            <SimulatorAttemptsProvider>
-                                                                <div className={`platform-wrapper platform-wrapper--${device}`}>
-                                                                    <DashboardNavbar handleSmartMenu={() => { setStartMenu(!isSmartMenu) }} />
-                                                                    {
-                                                                        (isSmart && isSmartMenu) ? (
-                                                                            <div className='hamburger-menu'>
-                                                                                <span className='hamburguer__bottom' onClick={() => { setStartMenu(false) }}></span>
-                                                                                <DashboardLeftAside
-                                                                                    deviceType={device}
-                                                                                    isSmart={isSmart}
-                                                                                    menuActive={isSmartMenu}
-                                                                                    handleCloseMenu={()=> {setStartMenu(false)}}
-                                                                                />
-                                                                            </div>
-                                                                        ) : (
-                                                                            <DashboardLeftAside
-                                                                                deviceType={device}
-                                                                                isSmart={isSmart}
-                                                                                menuActive={isSmartMenu}
-                                                                            />
-                                                                        )
-                                                                    }
-                                                                    <main className={`main-platform main-platform--${device} ${isShort ? "minimized" : ""}`}>
-                                                                        {props.children}
-                                                                    </main>
-                                                                    {props.hasAside && <DashboardRightAside />}
-                                                                </div>
-                                                            </SimulatorAttemptsProvider>
-                                                        </CategoryResultsProvider>
-                                                    </PlanRoutesProvider>
-                                                </AdviceModalProvider>
-                                            </FeedbackQuestionsResultsProvider>
-                                        </CountDownProvider>
-                                    </ModalRetroSimulator>
-                                </ModalStartingSimulator>
-                            </AsideLeftPositionContext>
-                        </CurrentCourseProvider>
-                    </CurrentWeekStudyContext>
-                </CurrentGuideContext>
-            </PlatformResponsiveProvider>
-        </>
-    )
+  return (
+    <>
+      <PlatformResponsiveProvider>
+        <CurrentGuideContext>
+          <CurrentWeekStudyContext>
+            <CurrentCourseProvider>
+              <AsideLeftPositionContext>
+                <ModalStartingSimulator>
+                  <ModalRetroSimulator>
+                    <CountDownProvider>
+                      <FeedbackQuestionsResultsProvider>
+                        <AdviceModalProvider>
+                          <PlanRoutesProvider>
+                            <CategoryResultsProvider>
+                              <SimulatorAttemptsProvider>
+                                <div className={`platform-wrapper platform-wrapper--${device}`}>
+                                  <DashboardNavbar handleSmartMenu={() => { setStartMenu(!isSmartMenu) }} />
+                                  {
+                                    (isSmart && isSmartMenu) ? (
+                                      <div className='hamburger-menu'>
+                                        <span className='hamburguer__bottom' onClick={() => { setStartMenu(false) }}></span>
+                                        <DashboardLeftAside
+                                          deviceType={device}
+                                          isSmart={isSmart}
+                                          menuActive={isSmartMenu}
+                                          handleCloseMenu={() => { setStartMenu(false) }}
+                                        />
+                                      </div>
+                                    ) : (
+                                      <DashboardLeftAside
+                                        deviceType={device}
+                                        isSmart={isSmart}
+                                        menuActive={isSmartMenu}
+                                      />
+                                    )
+                                  }
+                                  <main className={`main-platform main-platform--${device} ${isShort ? "minimized" : ""}`}>
+                                    {props.children}
+                                  </main>
+                                  {props.hasAside && <DashboardRightAside />}
+                                </div>
+                              </SimulatorAttemptsProvider>
+                            </CategoryResultsProvider>
+                          </PlanRoutesProvider>
+                        </AdviceModalProvider>
+                      </FeedbackQuestionsResultsProvider>
+                    </CountDownProvider>
+                  </ModalRetroSimulator>
+                </ModalStartingSimulator>
+              </AsideLeftPositionContext>
+            </CurrentCourseProvider>
+          </CurrentWeekStudyContext>
+        </CurrentGuideContext>
+      </PlatformResponsiveProvider>
+    </>
+  )
 }
 
 export default DashboardLayout;

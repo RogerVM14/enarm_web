@@ -1,28 +1,17 @@
-import React, { useContext } from 'react';
-import { PlanRoutesContext } from '../../../contexts/platform/PlanRoutesContext';
+import React, { useState } from 'react';
 import CardLegacy from './CardLegacy';
 import PlanCollapse from './PlanCollapse';
 
 const StudyPlanCourseContainer = (props) => {
 
-    const { routeString } = useContext(PlanRoutesContext);
+  const [routeString, setRouteString] = useState("");
 
-    const { deviceType, isSmart } = props;
-
-    return (
-        <div className='plan-course-container'>
-            <CardLegacy
-                routePlan={routeString}
-                deviceType={deviceType}
-                isSmart={isSmart}
-            />
-            <PlanCollapse
-                routePlan={routeString}
-                deviceType={deviceType}
-                isSmart={isSmart}
-            />
-        </div>
-    )
+  return (
+    <div className='plan-course-container'>
+      <CardLegacy routePlan={routeString} />
+      <PlanCollapse routePlan={routeString} />
+    </div>
+  )
 }
 
 export default StudyPlanCourseContainer;

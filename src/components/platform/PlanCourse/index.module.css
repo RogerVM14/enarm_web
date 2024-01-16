@@ -1,0 +1,68 @@
+.sectionHeader {
+  padding: 16px 24px;
+  background-color: #FFF;
+  box-shadow: 0px -1px 0px 0px #F0F0F0 inset;
+}
+
+.headerContent {
+  display: flex;
+  justify-content: space-between;
+}
+
+.headerContent h5 {
+  font-family: PoppinsRegular;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.headerContent span {
+  color: rgba(0, 0, 0, 0.45);
+  font-family: Roboto;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+}
+
+.sectionBody {
+  background-color: #FFF;
+  padding: 24px;
+}
+
+.sectionBody * {
+
+  color: #000;
+  font-family: PoppinsRegular;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+}
+
+.sectionBody p>strong {
+  font-weight: 600;
+}
+
+.sectionBody>p:not(:last-child),
+.sectionBody>div {
+  margin-bottom: 8px;
+}
+
+.sectionBody a {
+  color: var(--Primary, #05B2FA);
+  font-family: PoppinsRegular;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+  text-decoration-line: underline;
+}
+
+.sectionBody .alerts {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  gap: 24px
+}

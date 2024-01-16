@@ -129,11 +129,12 @@
 html {
     background-color: var(--white);
     overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: hidden;
 }
 
 body {
     overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 /* FONT STYLES */
