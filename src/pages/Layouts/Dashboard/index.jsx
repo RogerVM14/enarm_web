@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ui from "./index.module.css";
 import DashboardHeaderTemplate from "./Header";
 import DashboardAsideTemplate from "./Aside";
@@ -10,6 +10,8 @@ import { useNavigate } from "react-router-dom";
 const DashboardLayout = ({ children }) => {
 
   const navigation = useNavigate();
+  const [smallDevice, setSmallDevice] = useState(null);
+  const [smallMenu, setSmallMenu] = useState(false);
 
   const {
     feedbackModal,
@@ -28,10 +30,31 @@ const DashboardLayout = ({ children }) => {
     setImportantModal(false);
   }
 
+  useEffect(() => {
+    function getWindowSize() {
+      let xViewport = window.innerWidth;
+      setSmallDevice(xViewport <= 992);
+    }
+
+    window.addEventListener("resize", getWindowSize);
+
+    getWindowSize();
+
+    return () => window.removeEventListener("resize", getWindowSize)
+  }, [])
+
+  const handleShowMenu = () => setSmallMenu(!smallMenu);
+
   return (
     <div id={ui.dashboardWrapper}>
-      <DashboardHeaderTemplate />
-      <DashboardAsideTemplate />
+      <DashboardHeaderTemplate
+        handleShowMenu={handleShowMenu}
+      />
+      <DashboardAsideTemplate
+        smallDevice={smallDevice}
+        isMenuActive={smallMenu} 
+        handleShowMenu={handleShowMenu}
+      />
       <main>
         {children}
       </main>

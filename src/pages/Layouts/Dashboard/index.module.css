@@ -65,6 +65,11 @@
 }
 
 /* Dashboard Aside Template */
+.asideStyle {
+  position: relative;
+  z-index: 1010;
+  box-shadow: 4px 0px 18px 0px #00000012;
+}
 
 .asideContainer {
   height: 100%;
@@ -201,6 +206,25 @@ nav[data-size="sm"] .navContainer {
   display: none;
 }
 
+.menuList,
+.listOption {
+  list-style: none;
+}
+
+.asideBackground {
+  display: block;
+}
+
+
+aside[data-portability=false],
+aside[data-portability=false] {
+  display: block;
+}
+
+*[data-portability=false] {
+  display: none;
+}
+
 @media screen and (max-width: 480px) {
   #dashboardWrapper {
     display: block;
@@ -208,14 +232,46 @@ nav[data-size="sm"] .navContainer {
   }
 
   #dashboardWrapper>aside {
-    display: none;
     position: fixed;
     top: 0;
     right: 0;
+    height: 100dvh;
+    box-shadow: -8px 0px 20px 0px rgba(0, 0, 0, .35);
+  }
+
+  *[data-portability=false] {
+    display: none;
+  }
+
+  .closeButton {
+    background-color: transparent;
+    padding: 4px;
+    border: none;
+    float: right;
+    margin-top: 8px;
+    margin-right: 8px;
+  }
+
+  aside[data-active=false][data-portability=true] {
+    display: none;
+  }
+
+  aside[data-active=true][data-portability=true] {
+    display: block;
   }
 
   .headerContainer nav[data-size="xl"] {
     display: none;
+  }
+
+  .asideBackground {
+    display: block;
+    position: fixed;
+    z-index: 1000;
+    left: -100%;
+    width: 100%;
+    height: inherit;
+    background: rgba(0, 0, 0, 0.35);
   }
 
   nav[data-size="sm"] {
@@ -247,5 +303,51 @@ nav[data-size="sm"] .navContainer {
     width: 32px;
     display: block;
     height: 32px;
+  }
+
+  .asideFooter {
+    width: 100%;
+  }
+
+  .asideFooter .containerUser {
+    display: flex;
+    align-items: center;
+    border: none;
+    box-shadow: unset;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .asideFooter .containerUser p {
+    color: rgba(0, 0, 0, 0.85);
+  }
+
+  .asideFooter .containerUser svg {
+    margin-left: auto;
+  }
+
+  .userTools {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .userTools * {
+    display: block;
+    color: var(--character-title-85, rgba(0, 0, 0, 0.85));
+    font-family: PoppinsRegular;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+    text-decoration: none;
+    border: none;
+    background-color: transparent;
+    text-align: start;
+    padding: 9px 24px 9px 32px;
+    width: 100%;
+  }
+
+  .logoContainer {
+    display: none;
   }
 }
