@@ -15,6 +15,7 @@ const DashboardLayout = ({ children }) => {
 
   const {
     feedbackModal,
+    setFeedbackModal,
     importantModal,
     setImportantModal,
     setSimulationOnCourse
@@ -28,6 +29,10 @@ const DashboardLayout = ({ children }) => {
 
   const closeImportantModal = () => {
     setImportantModal(false);
+  }
+
+  const closeFeedbackModal = () => {
+    setFeedbackModal(false);
   }
 
   useEffect(() => {
@@ -52,7 +57,7 @@ const DashboardLayout = ({ children }) => {
       />
       <DashboardAsideTemplate
         smallDevice={smallDevice}
-        isMenuActive={smallMenu} 
+        isMenuActive={smallMenu}
         handleShowMenu={handleShowMenu}
       />
       <main>
@@ -64,7 +69,9 @@ const DashboardLayout = ({ children }) => {
         closeImportantModal={closeImportantModal}
       />
       <FeedbackAdvice
-        open={feedbackModal} />
+        open={feedbackModal}
+        closeFeedbackModal={closeFeedbackModal}
+      />
     </div>
   )
 }

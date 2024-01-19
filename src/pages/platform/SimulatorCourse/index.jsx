@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import ui from "./index.module.css";
 import DashboardLayout from "../../Layouts/Dashboard";
 import { Link } from "react-router-dom";
 import useFetch from "./Hooks/useFetch";
+import { GeneralContext } from "../../../contexts/GeneralContext";
 
 const SimulatorCoursePage = () => {
 
@@ -13,6 +14,14 @@ const SimulatorCoursePage = () => {
     handleSelectAnswer,
     handleNextQuestions
   } = useFetch();
+
+  const [questionGroup, setQuestionGroup] = useState(false);
+  const [clinicGroup, setClinicGroup] = useState(false);
+
+  const {
+    setFeedbackModal
+  } = useContext(GeneralContext);
+
 
   return (
     <DashboardLayout>
@@ -31,45 +40,23 @@ const SimulatorCoursePage = () => {
                 </div>
                 <div className={ui.questionsWrapper}>
                   <div className={ui.questionsGroup}>
-                    <div>
+                    <div className={ui.groupHeader} onClick={() => { setQuestionGroup(!questionGroup) }} data-selected-questions={questionGroup}>
                       <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
                         <path d="M8.73779 6.02419L4.08936 2.0154C3.91602 1.86648 3.66211 2.00075 3.66211 2.24123V10.2588C3.66211 10.4993 3.91602 10.6336 4.08936 10.4846L8.73779 6.47585C8.87085 6.36111 8.87085 6.13894 8.73779 6.02419Z" fill="black" fill-opacity="0.85" />
                       </svg>
                       <p>Preguntas</p>
                     </div>
-                    {data?.map((square, squareIndex) => {
-                      const { isAnswered } = square;
-                      const squareClass = isAnswered === true ? ui.selected : null;
-                      return (
-                        <div
-                          key={squareIndex}
-                          className={squareClass}
-                        >
-                          {square.question_id}
-                        </div>
-                      )
-                    })}
+                    <QuestionsSquaresGroup questions={data} display={questionGroup} />
                   </div>
-                  <div className={ui.questionPreview}>
-                    <p>Trabajador de la construcción que acude a consulta por la pres...</p>
-                    <Link to="#">Ir a caso clínico</Link>
+                </div>
+                <div className={ui.clinicCasesGroup}>
+                  <div className={ui.groupHeader} onClick={() => { setClinicGroup(!clinicGroup) }} data-selected-cases={clinicGroup}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
+                      <path d="M8.73779 6.02419L4.08936 2.0154C3.91602 1.86648 3.66211 2.00075 3.66211 2.24123V10.2588C3.66211 10.4993 3.91602 10.6336 4.08936 10.4846L8.73779 6.47585C8.87085 6.36111 8.87085 6.13894 8.73779 6.02419Z" fill="black" fill-opacity="0.85" />
+                    </svg>
+                    <p>Casos clínicos (5)</p>
                   </div>
-                  <div className={ui.questionPreview}>
-                    <p>Mujer previamente sana se presenta a consulta con dolor de 15 hora...</p>
-                    <Link to="#">Ir a caso clínico</Link>
-                  </div>
-                  <div className={ui.questionPreview}>
-                    <p>hombre de 49 años acude a urgencias por tos productiva dis...</p>
-                    <Link to="#">Ir a caso clínico</Link>
-                  </div>
-                  <div className={ui.questionPreview}>
-                    <p>Trabajador de la construcción que acude a consulta por la pres...</p>
-                    <Link to="#">Ir a caso clínico</Link>
-                  </div>
-                  <div className={ui.questionPreview}>
-                    <p>Mujer previamente sana se presenta a consulta con dolor de 15 hora...</p>
-                    <Link to="#">Ir a caso clínico</Link>
-                  </div>
+                  <ClinicCasesGroup display={clinicGroup} />
                 </div>
               </div>
             </div>
@@ -90,7 +77,7 @@ const SimulatorCoursePage = () => {
                 />
               </div>
               <div className={ui.containerFooterButtons}>
-                <button type="button" className={ui.getRetroButton}>
+                <button type="button" className={ui.getRetroButton} onClick={() => { setFeedbackModal(true) }}>
                   <span>Obtener retroalimentación</span>
                 </button>
                 <button
@@ -105,8 +92,56 @@ const SimulatorCoursePage = () => {
             </div>
           </section>
         </div>
+      </div >
+    </DashboardLayout >
+  )
+}
+
+const QuestionsSquaresGroup = ({ questions, display }) => {
+  if (display === false) return null;
+  return (
+    <div className={ui.groupBody}>
+      {questions?.map((square, squareIndex) => {
+        const { isAnswered } = square;
+        const squareClass = isAnswered === true ? ui.squareSelected : ui.square;
+        return (
+          <div
+            key={squareIndex}
+            className={squareClass}
+          >
+            {square.question_id}
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
+const ClinicCasesGroup = ({ display }) => {
+  if (display === false) return null;
+  return (
+    <div className={ui.groupBody}>
+      <div className={ui.questionPreview}>
+        <p>Trabajador de la construcción que acude a consulta por la pres...</p>
+        <Link to="#">Ir a caso clínico</Link>
       </div>
-    </DashboardLayout>
+      <div className={ui.questionPreview}>
+        <p>Mujer previamente sana se presenta a consulta con dolor de 15 hora...</p>
+        <Link to="#">Ir a caso clínico</Link>
+      </div>
+      <div className={ui.questionPreview}>
+        <p>hombre de 49 años acude a urgencias por tos productiva dis...</p>
+        <Link to="#">Ir a caso clínico</Link>
+      </div>
+      <div className={ui.questionPreview}>
+        <p>Trabajador de la construcción que acude a consulta por la pres...</p>
+        <Link to="#">Ir a caso clínico</Link>
+      </div>
+      <div className={ui.questionPreview}>
+        <p>Mujer previamente sana se presenta a consulta con dolor de 15 hora...</p>
+        <Link to="#">Ir a caso clínico</Link>
+      </div>
+    </div>
   )
 }
 

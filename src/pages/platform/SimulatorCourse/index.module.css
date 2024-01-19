@@ -56,20 +56,26 @@ aside .containerBody {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
+  flex-direction: column;
 }
 
-.questionsGroup>div {
+.questionsGroup .groupBody {
   display: flex;
-  align-items: center;
+  flex-flow: row wrap;
+  justify-content: flex-end;
+  gap: 4px;
+  padding-top: 8px;
 }
 
-.questionsGroup>div:first-child {
+.groupHeader {
+  display: flex;
   justify-content: flex-start;
   gap: 8px;
   margin-right: auto;
+  align-items: center;
 }
 
-.questionsGroup>div:first-child p {
+.groupHeader p {
   color: var(--character-primary-85, rgba(0, 0, 0, 0.85));
   font-family: PoppinsRegular;
   font-size: 14px;
@@ -78,7 +84,8 @@ aside .containerBody {
   line-height: 22px;
 }
 
-.questionsGroup>div:not(:first-child) {
+.square {
+  display: flex;
   align-items: center;
   justify-content: center;
   width: 23px;
@@ -96,7 +103,22 @@ aside .containerBody {
   margin-right: 0.5px;
 }
 
-.questionsGroup>div.selected {
+
+.squareSelected {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 23px;
+  padding: 1px 6px;
+  border-radius: 2px;
+
+  color: var(--character-title-85, rgba(0, 0, 0, 0.85));
+  font-family: Roboto;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  margin-right: 0.5px;
   border: 1px solid var(--Polar-Green-3, #B7EB8F);
   background: var(--Polar-Green-1, #F6FFED);
 }
@@ -128,6 +150,26 @@ aside .containerBody {
   line-height: 22px;
   padding: 5px 0;
   text-decoration: none;
+}
+
+div[data-selected-questions=true]>svg {
+  transform: rotate(90deg);
+  transition: transform 200ms linear;
+}
+
+div[data-selected-questions=false]>svg {
+  transform: rotate(0deg);
+  transition: transform 200ms linear;
+}
+
+div[data-selected-cases=true]>svg {
+  transform: rotate(90deg);
+  transition: transform 200ms linear;
+}
+
+div[data-selected-cases=false]>svg {
+  transform: rotate(0deg);
+  transition: transform 200ms linear;
 }
 
 /* 
@@ -250,4 +292,79 @@ button.nextQuestionsButton {
 button.nextQuestionsButton:disabled {
   background: #b3b3b3;
   pointer-events: none;
+}
+
+
+.groupHeader>button {
+  background: transparent;
+  border: none;
+  height: 14px;
+  width: 14px;
+}
+
+.cliniCasesGroup .groupBody {
+  display: flex;
+  flex-flow: row wrap;
+
+}
+
+
+@media screen and (max-width: 480px) {
+  .wrapper {
+    padding: 16px;
+  }
+
+  .gridContainer {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "aside"
+      "section";
+    gap: 14px;
+  }
+
+  .gridContainer>aside {
+    grid-area: aside;
+  }
+
+  .gridContainer>section {
+    grid-area: section;
+
+  }
+
+  .countdownWrapper {
+    padding: 0;
+    padding-bottom: 8px;
+  }
+
+  .sectionContainer {
+    padding: 0 !important;
+  }
+
+  .questionDescription {
+    padding: 24px 12px;
+  }
+
+  .questionDescription p {
+    font-size: 14px;
+  }
+
+  .questionAnswers {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .questionAnswers p,
+  li.answerItem label {
+    font-size: 14px;
+  }
+
+  .containerFooterButtons {
+    flex-direction: column-reverse;
+    gap: 16px;
+    padding-bottom: 16px;
+  }
+
+  .containerFooterButtons button {
+    width: calc(100% - 32px);
+  }
 }

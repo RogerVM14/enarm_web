@@ -123,7 +123,7 @@ const CoursePage = () => {
                         <li>Simulador con <strong>50 preguntas.</strong></li>
                         <li>Tiempo para resolverlo: <strong>1 hora 15 minutos.</strong></li>
                         <li>🔥<strong> 5 intentos</strong> permitidos para resolverlo</li>
-                        <li>Conoce tus resultados al finalizar presionando<strong>Finish Quiz.</strong></li>
+                        <li>Conoce tus resultados al finalizar presionando <strong>Finish Quiz.</strong></li>
                       </ol>
                       <div className={ui.buttons}>
                         <Link to={"#"} className={ui.buttonLinkWhite} aria-disabled>Ir al panel de resultados</Link>
@@ -174,32 +174,34 @@ const CoursePage = () => {
               </header>
               <div className={ui.sectionBody}>
                 <p>¡Aprendizaje de calidad!</p>
-                <div className={ui.method}>
-                  <div className={ui.methodNumber}><h5>1</h5></div>
-                  <div className={ui.methodDescription}>
-                    <h5>Resúmenes</h5>
-                    <span>Consulta el contenido.</span>
+                <div className={ui.methodList}> 
+                  <div className={ui.method}>
+                    <div className={ui.methodNumber}><h5>1</h5></div>
+                    <div className={ui.methodDescription}>
+                      <h5>Resúmenes</h5>
+                      <span>Consulta el contenido.</span>
+                    </div>
                   </div>
-                </div>
-                <div className={ui.method}>
-                  <div className={ui.methodNumber}><h5>2</h5></div>
-                  <div className={ui.methodDescription}>
-                    <h5>Gráficos</h5>
-                    <span>Digiere tu aprendizaje.</span>
+                  <div className={ui.method}>
+                    <div className={ui.methodNumber}><h5>2</h5></div>
+                    <div className={ui.methodDescription}>
+                      <h5>Gráficos</h5>
+                      <span>Digiere tu aprendizaje.</span>
+                    </div>
                   </div>
-                </div>
-                <div className={ui.method}>
-                  <div className={ui.methodNumber}><h5>3</h5></div>
-                  <div className={ui.methodDescription}>
-                    <h5>Video-Clases</h5>
-                    <span>Repasa la información.</span>
+                  <div className={ui.method}>
+                    <div className={ui.methodNumber}><h5>3</h5></div>
+                    <div className={ui.methodDescription}>
+                      <h5>Video-Clases</h5>
+                      <span>Repasa la información.</span>
+                    </div>
                   </div>
-                </div>
-                <div className={ui.method}>
-                  <div className={ui.methodNumber}><h5>4</h5></div>
-                  <div className={ui.methodDescription}>
-                    <h5>SimuladorPRO</h5>
-                    <span>Practica en tiempo real.</span>
+                  <div className={ui.method}>
+                    <div className={ui.methodNumber}><h5>4</h5></div>
+                    <div className={ui.methodDescription}>
+                      <h5>SimuladorPRO</h5>
+                      <span>Practica en tiempo real.</span>
+                    </div>
                   </div>
                 </div>
               </div>

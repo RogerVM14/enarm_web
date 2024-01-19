@@ -44,7 +44,14 @@ const PlanCourseCollapse = () => {
                   <div className={ui.contentHead} onClick={(e) => handleShowBodyContent(indexCourse)}>
                     <div className={ui.headTop}>
                       <div className={ui.courseWeekTitle}>
-                        <img src={ChevronIcon} alt="chevron" className={ui.chevronIcon} data-pointer="right" width={12} height={12} />
+                        <img
+                          src={ChevronIcon}
+                          alt="chevron"
+                          className={ui.chevronIcon}
+                          data-pointer={expanded ? "bottom" : "right"}
+                          width={12}
+                          height={12}
+                        />
                         <h6 className={ui.courseWeek}>Semana {week}</h6>
                       </div>
                       <span className={ui.weekStatus} data-status={status}>{getStatusLabel(status)}</span>

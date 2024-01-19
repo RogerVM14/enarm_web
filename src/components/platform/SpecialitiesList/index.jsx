@@ -3,7 +3,10 @@ import { Link } from "react-router-dom";
 import ui from "./index.module.css";
 
 
-const SpecialitiesList = () => {
+const SpecialitiesList = ({
+  displayContainer,
+  handleDisplay = () => { }
+}) => {
   const [specialities, setSpecialities] = useState([
     { label: "Infectología", isActive: true },
     { label: "Cardiología", isActive: false },
@@ -28,10 +31,12 @@ const SpecialitiesList = () => {
           : { ...item, isActive: false };
       })
     });
+    handleDisplay();
   }
 
+  if (displayContainer === true) return null;
   return (
-    <aside>
+    <aside >
       <div className={ui.specialitiesContainer}>
         <ul>
           <li className={ui.specialityItem}>
@@ -41,8 +46,16 @@ const SpecialitiesList = () => {
             specialities?.map((speciality, indexSpeciality) => {
               const { isActive, label } = speciality;
               return (
-                <li key={indexSpeciality} className={ui.specialityItem} data-active={isActive}>
-                  <Link to="#" className={ui.specialityLink} onClick={(e) => handleSelectSpeciality(indexSpeciality)}>
+                <li
+                  key={indexSpeciality}
+                  className={ui.specialityItem}
+                  data-active={isActive}
+                >
+                  <Link
+                    to="#"
+                    className={ui.specialityLink}
+                    onClick={(e) => handleSelectSpeciality(indexSpeciality)}
+                  >
                     {label}
                   </Link>
                 </li>

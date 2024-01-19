@@ -118,7 +118,6 @@
   text-decoration-line: underline;
 }
 
-
 .progressBar {
   display: flex;
   flex-flow: row nowrap;
@@ -155,4 +154,61 @@
   height: 8px;
   border-radius: 8px;
   background: #05B2FA;
+}
+
+@media screen and (max-width: 480px) {
+  .wrapper {
+    padding: 16px;
+  }
+
+  .gridContainer {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "article"
+      "section";
+    gap: 12px;
+  }
+
+  .gridContainer>section {
+    grid-area: section;
+  }
+
+  .gridContainer>article {
+    grid-area: article;
+  }
+
+  .gridContainer aside>article:not(:last-child) {
+    margin-bottom: 12px;
+  }
+
+
+  #studyPlan .articleBody {
+    padding: 5px 16px;
+  }
+
+  .articleHeader {
+    padding: 7px 14px 7px 14px;
+  }
+
+  .articleBody {
+    padding: 7px 14px 7px 14px;
+  }
+
+  .bodyTitle,
+  .bodyParraf {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .articleBody h3 {
+    font-size: 22px;
+  }
+
+  .calendarLink {
+    padding: 5px 16px;
+  }
+
+  .calendarLink a {
+    font-size: 14px;
+  }
 }

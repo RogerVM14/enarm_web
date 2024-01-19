@@ -80,7 +80,8 @@
   padding: 12px 0px;
 }
 
-.buttons a {
+.buttons a,
+.backButton {
   text-align: center;
   font-family: PoppinsRegular;
   font-size: 14px;
@@ -108,4 +109,44 @@
   border-radius: 2px;
   background: rgba(5, 178, 250, 1);
   color: var(--character-primary-inverse, #FFF);
+  
+}
+
+.backButton {
+  display: none;
+}
+
+img[data-selected=true] {
+  transform: rotate(90deg);
+  transition: transform 200ms linear;
+}
+
+img[data-selected=false] {
+  transform: rotate(0deg);
+  transition: transform 200ms linear;
+}
+
+@media screen and (max-width: 480px) {
+  .wrapper {
+    padding: 16px;
+  }
+
+  .gridContainer {
+    display: block;
+  }
+
+  .backButton {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    padding: 0px 0px 14px 0px;
+  }
+
+  .cardBody .buttons {
+    flex-direction: column-reverse;
+    gap: 16px;
+    padding-bottom: 0;
+  }
 }

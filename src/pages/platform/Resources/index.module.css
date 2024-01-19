@@ -30,7 +30,8 @@
 
 .containerHeader p,
 .containerHeader label,
-.containerHeader select {
+.containerHeader select,
+.backButton {
   font-family: PoppinsRegular;
   font-size: 14px;
   font-style: normal;
@@ -80,4 +81,70 @@
   border-bottom: 1px solid #D9D9D9;
   border-left: 1px solid #D9D9D9;
   background: #FFF;
+}
+
+.resourceTitle p {
+  font-family: Roboto;
+}
+
+.backButton {
+  display: none;
+}
+
+
+@media screen and (max-width: 480px) {
+  .wrapper {
+    padding: 16px;
+  }
+
+  .gridContainer {
+    display: block;
+  }
+
+  .containerHeader {
+    flex-direction: column;
+    padding: 14px;
+  }
+
+  .resourceTitle button {
+    background-color: transparent;
+    border: none; 
+    height: 14px;
+    width: 14px;
+  }
+
+  .resourceTitle h4 {
+    font-size: 14px;
+    font-family: PoppinsMedium;
+  }
+
+  .resourceTitle p {
+    color: rgba(0, 0, 0, 0.45);
+  }
+
+  .containerHeader .resourseFilters {
+    padding-top: 20px;
+    gap: 16px;
+    flex-direction: column-reverse;
+    align-items: flex-start;
+  }
+
+  .filter {
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .filter select {
+    flex-grow: 1;
+  }
+
+  .backButton {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    padding: 0px 0px 14px 0px;
+  }
 }

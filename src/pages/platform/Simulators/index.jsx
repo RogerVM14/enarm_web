@@ -3,67 +3,100 @@ import DashboardLayout from "../../Layouts/Dashboard";
 import SpecialitiesList from "../../../components/platform/SpecialitiesList";
 import ui from "./index.module.css";
 import ChevronIcon from "../Assets/Icons/chevronicon.svg";
+import BackIcon from "../Assets/Icons/backicon.svg";
 import { Link } from "react-router-dom";
 import { GeneralContext } from "../../../contexts/GeneralContext";
 
 const SimulatorsPage = () => {
 
-  const { setImportantModal } = useContext(GeneralContext);
+  const [displayContainer, setDisplayContainer] = useState(false);
 
   return (
     <DashboardLayout>
       <div className={ui.wrapper}>
         <div className={ui.gridContainer}>
-          <SpecialitiesList />
-          <section id={ui.simulatorsSection}>
-            <div className={ui.sectionContainer}>
-              <div className={ui.containerBody}>
-                <SimulatorCard goToSimulation={() => { setImportantModal(true) }} />
-                <SimulatorCard goToSimulation={() => { setImportantModal(true) }} />
-                <SimulatorCard goToSimulation={() => { setImportantModal(true) }} />
-              </div>
-            </div>
-          </section>
+          <SpecialitiesList
+            displayContainer={displayContainer}
+            handleDisplay={() => { setDisplayContainer(!displayContainer) }} />
+          <SimulationCardsContainer
+            displayContainer={displayContainer}
+            handleDisplay={() => { setDisplayContainer(!displayContainer) }}
+          />
         </div>
       </div>
     </DashboardLayout >
   )
 }
 
-const SimulatorCard = ({ goToSimulation = () => { } }) => {
+const SimulationCardsContainer = ({
+  displayContainer,
+  handleDisplay = () => { }
+}) => {
+  if (displayContainer === false) return null;
+  return (
+    <section id={ui.simulatorsSection}>
+      <div className={ui.sectionContainer}>
+        <button
+          type="button"
+          className={ui.backButton}
+          onClick={() => handleDisplay()}
+        >
+          <img src={BackIcon} alt="chevron" />
+          Volver
+        </button>
+        <div className={ui.containerBody}>
+          <SimulatorCard />
+          <SimulatorCard />
+          <SimulatorCard />
+        </div>
+      </div>
+    </section>
+  )
+}
 
-  const [bodyVisualization, setBodyVisualization] = useState(false);
+const SimulatorCard = () => {
+
+  const [display, setDisplay] = useState(false);
 
   return (
     <div className={ui.simulatorCard}>
-      <div className={ui.cardHeader} onClick={() => { setBodyVisualization(!bodyVisualization) }}>
-        <div className={ui.headerTitle}>
-          <img src={ChevronIcon} alt="chevron" width={12} height={12} />
+      <div
+        className={ui.cardHeader}
+      >
+        <div
+          className={ui.headerTitle}
+          onClick={() => { setDisplay(!display) }}
+        >
+          <img src={ChevronIcon} alt="chevron" width={12} height={12} data-selected={display} />
           <h4>Simulador Infectología #1</h4>
         </div>
         <p>Practica en nuestro simulador</p>
       </div>
-      {
-        bodyVisualization === false
-          ? null
-          : (
-            <div className={ui.cardBody}>
-              <ol className={ui.guideList}>
-                <li>Simulador con <strong>50 preguntas.</strong></li>
-                <li>Tiempo para resolverlo: <strong>1 hora 15 minutos.</strong></li>
-                <li>🔥<strong> 5 intentos</strong> permitidos para resolverlo</li>
-                <li>Conoce tus resultados al finalizar presionando<strong>Finish Quiz.</strong></li>
-              </ol>
-              <div className={ui.buttons}>
-                <Link to={"#"} className={ui.buttonLinkWhite} aria-disabled>Ir al panel de resultados</Link>
-                <Link to={"#"}
-                  className={ui.buttonLinkBlue}
-                  onClick={(e) => { goToSimulation() }}
-                >Comenzar Simulador</Link>
-              </div>
-            </div>
-          )
-      }
+      <CardBody display={display} />
+    </div>
+  )
+}
+
+const CardBody = ({ display }) => {
+
+  const { setImportantModal } = useContext(GeneralContext);
+
+  if (display === false) return null;
+  return (
+    <div className={ui.cardBody}>
+      <ol className={ui.guideList}>
+        <li>Simulador con <strong>50 preguntas.</strong></li>
+        <li>Tiempo para resolverlo: <strong>1 hora 15 minutos.</strong></li>
+        <li>🔥<strong> 5 intentos</strong> permitidos para resolverlo</li>
+        <li>Conoce tus resultados al finalizar presionando <strong>Finish Quiz.</strong></li>
+      </ol>
+      <div className={ui.buttons}>
+        <Link to={"#"} className={ui.buttonLinkWhite} aria-disabled>Ir al panel de resultados</Link>
+        <Link to={"#"}
+          className={ui.buttonLinkBlue}
+          onClick={(e) => { setImportantModal(true) }}
+        >Comenzar Simulador</Link>
+      </div>
     </div>
   )
 }
