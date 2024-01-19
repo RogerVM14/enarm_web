@@ -274,7 +274,8 @@ section#advance {
   padding: 12px 0px;
 }
 
-.buttons a {
+.buttons a,
+.buttons button {
   text-align: center;
   font-family: PoppinsRegular;
   font-size: 14px;
@@ -302,7 +303,19 @@ section#advance {
   border-radius: 2px;
   background: rgba(5, 178, 250, 1);
   color: var(--character-primary-inverse, #FFF);
+  padding: 8px 16px;
 }
+
+img[data-selected=true] {
+  transform: rotate(90deg);
+  transition: transform 200ms linear;
+}
+
+img[data-selected=false] {
+  transform: rotate(0deg);
+  transition: transform 200ms linear;
+}
+
 
 @media screen and (max-width: 480px) {
   .wrapper {
@@ -389,7 +402,7 @@ section#advance {
   }
 
   .cardDescription span,
-  .cardDescription  p{
+  .cardDescription p {
     display: block;
     margin-left: unset;
   }
@@ -397,12 +410,8 @@ section#advance {
   .buttons {
     flex-direction: column-reverse;
     gap: 12px;
-    padding-top: 16px; 
+    padding-top: 16px;
     padding-bottom: 0px;
   }
 
-}
-
-* {
-  outline: 1px solid red;
 }

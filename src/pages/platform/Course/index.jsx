@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import DashboardLayout from "../../Layouts/Dashboard";
 import ui from "./index.module.css";
@@ -6,6 +6,7 @@ import ChevronIcon from "../Assets/Icons/chevronicon.svg";
 import AlertIcon from "../Assets/Icons/alertIcon.png";
 import GuideContent from "../../../components/platform/GuideContent";
 import { videos_thumbnails } from "../../../utils/VideosCourse";
+import { GeneralContext } from "../../../contexts/GeneralContext";
 
 const CoursePage = () => {
 
@@ -20,6 +21,10 @@ const CoursePage = () => {
     })
   }
 
+  const {
+    setImportantModal,
+  } = useContext(GeneralContext);
+
   return (
     <DashboardLayout>
       <div className={ui.wrapper}>
@@ -27,7 +32,7 @@ const CoursePage = () => {
           <section id={ui.containerCourse}>
             <header>
               <div className={ui.headerContent}>
-                <div class={ui.contentTop}>
+                <div className={ui.contentTop}>
                   <h4>Infectología</h4>
                   <p>Contenido</p>
                 </div>
@@ -41,7 +46,13 @@ const CoursePage = () => {
             <div className={ui.courseCard}>
               <div className={ui.cardHeader} onClick={() => { handleDisplayCardBody(0) }}>
                 <div className={ui.cardTitle}>
-                  <img src={ChevronIcon} alt="chevron" width={12} height={12} />
+                  <img
+                    src={ChevronIcon}
+                    alt="chevron"
+                    width={12}
+                    height={12}
+                    data-selected={cardDisplay[0]}
+                  />
                   <h5>1. Resúmenes</h5>
                 </div>
                 <div className={ui.cardDescription}>
@@ -63,7 +74,13 @@ const CoursePage = () => {
             <div className={ui.courseCard} data-card="graficos">
               <div className={ui.cardHeader} onClick={() => { handleDisplayCardBody(1) }}>
                 <div className={ui.cardTitle}>
-                  <img src={AlertIcon} alt="alert" width={12} height={12} />
+                  <img
+                    src={AlertIcon}
+                    alt="alert"
+                    width={12}
+                    height={12}
+                    // data-selected={cardDisplay[1]}
+                  />
                   <h5>2. Gráficos</h5>
                 </div>
                 <div className={ui.cardDescription}>
@@ -75,7 +92,14 @@ const CoursePage = () => {
             <div className={ui.courseCard}>
               <div className={ui.cardHeader} onClick={() => { handleDisplayCardBody(2) }}>
                 <div className={ui.cardTitle}>
-                  <img src={ChevronIcon} alt="chevron" width={12} height={12} />
+                  <img
+                    src={ChevronIcon}
+                    alt="chevron"
+                    width={12}
+                    height={12}
+
+                    data-selected={cardDisplay[2]}
+                  />
                   <h5>3. Video-Clases</h5>
                 </div>
                 <div className={ui.cardDescription}>
@@ -92,8 +116,8 @@ const CoursePage = () => {
                         {
                           videos_thumbnails?.map((video, index) => {
                             return (
-                              <div className={ui.videoContainer}>
-                                <img key={index} src={video} alt={"video" + index} />
+                              <div className={ui.videoContainer} key={index}>
+                                <img src={video} alt={"video" + index} />
                               </div>
                             )
                           })
@@ -107,7 +131,13 @@ const CoursePage = () => {
             <div className={ui.courseCard}>
               <div className={ui.cardHeader} onClick={() => { handleDisplayCardBody(3) }}>
                 <div className={ui.cardTitle}>
-                  <img src={ChevronIcon} alt="chevron" width={12} height={12} />
+                  <img
+                    src={ChevronIcon}
+                    alt="chevron"
+                    width={12}
+                    height={12}
+                    data-selected={cardDisplay[3]}
+                  />
                   <h5>4. Simulador Infecto</h5>
                 </div>
                 <div className={ui.cardDescription}>
@@ -127,7 +157,12 @@ const CoursePage = () => {
                       </ol>
                       <div className={ui.buttons}>
                         <Link to={"#"} className={ui.buttonLinkWhite} aria-disabled>Ir al panel de resultados</Link>
-                        <Link to={"#"} className={ui.buttonLinkBlue}>Comenzar Simulador</Link>
+                        <button type="button"
+                          className={ui.buttonLinkBlue}
+                          onClick={() => { setImportantModal(true); }}
+                        >
+                          Comenzar Simulador
+                        </button>
                       </div>
                     </div>
                   )
@@ -174,7 +209,7 @@ const CoursePage = () => {
               </header>
               <div className={ui.sectionBody}>
                 <p>¡Aprendizaje de calidad!</p>
-                <div className={ui.methodList}> 
+                <div className={ui.methodList}>
                   <div className={ui.method}>
                     <div className={ui.methodNumber}><h5>1</h5></div>
                     <div className={ui.methodDescription}>

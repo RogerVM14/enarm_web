@@ -80,9 +80,10 @@ const PlanCourseCollapse = () => {
                     <div className={ui.bodyClassLinks}>
                       {
                         classes?.map((currentClass, indexCurrentClass) => {
+                          const url = currentClass.id === null ? "#" : ("/u/planes/11_meses/contenido/" + currentClass.id);
                           return (
                             <div className={ui.classLink} key={indexCurrentClass}>
-                              <Link to={"#"}>Ir a {currentClass.title}</Link>
+                              <Link to={url}>Ir a {currentClass.title}</Link>
                             </div>
                           )
                         })
