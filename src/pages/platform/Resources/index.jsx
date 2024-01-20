@@ -1,14 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DashboardLayout from "../../Layouts/Dashboard";
 import SpecialitiesList from "../../../components/platform/SpecialitiesList";
-import GuideContent from "../../../components/platform/GuideContent";
-import ChevronIcon from "../Assets/Icons/chevronicon.svg";
+import GuideContent from "../../../components/platform/GuideContent"; 
 import BackIcon from "../Assets/Icons/backicon.svg";
 import ui from "./index.module.css";
 
 const ResourcesPage = () => {
 
   const [display, setDisplay] = useState(false);
+  const [smallDevice, setSmallDevice] = useState(null);
+
+  useEffect(() => {
+    function getWindowSize() {
+      let xViewport = window.innerWidth;
+      const xIsForPortableDevice = xViewport <= 992;
+      setSmallDevice(xIsForPortableDevice);
+    }
+    window.addEventListener("resize", getWindowSize);
+    getWindowSize();
+    return () => window.removeEventListener("resize", getWindowSize)
+  }, []);
 
   return (
     <DashboardLayout>
@@ -17,10 +28,12 @@ const ResourcesPage = () => {
           <SpecialitiesList
             displayContainer={display}
             handleDisplay={() => { setDisplay(!display) }}
+            smallDevice={smallDevice}
           />
           <ResourceContainer
             display={display}
             handleDisplay={() => { setDisplay(!display) }}
+            smallDevice={smallDevice}
           />
         </div>
       </div>
@@ -30,15 +43,16 @@ const ResourcesPage = () => {
 
 const ResourceContainer = ({
   display,
-  handleDisplay = () => { }
+  handleDisplay = () => { },
+  smallDevice
 }) => {
-  if (display === false) return null;
+  if (display === false && smallDevice === true) return null;
   return (
-    <section id={ui.resourceSectionContainer}> 
+    <section id={ui.resourceSectionContainer}>
       <header>
         <div className={ui.containerHeader}>
           <div className={ui.resourceTitle}>
-            <button type="button" onClick={() => { handleDisplay() }}>
+            <button type="button" className={ui.backButton} onClick={() => { handleDisplay() }}>
               <img src={BackIcon} alt="chevron" height={14} width={14} />
             </button>
             <h4>Infectología</h4>

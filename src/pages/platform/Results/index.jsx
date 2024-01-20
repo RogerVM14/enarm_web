@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import ui from "./index.module.css"
 import { Link } from "react-router-dom";
 import DashboardLayout from "../../Layouts/Dashboard";
 import GraphicResults from "../Assets/Images/graphicResults.png";
 
 const ResultsPage = () => {
+
+  const [tries, setTries] = useState([
+    { tryNumber: "1er Intento", result: "Respuestas correctas 75 de 100", percentage: "75", retro: true },
+    { tryNumber: "2do Intento", result: "Sin registro", percentage: "0", retro: false },
+    { tryNumber: "3er Intento", result: "Sin registro", percentage: "0", retro: false },
+    { tryNumber: "4to Intento", result: "Sin registro", percentage: "0", retro: false },
+    { tryNumber: "5to Intento", result: "Sin registro", percentage: "0", retro: false }
+  ]);
+
   return (
     <DashboardLayout>
       <div className={ui.wrapper}>
@@ -15,14 +24,16 @@ const ResultsPage = () => {
                 <div className={ui.bodyTop}>
                   <img src="" alt="" />
                   <h4>Simulador Infectología</h4>
-                  <p>Panel de Resultados</p>
-                  <Link to={"#"}>Comenzar Simulador</Link>
+                  <p datatype="large">Panel de Resultados</p>
+                  <p datatype="small">Panel</p>
+                  <Link to={"#"} datatype="large">Comenzar Simulador</Link>
                 </div>
                 <p>
                   En este espacio puedes conocer las estadísticas de tu desempeño por cada intento realizado.
                   Además, para una mejor retroalimentación hemos dividido los resultados por categorías para que identifiques
                   rápidamente cuáles son tus puntos fuertes y cuáles son aquellas que necesitas reforzar.
                 </p>
+                <Link to={"#"} datatype="small">Comenzar Simulador</Link>
               </div>
             </div>
           </header>
@@ -35,62 +46,7 @@ const ResultsPage = () => {
                 <div className={ui.bodyTitle}>
                   <p>¡Porcentajes de tus intentos!</p>
                 </div>
-                <div className={ui.tryResult}>
-                  <div className={ui.resultInfo}>
-                    <h5>1er Intento</h5>
-                    <p>Respuestas correctas 75 de 100</p>
-                    <Link to={"#"}>Ver Retroalimentación</Link>
-                  </div>
-                  <div className={ui.percentage}>
-                    <div className={ui.percentageNumber}>
-                      75%
-                    </div>
-                  </div>
-                </div>
-                <div className={ui.tryResult}>
-                  <div className={ui.resultInfo}>
-                    <h5>2do Intento</h5>
-                    <p>Sin registro</p>
-                  </div>
-                  <div className={ui.percentage}>
-                    <div className={ui.percentageNumber}>
-                      0%
-                    </div>
-                  </div>
-                </div>
-                <div className={ui.tryResult}>
-                  <div className={ui.resultInfo}>
-                    <h5>3er Intento</h5>
-                    <p>Sin registro</p>
-                  </div>
-                  <div className={ui.percentage}>
-                    <div className={ui.percentageNumber}>
-                      0%
-                    </div>
-                  </div>
-                </div>
-                <div className={ui.tryResult}>
-                  <div className={ui.resultInfo}>
-                    <h5>4to Intento</h5>
-                    <p>Sin registro</p>
-                  </div>
-                  <div className={ui.percentage}>
-                    <div className={ui.percentageNumber}>
-                      0%
-                    </div>
-                  </div>
-                </div>
-                <div className={ui.tryResult}>
-                  <div className={ui.resultInfo}>
-                    <h5>5to Intento</h5>
-                    <p>Sin registro</p>
-                  </div>
-                  <div className={ui.percentage}>
-                    <div className={ui.percentageNumber}>
-                      0%
-                    </div>
-                  </div>
-                </div>
+                <TryResultContainer tries={tries} />
               </div>
             </div>
           </aside>
@@ -120,6 +76,37 @@ const ResultsPage = () => {
         </div>
       </div>
     </DashboardLayout>
+  )
+}
+
+const TryResultContainer = ({ tries }) => {
+  return (
+    <React.Fragment>
+      {
+        tries?.map((item, index) => {
+
+          const { tryNumber, result, percentage, retro } = item;
+          return (
+            <div className={ui.tryResult} key={index}>
+              <div className={ui.resultInfo}>
+                <h5>{tryNumber}</h5>
+                <p>{result}</p>
+                {
+                  retro
+                    ? <Link to={"#"}>Ver Retroalimentación</Link>
+                    : null
+                }
+              </div>
+              <div className={ui.percentage}>
+                <div className={ui.percentageNumber}>
+                  {percentage}%
+                </div>
+              </div>
+            </div>
+          )
+        })
+      }
+    </React.Fragment>
   )
 }
 

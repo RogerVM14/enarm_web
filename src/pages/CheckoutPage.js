@@ -159,10 +159,10 @@ const CheckoutPage = () => {
           <PaymentOptionsContainer
             size={size}
             isMobile={isMobile()}
-            // paymentInfoSetState={setPaymentCheckoutInfo}
+          // paymentInfoSetState={setPaymentCheckoutInfo}
           />
 
-          <Conekta  />
+          <Conekta />
 
           <PaymentDetailsContainer
             size={size}
@@ -197,13 +197,13 @@ const CheckoutPage = () => {
             <PaymentOptionsContainer
               size={size}
               isMobile={isMobile()}
-              // paymentInfoSetState={setPaymentCheckoutInfo}
+            // paymentInfoSetState={setPaymentCheckoutInfo}
             />
           ) : (
             <PaymentDetailsContainer
               size={size}
               isMobile={isMobile()}
-              // handleSubmitPayment={handleSubmitPaymentInformation}
+            // handleSubmitPayment={handleSubmitPaymentInformation}
             />
           )}
         </div>

@@ -5,22 +5,22 @@ import WidthContext from '../../contexts/WidthContext';
 
 const AccessLayout = ({ children }) => {
 
-    const size = useContext(WidthContext);
+  const size = useContext(WidthContext);
 
-    const isMobile = () => {
-        if(['xs', 'sm', 'md'].includes(size)) return true;
-        if(['lg', 'xl', 'xxl'].includes(size)) return false;
-    }
+  const isMobile = () => {
+    if (['xs', 'sm', 'md'].includes(size)) return true;
+    if (['lg', 'xl', 'xxl'].includes(size)) return false;
+  }
 
-    return (
-        <>
-            <NavBar size={size} ismobile={isMobile().toString()} />
-            <main className={size}>
-                { children }
-            </main>
-            <Modal size={size} ismobile={isMobile().toString()} />
-        </>
-    )
+  return (
+    <>
+      <NavBar size={size} ismobile={isMobile} />
+      <main className={size}>
+        {children}
+      </main>
+      <Modal size={size} ismobile={isMobile} />
+    </>
+  )
 }
 
 export default AccessLayout;

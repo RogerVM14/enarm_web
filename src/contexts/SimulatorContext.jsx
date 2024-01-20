@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 
 export const SimulatorContext = createContext(null);
 
@@ -17,7 +17,7 @@ const SimulatorProvider = ({ children }) => {
         "Propoliz, cloracetamida, resinas de maderas",
       ],
       correct_answer_position: 0,
-      answer_selected: null,
+      answer_selected: 3,
       tip_response: "El tratamiento de primera línea en casos nunca tratados es la combinación de isoniazida, rifampicina, piranzinamida y etambutol durante dos meses, los siguientes cuatro sólo isoniazida / rifampicina.",
       response: "El tratamiento de primera línea en casos nunca tratados es la combinación de isoniazida, rifampicina, piranzinamida y etambutol durante dos meses, los siguientes cuatro sólo isoniazida / rifampicina."
     },
@@ -33,7 +33,7 @@ const SimulatorProvider = ({ children }) => {
         "pruebas de función hepática",
       ],
       correct_answer_position: 3,
-      answer_selected: null,
+      answer_selected: 3,
       tip_response: "El tratamiento de primera línea en casos nunca tratados es la combinación de isoniazida, rifampicina, piranzinamida y etambutol durante dos meses, los siguientes cuatro sólo isoniazida / rifampicina.",
       response: "El tratamiento de primera línea en casos nunca tratados es la combinación de isoniazida, rifampicina, piranzinamida y etambutol durante dos meses, los siguientes cuatro sólo isoniazida / rifampicina."
     },
@@ -48,7 +48,7 @@ const SimulatorProvider = ({ children }) => {
         "Propoliz, cloracetamida, resinas de maderas",
       ],
       correct_answer_position: 0,
-      answer_selected: null,
+      answer_selected: 1,
       tip_response: "El tratamiento de primera línea en casos nunca tratados es la combinación de isoniazida, rifampicina, piranzinamida y etambutol durante dos meses, los siguientes cuatro sólo isoniazida / rifampicina.",
       response: "El tratamiento de primera línea en casos nunca tratados es la combinación de isoniazida, rifampicina, piranzinamida y etambutol durante dos meses, los siguientes cuatro sólo isoniazida / rifampicina."
     },
@@ -759,12 +759,7 @@ const SimulatorProvider = ({ children }) => {
       tip_response: "El tratamiento de primera línea en casos nunca tratados es la combinación de isoniazida, rifampicina, piranzinamida y etambutol durante dos meses, los siguientes cuatro sólo isoniazida / rifampicina.",
       response: "El tratamiento de primera línea en casos nunca tratados es la combinación de isoniazida, rifampicina, piranzinamida y etambutol durante dos meses, los siguientes cuatro sólo isoniazida / rifampicina."
     }
-  ]);
-
-
-  useEffect(() => {
-    console.log(questions)
-  }, [questions]);
+  ]); 
 
   const handleSetAnswerToQuestion = (value, index) => {
     setQuestions((prev) => {

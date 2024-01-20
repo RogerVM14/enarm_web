@@ -116,6 +116,7 @@
   .resourceTitle h4 {
     font-size: 14px;
     font-family: PoppinsMedium;
+    line-height: 21px;
   }
 
   .resourceTitle p {
@@ -141,10 +142,10 @@
 
   .backButton {
     display: flex;
-    gap: 8px;
     align-items: center;
     background-color: transparent;
     border: none;
-    padding: 0px 0px 14px 0px;
+    width: 20px;
+    height: 20px;
   }
 }

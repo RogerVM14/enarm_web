@@ -5,7 +5,8 @@ import ui from "./index.module.css";
 
 const SpecialitiesList = ({
   displayContainer,
-  handleDisplay = () => { }
+  handleDisplay = () => { },
+  smallDevice
 }) => {
   const [specialities, setSpecialities] = useState([
     { label: "Infectología", isActive: true },
@@ -34,7 +35,7 @@ const SpecialitiesList = ({
     handleDisplay();
   }
 
-  if (displayContainer === true) return null;
+  if (displayContainer === true && smallDevice === true) return null;
   return (
     <aside >
       <div className={ui.specialitiesContainer}>
@@ -68,4 +69,4 @@ const SpecialitiesList = ({
   )
 }
 
-export default SpecialitiesList
+export default SpecialitiesList;

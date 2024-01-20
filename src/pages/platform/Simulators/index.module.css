@@ -1,5 +1,7 @@
 .wrapper {
   padding: 24px;
+  background: #f0f2f5;
+  min-height: 100dvh;
 }
 
 .gridContainer {
@@ -109,7 +111,7 @@
   border-radius: 2px;
   background: rgba(5, 178, 250, 1);
   color: var(--character-primary-inverse, #FFF);
-  
+
 }
 
 .backButton {

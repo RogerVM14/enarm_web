@@ -237,3 +237,29 @@
 .graphicWrapper {
   margin-top: 8px;
 }
+
+*[datatype=small] {
+  display: none;
+}
+
+@media screen and (max-width: 480px) {
+
+  .wrapper {
+    padding: 16px;
+  }
+
+  .gridContainer {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "header"
+      "aside"
+  }
+
+  *[datatype=large] {
+    display: none;
+  }
+
+  *[datatype=small] {
+    display: block;
+  }
+}

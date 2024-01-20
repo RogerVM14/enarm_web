@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import DashboardLayout from "../../Layouts/Dashboard";
 import SpecialitiesList from "../../../components/platform/SpecialitiesList";
 import ui from "./index.module.css";
@@ -10,6 +10,17 @@ import { GeneralContext } from "../../../contexts/GeneralContext";
 const SimulatorsPage = () => {
 
   const [displayContainer, setDisplayContainer] = useState(false);
+  const [smallDevice, setSmallDevice] = useState(null);
+
+  useEffect(() => {
+    function getWindowSize() {
+      let xViewport = window.innerWidth;
+      setSmallDevice(xViewport <= 992);
+    }
+    window.addEventListener("resize", getWindowSize);
+    getWindowSize();
+    return () => window.removeEventListener("resize", getWindowSize)
+  }, [])
 
   return (
     <DashboardLayout>
@@ -17,10 +28,12 @@ const SimulatorsPage = () => {
         <div className={ui.gridContainer}>
           <SpecialitiesList
             displayContainer={displayContainer}
-            handleDisplay={() => { setDisplayContainer(!displayContainer) }} />
+            handleDisplay={() => { setDisplayContainer(!displayContainer) }} 
+            smallDevice={smallDevice}/>
           <SimulationCardsContainer
             displayContainer={displayContainer}
             handleDisplay={() => { setDisplayContainer(!displayContainer) }}
+            smallDevice={smallDevice}
           />
         </div>
       </div>
@@ -30,11 +43,12 @@ const SimulatorsPage = () => {
 
 const SimulationCardsContainer = ({
   displayContainer,
-  handleDisplay = () => { }
+  handleDisplay = () => { },
+  smallDevice
 }) => {
-  if (displayContainer === false) return null;
+  if (displayContainer === false && smallDevice=== true) return null;
   return (
-    <section id={ui.simulatorsSection}>
+    <section id={ui.simulatorsSection} data-size="">
       <div className={ui.sectionContainer}>
         <button
           type="button"
@@ -60,13 +74,8 @@ const SimulatorCard = () => {
 
   return (
     <div className={ui.simulatorCard}>
-      <div
-        className={ui.cardHeader}
-      >
-        <div
-          className={ui.headerTitle}
-          onClick={() => { setDisplay(!display) }}
-        >
+      <div className={ui.cardHeader} >
+        <div className={ui.headerTitle} onClick={() => { setDisplay(!display) }} >
           <img src={ChevronIcon} alt="chevron" width={12} height={12} data-selected={display} />
           <h4>Simulador Infectología #1</h4>
         </div>

@@ -53,11 +53,8 @@ const RegisterPage = (props) => {
   };
 
   setTimeout(() => {
-
     const items = document.querySelectorAll(".reveal-load");
-
     items.forEach((item) => item.classList.add("active"));
-
   }, 100);
 
   return (
@@ -94,8 +91,7 @@ const RegisterForm = ({
   const [phoneNumber, setPhoneNumber] = useState("");
   const [nameUser, setNameUser] = useState("");
   const [emailUser, setEmailUser] = useState("");
-  const [passwordUser, setPasswordUser] = useState("");
-
+  const [passwordUser, setPasswordUser] = useState(""); 
   const [nameUserError, setNameUserError] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);

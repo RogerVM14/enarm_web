@@ -12,6 +12,15 @@
   box-shadow: 0px -1px 0px 0px #F0F0F0 inset;
 }
 
+.asideContainer {
+  height: inherit;
+}
+
+aside .containerBody {
+  overflow-y: auto;
+  height: inherit;
+}
+
 .filters {
   display: flex;
   flex-flow: row nowrap;
@@ -97,6 +106,12 @@
   box-shadow: 0px 1px 0px 0px #F0F0F0 inset;
 }
 
+.listItem[data-selected=true] {
+  background: #E6F7FF;
+  box-shadow: 3px 0px 0px 0px #05B2FA inset;
+  transition: all 200ms linear;
+}
+
 .itemContent {
   position: relative;
   padding-left: 22px;
@@ -178,8 +193,7 @@ section .containerHead p>strong {
   background: white;
 }
 
-.containerBody {
-
+section .containerBody {
   padding: 24px;
 }
 
@@ -199,19 +213,17 @@ section .containerHead p>strong {
   /* 150% */
 }
 
-.bodyContent ol {
-  margin-left: 40px;
-}
-
-.bodyContent ol li {
+.bodyContent ul li.answerList {
   color: var(--character-title-85, rgba(0, 0, 0, 0.85));
   font-family: Roboto;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: 22px;
-  padding: 9px 16px 9px 0;
+  padding: 9px 16px;
   text-transform: capitalize;
+  list-style: none;
+  width: max-content;
 }
 
 li[datatype=correct] {
@@ -285,8 +297,96 @@ li[datatype=incorrect] {
   background: transparent;
 }
 
+div[datatype="small"],
+img[datatype="small"] {
+  display: none;
+}
+
+div[datatype="large"],
+img[datatype="large"] {
+  display: block;
+}
+
+a.blueLink {
+  display: block;
+  color: var(--Secondary, #1E73BE);
+  font-family: PoppinsRegular;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  /* 142.857% */
+}
+
+.imageContainer {
+  width: 100%;
+}
+
+.imageContainer img {
+  width: inherit;
+}
+
 @media screen and (max-width: 480px) {
   .wrapper {
     padding: 16px;
   }
+
+  .gridContainer {
+    grid-template-columns: 1fr;
+  }
+
+  .gridContainer>aside {
+    width: calc(100vw - 2rem)
+  }
+
+  div[datatype="large"] {
+    display: none;
+  }
+
+  .flashCard {
+    width: 100%;
+    padding: 0;
+  }
+
+  .flashCard img {
+    width: inherit;
+  }
+
+  .bodyContent ul li.answerList {
+    width: 100%;
+  }
+
+  .contentHead[datatype="small"] {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .backButton {
+    border: none;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    color: var(--character-title-85, rgba(0, 0, 0, 0.85));
+    font-family: PoppinsRegular;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+    text-decoration-line: underline;
+  }
+
+  aside[data-display=false],
+  img[datatype=small],
+  section[data-display=true] {
+    display: block;
+  }
+
+  img[datatype=large],
+  aside[data-display=true],
+  section[data-display=false] {
+    display: none;
+  }
+
+
 }

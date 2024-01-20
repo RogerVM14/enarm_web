@@ -32,6 +32,7 @@ import ResultsPage from "./pages/Platform/Results";
 import GeneralProvider from "./contexts/GeneralContext";
 import FeedbackPage from "./pages/Platform/Feedback";
 import SimulatorProvider from "./contexts/SimulatorContext";
+import WidthProvider from "./contexts/WidthContext";
 
 const AppRouter = () => {
 
@@ -113,41 +114,43 @@ const AppRouter = () => {
   return (
     <>
       <AuthProvider>
-        <GeneralProvider>
-          <SimulatorProvider>
-            <Routes>
-              <Route path="/" index={true} element={<Layout topLine={true}> <HomePage /> </Layout>} />
-              <Route path="/nosotros" element={<Layout topLine={true}> <AboutUsPage /> </Layout>} />
-              <Route path="/sobre_el_curso" element={<Layout topLine={false}> <AboutCoursePage /> </Layout>} />
-              <Route path="/blog" element={<Layout topLine={true}> <BlogEntriesPage /> </Layout>} />
-              <Route path="/blog/:id" element={<Layout topLine={true}> <EntryDetailPage /> </Layout>} />
-              <Route path="/prueba_gratis" element={<Layout topLine={true}> <FreeTestPage /> </Layout>} />
-              <Route path="/contacto" element={<Layout topLine={false}> <ContactPage /> </Layout>} />
-              <Route path="/iniciar_sesion" element={<AccessLayout> <LoginPage /> </AccessLayout>} />
-              <Route path="/registrate" element={<AccessLayout><RegisterPage /> </AccessLayout>} />
-              <Route path="/checkout" element={<AccessLayout> <CheckoutPage /> </AccessLayout>} />
-              <Route path="/checkout_thankful" element={<AccessLayout> <CheckoutPageGratification /> </AccessLayout>} />
-              <Route path="/verify_email_code" element={<VerifyEmailCodePage />} />
-              {/* Platform */}
-              <Route path="/u/dashboard" element={<DashboardPage />} />
-              <Route path="/u/planes" element={<DashboardPage />} />
-              <Route path="/u/planes/:id" element={<PlanMonthPage />} />
-              <Route path="/u/planes/:id/contenido/:id" element={<CoursePage />} />
-              <Route path="/u/planes/:id/panel_resultados/:id" element={<ResultsPage />} />
-              <Route path="/u/planes/:id/simulador/:id" element={<SimulatorCoursePage />} />
-              <Route path="/u/planes/:id/retro" element={<FeedbackPage />} />
-              <Route path="/u/planes/aviso_novedades" element={<AdvicesNewsPage />} />
-              <Route path="/u/recursos" element={<ResourcesPage />} />
-              <Route path="/u/recursos/:id" element={<ResourceClass />} />
-              {/* <Route path='/u/recursos/:id' element={<DashboardLayout hasAside={false}><ResourcesPage /> } /> */}
-              <Route path="/u/simulador" element={<SimulatorsPage />} />
-              <Route path="/u/documentos" element={<StudyGuidePage />} />
-              <Route path="/u/documentos/guia" element={<StudyGuidePage />} />
-              <Route path="/u/documentos/programa_academico" element={<AcademicProgramPage />} />
-              <Route path={ROUTES.VERIFICAR_CORREO} element={<VerifyEmailCodePage />} />
-            </Routes>
-          </SimulatorProvider>
-        </GeneralProvider>
+        <WidthProvider>
+          <GeneralProvider>
+            <SimulatorProvider>
+              <Routes>
+                <Route path="/" index={true} element={<Layout topLine={true}> <HomePage /> </Layout>} />
+                <Route path="/nosotros" element={<Layout topLine={true}> <AboutUsPage /> </Layout>} />
+                <Route path="/sobre_el_curso" element={<Layout topLine={false}> <AboutCoursePage /> </Layout>} />
+                <Route path="/blog" element={<Layout topLine={true}> <BlogEntriesPage /> </Layout>} />
+                <Route path="/blog/:id" element={<Layout topLine={true}> <EntryDetailPage /> </Layout>} />
+                <Route path="/prueba_gratis" element={<Layout topLine={true}> <FreeTestPage /> </Layout>} />
+                <Route path="/contacto" element={<Layout topLine={false}> <ContactPage /> </Layout>} />
+                <Route path="/iniciar_sesion" element={<AccessLayout> <LoginPage /> </AccessLayout>} />
+                <Route path="/registrate" element={<AccessLayout><RegisterPage /> </AccessLayout>} />
+                <Route path="/checkout" element={<AccessLayout> <CheckoutPage /> </AccessLayout>} />
+                <Route path="/checkout_thankful" element={<AccessLayout> <CheckoutPageGratification /> </AccessLayout>} />
+                <Route path="/verify_email_code" element={<VerifyEmailCodePage />} />
+                {/* Platform */}
+                <Route path="/u/dashboard" element={<DashboardPage />} />
+                <Route path="/u/planes" element={<DashboardPage />} />
+                <Route path="/u/planes/:id" element={<PlanMonthPage />} />
+                <Route path="/u/planes/:id/contenido/:id" element={<CoursePage />} />
+                <Route path="/u/planes/:id/panel_resultados/:id" element={<ResultsPage />} />
+                <Route path="/u/planes/:id/simulador/:id" element={<SimulatorCoursePage />} />
+                <Route path="/u/planes/:id/retro" element={<FeedbackPage />} />
+                <Route path="/u/planes/aviso_novedades" element={<AdvicesNewsPage />} />
+                <Route path="/u/recursos" element={<ResourcesPage />} />
+                <Route path="/u/recursos/:id" element={<ResourceClass />} />
+                {/* <Route path='/u/recursos/:id' element={<DashboardLayout hasAside={false}><ResourcesPage /> } /> */}
+                <Route path="/u/simulador" element={<SimulatorsPage />} />
+                <Route path="/u/documentos" element={<StudyGuidePage />} />
+                <Route path="/u/documentos/guia" element={<StudyGuidePage />} />
+                <Route path="/u/documentos/programa_academico" element={<AcademicProgramPage />} />
+                <Route path={ROUTES.VERIFICAR_CORREO} element={<VerifyEmailCodePage />} />
+              </Routes>
+            </SimulatorProvider>
+          </GeneralProvider>
+        </WidthProvider>
       </AuthProvider>
     </>
   );

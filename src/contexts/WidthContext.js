@@ -1,23 +1,29 @@
-import { createContext } from "react";
+import { createContext, useEffect, useState } from "react";
+
+export const WidthContext = createContext(null);
+
+const WidthProvider = ({ children }) => {
+
+  const [width, setWidth] = useState(0);
+
+  useEffect(() => {
+    function getWindowSize() {
+      let xViewport = window.innerWidth;
+      setWidth(xViewport);
+    }
+
+    window.addEventListener("resize", getWindowSize);
+
+    getWindowSize();
+
+    return () => window.removeEventListener("resize", getWindowSize)
+  }, [])
  
-const WidthContext = createContext('');
+  return (
+    <WidthContext.Provider value={{width}}>
+      {children}
+    </WidthContext.Provider>
+  )
+};
 
-// export const WidthProvider = ({children}) => {
-//     const [width, setWidth] = useState(getWindowWidth());
-
-//     useEffect(() => {
-//         window.addEventListener("resize", event => {
-//             const x = getWindowWidth();
-//             setWidth(x);
-//         });
-//         console.log("Commando Resize: " + width);
-//     }, [width]);
-
-//     return (
-//         <WidthContext>
-//             {children}
-//         </WidthContext>
-//     )
-// };
-
-export default WidthContext;
+export default WidthProvider;

@@ -7,10 +7,10 @@ import "../css/checkout/CheckoutPageThankful.css";
 const CheckoutPageGratification = () => {
   const size = useContext(WidthContext);
 
-  const isMobile = () => {
-    if (["xs", "sm", "md"].includes(size)) return true;
-    if (["lg", "xl", "xxl"].includes(size)) return false;
-  };
+  // const isMobile = () => {
+  //   if (["xs", "sm", "md"].includes(size)) return true;
+  //   if (["lg", "xl", "xxl"].includes(size)) return false;
+  // };
 
   const navigate = useNavigate();
 
