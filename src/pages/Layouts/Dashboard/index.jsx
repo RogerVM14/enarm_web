@@ -27,13 +27,14 @@ const DashboardLayout = ({ children }) => {
     navigation("/u/planes/11_meses/simulador/blabla");
   }
 
-  const closeImportantModal = () => {
-    setImportantModal(false);
+  const handleRunFeedback = () => {
+    setSimulationOnCourse(false);
+    setFeedbackModal(false);
+    navigation("/u/planes/11_meses/retro")
   }
 
-  const closeFeedbackModal = () => {
-    setFeedbackModal(false);
-  }
+  const closeImportantModal = () => setImportantModal(false);
+  const closeFeedbackModal = () => setFeedbackModal(false);
 
   useEffect(() => {
     function getWindowSize() {
@@ -71,6 +72,7 @@ const DashboardLayout = ({ children }) => {
       <FeedbackAdvice
         open={feedbackModal}
         closeFeedbackModal={closeFeedbackModal}
+        handleRunFeedback={handleRunFeedback}
       />
     </div>
   )

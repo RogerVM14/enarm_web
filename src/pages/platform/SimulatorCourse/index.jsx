@@ -4,24 +4,23 @@ import DashboardLayout from "../../Layouts/Dashboard";
 import { Link } from "react-router-dom";
 import useFetch from "./Hooks/useFetch";
 import { GeneralContext } from "../../../contexts/GeneralContext";
+import { SimulatorContext } from "../../../contexts/SimulatorContext";
 
 const SimulatorCoursePage = () => {
 
-  const {
-    data,
-    current,
-    answeredPosition,
-    handleSelectAnswer,
-    handleNextQuestions
-  } = useFetch();
 
   const [questionGroup, setQuestionGroup] = useState(false);
   const [clinicGroup, setClinicGroup] = useState(false);
 
-  const {
-    setFeedbackModal
-  } = useContext(GeneralContext);
+  const { setFeedbackModal } = useContext(GeneralContext);
+  const { questions, handleSetAnswerToQuestion } = useContext(SimulatorContext);
 
+  const {
+    current,
+    answeredPosition,
+    handleSelectAnswer,
+    handleNextQuestions
+  } = useFetch({ handleSetAnswerToQuestion });
 
   return (
     <DashboardLayout>
@@ -46,7 +45,10 @@ const SimulatorCoursePage = () => {
                       </svg>
                       <p>Preguntas</p>
                     </div>
-                    <QuestionsSquaresGroup questions={data} display={questionGroup} />
+                    <QuestionsSquaresGroup
+                      questions={questions}
+                      display={questionGroup}
+                    />
                   </div>
                 </div>
                 <div className={ui.clinicCasesGroup}>
@@ -68,12 +70,12 @@ const SimulatorCoursePage = () => {
                 <SimulatorQuestion
                   handleSelectAnswer={handleSelectAnswer}
                   position={0}
-                  data={data[current]}
+                  data={questions[current]}
                 />
                 <SimulatorQuestion
                   handleSelectAnswer={handleSelectAnswer}
                   position={1}
-                  data={data[current + 1]}
+                  data={questions[current + 1]}
                 />
               </div>
               <div className={ui.containerFooterButtons}>

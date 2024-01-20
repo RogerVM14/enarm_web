@@ -1,10 +1,10 @@
 import React from "react";
-import ui from "../index.module.css";
-import { Link } from "react-router-dom";
+import ui from "../index.module.css"; 
 
 const FeedbackAdvice = ({
-  open,
-  closeFeedbackModal = () => { }
+  open = false,
+  closeFeedbackModal = () => { },
+  handleRunFeedback = () => { }
 }) => {
   return open === false ? null : (
     <div className={ui.dialogModal}>
@@ -44,7 +44,12 @@ const FeedbackAdvice = ({
             <button type="button" className={ui.buttonCancel} onClick={() => { closeFeedbackModal(); }}>
               <span>No, volver</span>
             </button>
-            <Link to="#" className={ui.linkButtonBlue}>Si, quiero Retroalimentación</Link>
+            <button
+              className={ui.linkButtonBlue}
+              onClick={() => { handleRunFeedback(); }}
+            >
+              Si, quiero Retroalimentación
+            </button>
           </div>
         </div>
       </div>
