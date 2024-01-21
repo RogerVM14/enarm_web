@@ -120,13 +120,13 @@ const AppRouter = () => {
               <Routes>
                 <Route path="/" index={true} element={<Layout topLine={true}> <HomePage /> </Layout>} />
                 <Route path="/nosotros" element={<Layout topLine={true}> <AboutUsPage /> </Layout>} />
-                <Route path="/sobre_el_curso" element={<Layout topLine={false}> <AboutCoursePage /> </Layout>} />
+                <Route path="/curso" element={<Layout topLine={false}> <AboutCoursePage /> </Layout>} />
                 <Route path="/blog" element={<Layout topLine={true}> <BlogEntriesPage /> </Layout>} />
                 <Route path="/blog/:id" element={<Layout topLine={true}> <EntryDetailPage /> </Layout>} />
-                <Route path="/prueba_gratis" element={<Layout topLine={true}> <FreeTestPage /> </Layout>} />
+                <Route path="/prueba" element={<Layout topLine={true}> <FreeTestPage /> </Layout>} />
                 <Route path="/contacto" element={<Layout topLine={false}> <ContactPage /> </Layout>} />
-                <Route path="/iniciar_sesion" element={<AccessLayout> <LoginPage /> </AccessLayout>} />
-                <Route path="/registrate" element={<AccessLayout><RegisterPage /> </AccessLayout>} />
+                <Route path="/login" element={<AccessLayout> <LoginPage /> </AccessLayout>} />
+                <Route path="/registro" element={<AccessLayout><RegisterPage /> </AccessLayout>} />
                 <Route path="/checkout" element={<AccessLayout> <CheckoutPage /> </AccessLayout>} />
                 <Route path="/checkout_thankful" element={<AccessLayout> <CheckoutPageGratification /> </AccessLayout>} />
                 <Route path="/verify_email_code" element={<VerifyEmailCodePage />} />

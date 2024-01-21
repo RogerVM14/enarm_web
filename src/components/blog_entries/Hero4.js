@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import blog1Image from '../../assets/imgs/blog_1.png';
 import blog2Image from '../../assets/imgs/blog_2.png';
 import blog3Image from '../../assets/imgs/blog_3.png';
-import '../../css/blog_entries/Hero4.css'; 
+import '../../css/blog_entries/Hero4.css';
 
 const entries_list = [
     {
@@ -25,12 +25,12 @@ const entries_list = [
 
 const Hero4 = ({ size, ismobile }) => {
 
-    const [mobileDevice, setMobileDevice] = useState(true); 
+    const [mobileDevice, setMobileDevice] = useState(true);
     const navigate = useNavigate();
 
-    useEffect(() =>{
-        const isMobileDevice = () =>{
-            if(ismobile === 'true') {
+    useEffect(() => {
+        const isMobileDevice = () => {
+            if (ismobile) {
                 setMobileDevice(true)
                 return;
             }
@@ -46,11 +46,11 @@ const Hero4 = ({ size, ismobile }) => {
         items.forEach(item => {
             item.classList.add("active");
         })
-        
+
         const body = document.querySelector("body");
         body.scrollTop = 0;
     }, 100);
- 
+
     const goToNavigation = (i) => {
         navigate(`/blog/${i}`, { replace: false });
     }
@@ -60,16 +60,16 @@ const Hero4 = ({ size, ismobile }) => {
             <div className="hero-4-container">
                 <div className="hero-4-container-header reveal-load">
                     <h2 className="title text-center reveal-load fade-in-title">
-                        <span className={ismobile ? "bold-44": "bold-47"}>Orientación</span>
-                        <span className={ismobile ? "bold-44": "bold-47"}>sobre</span>
-                        <span className={ismobile ? "bold-44": "bold-47"}>el</span>
-                        <span className={ismobile ? "bold-44": "bold-47"}>ENARM</span>
-                        <span className={ismobile ? "bold-44": "bold-47"}>y</span>
-                        <span className={ismobile ? "bold-44": "bold-47"}>sus</span>
-                        <span className={ismobile ? "bold-44": "bold-47"}>tendencias</span>
+                        <span className={ismobile ? "bold-44" : "bold-47"}>Orientación</span>
+                        <span className={ismobile ? "bold-44" : "bold-47"}>sobre</span>
+                        <span className={ismobile ? "bold-44" : "bold-47"}>el</span>
+                        <span className={ismobile ? "bold-44" : "bold-47"}>ENARM</span>
+                        <span className={ismobile ? "bold-44" : "bold-47"}>y</span>
+                        <span className={ismobile ? "bold-44" : "bold-47"}>sus</span>
+                        <span className={ismobile ? "bold-44" : "bold-47"}>tendencias</span>
                     </h2>
-                    <p className={`${mobileDevice ? 'regular-14' : 'regular-16' } text-center reveal-load`}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                    <p className={`${mobileDevice ? 'regular-14' : 'regular-16'} text-center reveal-load`}>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                         sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                     </p>
                 </div>
@@ -85,14 +85,14 @@ const Hero4 = ({ size, ismobile }) => {
                                         </div>
                                         <div className="entry-text">
                                             <Link className='entry-link' to={`/blog/${index}`} key={index}>
-                                                <p className={`${mobileDevice ? 'regular-14' : 'regular-16' } gray`}>{item.date}</p>
+                                                <p className={`${mobileDevice ? 'regular-14' : 'regular-16'} gray`}>{item.date}</p>
                                                 <p className="regular-20">{item.text}</p>
                                             </Link>
                                         </div>
                                     </div>
                                 )
                             })
-                        } 
+                        }
                     </div>
                 </div>
             </div>

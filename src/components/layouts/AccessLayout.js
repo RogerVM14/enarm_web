@@ -1,24 +1,40 @@
-import React, { useContext } from 'react'
+import React, { useEffect, useState } from 'react'
 import NavBar from '../NavBar';
 import Modal from '../Modal';
-import WidthContext from '../../contexts/WidthContext';
 
 const AccessLayout = ({ children }) => {
+  const getWindowWidth = () => {
+    let x = window.innerWidth;
+    if (x < 576) return "xs";
+    if (x >= 576 && x <= 767) return "sm";
+    if (x >= 768 && x <= 991) return "md";
+    if (x >= 992 && x <= 1199) return "lg";
+    if (x >= 1200 && x <= 1399) return "xl";
+    if (x >= 1400) return "xxl";
+  };
 
-  const size = useContext(WidthContext);
+  const [width, setWidth] = useState(getWindowWidth());
+
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      const x = getWindowWidth();
+      setWidth(x);
+    });
+  }, [width]);
 
   const isMobile = () => {
-    if (['xs', 'sm', 'md'].includes(size)) return true;
-    if (['lg', 'xl', 'xxl'].includes(size)) return false;
+    if (['xs', 'sm', 'md'].includes(width)) return true;
+    if (['lg', 'xl', 'xxl'].includes(width)) return false;
   }
+
 
   return (
     <>
-      <NavBar size={size} ismobile={isMobile} />
-      <main className={size}>
+      <NavBar size={width} ismobile={isMobile} />
+      <main className={width}>
         {children}
       </main>
-      <Modal size={size} ismobile={isMobile} />
+      <Modal size={width} ismobile={isMobile} />
     </>
   )
 }

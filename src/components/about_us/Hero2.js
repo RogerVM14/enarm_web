@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import drImage from '../../assets/imgs/Dres/sepidbaft.ir6_.png'; 
+import drImage from '../../assets/imgs/Dres/sepidbaft.ir6_.png';
 import '../../css/about_us/Hero2.css';
 
 const Hero2 = ({ size, ismobile }) => {
-  
+
     setTimeout(() => {
         const items = document.querySelectorAll(".reveal-load");
         items.forEach(item => {
             item.classList.add("active");
         })
-        
+
         const body = document.querySelector("body");
         body.scrollTop = 0;
-    }, 100); 
+    }, 100);
 
     const [mobileDevice, setMobileDevice] = useState(true);
 
     useEffect(() => {
         const isMobileDevice = () => {
-            if(ismobile === 'true') {
+            if (ismobile) {
                 setMobileDevice(true)
                 return;
             }
@@ -26,9 +26,9 @@ const Hero2 = ({ size, ismobile }) => {
             return;
         }
 
-        isMobileDevice(); 
+        isMobileDevice();
     }, [ismobile]);
-    
+
 
     return (
         <div className={`hero-2 ${size}`} >
@@ -43,7 +43,7 @@ const Hero2 = ({ size, ismobile }) => {
                             <span className={(mobileDevice || size === 'lg') ? "bold-44" : "bold-47"}>#1,</span>
                             <span className={(mobileDevice || size === 'lg') ? "bold-44" : "bold-47"}>el</span>
                             <span className={(mobileDevice || size === 'lg') ? "bold-44" : "bold-47"}>más</span>
-                            <span className={(mobileDevice || size === 'lg') ? "bold-44" : "bold-47"}>completo</span> 
+                            <span className={(mobileDevice || size === 'lg') ? "bold-44" : "bold-47"}>completo</span>
                             <span className={(mobileDevice || size === 'lg') ? "bold-44" : "bold-47"}>y</span>
                             <span className={(mobileDevice || size === 'lg') ? "bold-44" : "bold-47"}>exitoso</span>
                             <span className={(mobileDevice || size === 'lg') ? "bold-44" : "bold-47"}>de</span>
@@ -62,7 +62,7 @@ const Hero2 = ({ size, ismobile }) => {
                 <div className="container-body">
                     <div className="image-container reveal-load">
                         <img src={drImage} alt="hero-2-img" />
-                    </div> 
+                    </div>
                 </div>
             </div>
         </div>

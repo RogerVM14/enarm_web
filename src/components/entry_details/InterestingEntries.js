@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'; 
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import blog1Image from '../../assets/imgs/blog_1.png';
 import blog2Image from '../../assets/imgs/blog_2.png';
@@ -25,11 +25,11 @@ const entries_list = [
 
 const InterestingEntries = ({ size, ismobile }) => {
 
-    const [mobileDevice, setMobileDevice] = useState(true);  
+    const [mobileDevice, setMobileDevice] = useState(true);
 
-    useEffect(() =>{
-        const isMobileDevice = () =>{
-            if(ismobile === 'true') {
+    useEffect(() => {
+        const isMobileDevice = () => {
+            if (ismobile) {
                 setMobileDevice(true)
                 return;
             }
@@ -40,12 +40,12 @@ const InterestingEntries = ({ size, ismobile }) => {
         isMobileDevice();
     }, [ismobile]);
 
-    
+
     // setTimeout(() => {
-        
+
     //     const body = document.querySelector("body");
     //     body.scrollTop = 0; 
-        
+
     // }, 100);
 
     // const goToTop = () => {
@@ -61,7 +61,7 @@ const InterestingEntries = ({ size, ismobile }) => {
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
     }
- 
+
     return (
         <div className='interesting-entries bg-blue'>
             <div className="interesting-entries-container">
@@ -80,7 +80,7 @@ const InterestingEntries = ({ size, ismobile }) => {
                                             <img src={item.image} alt="entry" />
                                         </div>
                                         <div className="entry-text">
-                                            <Link onClick={() => scrollToTop() }className='entry-link' to={`/blog/${index}`} key={index}>
+                                            <Link onClick={() => scrollToTop()} className='entry-link' to={`/blog/${index}`} key={index}>
                                                 <p className={`${mobileDevice ? "regular-14" : "regular-16"} gray`}>{item.date}</p>
                                                 <p className="regular-20">{item.text}</p>
                                             </Link>
@@ -91,8 +91,8 @@ const InterestingEntries = ({ size, ismobile }) => {
                         }
                     </div>
                 </div>
-            </div> 
-        </div> 
+            </div>
+        </div>
     )
 }
 

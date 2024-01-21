@@ -12,11 +12,11 @@ import '../../css/contact/Hero7.css';
 
 const Hero7 = ({ size, ismobile }) => {
 
-    const [mobileDevice, setMobileDevice] = useState(true);  
+    const [mobileDevice, setMobileDevice] = useState(true);
 
-    useEffect(() =>{
-        const isMobileDevice = () =>{
-            if(ismobile === 'true') {
+    useEffect(() => {
+        const isMobileDevice = () => {
+            if (ismobile) {
                 setMobileDevice(true)
                 return;
             }
@@ -32,11 +32,11 @@ const Hero7 = ({ size, ismobile }) => {
         items.forEach(item => {
             item.classList.add("active");
         })
-        
+
         const body = document.querySelector("body");
         body.scrollTop = 0;
     }, 100);
- 
+
     return (
         <div className='hero-7'>
             <div className="hero-7-container">
@@ -47,17 +47,17 @@ const Hero7 = ({ size, ismobile }) => {
                             <div className="__container">
                                 <div className="container-body">
                                     <div className="subcontainer">
-                                        <div className="contact-us reveal-load"> 
+                                        <div className="contact-us reveal-load">
                                             <p className='semibold-14'>Contactanos por:</p>
-                                            <ContactUsInfo /> 
+                                            <ContactUsInfo />
                                         </div>
                                         <div className='subcontainer'>
-                                            { size === 'md' && ( <FollowUs /> )}
+                                            {size === 'md' && (<FollowUs />)}
                                             <img className='doctor-coffee reveal-load' src={doctorCoffee} alt="doctor-coffe" />
                                         </div>
                                     </div>
                                 </div>
-                                { ['xs', 'sm'].includes(size) && ( <FollowUs /> )}                     
+                                {['xs', 'sm'].includes(size) && (<FollowUs />)}
                                 <div className="form-container reveal-load"> <ContactForm size={size} /> </div>
                             </div>
                         </>
@@ -66,37 +66,37 @@ const Hero7 = ({ size, ismobile }) => {
                             <div className='__container'>
                                 <ContainerHeader mobile={ismobile} />
                                 <div className="container-body">
-                                    <div className="subcontainer"> 
-                                        <div className="contact-us reveal-load"> 
+                                    <div className="subcontainer">
+                                        <div className="contact-us reveal-load">
                                             <p className='semibold-14'>Contactanos por:</p>
-                                            <ContactUsInfo /> 
+                                            <ContactUsInfo />
                                         </div>
                                         <FollowUs />
-                                    </div>    
+                                    </div>
                                     <img className='doctor-coffee reveal-load' src={doctorCoffee} alt="doctor-coffe" />
                                 </div>
-                            </div>      
-                            <div className="form-container reveal-load"> 
-                                <ContactForm size={size} /> 
+                            </div>
+                            <div className="form-container reveal-load">
+                                <ContactForm size={size} />
                             </div>
                         </>
                     )
-                } 
+                }
             </div>
         </div>
-    ) 
+    )
 }
 
 const ContainerHeader = ({ mobile }) => {
     return (
         <div className="container-header">
             <h1 className="title text-center reveal-load fade-in-title">
-                <span className={ mobile ? "bold-44" : "bold-47" }>Habla</span>
-                <span className={ mobile ? "bold-44" : "bold-47" }>con</span>
-                <span className={ mobile ? "bold-44" : "bold-47" }>nosotros</span>   
+                <span className={mobile ? "bold-44" : "bold-47"}>Habla</span>
+                <span className={mobile ? "bold-44" : "bold-47"}>con</span>
+                <span className={mobile ? "bold-44" : "bold-47"}>nosotros</span>
             </h1>
             <p className="regular-14 text-center reveal-load">
-                Ya sea que estés buscando más información, o quieras enviar tu formato de pago. 
+                Ya sea que estés buscando más información, o quieras enviar tu formato de pago.
                 Estamos aquí para ayudarte ante cualquier inquietud.
             </p>
         </div>
@@ -142,7 +142,7 @@ const ContactUsInfo = () => {
     )
 }
 
-const ContactForm  = ({size}) => {
+const ContactForm = ({ size }) => {
 
     const fontClass = () => {
         return ['xl', 'xxl'].includes(size) ? 'medium-16' : 'medium-14';
@@ -155,17 +155,17 @@ const ContactForm  = ({size}) => {
     return (
         <form method='POST' onSubmit={handleSubmit}>
             <div className="form-group">
-                <label className={ fontClass() } htmlFor="name">Nombre completo*</label>
+                <label className={fontClass()} htmlFor="name">Nombre completo*</label>
                 <input type="text" placeholder='Nombre completo' name="name" id="contact-message-name" />
                 <span className="red regular-14">Error message ...</span>
             </div>
             <div className="form-group">
-                <label className={ fontClass() } htmlFor="name">Correo electrónico*</label>
+                <label className={fontClass()} htmlFor="name">Correo electrónico*</label>
                 <input type="email" placeholder='Tu correo electrónico' name="email" id="contact-message-email" />
                 <span className="red regular-14">Error message ...</span>
             </div>
             <div className="form-group">
-                <label className={ fontClass() } htmlFor="name">Mensaje <i>(opcional)</i></label>
+                <label className={fontClass()} htmlFor="name">Mensaje <i>(opcional)</i></label>
                 <textarea name="message" id="contact-message-msg" cols="30" rows="8" placeholder='Escribe tu mensaje' ></textarea>
                 {/* <input className='message' type="text" placeholder='Escribe tu mensaje' name="message" id="contact-message-msg" /> */}
             </div>

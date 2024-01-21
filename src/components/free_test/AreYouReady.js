@@ -3,11 +3,11 @@ import '../../css/free_test/AreYouReady.css';
 
 const AreYouReady = ({ size, ismobile }) => {
 
-    const [mobileDevice, setMobileDevice] = useState(true);  
+    const [mobileDevice, setMobileDevice] = useState(true);
 
-    useEffect(() =>{
-        const isMobileDevice = () =>{
-            if(ismobile === 'true') {
+    useEffect(() => {
+        const isMobileDevice = () => {
+            if (ismobile) {
                 setMobileDevice(true)
                 return;
             }
@@ -29,27 +29,27 @@ const AreYouReady = ({ size, ismobile }) => {
                             <ul className="ls-none">
                                 <li className='list-ip'>
                                     <i className="material-icons-outlined green-check">done</i>
-                                    <p className={ !mobileDevice ? "regular-16" : "regular-14" }>
+                                    <p className={!mobileDevice ? "regular-16" : "regular-14"}>
                                         Diseñado por 18 Residentes Jóvenes
-                                </p>
+                                    </p>
                                 </li>
                                 <li className='list-ip'>
                                     <i className="material-icons-outlined green-check">done</i>
-                                    <p className={ !mobileDevice ? "regular-16" : "regular-14" }
+                                    <p className={!mobileDevice ? "regular-16" : "regular-14"}
                                     >Basados 100% en las GPC Mexicanas.
-                                </p>
+                                    </p>
                                 </li>
                                 <li className='list-ip'>
                                     <i className="material-icons-outlined green-check">done</i>
-                                    <p className={ !mobileDevice ? "regular-16" : "regular-14" }>
+                                    <p className={!mobileDevice ? "regular-16" : "regular-14"}>
                                         Porcentaje de aceptación del 80%.
-                                </p>
+                                    </p>
                                 </li>
                                 <li className='list-ip'>
                                     <i className="material-icons-outlined green-check">done</i>
-                                    <p className={ !mobileDevice ? "regular-16" : "regular-14" }>
+                                    <p className={!mobileDevice ? "regular-16" : "regular-14"}>
                                         Simulador-PRO idéntico al del ENARM.
-                                </p>
+                                    </p>
                                 </li>
                             </ul>
                         </div>
@@ -57,31 +57,31 @@ const AreYouReady = ({ size, ismobile }) => {
                             <ul className="ls-none">
                                 <li className='list-ip'>
                                     <i className="material-icons-outlined green-check">done</i>
-                                    <p className={`${ !mobileDevice ? "regular-16" : "regular-14" } white`}>
+                                    <p className={`${!mobileDevice ? "regular-16" : "regular-14"} white`}>
                                         100% de satisfacción de nuestros alumnos.
                                     </p>
                                 </li>
                                 <li className='list-ip'>
                                     <i className="material-icons-outlined green-check">done</i>
-                                    <p className={`${ !mobileDevice ? "regular-16" : "regular-14" } white`}>
+                                    <p className={`${!mobileDevice ? "regular-16" : "regular-14"} white`}>
                                         Curso élite, un simulador avanzado y material de punta.
                                     </p>
                                 </li>
                                 <li className='list-ip'>
                                     <i className="material-icons-outlined green-check">done</i>
-                                    <p className={`${ !mobileDevice ? "regular-16" : "regular-14" } white`}>
+                                    <p className={`${!mobileDevice ? "regular-16" : "regular-14"} white`}>
                                         Metodología de estudio didáctica actualizada.
                                     </p>
                                 </li>
                                 <li className='list-ip'>
                                     <i className="material-icons-outlined green-check">done</i>
-                                    <p className={`${ !mobileDevice ? "regular-16" : "regular-14" } white`}>
+                                    <p className={`${!mobileDevice ? "regular-16" : "regular-14"} white`}>
                                         ¡Pago seguro y acceso inmediato. Inicia hoy mismo!
                                     </p>
                                 </li>
                                 <li className='list-ip'>
                                     <i className="material-icons-outlined green-check">done</i>
-                                    <p className={`${ !mobileDevice ? "regular-16" : "regular-14" } white`}>
+                                    <p className={`${!mobileDevice ? "regular-16" : "regular-14"} white`}>
                                         Experimenta simulacros con preguntas identicas a las que verás el día de tu ENARM.
                                     </p>
                                 </li>

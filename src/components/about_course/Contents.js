@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import '../../css/about_course/Contents.css';
 import whatDoctorsSay from '../../assets/imgs/Dres/what-doctors-say2.jpg';
 
-const Contents = ({ size, ismobile }) =>{
+const Contents = ({ size, ismobile }) => {
 
     const [mobileDevice, setMobileDevice] = useState(true);
 
-    useEffect(() =>{
-        const isMobileDevice = () =>{
-            if(ismobile === 'true') {
+    useEffect(() => {
+        const isMobileDevice = () => {
+            if (ismobile) {
                 setMobileDevice(true)
                 return;
             }
@@ -41,20 +41,20 @@ const Contents = ({ size, ismobile }) =>{
                             Metodología de Estudio
                         </h1>
                         <p className={mobileDevice ? "regular-14" : "regular-16"}>
-                            Conjunto de herramientas didácticas basadas en un sistema 
+                            Conjunto de herramientas didácticas basadas en un sistema
                             de inteligencia artificial organizada en cinco fases:
-                        </p> 
-                        <MetodologyList /> 
+                        </p>
+                        <MetodologyList />
                         <button className="button-rounded-blue-48">
                             <span className='button-text'>Inscríbete Ahora</span>
-                        </button>  
+                        </button>
                     </div>
-                                   
+
                 </div>
             </div>
         </div>
     )
-} 
+}
 
 const MetodologyList = () => {
     return (
@@ -66,7 +66,7 @@ const MetodologyList = () => {
             <li>
                 <p className='semibold-14 sky-blue'>2.Plasma</p>
                 <p className='regular-14'>Realiza tu gráfico</p>
-            </li> 
+            </li>
             <li>
                 <p className='semibold-14 sky-blue'>3.Complementa</p>
                 <p className='regular-14'>Con las video clases y bibliografía extra.</p>

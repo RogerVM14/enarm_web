@@ -9,7 +9,7 @@ const KnowUs = ({ size, ismobile }) =>{
 
     useEffect(() =>{
         const isMobileDevice = () =>{
-            if(ismobile === 'true') {
+            if(ismobile) {
                 setMobileDevice(true)
                 return;
             }

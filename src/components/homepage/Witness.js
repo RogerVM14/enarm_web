@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import Carrousel from '../Carrousel';
 import '../../css/homepage/Witness.css';
 
-const Witness = ({size, ismobile}) => {
+const Witness = ({ size, ismobile }) => {
 
     const [mobileDevice, setMobileDevice] = useState(true);
 
     useEffect(() => {
         const isMobileDevice = () => {
-            if(ismobile === 'true') {
+            if (ismobile) {
                 setMobileDevice(true)
                 return;
             }
@@ -16,32 +16,32 @@ const Witness = ({size, ismobile}) => {
             return;
         }
 
-        isMobileDevice(); 
+        isMobileDevice();
     }, [ismobile]);
-      
+
     const witness_list = [
         '100% de satisfacción de nuestros alumnos.',
         'Curso élite, un simulador avanzado y material de punta.',
-        'Metodología de estudio didáctica actualizada.', 
+        'Metodología de estudio didáctica actualizada.',
         '¡Pago seguro y acceso inmediato. Inicia hoy mismo!',
         'Experimenta simulacros con preguntas identicas a las que verás el día de tu ENARM.'
     ]
-    
+
     return (
         <div className={`witness ${size} reveal`}>
             <div className='witness-container'>
-                <div className='witness-container-header'> 
+                <div className='witness-container-header'>
                     <div className='witness-carrousel reveal'>
-                        <Carrousel /> 
+                        <Carrousel />
                     </div>
                 </div>
-                { 
+                {
                     !['xs', 'sm'].includes(size) && (
                         <h1 className='subtitle black text-center reveal'>¿Estás listo?</h1>
                     )
                 }
                 <div className='witness-container-body'>
-                    { 
+                    {
                         ['xs', 'sm'].includes(size) && (
                             <h1 className='subtitle black text-center reveal'>¿Estás listo?</h1>
                         )
@@ -64,13 +64,13 @@ const Witness = ({size, ismobile}) => {
                                             <p className={mobileDevice ? 'regular-14 white' : 'regular-16 white'}>
                                                 {item}
                                             </p>
-                                        </li> 
+                                        </li>
                                     )
                                 })
                             }
                         </ul>
                     </div>
-                </div>                
+                </div>
             </div>
         </div>
     )

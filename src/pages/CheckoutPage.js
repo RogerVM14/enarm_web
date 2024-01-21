@@ -1,9 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../css/checkout/CheckoutPage.css";
 import { useNavigate } from "react-router-dom";
 import PaymentOptionsContainer from "../components/checkout/PaymentOptionsContainer";
 import PaymentDetailsContainer from "../components/checkout/PaymentDetailsContainer";
-import WidthContext from "../contexts/WidthContext";
 // import { useSelector } from "react-redux";
 // import { selectUserInformation } from "../store/reducers/user/UserInformationSlice";
 // import { CreateNewUser, loginUser } from "../apis/auth/authApi";
@@ -24,11 +23,30 @@ const CheckoutPage = () => {
   //   selectUserInformation
   // );
 
-  const size = useContext(WidthContext);
-  const isMobile = () => {
-    if (["xs", "sm", "md"].includes(size)) return true;
-    if (["lg", "xl", "xxl"].includes(size)) return false;
+  const getWindowWidth = () => {
+    let x = window.innerWidth;
+    if (x < 576) return "xs";
+    if (x >= 576 && x <= 767) return "sm";
+    if (x >= 768 && x <= 991) return "md";
+    if (x >= 992 && x <= 1199) return "lg";
+    if (x >= 1200 && x <= 1399) return "xl";
+    if (x >= 1400) return "xxl";
   };
+
+  const [width, setWidth] = useState(getWindowWidth());
+
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      const x = getWindowWidth();
+      setWidth(x);
+    });
+  }, [width]);
+
+  const isMobile = () => {
+    if (['xs', 'sm', 'md'].includes(width)) return true;
+    if (['lg', 'xl', 'xxl'].includes(width)) return false;
+  }
+
 
   // const [paymentCheckoutiInfo, setPaymentCheckoutInfo] = useState({
   //   cardNumber: "",
@@ -152,12 +170,12 @@ const CheckoutPage = () => {
   // };
   return !isMobile() ? (
     <>
-      <div className={`background-gradial ${size}`}></div>
-      <div className={`checkout-container ${size}`}>
+      <div className={`background-gradial ${width}`}></div>
+      <div className={`checkout-container ${width}`}>
         <h1 className="bold-47">Información de Pago</h1>
         <div className="payment-container">
           <PaymentOptionsContainer
-            size={size}
+            size={width}
             isMobile={isMobile()}
           // paymentInfoSetState={setPaymentCheckoutInfo}
           />
@@ -165,7 +183,7 @@ const CheckoutPage = () => {
           <Conekta />
 
           <PaymentDetailsContainer
-            size={size}
+            size={width}
             isMobile={isMobile()}
             // handleSubmitPayment={handleSubmitPaymentInformation}
             isLoading={loading}
@@ -173,7 +191,7 @@ const CheckoutPage = () => {
         </div>
         <button
           type="submit"
-          className={`backpage-btn ${size}`}
+          className={`backpage-btn ${width}`}
           onClick={() => {
             navigate(-1);
           }}
@@ -185,8 +203,8 @@ const CheckoutPage = () => {
     </>
   ) : (
     <>
-      <div className={`background-gradial ${size}`}></div>
-      <div className={`checkout-container ${size}`}>
+      <div className={`background-gradial ${width}`}></div>
+      <div className={`checkout-container ${width}`}>
         {!stepDetails && (
           <h1 className={`bold-${isMobile() ? "44 text-center" : "47"}`}>
             Seleccione método de Pago
@@ -195,13 +213,13 @@ const CheckoutPage = () => {
         <div className="payment-container">
           {!stepDetails ? (
             <PaymentOptionsContainer
-              size={size}
+              size={width}
               isMobile={isMobile()}
             // paymentInfoSetState={setPaymentCheckoutInfo}
             />
           ) : (
             <PaymentDetailsContainer
-              size={size}
+              size={width}
               isMobile={isMobile()}
             // handleSubmitPayment={handleSubmitPaymentInformation}
             />
@@ -210,7 +228,7 @@ const CheckoutPage = () => {
         {!stepDetails && (
           <button
             type="submit"
-            className={`button-rounded-blue-48 ${size}`}
+            className={`button-rounded-blue-48 ${width}`}
             onClick={() => {
               setStepDetails(true);
             }}

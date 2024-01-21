@@ -53,14 +53,14 @@ const cards_list = [
     parraf: 'Con nuestros simuladores, puedes practicar cada una de las especialidades que repasaste en tu plataforma con el formato más parecido al ENARM.'
   },
 ];
- 
+
 const HowItWorks = ({ size, ismobile }) => {
 
   const [mobileDevice, setMobileDevice] = useState(true);
 
   useEffect(() => {
     const isMobileDevice = () => {
-      if (ismobile === 'true') {
+      if (ismobile) {
         setMobileDevice(true)
         return;
       }

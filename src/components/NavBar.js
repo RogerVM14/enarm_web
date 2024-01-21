@@ -1,237 +1,132 @@
-import React, { useEffect, useState } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 import logo from '../assets/imgs/PicsArt_11-25-01.09.59.jpg'
-import '../css/Navbar.css';
+import ui from "./index.module.css";
 
+const NavBar = () => {
 
-const NavBar = ({ size, ismobile }) => {
+  const [display, setDisplay] = useState(false);
 
-  //  size: [xs, sm, md, lg, xl, xxl]
-  //  ismobile: [xs, sm, md] == true | [lg, xl, xxl] == false
-
-  const [active, setActive] = useState(false);
-  const [mobileDevice, setMobileDevice] = useState(true);
-  const activeStyle = { fontWeight: "bold", color: "#05B2FA", borderColor: "#05B2FA" };
-
-  const linkIsActive = (isActive) => {
-    return isActive ? activeStyle : undefined;
-  }
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const isMobileDevice = () => {
-      if (ismobile === 'true') {
-        setMobileDevice(true)
-        return;
-      }
-      setMobileDevice(false);
-      return;
-    }
-
-    isMobileDevice();
-  }, [ismobile]);
-
-  const logoSize = () => {
-    return mobileDevice ? { maxHeight: "80px", maxWidth: "80px" } : { maxHeight: "104px", maxWidth: "104px" };
-  }
-
+  const navigationLinks = [
+    { label: "Inicio", url: "/" },
+    { label: "Nosotros", url: "/nosotros" },
+    { label: "Sobre el Curso", url: "/curso" },
+    { label: "Blog", url: "/blog" },
+    { label: "Prueba Gratis", url: "/prueba", rounded: true },
+    { label: "Contacto", url: "/contacto" },
+  ]
 
   return (
-    <header className={`${size} enarm-land`}>
-      <nav className='navbar'>
-        <div className={`navbar-container ${size}`}>
-          <div className="navbar-logo-container">
-            <Link to='/'>
-              <img
-                className='navbar-logo'
-                src={logo}
-                alt='enarm-logo'
-                style={logoSize()} />
-            </Link>
+    <header>
+      <div className={ui.headerContainer}> 
+        <nav className={ui.containerNavigation}>
+          <div datatype="large" className={ui.imageContainer}>
+            <img src={logo} alt="logo" className={ui.logoImage} width={104} height={104} />
           </div>
-          <div className='sub-container'>
-            {mobileDevice ? (
-              <>
-                <ul className='session'>
-                  <li className='get_course'>
-                    <button className='button-rounded-blue-35 button-text-white'
-                      onClick={() => { navigate("/registrate") }}>
-                      <span className="button-text">Obtener Curso</span>
-                    </button>
-                  </li>
-                  <li className='menu'>
-                    <button className='button-menu' onClick={() => { setActive(!active); }}>
-                      <i className='material-icons-outlined'>menu</i>
-                    </button>
-                  </li>
-                </ul>
-              </>
-            ) : (
-              <>
-                <ul className='routes'>
-                  <li>
-                    <NavLink
-                      style={({ isActive }) => linkIsActive(isActive)}
-                      className='regular-14 navbar-link home'
-                      to='/'
-                    >Inicio
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      className='regular-14 navbar-link about-us'
-                      to='/nosotros'
-                      style={({ isActive }) => linkIsActive(isActive)}
-                    >Nosotros
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      className='regular-14 navbar-link about-course'
-                      to='/sobre_el_curso'
-                      style={({ isActive }) => linkIsActive(isActive)}
-                    >Sobre el Curso
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      className='regular-14 navbar-link blog'
-                      to='/blog'
-                      style={({ isActive }) => linkIsActive(isActive)}
-                    >Blog
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      className='regular-14 navbar-link free-test rounded-circle'
-                      to='/prueba_gratis'
-                      style={({ isActive }) => linkIsActive(isActive)}
-                    >Prueba Gratis
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      className='regular-14 navbar-link contact'
-                      to='/contacto' style={({ isActive }) => linkIsActive(isActive)}
-                    >Contacto
-                    </NavLink>
-                  </li>
-                  {
-                    mobileDevice ? (
-                      <li className={size}>
-                        <NavLink
-                          className='navbar-link login-link'
-                          to='/iniciar_sesion'
-                          style={({ isActive }) => linkIsActive(isActive)}
-                        >
-                          <i className='material-icons-outlined'>account_circle</i>
-                          <span className='regular-14'>Iniciar Sesión</span>
-                        </NavLink>
-                      </li>
-                    ) : (
-                      <></>
-                    )
-                  }
-                </ul>
-                <ul className='actions'>
-                  <li className='get_course'>
-                    <button className='button-rounded-blue-35 button-text-white'
-                      onClick={() => { navigate("/registrate") }}>
-                      <span className="button-text">
-                        Obtener Curso
-                      </span>
-                    </button>
-                  </li>
-                  <li className='session'>
-                    <NavLink
-                      className='navbar-link login-link'
-                      to='/iniciar_sesion'
-                      style={({ isActive }) => linkIsActive(isActive)}
-                    >
-                      <i className='material-icons-outlined'>account_circle</i>
-                      <span className='regular-14'>Iniciar Sesión</span>
-                    </NavLink>
-                  </li>
-                </ul>
-              </>
-            )}
-          </div>
-        </div>
-        {mobileDevice && (
-          <div className={`menu-dropdown-list ${active ? 'menu-visible' : 'menu-hidden'}`}>
-            <div className="menu-dropdown-header">
-              <div className="navbar-logo-container">
-                <Link onClick={() => { setActive(false); }} to='/'>
-                  <img
-                    className='navbar-logo'
-                    src={logo}
-                    alt='enarm-logo'
-                    style={logoSize()} />
-                </Link>
-              </div>
-              <div className='close-menu'>
-                <Link to='#' onClick={() => { setActive(false); }}>
-                  <i className="material-icons-outlined">close</i>
-                </Link>
-              </div>
+          <div className={ui.navigationHeader} datatype="small">
+            <div className={ui.imageContainer}>
+              <img src={logo} alt="logo" className={ui.logoImage} width={104} height={104} />
             </div>
-            <ul className='menu-routes'>
-              <li>
-                <NavLink onClick={() => { setActive(false); }} className='navbar-link home' to='/'>
-                  <span className="montse-16">Inicio</span>
-                  <i className="material-icons-outlined">chevron_right</i>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink onClick={() => { setActive(false); }} className='navbar-link about-us' to='/nosotros'>
-                  <span className="montse-16">Nosotros</span>
-                  <i className="material-icons-outlined">chevron_right</i>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink onClick={() => { setActive(false); }} className='navbar-link about-course' to='/sobre_el_curso'>
-                  <span className="montse-16">Sobre el Curso</span>
-                  <i className="material-icons-outlined">chevron_right</i>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink onClick={() => { setActive(false); }} className='navbar-link blog' to='/blog'>
-                  <span className="montse-16">Blog</span>
-                  <i className="material-icons-outlined">chevron_right</i>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink onClick={() => { setActive(false); }} className='navbar-link free-test' to='/prueba_gratis'>
-                  <span className="montse-16">Prueba Gratis</span>
-                  <i className="material-icons-outlined">chevron_right</i>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink onClick={() => { setActive(false); }} className='navbar-link contact' to='/contacto'>
-                  <span className="montse-16">Contacto</span>
-                  <i className="material-icons-outlined">chevron_right</i>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink onClick={() => { setActive(false); }} className='navbar-link login-link' to='/iniciar_sesion'>
-                  <span className='montse-16'>Iniciar Sesión</span>
-                  <i className="material-icons-outlined">chevron_right</i>
-                </NavLink>
-              </li>
-            </ul>
-            <button
-              className='button-rounded-blue-48 button-text-white'
-              onClick={() => { navigate("/registrate") }}>
-              <span className="button-text" >
-                Obtener Curso
-              </span>
-            </button>
+            <MobileHeaderNavTools display={display} handleDisplay={(e) => setDisplay(e)} />
           </div>
-        )}
-      </nav>
+          <div className={ui.containerNavLinks} data-display={display}>
+            <NavigationLinks
+              list={navigationLinks}
+              handleDisplay={() => { setDisplay(false) }}
+            />
+            <Link datatype="small" to="/registro" className={ui.blueRoundedLink}>Obtener Curso</Link>
+          </div>
+          <ul className={ui.authLinks}>
+            <li>
+              <Link datatype="large" to="/registro" className={ui.blueRoundedLink}>Obtener Curso</Link>
+            </li>
+            <li className={ui.linkWithIcon}>
+              <UserIcon />
+              <Link to="/login" className={ui.loginLink}>Iniciar Sesión</Link>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </header>
   )
+}
+
+const MobileHeaderNavTools = ({ display, handleDisplay }) => {
+
+  return display
+    ? (
+      <button type="button" className={ui.closeButton} onClick={() => handleDisplay(false)}>
+        <CloseIcon />
+      </button>
+    )
+    : (
+      <div className={ui.headerTools}>
+        <Link datatype="small" to="/registro" className={ui.blueRoundedLink}>Obtener Curso</Link>
+        <button type="button" className={ui.burgerMenu} onClick={() => { handleDisplay(true) }}>
+          <BurgerIcon />
+        </button>
+      </div>
+    )
+}
+
+const NavigationLinks = ({ list, handleDisplay = () => { } }) => {
+  return (
+    <ul className={ui.navigationLinks}>
+      {
+        list?.map((item, index) => {
+          return (
+            <li className={ui.linkItem}>
+              <NavLink
+                to={item.url}
+                className={({ isActive }) => isActive ? ui.selectedLink : ui.link}
+                key={index}
+                data-rounded={item.rounded ?? null}
+                onClick={() => { handleDisplay() }}
+              >
+                {item.label}
+              </NavLink>
+            </li>
+          )
+        })
+      }
+    </ul>
+  )
+}
+
+const BurgerIcon = () => {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 25" fill="none">
+      <g clip-path="url(#clip0_200_1482)">
+        <path d="M3 4.59375H21V6.56906H3V4.59375ZM3 11.5073H21V13.4826H3V11.5073ZM3 18.4209H21V20.3962H3V18.4209Z" fill="black" />
+      </g>
+      <defs>
+        <clipPath id="clip0_200_1482">
+          <rect width="24" height="23.7037" fill="white" transform="translate(0 0.642578)" />
+        </clipPath>
+      </defs>
+    </svg>
+  )
+}
+
+const UserIcon = () => {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path d="M5.12104 17.8037C7.15267 16.6554 9.4998 16 12 16C14.5002 16 16.8473 16.6554 18.879 17.8037M15 10C15 11.6569 13.6569 13 12 13C10.3431 13 9 11.6569 9 10C9 8.34315 10.3431 7 12 7C13.6569 7 15 8.34315 15 10ZM21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#111827" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+const CloseIcon = () => {
+  <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none">
+    <g clip-path="url(#clip0_732_13854)">
+      <path d="M12 10.5867L16.95 5.63672L18.364 7.05072L13.414 12.0007L18.364 16.9507L16.95 18.3647L12 13.4147L7.04999 18.3647L5.63599 16.9507L10.586 12.0007L5.63599 7.05072L7.04999 5.63672L12 10.5867Z" fill="black" />
+    </g>
+    <defs>
+      <clipPath id="clip0_732_13854">
+        <rect width="24" height="24" fill="white" />
+      </clipPath>
+    </defs>
+  </svg>
 }
 
 export default NavBar;

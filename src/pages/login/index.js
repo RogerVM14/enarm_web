@@ -12,12 +12,9 @@ import ui from "./index.module.css";
 
 const LoginPage = () => {
 
-  setTimeout(() => {
-
+  setTimeout(() => { 
     const items = document.querySelectorAll(".reveal-load");
-
     items.forEach((item) => item.classList.add("active"));
-
   }, 100);
 
   return (
@@ -99,8 +96,7 @@ const FormLogin = () => {
             onChange={(e) => {
               setEmail(e.currentTarget.value);
             }}
-          />
-
+          /> 
           {
             emailError && (
               <span className={`${ui.formLabel} red`}>
