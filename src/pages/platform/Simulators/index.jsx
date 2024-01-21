@@ -28,8 +28,8 @@ const SimulatorsPage = () => {
         <div className={ui.gridContainer}>
           <SpecialitiesList
             displayContainer={displayContainer}
-            handleDisplay={() => { setDisplayContainer(!displayContainer) }} 
-            smallDevice={smallDevice}/>
+            handleDisplay={() => { setDisplayContainer(!displayContainer) }}
+            smallDevice={smallDevice} />
           <SimulationCardsContainer
             displayContainer={displayContainer}
             handleDisplay={() => { setDisplayContainer(!displayContainer) }}
@@ -46,7 +46,7 @@ const SimulationCardsContainer = ({
   handleDisplay = () => { },
   smallDevice
 }) => {
-  if (displayContainer === false && smallDevice=== true) return null;
+  if (displayContainer === false && smallDevice === true) return null;
   return (
     <section id={ui.simulatorsSection} data-size="">
       <div className={ui.sectionContainer}>
@@ -74,8 +74,8 @@ const SimulatorCard = () => {
 
   return (
     <div className={ui.simulatorCard}>
-      <div className={ui.cardHeader} >
-        <div className={ui.headerTitle} onClick={() => { setDisplay(!display) }} >
+      <div className={ui.cardHeader} onClick={() => { setDisplay(!display) }} >
+        <div className={ui.headerTitle} >
           <img src={ChevronIcon} alt="chevron" width={12} height={12} data-selected={display} />
           <h4>Simulador Infectología #1</h4>
         </div>

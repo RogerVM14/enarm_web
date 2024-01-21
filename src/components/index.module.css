@@ -59,7 +59,7 @@ li:hover>a {
   transition: color 200ms linear;
 }
 
-a[aria-current=page] {
+.containerNavLinks a[aria-current=page] {
   color: #05B2FA;
   font-weight: 600;
 }
@@ -68,9 +68,7 @@ a[data-rounded=true] {
   padding: 6px 14px;
   border: 1px solid #000;
   border-radius: 20px;
-}
-
-a[aria-current=page][data-rounded=true] {}
+} 
 
 .linkWithIcon {
   gap: 8px;
