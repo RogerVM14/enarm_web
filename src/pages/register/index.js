@@ -244,7 +244,7 @@ const RegisterForm = ({
         </button>
         <p className="flex-row-nw jc-center gap-8">
           <span className={ui.linkLabel}>¿Ya eres miembro?</span>
-          <Link className="regular-14 sky-blue no-style" to="/iniciar_sesion">
+          <Link className="regular-14 sky-blue no-style" to="/login">
             Iniciar Sesión
           </Link>
         </p>

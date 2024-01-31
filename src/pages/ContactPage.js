@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Hero7 from "../components/contact/Hero7.js";
-import ContactBanner from "../components/ContactBanner";
-import RegularQuestions from "../components/contact/RegularQuestions.js";
-import WidthContext from "../contexts/WidthContext";
+import SectionQuestions from "../components/SectionQuestions";
+import SectionContact from "../components/SectionContact/index.jsx";
 
 const ContactPage = () => {
   const getWindowWidth = () => {
@@ -28,12 +27,12 @@ const ContactPage = () => {
     if (['xs', 'sm', 'md'].includes(width)) return true;
     if (['lg', 'xl', 'xxl'].includes(width)) return false;
   }
-  
+
   return (
     <div className="layout-wrapper">
-      <Hero7 size={width} ismobile={isMobile } />
-      <RegularQuestions size={width} />
-      <ContactBanner size={width} />
+      <Hero7 size={width} ismobile={isMobile} />
+      <SectionQuestions />
+      <SectionContact />
     </div>
   )
 }

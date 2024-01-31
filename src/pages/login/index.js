@@ -143,7 +143,7 @@ const FormLogin = () => {
         <hr style={{ margin: "2rem 0 1rem 0" }} />
         <p className="flex-row-nw jc-center gap-8">
           <span className={ui.linkLabel}>¿Aun no eres miembro?</span>
-          <Link className={`${ui.linkLabel} sky-blue no-style`} to="/registrate" > Registrate Ahora </Link>
+          <Link className={`${ui.linkLabel} sky-blue no-style`} to="/registro" > Registrate Ahora </Link>
         </p>
       </form>
     </div>

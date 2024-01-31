@@ -1,0 +1,147 @@
+#resources .titleContainer {
+  max-width: 763px;
+  margin-inline: auto;
+  display: block;
+}
+
+#resources .sectionContainer {
+  padding: 100px 120px;
+}
+
+.gridCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+}
+
+.gridCard .imageContainer {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.gridCard h3 {
+  color: #000;
+  font-family: PoppinsRegular;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-bottom: 12px;
+}
+
+.gridCard a.cardLink {
+  color: var(--blue);
+  font-family: Montserrat;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+  letter-spacing: 0.36px;
+  position: relative;
+  text-decoration: none;
+  margin-top: auto;
+  white-space: nowrap;
+  max-width: min-content;
+}
+
+.gridCard a.cardLink::after {
+  content: url("../../pages/Assets/Icons/ChevronBlue.svg");
+  position: absolute;
+  right: -24px;
+  top: 3px;
+}
+
+.gridCard:nth-child(1) .imageContainer {
+  background: var(--green);
+}
+
+.gridCard:nth-child(2) .imageContainer {
+  background: var(--dark-blue);
+}
+
+.gridCard:nth-child(3) .imageContainer {
+  background: var(--gray);
+}
+
+.gridCard:nth-child(4) .imageContainer {
+  background: var(--danger);
+}
+
+.resourcesContainer .containerGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-top: 60px;
+}
+
+@media screen and (max-width: 576px) {
+  #resources .titleContainer>h3 {
+    letter-spacing: unset !important;
+  }
+
+  #resources .sectionContainer {
+    padding: 60px 0px;
+  }
+
+  .resourcesContainer .containerGrid {
+    display: grid;
+    grid-template-rows: unset;
+    grid-template-columns: 1fr !important;
+    gap: 32px;
+    margin-top: 40px;
+  }
+
+  .gridCard .imageContainer {
+    margin-bottom: 12px;
+  }
+
+  .containerGrid .gridCard {
+    align-items: center;
+  }
+
+  .gridCard .cardTitle {
+    text-align: center;
+  }
+
+}
+
+
+@media screen and (max-width: 1024px) {
+  #resources .sectionContainer {
+    padding: 70px 0;
+  }
+
+  #resources .titleContainer {
+    max-width: unset;
+  }
+
+  .resourcesContainer .containerGrid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  .gridCard {
+    align-items: center;
+    gap: 12px;
+  }
+
+  .gridCard .imageContainer {
+    margin-bottom: 8px;
+  }
+
+  .gridCard h3 {
+    margin-bottom: 0px;
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .gridCard a.cardLink {
+    margin: 0;
+  }
+}

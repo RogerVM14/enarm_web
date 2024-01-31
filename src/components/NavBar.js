@@ -18,7 +18,7 @@ const NavBar = () => {
 
   return (
     <header>
-      <div className={ui.headerContainer}> 
+      <div className={ui.headerContainer}>
         <nav className={ui.containerNavigation}>
           <div datatype="large" className={ui.imageContainer}>
             <img src={logo} alt="logo" className={ui.logoImage} width={104} height={104} />
@@ -75,11 +75,10 @@ const NavigationLinks = ({ list, handleDisplay = () => { } }) => {
       {
         list?.map((item, index) => {
           return (
-            <li className={ui.linkItem}>
+            <li className={ui.linkItem} key={index}>
               <NavLink
                 to={item.url}
                 className={({ isActive }) => isActive ? ui.selectedLink : ui.link}
-                key={index}
                 data-rounded={item.rounded ?? null}
                 onClick={() => { handleDisplay() }}
               >
@@ -96,7 +95,7 @@ const NavigationLinks = ({ list, handleDisplay = () => { } }) => {
 const BurgerIcon = () => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 25" fill="none">
-      <g clip-path="url(#clip0_200_1482)">
+      <g clipPath="url(#clip0_200_1482)">
         <path d="M3 4.59375H21V6.56906H3V4.59375ZM3 11.5073H21V13.4826H3V11.5073ZM3 18.4209H21V20.3962H3V18.4209Z" fill="black" />
       </g>
       <defs>
@@ -118,7 +117,7 @@ const UserIcon = () => {
 
 const CloseIcon = () => {
   <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none">
-    <g clip-path="url(#clip0_732_13854)">
+    <g clipPath="url(#clip0_732_13854)">
       <path d="M12 10.5867L16.95 5.63672L18.364 7.05072L13.414 12.0007L18.364 16.9507L16.95 18.3647L12 13.4147L7.04999 18.3647L5.63599 16.9507L10.586 12.0007L5.63599 7.05072L7.04999 5.63672L12 10.5867Z" fill="black" />
     </g>
     <defs>

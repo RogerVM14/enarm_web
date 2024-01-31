@@ -1,17 +1,16 @@
 import React from "react";
-import ui from "./index.module.css";
 import LandingHeader from "./Header";
 import LandingFooter from "./Footer";
 
-const LandingLayout = ({ children }) => {
+const LandingLayout = ({ page, children }) => {
   return (
-    <div className={ui.landingWrapper}>
+    <React.Fragment>
       <LandingHeader />
-      <main> 
+      <main datapage={page}>
         {children}
       </main>
       <LandingFooter />
-    </div>
+    </React.Fragment>
   )
 }
 

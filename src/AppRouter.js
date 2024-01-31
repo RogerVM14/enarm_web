@@ -1,38 +1,43 @@
 import { useEffect, useState } from "react";
-import "./css/App.css";
-import AccessLayout from "./components/layouts/AccessLayout";
 import { Route, Routes } from "react-router-dom";
-import Layout from "./components/layouts/Layout";
-import HomePage from "./pages/HomePage";
-import AboutUsPage from "./pages/AboutUsPage";
-import AboutCoursePage from "./pages/AboutCoursePage";
-import BlogEntriesPage from "./pages/BlogEntriesPage";
+/* Landing Pages*/
+import HomePage from "./pages/Landing/Home";
+import UsPage from "./pages/Landing/Us";
+import AboutCoursePage from "./pages/AboutCoursePage"; 
 import EntryDetailPage from "./pages/EntryDetailPage";
 import FreeTestPage from "./pages/FreeTestPage";
-import ContactPage from "./pages/ContactPage";
+import ContactPage from "./pages/Landing/Contact";
 import LoginPage from "./pages/login";
 import RegisterPage from "./pages/register";
+import CheckoutPage from "./pages/CheckoutPage";
+import CheckoutPageGratification from "./pages/CheckoutPageGratification";
+import VerifyEmailCodePage from "./pages/VerifyEmailCodePage";
+/* Platform */
 import DashboardPage from "./pages/Platform/Dashboard";
 import ResourcesPage from "./pages/Platform/Resources";
 import SimulatorsPage from "./pages/Platform/Simulators";
 import AdvicesNewsPage from "./pages/Platform/AdvicesNewsPage";
 import PlanMonthPage from "./pages/Platform/PlanMonth";
-import CheckoutPage from "./pages/CheckoutPage";
 import StudyGuidePage from "./pages/Platform/StudyGuide";
 import AcademicProgramPage from "./pages/Platform/AcademicProgram";
 import SimulatorCoursePage from "./pages/Platform/SimulatorCourse";
-import AuthProvider /*, { AuthContext }*/ from "./contexts/AuthContext";
 import ResourceClass from "./pages/Platform/ResourceClass";
-import CheckoutPageGratification from "./pages/CheckoutPageGratification";
-import conektaHelper from "./utils/conekta/conektaUtils";
-import VerifyEmailCodePage from "./pages/VerifyEmailCodePage";
-import { ROUTES } from "./constants/routes";
 import CoursePage from "./pages/Platform/Course";
 import ResultsPage from "./pages/Platform/Results";
-import GeneralProvider from "./contexts/GeneralContext";
 import FeedbackPage from "./pages/Platform/Feedback";
+/* Layouts */
+import AccessLayout from "./components/layouts/AccessLayout";
+import Layout from "./components/layouts/Layout";
+/* Contexts */
+import AuthProvider from "./contexts/AuthContext";
+import GeneralProvider from "./contexts/GeneralContext";
 import SimulatorProvider from "./contexts/SimulatorContext";
 import WidthProvider from "./contexts/WidthContext";
+/* Utils */
+import conektaHelper from "./utils/conekta/conektaUtils";
+import { ROUTES } from "./constants/routes";
+import "./css/App.css";
+import BlogPage from "./pages/Landing/Blog";
 
 const AppRouter = () => {
 
@@ -112,47 +117,45 @@ const AppRouter = () => {
   }, []);
 
   return (
-    <>
-      <AuthProvider>
-        <WidthProvider>
-          <GeneralProvider>
-            <SimulatorProvider>
-              <Routes>
-                <Route path="/" index={true} element={<Layout topLine={true}> <HomePage /> </Layout>} />
-                <Route path="/nosotros" element={<Layout topLine={true}> <AboutUsPage /> </Layout>} />
-                <Route path="/curso" element={<Layout topLine={false}> <AboutCoursePage /> </Layout>} />
-                <Route path="/blog" element={<Layout topLine={true}> <BlogEntriesPage /> </Layout>} />
-                <Route path="/blog/:id" element={<Layout topLine={true}> <EntryDetailPage /> </Layout>} />
-                <Route path="/prueba" element={<Layout topLine={true}> <FreeTestPage /> </Layout>} />
-                <Route path="/contacto" element={<Layout topLine={false}> <ContactPage /> </Layout>} />
-                <Route path="/login" element={<AccessLayout> <LoginPage /> </AccessLayout>} />
-                <Route path="/registro" element={<AccessLayout><RegisterPage /> </AccessLayout>} />
-                <Route path="/checkout" element={<AccessLayout> <CheckoutPage /> </AccessLayout>} />
-                <Route path="/checkout_thankful" element={<AccessLayout> <CheckoutPageGratification /> </AccessLayout>} />
-                <Route path="/verify_email_code" element={<VerifyEmailCodePage />} />
-                {/* Platform */}
-                <Route path="/u/dashboard" element={<DashboardPage />} />
-                <Route path="/u/planes" element={<DashboardPage />} />
-                <Route path="/u/planes/:id" element={<PlanMonthPage />} />
-                <Route path="/u/planes/:id/contenido/:id" element={<CoursePage />} />
-                <Route path="/u/planes/:id/panel_resultados/:id" element={<ResultsPage />} />
-                <Route path="/u/planes/:id/simulador/:id" element={<SimulatorCoursePage />} />
-                <Route path="/u/planes/:id/retro" element={<FeedbackPage />} />
-                <Route path="/u/planes/aviso_novedades" element={<AdvicesNewsPage />} />
-                <Route path="/u/recursos" element={<ResourcesPage />} />
-                <Route path="/u/recursos/:id" element={<ResourceClass />} />
-                {/* <Route path='/u/recursos/:id' element={<DashboardLayout hasAside={false}><ResourcesPage /> } /> */}
-                <Route path="/u/simulador" element={<SimulatorsPage />} />
-                <Route path="/u/documentos" element={<StudyGuidePage />} />
-                <Route path="/u/documentos/guia" element={<StudyGuidePage />} />
-                <Route path="/u/documentos/programa_academico" element={<AcademicProgramPage />} />
-                <Route path={ROUTES.VERIFICAR_CORREO} element={<VerifyEmailCodePage />} />
-              </Routes>
-            </SimulatorProvider>
-          </GeneralProvider>
-        </WidthProvider>
-      </AuthProvider>
-    </>
+    <AuthProvider>
+      <WidthProvider>
+        <GeneralProvider>
+          <SimulatorProvider>
+            <Routes>
+              <Route path="/" index={true} element={<HomePage />} />
+              <Route path="/nosotros" element={<UsPage />} />
+              <Route path="/curso" element={<Layout topLine={false}> <AboutCoursePage /> </Layout>} />
+              <Route path="/blog" element={<BlogPage />} />
+              <Route path="/blog/:id" element={<Layout topLine={true}> <EntryDetailPage /> </Layout>} />
+              <Route path="/prueba" element={<Layout topLine={true}> <FreeTestPage /> </Layout>} />
+              <Route path="/contacto" element={<ContactPage />} />
+              <Route path="/login" element={<AccessLayout> <LoginPage /> </AccessLayout>} />
+              <Route path="/registro" element={<AccessLayout><RegisterPage /> </AccessLayout>} />
+              <Route path="/checkout" element={<AccessLayout> <CheckoutPage /> </AccessLayout>} />
+              <Route path="/checkout_thankful" element={<AccessLayout> <CheckoutPageGratification /> </AccessLayout>} />
+              <Route path="/verify_email_code" element={<VerifyEmailCodePage />} />
+              {/* Platform */}
+              <Route path="/u/dashboard" element={<DashboardPage />} />
+              <Route path="/u/planes" element={<DashboardPage />} />
+              <Route path="/u/planes/:id" element={<PlanMonthPage />} />
+              <Route path="/u/planes/:id/contenido/:id" element={<CoursePage />} />
+              <Route path="/u/planes/:id/panel_resultados/:id" element={<ResultsPage />} />
+              <Route path="/u/planes/:id/simulador/:id" element={<SimulatorCoursePage />} />
+              <Route path="/u/planes/:id/retro" element={<FeedbackPage />} />
+              <Route path="/u/planes/aviso_novedades" element={<AdvicesNewsPage />} />
+              <Route path="/u/recursos" element={<ResourcesPage />} />
+              <Route path="/u/recursos/:id" element={<ResourceClass />} />
+              {/* <Route path='/u/recursos/:id' element={<DashboardLayout hasAside={false}><ResourcesPage /> } /> */}
+              <Route path="/u/simulador" element={<SimulatorsPage />} />
+              <Route path="/u/documentos" element={<StudyGuidePage />} />
+              <Route path="/u/documentos/guia" element={<StudyGuidePage />} />
+              <Route path="/u/documentos/programa_academico" element={<AcademicProgramPage />} />
+              <Route path={ROUTES.VERIFICAR_CORREO} element={<VerifyEmailCodePage />} />
+            </Routes>
+          </SimulatorProvider>
+        </GeneralProvider>
+      </WidthProvider>
+    </AuthProvider>
   );
 };
 

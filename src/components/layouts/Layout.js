@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import NavBar from '../NavBar';
-import Footer from '../Footer';
+// import Footer from '../Footer';
+import Footer from './Footer';
 import Modal from '../Modal';
 
 
@@ -35,7 +36,7 @@ const Layout = ({ children, topLine }) => {
       <NavBar size={width} ismobile={isMobile()} />
       <main className={width} >
         {children}
-      </main>
+      </main>      
       <Footer topLine={topLine} size={width} />
       <Modal size={width} ismobile={isMobile()} />
     </>

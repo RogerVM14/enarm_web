@@ -36,7 +36,7 @@ const Hero = ({ size, ismobile }) => {
     "Basados 100% en las GPC Mexicanas.",
     "Porcentaje de aceptación del 80%.",
     "Simulador-PRO idéntico al del ENARM.",
-    "Ingreso a comunidad exclusiva de Residentes."
+    "Ingreso a comunidad exclusiva de Residentes.",
   ]
 
   return (

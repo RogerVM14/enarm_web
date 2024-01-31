@@ -1,0 +1,67 @@
+#testimonialCard {
+  display: block;
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.carrouselContainer {
+  display: block;
+  margin-inline: auto;
+  position: relative;
+  width: clamp(280px, 280px, 280px);
+  height: clamp(280px, 280px, 280px);
+}
+
+.carrouselContainer .imageContainer {
+
+  width: inherit;
+  height: inherit;
+}
+
+.imageContainer img {
+  width: inherit;
+  display: inherit;
+}
+
+.carrouselFooter {
+  padding-top: 1rem;
+}
+
+.footerDots {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border: 1px solid #96ACBC;
+  border-radius: 50%;
+}
+
+.dot[data-selected=false] {
+  background: transparent;
+  transition: all 300ms linear;
+}
+
+.carrouselContainer .imageContainer {
+  position: absolute;
+}
+
+.imageContainer[data-selected=true] {
+  visibility: visible;
+  opacity: 1;
+  transition: all 300ms linear;
+}
+
+.imageContainer[data-selected=false] {
+  opacity: 0;
+  visibility: hidden;
+  transition: all 300ms linear;
+}
+
+.dot[data-selected=true] {
+  background: var(--gray);
+  transition: all 300ms linear;
+}

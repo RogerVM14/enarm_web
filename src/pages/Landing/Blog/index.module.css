@@ -1,0 +1,43 @@
+.headerContainer {
+  padding: 100px 0px;
+}
+
+.containerTitle {
+  max-width: 790px;
+  margin-inline: auto;
+  display: block;
+  padding-bottom: 40px;
+}
+
+.containerParraf {
+  max-width: 588px;
+  margin-inline: auto;
+  display: block;
+  padding-bottom: 8px;
+}
+
+#article .articleContainer {
+  padding: 0px 120px 100px 120px;
+}
+
+#article .containerGrid {
+  margin-top: 40px;
+}
+
+#article .gridEntries {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+#entries .sectionContainer {
+  padding: 100px 120px;
+}
+
+#entries .gridEntries {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  row-gap: 24;
+  column-gap: 24px;
+}

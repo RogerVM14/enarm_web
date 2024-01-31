@@ -101,7 +101,7 @@ const HowItWorks = ({ size, ismobile }) => {
   }
 
   return (
-    <div className='how-it-works bg-blue'>
+    <div className='how-it-works' style={{ background: "#1E73BE" }}>
       <div className="hiw-container">
         {['xl', 'xxl'].includes(size) && (<img className='vector-line-img' src={imageSource()} alt="vector-line" />)}
         <div className="hiw-container-header">
