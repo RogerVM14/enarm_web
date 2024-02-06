@@ -8,14 +8,8 @@
   background: var(--dark-blue);
 }
 
-#hero .sectionContainer {
-  padding: 100px 0 100px calc(120px - var(--padding-x));
-}
-
-#explorer .sectionContainer,
-#testimonials .sectionContainer,
-#benefits .sectionContainer {
-  padding: 100px 120px;
+#hero [aria-details="hero"] {
+  padding-right: 32px;
 }
 
 #explorer .containerColumns {
@@ -212,10 +206,128 @@ form>.formInput {
   outline: 2px solid var(--blue);
 }
 
+@media screen and (max-width: 1024px) {
+
+  #hero [aria-details="hero"] {
+    padding-right: var(--padding-x);
+  }
+
+  #hero .containerColumns {
+    grid-template-columns: 1fr;
+  }
+
+  #hero .columnInformation {
+    text-align: center;
+  }
+
+  #hero .columnInformation>*:not(.imageContainer) {
+    max-width: 336px;
+    margin-inline: auto;
+  }
+
+  #hero .containerColumns .imageContainer {
+    max-width: 376px;
+    margin-inline: auto;
+  }
+
+  #hero .containerColumns .columnInformation>h1 {
+    width: 100%;
+    display: block;
+    text-align: center;
+    max-width: unset;
+  }
+
+  .heroList {
+    margin-bottom: 20px;
+  }
+  
+  #explorer .containerColumns {
+    gap: 20px;
+  }
+
+  .formInputColumns {
+    flex-wrap: wrap;
+  }
+
+  .formInputColumns>* {
+    flex-grow: 1;
+    max-width: unset !important;
+  }
+
+  div.backgroundBlue[datatype=small] {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 230px;
+    width: 100%;
+    z-index: 1;
+    background: var(--dark-blue);
+  }
+
+  .informationSubtitle {
+    display: flex;
+    flex-direction: column;
+    margin-top: 16px;
+  }
+
+  #explorer .sectionContainer {
+    padding: 70px 0px;
+  }
+
+  #explorer .sectionContainer .containerColumns {
+    gap: 24px;
+    flex-direction: column-reverse;
+  }
+
+  #testimonials .sectionContainer,
+  #benefits .sectionContainer {
+    padding: 70px 0px;
+  }
+
+  #resources .sectionContainer {
+    padding: 70px 0 !important;
+  }
+
+  #benefits .containerGrid {
+    grid-template-columns: 1fr;
+    place-items: center;
+    gap: 32px;
+  }
+
+  #benefits .containerGrid .gridCard {
+    max-width: 380px;
+  }
+
+  #explorer .titleContainer {
+    max-width: unset;
+    margin-bottom: 32px;
+  }
+
+  .gridCards>.card {
+    padding: 1rem;    
+  }
+
+  
+  .gridCards>.card:first-child {    
+    flex-direction: column;    
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+  }
+  
+  .gridCards>.card:first-child>a {
+    max-width: unset !important;
+    width: 100%;
+  }
+}
 
 @media screen and (max-width: 576px) {
 
-  #hero .sectionContainer {
+  #hero .sectionContainer,
+  #benefits .sectionContainer,
+  #testimonials .sectionContainer {
     padding: 60px 0px;
   }
 
@@ -285,10 +397,6 @@ form>.formInput {
     margin-bottom: 32px;
   }
 
-  #benefits .sectionContainer {
-    padding: 60px 0px;
-  }
-
   #benefits .containerGrid {
     display: grid;
     grid-template-columns: 1fr;
@@ -301,11 +409,6 @@ form>.formInput {
 
   .gridCard .cardContainer>* {
     margin-bottom: 12px;
-  }
-
-
-  #testimonials .sectionContainer {
-    padding: 60px 0;
   }
 
   #testimonials .gridCards {
@@ -329,90 +432,4 @@ form>.formInput {
     max-width: calc(576px - var(--padding-x));
   }
 
-}
-
-@media screen and (max-width: 1024px) {
-
-  #hero .sectionContainer {
-    padding: 60px 0;
-  }
-
-  #hero .containerColumns {
-    grid-template-columns: 1fr;
-  }
-
-  #hero .columnInformation {
-    text-align: center;
-  }
-
-  #hero .columnInformation>*:not(.imageContainer) {
-    max-width: 336px;
-    margin-inline: auto;
-  }
-
-  #hero .containerColumns .imageContainer {
-    max-width: 376px;
-    margin-inline: auto;
-  }
-
-  #hero .containerColumns .columnInformation>h1 {
-    width: 100%;
-    display: block;
-    text-align: center;
-    max-width: unset;
-  }
-
-  .heroList {
-    margin-bottom: 20px;
-  }
-
-  div.backgroundBlue[datatype=small] {
-    display: block;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 230px;
-    width: 100%;
-    z-index: 1;
-    background: var(--dark-blue);
-  }
-
-  .informationSubtitle {
-    display: flex;
-    flex-direction: column;
-    margin-top: 16px;
-  }
-
-  #explorer .sectionContainer {
-    padding: 70px 0px;
-  }
-
-  #explorer .sectionContainer .containerColumns {
-    gap: 24px;
-    flex-direction: column-reverse;
-  }
-
-  #testimonials .sectionContainer, 
-  #benefits .sectionContainer {
-    padding: 70px 0px;
-  }
-
-  #resources .sectionContainer {
-    padding: 70px 0 !important;
-  }
-
-  #benefits .containerGrid {
-    grid-template-columns: 1fr;
-    place-items: center;
-    gap: 32px;    
-  }
-
-  #benefits .containerGrid .gridCard {
-    max-width: 380px;
-  }
-
-  #explorer .titleContainer {
-    max-width: unset;
-    margin-bottom: 32px;
-  }
 }

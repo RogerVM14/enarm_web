@@ -1,5 +1,5 @@
-import React, { createContext, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import React, { createContext, useState } from "react"
+import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext(false);
 
@@ -31,7 +31,13 @@ const AuthProvider = (props) => {
   }
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, handleVerificationUser, logout, user_data, setAuthentication }}>
+    <AuthContext.Provider value={{
+      isAuthenticated,
+      handleVerificationUser,
+      logout,
+      user_data,
+      setAuthentication
+    }}>
       {props.children}
     </AuthContext.Provider>
   )

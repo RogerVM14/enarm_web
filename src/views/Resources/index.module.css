@@ -80,37 +80,6 @@
   margin-top: 60px;
 }
 
-@media screen and (max-width: 576px) {
-  #resources .titleContainer>h3 {
-    letter-spacing: unset !important;
-  }
-
-  #resources .sectionContainer {
-    padding: 60px 0px;
-  }
-
-  .resourcesContainer .containerGrid {
-    display: grid;
-    grid-template-rows: unset;
-    grid-template-columns: 1fr !important;
-    gap: 32px;
-    margin-top: 40px;
-  }
-
-  .gridCard .imageContainer {
-    margin-bottom: 12px;
-  }
-
-  .containerGrid .gridCard {
-    align-items: center;
-  }
-
-  .gridCard .cardTitle {
-    text-align: center;
-  }
-
-}
-
 
 @media screen and (max-width: 1024px) {
   #resources .sectionContainer {
@@ -144,4 +113,40 @@
   .gridCard a.cardLink {
     margin: 0;
   }
+
+  #resources h2 {
+    margin-bottom: 1rem;
+  }
+}
+
+
+@media screen and (max-width: 576px) {
+  #resources .titleContainer>h3 {
+    letter-spacing: unset !important;
+  }
+
+  #resources .sectionContainer {
+    padding: 60px 0px;
+  }
+
+  .resourcesContainer .containerGrid {
+    display: grid;
+    grid-template-rows: unset;
+    grid-template-columns: 1fr !important;
+    gap: 32px;
+    margin-top: 40px;
+  }
+
+  .gridCard .imageContainer {
+    margin-bottom: 12px;
+  }
+
+  .containerGrid .gridCard {
+    align-items: center;
+  }
+
+  .gridCard .cardTitle {
+    text-align: center;
+  }
+
 }

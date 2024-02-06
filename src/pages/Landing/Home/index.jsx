@@ -16,23 +16,14 @@ import FadeInTitle from "../../../components/FadeInTitle";
 
 const HomePage = () => {
 
-  const wordsTitle = [
-    "¿Te",
-    "gustaría",
-    "aprobar",
-    "el",
-    "ENARM",
-    "a",
-    "la",
-    "Primera ?"
-  ]
+  const wordsTitle = [ "¿Te", "gustaría", "aprobar", "el", "ENARM", "a", "la", "Primera ?" ];
 
   return (
     <LandingLayout page="home">
 
       <section id={ui.hero}>
         <div className="full-container">
-          <div className={ui.sectionContainer}>
+          <div className="container-section" aria-details="hero">
             <div className={ui.containerColumns}>
               <div className={ui.columnInformation}>
                 <FadeInTitle words={wordsTitle} align="left" />
@@ -62,7 +53,7 @@ const HomePage = () => {
 
       <section id={ui.explorer}>
         <div className="full-container">
-          <div className={ui.sectionContainer}>
+          <div className="container-section">
             <h2 className="section-subtitle uppercase text-center blue">Explora</h2>
             <div className={ui.titleContainer}>
               <h3 className="section-title text-center white">Experimenta nuestra plataforma con el contenido gratuito que tenemos para ti</h3>
@@ -131,7 +122,7 @@ const HomePage = () => {
 
       <section id={ui.benefits}>
         <div className="full-container">
-          <div className={ui.sectionContainer}>
+          <div className="container-section">
             <div className={ui.containerGrid}>
               <div className={ui.gridCard}>
                 <div className={ui.cardContainer}>
@@ -161,7 +152,7 @@ const HomePage = () => {
 
       <section id={ui.testimonials}>
         <div className="full-container">
-          <div className={ui.sectionContainer}>
+          <div className="container-section">
             <TestimonialCard />
             <div className={ui.titleContainer}>
               <h2 className="section-title text-center">¿Estás listo?</h2>

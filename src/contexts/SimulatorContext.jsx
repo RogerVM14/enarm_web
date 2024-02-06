@@ -732,7 +732,8 @@ const SimulatorProvider = ({ children }) => {
       question_id: 49,
       case: "Trabajador de la construcción que acude a consulta por la presencia de dermatosis localizada en manos, caracterizada por la presencia de lesiones eritematosas pruriginosas, se sospecha dermatitis por contacto.",
       question: "¿Cuál es el principal alérgeno encontrado?",
-      isAnswered: false, answers_list: [
+      isAnswered: false, 
+      answers_list: [
         "resina epoxi, cromo, niquel, cobalto",
         "resorcinol, niquel, derivador acrílicos",
         "Látex, formaldehido, abitol",

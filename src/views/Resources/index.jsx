@@ -1,17 +1,16 @@
 import React from "react";
-import ui from "./index.module.css";
 import { Link } from "react-router-dom";
 import PlayIcon from "../../pages/Assets/Icons/playIcon.svg";
 import LupaIcon from "../../pages/Assets/Icons/bulbIcon.svg";
 import BulbIcon from "../../pages/Assets/Icons/lupaIcon.svg";
 import HatIcon from "../../pages/Assets/Icons/hatIcon.svg";
-
+import ui from "./index.module.css";
 
 const ResourcesSection = () => {
   return (
     <section id={ui.resources}>
       <div className="full-container">
-        <div className={ui.sectionContainer}>
+        <div className="container-section">
           <h2 className="section-subtitle uppercase blue text-center">recursos</h2>
           <div className={ui.titleContainer}>
             <h3 className="section-title text-center">Tenemos un gran repertorio de recursos listos para ti</h3>

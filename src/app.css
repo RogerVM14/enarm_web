@@ -1,9 +1,7 @@
-/* * {
-  outline: 1px solid red;
-} */
-
+ 
 :root {
-  --padding-x: 32px;
+  --padding-x: 120px;
+  --padding-section: 100px var(--padding-x) 100px var(--padding-x);
   --dark: #000000;
   --white: #FFFFFF;
   --blue: #05B2FA;
@@ -12,13 +10,16 @@
   --green: #04B43E;
   --gray: #96ACBC;
 }
-
+ 
 .full-container {
+  max-width: 1440px;
   width: 100%;
   margin-inline: auto;
-  padding-left: var(--padding-x);
-  padding-right: var(--padding-x);
-  position: relative;
+  position: relative; 
+}
+
+.container-section {
+  padding: var(--padding-section);
 }
 
 .main-title {
@@ -187,10 +188,64 @@
   line-height: normal;
 }
 
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 1440px) {
+  :root {
+    --padding-x: 80px;
+    --padding-section: var(--padding-x);
+  }
+
+  .container-section {
+    padding: var(--padding-section);
+  }
+
+}
+
+@media screen and (max-width: 1280px) {
 
   :root {
+    --padding-x: 32px;
+    --padding-section: 70px var(--padding-x) 70px var(--padding-x);
+  }
+
+  .container-section {
+    padding: var(--padding-section);
+  }
+
+}
+
+@media screen and (max-width: 1024px) {
+
+  :root {
+    --padding-x: 32px;
+    --padding-section: 60px var(--padding-x);
+  }
+
+  .container-section {
+    padding: var(--padding-section);
+  }
+
+  .section-title {
+    font-size: 33px;
+    line-height: 1.25;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  :root {
     --padding-x: 24px;
+    --padding-section: 60px var(--padding-x);
+  }
+
+  .container-section {
+    padding: var(--padding-section);
+  }
+
+}
+
+@media screen and (max-width: 576px) {
+
+  .container-section {
+    padding: var(--padding-section);
   }
 
   .main-title,
@@ -238,11 +293,4 @@
     width: 100%;
     max-width: 100% !important;
   }
-}
-
-@media screen and (min-width: 1440px) {
-  .full-container {
-    max-width: 1440px;
-  }
-
 }

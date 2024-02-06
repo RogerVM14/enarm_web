@@ -7,7 +7,7 @@ const SectionPromise = () => {
   return (
     <section id={ui.promise}>
       <div className="full-container">
-        <div className={ui.sectionContainer}>
+        <div className="container-section" aria-details="promise">
           <div className={ui.promiseContainer}>
             <div className={ui.imageContainer}>
               <img src={ImageItem} alt="Patient satisfaction" />

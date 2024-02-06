@@ -10,9 +10,9 @@ const BlogPage = () => {
 
   return (
     <LandingLayout page="blog">
-      <header id={ui.hero}>
+      <header id={ui.heroBlog}>
         <div className="full-container">
-          <div className={ui.headerContainer}>
+          <div className="container-section" aria-details="hero">
             <div className={ui.containerTitle}>
               <FadeInTitle words={blogPageTitle} align="center" />
             </div>
@@ -25,12 +25,12 @@ const BlogPage = () => {
 
       <article id={ui.article}>
         <div className="full-container">
-          <div className={ui.articleContainer}>
+          <div className="container-section" aria-details="entries">
             <h2 className="section-subtitle uppercase blue text-center">Entradas destacadas</h2>
             <div className={ui.containerGrid}>
               <div className={ui.gridEntries}>
                 <div className={ui.entryCard}>
-                  <div className={ui.cardimage}>
+                  <div className={ui.cardImage}>
                     <img src={BlogExample} alt="blog pic" />
                   </div>
                   <div className={ui.cardInformation}>
@@ -39,7 +39,7 @@ const BlogPage = () => {
                   </div>
                 </div>
                 <div className={ui.entryCard}>
-                  <div className={ui.cardimage}>
+                  <div className={ui.cardImage}>
                     <img src={BlogExample} alt="blog pic" />
                   </div>
                   <div className={ui.cardInformation}>
@@ -48,7 +48,7 @@ const BlogPage = () => {
                   </div>
                 </div>
                 <div className={ui.entryCard}>
-                  <div className={ui.cardimage}>
+                  <div className={ui.cardImage}>
                     <img src={BlogExample} alt="blog pic" />
                   </div>
                   <div className={ui.cardInformation}>
@@ -64,14 +64,14 @@ const BlogPage = () => {
 
       <section id={ui.entries}>
         <div className="full-container">
-          <div className={ui.sectionContainer}>
-            <h2>Todas las entradas</h2>
+          <div className="container-section" aria-details="entries">
+            <h2 className="section-title">Todas las entradas</h2>
             <div className={ui.containerGrid}>
               <div className={ui.gridEntries}>
                 {entries?.map((i, index) => {
                   return (
                     <div className={ui.entryCard} key={index}>
-                      <div className={ui.cardimage}>
+                      <div className={ui.cardImage}>
                         <img src={BlogExample} alt="blog pic" />
                       </div>
                       <div className={ui.cardInformation}>
@@ -83,7 +83,7 @@ const BlogPage = () => {
                 })}
               </div>
               <div className={ui.gridPagination}>
-                <span>{"<"}1, 2, 3, 4 ... 99{">"}</span>
+                <span className="regular-parraf">{"< "}1, 2, 3, 4 ... 99{" >"}</span>
               </div>
             </div>
           </div>

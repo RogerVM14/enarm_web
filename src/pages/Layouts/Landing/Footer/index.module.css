@@ -6,9 +6,11 @@ footer>hr {
 }
 
 .footerContainer {
+  padding: 60px 24px;
+}
+
+.footerContainer {
   position: inherit;
-  padding-top: 80px;
-  padding-bottom: 80px;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -110,15 +112,25 @@ footer .blueButtonLink:hover {
 }
 
 
-@media screen and (max-width: 996px) {
+@media screen and (max-width: 1280px) {
+  .footerContainer{
+    padding: 80px 32px;
+  }
+}
+@media screen and (max-width: 1024px) {
   .footerContainer {
-    padding: 60px 0px;
+    padding: 60px 32px;
   }
 
   .navigationLinks {
     display: none;
-  }
+  } 
+}
 
+@media screen and (max-width: 576px) {
+  .footerContainer {
+    padding: 60px 24px;
+  }
 }
 
 @media screen and (max-width: 576px) {

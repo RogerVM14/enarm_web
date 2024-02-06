@@ -30,7 +30,7 @@ const DashboardLayout = ({ children }) => {
   const handleRunFeedback = () => {
     setSimulationOnCourse(false);
     setFeedbackModal(false);
-    navigation("/u/planes/11_meses/retro")
+    navigation("/u/planes/11_meses/retro");
   }
 
   const closeImportantModal = () => setImportantModal(false);

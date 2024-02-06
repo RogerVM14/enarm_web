@@ -10,7 +10,9 @@ import Pinterest from "./Icons/Pinterest.svg";
 import Twitter from "./Icons/X.svg";
 import Messenger from "./Icons/Messenger.svg";
 
-const Footer = () => {
+const Footer = ({
+  visible
+}) => {
 
   const socialMediaLinks = [
     { url: "#", alt: "Facebook", icon: Facebook },
@@ -38,7 +40,7 @@ const Footer = () => {
     ]
   ];
 
-  return (
+  return visible === true ? (
     <footer>
       <div className="full-container">
         <hr />
@@ -68,7 +70,7 @@ const Footer = () => {
         </div>
       </div>
     </footer>
-  )
+  ) : null;
 }
 
 const NavLinks = ({ list, classList }) => {

@@ -7,10 +7,7 @@ const FadeInTitle = ({ words, align }) => {
       {
         words?.map((i, index) => {
           return (
-            <span
-              className={ui.titleWord}
-              key={index}
-            >
+            <span className={ui.titleWord} key={index} >
               {i}
             </span>
           )

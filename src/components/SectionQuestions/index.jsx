@@ -85,7 +85,7 @@ const SectionQuestions = () => {
   return (
     <section id={ui.questions}>
       <div className="full-container">
-        <div className={ui.sectionContainer}>
+        <div className="container-section">
           <div className={ui.containerHead}>
             <h1 className="tiny-blue-title text-center">PREGUNTAS FRECUENTES</h1>
             <h2 className="subtitle text-center">Algunos de nuestros alumnos han preguntado:</h2>

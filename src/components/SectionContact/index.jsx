@@ -10,7 +10,7 @@ const SectionContact = () => {
   return (
     <section id={ui.contactBanner} style={{ background: "#1E73BE" }}>
       <div className="full-container">
-        <div className={ui.sectionContainer}>
+        <div className="container-section">
           <h2 className="section-subtitle blue text-center uppercase">contacto</h2>
           <h3 className="section-title white text-center">¿Tienes dudas? Escríbenos</h3>
           <div className={ui.containerIcons}>

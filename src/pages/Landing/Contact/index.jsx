@@ -20,10 +20,10 @@ const ContactPage = () => {
     return;
   }
   return (
-    <LandingLayout>
+    <LandingLayout page="contact">
       <section id={ui.hero}>
         <div className="full-container">
-          <div className={ui.sectionContainer}>
+          <div className="container-section">
             <div className={ui.containerGrid}>
               <div data-area="title">
                 <h1 className="main-title-bold">Habla con nosotros.</h1>

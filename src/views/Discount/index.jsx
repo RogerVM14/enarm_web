@@ -13,7 +13,7 @@ const DiscountSection = () => {
   return (
     <section datatype="sharedSection" data-component="discount">
       <div className="full-container">
-        <div className={ui.sectionContainer}>
+        <div className="container-section">
           <div className={ui.containerFlex}>
             <div className={ui.imageContainer}>
               {

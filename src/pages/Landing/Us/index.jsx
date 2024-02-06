@@ -1,6 +1,5 @@
 import React from "react";
 import LandingLayout from "../../Layouts/Landing";
-import ui from "./index.module.css";
 import { Link } from "react-router-dom";
 import HeroDoctorImage from "../../Assets/Images/HeroDoctorImage-2.png";
 import MeetUsDoc from "../../Assets/Images/MeetUsDoc.png";
@@ -9,6 +8,7 @@ import LandingConstants from "../../../constants/Landing";
 import useConstants from "./Hooks/useConstants";
 import FadeInTitle from "../../../components/FadeInTitle";
 import SectionPromise from "../../../components/SectionPromise";
+import ui from "./index.module.css";
 
 const UsPage = () => {
 
@@ -33,14 +33,16 @@ const UsPage = () => {
 
       <section id={ui.hero}>
         <div className="full-container">
-          <div className={ui.sectionContainer}>
+          <div className="container-section" aria-details="section">
             <div className={ui.containerGrid}>
               <div className={ui.imageContainer}>
                 <img src={HeroDoctorImage} alt="hero" />
               </div>
               <div className={ui.containerInfo}>
                 <FadeInTitle words={wordsTitle} align="left" />
-                <p className="regular-parraf">Integrado por un Equipo de más de 20 Médicos Especialistas, de casi todas las áreas de la medicina, que te llevarán de la mano para aprobar tu ENARM a la primera.</p>
+                <p className="regular-parraf">
+                  Integrado por un Equipo de más de 20 Médicos Especialistas, de casi todas las áreas de la medicina, que te llevarán de la mano para aprobar tu ENARM a la primera.
+                </p>
                 <Link to="#" className={ui.blueLink}>Inscríbete ahora</Link>
               </div>
             </div>
@@ -50,13 +52,14 @@ const UsPage = () => {
 
       <section id={ui.meetUs} className="bg-dark-blue">
         <div className="full-container">
-          <div className={ui.sectionContainer}>
+          <div className="container-section">
             <div className={ui.containerGrid}>
-              <div className={ui.gridColumn}>
+              <div className={ui.gridColumn} data-area="title">
                 <h2 className="section-subtitle blue text-left uppercase">Conócenos</h2>
-                
                 <h3 className="section-title white text-left">Nuestra cartera de alumnos rebasa el 80% de Aceptación a su Residencia</h3>
                 <p className="regular-parraf white">Contamos con una múltiple experiencia de formación para reforzar cada estilo de aprendizaje:</p>
+              </div>
+              <div className={ui.gridColumn} data-area="list">
                 <div className={ui.columnList}>
                   <ul>
                     <li><img src={CheckIcon} alt="checkicon" /><p className="regular-parraf white">Video Clases.</p></li>
@@ -71,7 +74,7 @@ const UsPage = () => {
                 </div>
                 <Link to="#" className="blueLinkBtn w-282 full-width">Solicitar Prueba Gratis</Link>
               </div>
-              <div className={ui.gridColumn}>
+              <div className={ui.gridColumn} data-area="image">
                 <div className={ui.imageContainer}>
                   <img src={MeetUsDoc} alt="Doctor Meet Us" />
                 </div>
@@ -83,7 +86,7 @@ const UsPage = () => {
 
       <section id={ui.news}>
         <div className="full-container">
-          <div className={ui.sectionContainer}>
+          <div className="container-section" aria-details="section">
             <h2 className="section-subtitle blue text-center uppercase">Novedades</h2>
             <h3 className="section-title gray text-center">Nuestro proposito es, que pases el ENARM en tu primer intento.</h3>
             <p className="regular-parraf gray text-center">Este año te ofrecemos una preparación radicalmente superior, totalmente actualizada y mejorada con nuevas herramientas y contenido, ya que nuestra meta es llegar a más del 85% de nuestros alumnos aprobados en su primer intento.</p>
@@ -116,7 +119,7 @@ const UsPage = () => {
 
       <section id={ui.facts}>
         <div className="full-container">
-          <div className={ui.sectionContainer}>
+          <div className="container-section">
             <h2 className="section-subtitle blue text-center uppercase">Conócenos</h2>
             <h3 className="section-title white text-center">Nuestra cartera de alumnos rebasa el 80% de Aceptación a su Residencia</h3>
             <div className={ui.containerFacts}>
@@ -187,8 +190,8 @@ const UsPage = () => {
       </section>
 
       <section id={ui.stats}>
-        <div className="full-width">
-          <div className={ui.sectionContainer}>
+        <div className="full-container">
+          <div className="container-section">
             <div className={ui.containerStats}>
               {
                 stats?.map((item, index) => {

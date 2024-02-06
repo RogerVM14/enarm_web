@@ -18,7 +18,6 @@
   display: block;
 }
 
-
 .imageContainer::before {
   content: "";
   position: absolute;
@@ -26,9 +25,10 @@
   height: 100%;
   inset: 0 0 0 0;
   z-index: 1010;
-  background: linear-gradient(270deg, #FFF 16.85%, rgba(255, 255, 255, 0.00) 51.24%);
+  background:
+    linear-gradient(90deg, #FFF 0%, rgba(255, 255, 255, 0.00) 37.24%),
+    linear-gradient(-90deg, #FFF 0%, rgba(255, 255, 255, 0.00) 37.24%);
 }
-
 
 .containerInformation {
   padding-right: calc(120px - var(--padding-x));
@@ -57,6 +57,40 @@
   text-decoration-line: underline;
 }
 
+@media screen and (max-width: 1280px){}
+
+@media screen and (max-width: 1024px) {
+
+  #promise [aria-details="promise"] {
+    padding: var(--padding-section);
+  }
+  
+  .imageContainer {
+    display: none;
+  }
+
+  .promiseContainer {
+    grid-template-columns: 1fr;
+  }
+
+  .containerInformation {
+    padding: 0;
+  }
+
+  .containerInformation>* {
+    text-align: center !important;
+  }
+
+  .sectionContainer {
+    padding: 70px 0;
+  }
+
+  .promiseLinkBtn {
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 768px){}
 
 @media screen and (max-width: 576px) {
 

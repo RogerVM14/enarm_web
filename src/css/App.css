@@ -1,1088 +1,1088 @@
 :root {
-    --sky-blue: #05B2FA;
-    --blue: #1E73BE;
-    --white: #FFF;
-    --dark: #343a40;
-    --gray: #96ACBC;
-    --black: #000;
-    --red: #F15E5E;
-    --green: #04b43e;
+  --sky-blue: #05B2FA;
+  --blue: #1E73BE;
+  --white: #FFF;
+  --dark: #343a40;
+  --gray: #96ACBC;
+  --black: #000;
+  --red: #F15E5E;
+  --green: #04b43e;
 
-    --roboto: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --roboto: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 @font-face {
-    font-family: PoppinsLight;
-    src: url('../assets/fonts/Poppins/Poppins-Light.ttf');
+  font-family: PoppinsLight;
+  src: url('../assets/fonts/Poppins/Poppins-Light.ttf');
 }
 
 @font-face {
-    font-family: PoppinsMedium;
-    src: url('../assets/fonts/Poppins/Poppins-Medium.ttf');
+  font-family: PoppinsMedium;
+  src: url('../assets/fonts/Poppins/Poppins-Medium.ttf');
 }
 
 @font-face {
-    font-family: PoppinsThin;
-    src: url('../assets/fonts/Poppins/Poppins-Thin.ttf');
+  font-family: PoppinsThin;
+  src: url('../assets/fonts/Poppins/Poppins-Thin.ttf');
 }
 
 @font-face {
-    font-family: PoppinsRegular;
-    src: url('../assets/fonts/Poppins/Poppins-Regular.ttf');
+  font-family: PoppinsRegular;
+  src: url('../assets/fonts/Poppins/Poppins-Regular.ttf');
 }
 
 @font-face {
-    font-family: PoppinsBlack;
-    src: url('../assets/fonts/Poppins/Poppins-Black.ttf');
+  font-family: PoppinsBlack;
+  src: url('../assets/fonts/Poppins/Poppins-Black.ttf');
 }
 
 @font-face {
-    font-family: PoppinsBold;
-    src: url('../assets/fonts/Poppins/Poppins-Bold.ttf');
+  font-family: PoppinsBold;
+  src: url('../assets/fonts/Poppins/Poppins-Bold.ttf');
 }
 
 @font-face {
-    font-family: PoppinsSemiBold;
-    src: url('../assets/fonts/Poppins/Poppins-SemiBold.ttf');
+  font-family: PoppinsSemiBold;
+  src: url('../assets/fonts/Poppins/Poppins-SemiBold.ttf');
 }
 
 @font-face {
-    font-family: MontserratLight;
-    src: url('../assets/fonts/Montserrat/Montserrat-Light.ttf');
+  font-family: MontserratLight;
+  src: url('../assets/fonts/Montserrat/Montserrat-Light.ttf');
 }
 
 @font-face {
-    font-family: MontserratMedium;
-    src: url('../assets/fonts/Montserrat/Montserrat-Medium.ttf');
+  font-family: MontserratMedium;
+  src: url('../assets/fonts/Montserrat/Montserrat-Medium.ttf');
 }
 
 @font-face {
-    font-family: MontserratThin;
-    src: url('../assets/fonts/Montserrat/Montserrat-Thin.ttf');
+  font-family: MontserratThin;
+  src: url('../assets/fonts/Montserrat/Montserrat-Thin.ttf');
 }
 
 @font-face {
-    font-family: MontserratRegular;
-    src: url('../assets/fonts/Montserrat/Montserrat-Regular.ttf');
+  font-family: MontserratRegular;
+  src: url('../assets/fonts/Montserrat/Montserrat-Regular.ttf');
 }
 
 @font-face {
-    font-family: MontserratBlack;
-    src: url('../assets/fonts/Montserrat/Montserrat-Black.ttf');
+  font-family: MontserratBlack;
+  src: url('../assets/fonts/Montserrat/Montserrat-Black.ttf');
 }
 
 @font-face {
-    font-family: MontserratBold;
-    src: url('../assets/fonts/Montserrat/Montserrat-Bold.ttf');
+  font-family: MontserratBold;
+  src: url('../assets/fonts/Montserrat/Montserrat-Bold.ttf');
 }
 
 @font-face {
-    font-family: MontserratSemiBold;
-    src: url('../assets/fonts/Montserrat/Montserrat-SemiBold.ttf');
+  font-family: MontserratSemiBold;
+  src: url('../assets/fonts/Montserrat/Montserrat-SemiBold.ttf');
 }
 
 @font-face {
-    font-family: RalewayLight;
-    src: url('../assets/fonts/Raleway/Raleway-Light.ttf');
+  font-family: RalewayLight;
+  src: url('../assets/fonts/Raleway/Raleway-Light.ttf');
 }
 
 @font-face {
-    font-family: RalewayMedium;
-    src: url('../assets/fonts/Raleway/Raleway-Medium.ttf');
+  font-family: RalewayMedium;
+  src: url('../assets/fonts/Raleway/Raleway-Medium.ttf');
 }
 
 @font-face {
-    font-family: RalewayThin;
-    src: url('../assets/fonts/Raleway/Raleway-Thin.ttf');
+  font-family: RalewayThin;
+  src: url('../assets/fonts/Raleway/Raleway-Thin.ttf');
 }
 
 @font-face {
-    font-family: RalewayRegular;
-    src: url('../assets/fonts/Raleway/Raleway-Regular.ttf');
+  font-family: RalewayRegular;
+  src: url('../assets/fonts/Raleway/Raleway-Regular.ttf');
 }
 
 @font-face {
-    font-family: RalewayBlack;
-    src: url('../assets/fonts/Raleway/Raleway-Black.ttf');
+  font-family: RalewayBlack;
+  src: url('../assets/fonts/Raleway/Raleway-Black.ttf');
 }
 
 @font-face {
-    font-family: RalewayBold;
-    src: url('../assets/fonts/Raleway/Raleway-Bold.ttf');
+  font-family: RalewayBold;
+  src: url('../assets/fonts/Raleway/Raleway-Bold.ttf');
 }
 
 @font-face {
-    font-family: RalewaySemiBold;
-    src: url('../assets/fonts/Raleway/Raleway-SemiBold.ttf');
+  font-family: RalewaySemiBold;
+  src: url('../assets/fonts/Raleway/Raleway-SemiBold.ttf');
 }
 
 *,
 *::before,
 *::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: var(--apple-font);
-    font-size: 16px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--apple-font);
+  font-size: 16px;
 }
 
 html {
-    background-color: var(--white);
-    overflow-x: hidden;
-    /* overflow-y: hidden; */
+  background-color: var(--white);
+  overflow-x: hidden;
+  /* overflow-y: hidden; */
 }
 
 body {
-    overflow-x: hidden;
-    overflow-y: hidden;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 /* FONT STYLES */
 .title {
-    font-family: PoppinsBold;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 44px;
-    line-height: 57px;
-    letter-spacing: 0.03em;
+  font-family: PoppinsBold;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 44px;
+  line-height: 57px;
+  letter-spacing: 0.03em;
 }
 
 .tiny-blue-title {
-    font-family: PoppinsBold;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 24px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--sky-blue);
-    margin-bottom: 16px;
+  font-family: PoppinsBold;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--sky-blue);
+  margin-bottom: 16px;
 }
 
 .subtitle {
-    font-family: PoppinsBold;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 33px;
-    line-height: 50px;
-    letter-spacing: 0.03em;
-    margin-bottom: 16px;
+  font-family: PoppinsBold;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 33px;
+  line-height: 50px;
+  letter-spacing: 0.03em;
+  margin-bottom: 16px;
 }
 
 .bold-16 {
-    font-family: PoppinsBold;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 24px;
-    margin-bottom: 16px;
+  font-family: PoppinsBold;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  margin-bottom: 16px;
 }
 
 .bold-47 {
-    font-family: PoppinsBold;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 47px;
-    line-height: 70px;
+  font-family: PoppinsBold;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 47px;
+  line-height: 70px;
 }
 
 .bold-44 {
-    font-family: PoppinsBold;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 44px;
-    line-height: 57px;
+  font-family: PoppinsBold;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 44px;
+  line-height: 57px;
 }
 
 .bold-39 {
-    font-family: PoppinsBold;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 39px;
-    line-height: 58px;
-    letter-spacing: 0.03em;
+  font-family: PoppinsBold;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 39px;
+  line-height: 58px;
+  letter-spacing: 0.03em;
 }
 
 .bold-33 {
-    font-family: PoppinsBold;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 33px;
-    line-height: 50px;
-    letter-spacing: 0.03em;
+  font-family: PoppinsBold;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 33px;
+  line-height: 50px;
+  letter-spacing: 0.03em;
 }
 
 .bold-20 {
-    font-family: PoppinsBold;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 20px;
-    line-height: 30px;
+  font-family: PoppinsBold;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 30px;
 }
 
 .bold-18 {
-    font-family: PoppinsBold;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 18px;
-    line-height: 27px;
+  font-family: PoppinsBold;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 27px;
 }
 
 .bold-16-nomb {
-    font-family: PoppinsBold;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 24px;
+  font-family: PoppinsBold;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
 }
 
 .bold-14 {
-    font-family: PoppinsBold;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 14px;
-    line-height: 21px;
+  font-family: PoppinsBold;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 21px;
 }
 
 .bold-14-fx {
-    font-family: PoppinsBold;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 14px;
-    line-height: 21px;
-    display: flex;
-    align-items: center;
+  font-family: PoppinsBold;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 21px;
+  display: flex;
+  align-items: center;
 }
 
 .semibold-24 {
-    font-family: PoppinsSemiBold;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 24px;
-    line-height: 32px;
+  font-family: PoppinsSemiBold;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
 }
 
 .semibold-22 {
-    font-family: PoppinsSemiBold;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 22px;
-    line-height: 28px;
+  font-family: PoppinsSemiBold;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 28px;
 }
 
 .semibold-16 {
-    font-family: PoppinsSemiBold;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 24px;
+  font-family: PoppinsSemiBold;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
 }
 
 .semibold-14 {
-    font-family: PoppinsSemiBold;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 21px;
+  font-family: PoppinsSemiBold;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 21px;
 }
 
 .medium-33 {
-    font-family: PoppinsMedium;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 33px;
-    line-height: 50px;
+  font-family: PoppinsMedium;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 33px;
+  line-height: 50px;
 }
 
 .medium-29 {
-    font-family: PoppinsMedium;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 29px;
-    line-height: 44px;
+  font-family: PoppinsMedium;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 29px;
+  line-height: 44px;
 }
 
 .medium-20 {
-    font-family: PoppinsMedium;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 30px;
+  font-family: PoppinsMedium;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 30px;
 }
 
 .medium-18 {
-    font-family: PoppinsMedium;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 28px;
+  font-family: PoppinsMedium;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 28px;
 }
 
 .medium-16 {
-    font-family: PoppinsMedium;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 24px;
+  font-family: PoppinsMedium;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
 }
 
 .medium-14 {
-    font-family: PoppinsMedium;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 21px;
+  font-family: PoppinsMedium;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
 }
 
 .roboto-14 {
-    font-family: var(--roboto);
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 21px;
+  font-family: var(--roboto);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
 }
 
 .roboto-12 {
-    font-family: var(--roboto);
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 20px;
+  font-family: var(--roboto);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 20px;
 }
 
 .montse-16 {
-    font-family: MontserratSemiBold;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 20px;
-    letter-spacing: 0.02em;
+  font-family: MontserratSemiBold;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0.02em;
 }
 
 .montse-18 {
-    font-family: MontserratSemiBold;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 22px;
+  font-family: MontserratSemiBold;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
 }
 
 .regular-60 {
-    font-family: PoppinsRegular;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 60px;
-    line-height: 90px;
-    display: flex;
-    align-items: center;
+  font-family: PoppinsRegular;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 60px;
+  line-height: 90px;
+  display: flex;
+  align-items: center;
 }
 
 .regular-47 {
-    font-family: PoppinsRegular;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 47px;
-    line-height: 70px;
-    letter-spacing: 0.03em;
+  font-family: PoppinsRegular;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 47px;
+  line-height: 70px;
+  letter-spacing: 0.03em;
 }
 
 .regular-23 {
-    font-family: PoppinsRegular;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 22px;
-    line-height: 34px;
+  font-family: PoppinsRegular;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 34px;
 }
 
 .regular-20 {
-    font-family: PoppinsRegular;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 30px;
+  font-family: PoppinsRegular;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 30px;
 }
 
 .regular-16 {
-    font-family: PoppinsRegular;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
+  font-family: PoppinsRegular;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
 }
 
 .regular-14 {
-    font-family: PoppinsRegular;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 21px;
+  font-family: PoppinsRegular;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
 }
 
 .regular-12 {
-    font-family: PoppinsRegular;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 22px;
+  font-family: PoppinsRegular;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 22px;
 }
 
 .regular-10 {
-    font-family: PoppinsRegular;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 10px;
-    line-height: 16px;
+  font-family: PoppinsRegular;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 16px;
 }
 
 .blue-link {
-    font-family: MontserratBold;
-    font-style: normal;
-    font-weight: 800;
-    font-size: 18px;
-    line-height: 22px;
-    letter-spacing: 0.02em;
-    color: var(--sky-blue);
+  font-family: MontserratBold;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 22px;
+  letter-spacing: 0.02em;
+  color: var(--sky-blue);
 }
 
 .white-link {
-    font-family: MontserratBold;
-    font-style: normal;
-    font-weight: 800;
-    font-size: 18px;
-    line-height: 22px;
-    letter-spacing: 0.02em;
-    color: var(--white);
+  font-family: MontserratBold;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 22px;
+  letter-spacing: 0.02em;
+  color: var(--white);
 }
 
 .button-text-white {
-    font-family: MontserratBold;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 14px;
-    line-height: 24px;
-    letter-spacing: 0.02em;
-    color: var(--white);
+  font-family: MontserratBold;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 0.02em;
+  color: var(--white);
 }
 
 .italic {
-    font-style: italic !important;
+  font-style: italic !important;
 }
 
 .bold {
-    font-weight: bold !important;
+  font-weight: bold !important;
 }
 
 /* COLORS */
 .sky-blue {
-    color: var(--sky-blue) !important;
+  color: var(--sky-blue) !important;
 }
 
 .blue {
-    color: var(--blue) !important;
+  color: var(--blue) !important;
 }
 
 .white {
-    color: var(--white) !important;
+  color: var(--white) !important;
 }
 
 .dark {
-    color: var(--dark) !important;
+  color: var(--dark) !important;
 }
 
 .gray {
-    color: var(--gray) !important;
+  color: var(--gray) !important;
 }
 
 .black {
-    color: var(--black) !important;
+  color: var(--black) !important;
 }
 
 .red {
-    color: var(--red) !important;
+  color: var(--red) !important;
 }
 
 .green {
-    color: var(--green) !important;
+  color: var(--green) !important;
 }
 
 .green-check {
-    color: var(--green) !important;
-    font-weight: bold !important;
+  color: var(--green) !important;
+  font-weight: bold !important;
 }
 
 .bg-sky-blue {
-    background: var(--sky-blue) !important;
+  background: var(--sky-blue) !important;
 }
 
 .bg-blue {
-    background: var(--blue) !important;
+  background: var(--blue) !important;
 }
 
 .bg-white {
-    background: var(--white) !important;
+  background: var(--white) !important;
 }
 
 .bg-dark {
-    background: var(--dark) !important;
+  background: var(--dark) !important;
 }
 
 .bg-gray {
-    background: var(--gray) !important;
+  background: var(--gray) !important;
 }
 
 .bg-black {
-    background: var(--black) !important;
+  background: var(--black) !important;
 }
 
 .bg-red {
-    background: var(--red) !important;
+  background: var(--red) !important;
 }
 
 .bg-green {
-    background: var(--green) !important;
+  background: var(--green) !important;
 }
 
 .uppercase {
-    text-transform: uppercase;
+  text-transform: uppercase;
 }
 
 .pointer {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 /* TEXT DECORATIONS*/
 .line-through {
-    text-decoration-line: line-through;
+  text-decoration-line: line-through;
 }
 
 .lh-32 {
-    line-height: 32px;
+  line-height: 32px;
 }
 
 /* INPUTS */
 .form-input-text {
-    background: var(--white);
-    border: 1px solid var(--gray);
-    border-radius: 10px;
-    width: 100%;
-    height: 58px;
-    padding: 16px auto 16px 16px;
+  background: var(--white);
+  border: 1px solid var(--gray);
+  border-radius: 10px;
+  width: 100%;
+  height: 58px;
+  padding: 16px auto 16px 16px;
 }
 
 .form-input-text::placeholder {
-    font-family: PoppinsRegular;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
-    color: #96ACBC;
+  font-family: PoppinsRegular;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #96ACBC;
 }
 
 button:hover {
-    cursor: pointer;
-    background-color: #00A0E2;
+  cursor: pointer;
+  background-color: #00A0E2;
 }
 
 .button-rounded-blue-48 {
-    width: 100%;
-    height: 48px;
-    border-radius: 50px;
-    background: var(--sky-blue);
-    padding: 13px 0;
-    border: none;
+  width: 100%;
+  height: 48px;
+  border-radius: 50px;
+  background: var(--sky-blue);
+  padding: 13px 0;
+  border: none;
 }
 
 .button-rounded-blue-48 .button-text {
-    font-family: MontserratBold;
-    font-style: normal;
-    font-weight: 800;
-    font-size: 18px;
-    line-height: 22px;
-    text-align: center;
-    letter-spacing: 0.02em;
-    color: var(--white);
-    border: none;
+  font-family: MontserratBold;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  letter-spacing: 0.02em;
+  color: var(--white);
+  border: none;
 }
 
 .button-rounded-blue-35 {
-    width: 100%;
-    height: 35px;
-    border-radius: 17.5px;
-    background: var(--sky-blue);
-    padding: 5px 15px;
-    border: none;
-    border: none;
+  width: 100%;
+  height: 35px;
+  border-radius: 17.5px;
+  background: var(--sky-blue);
+  padding: 5px 15px;
+  border: none;
+  border: none;
 }
 
 .button-rounded-blue-35 .button-text {
-    font-family: MontserratBold;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 14px;
-    line-height: 24px;
-    text-align: center;
-    letter-spacing: 0.02em;
-    color: var(--white);
-    border: none;
+  font-family: MontserratBold;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 24px;
+  text-align: center;
+  letter-spacing: 0.02em;
+  color: var(--white);
+  border: none;
 }
 
 /* Displays */
 .d-block {
-    display: block;
+  display: block;
 }
 
 .d-inline {
-    display: inline;
+  display: inline;
 }
 
 .flex {
-    display: flex;
+  display: flex;
 }
 
 .flex-row-nw {
-    display: flex;
-    flex-flow: row nowrap;
+  display: flex;
+  flex-flow: row nowrap;
 }
 
 .flex-row-w {
-    display: flex;
-    flex-flow: row wrap;
+  display: flex;
+  flex-flow: row wrap;
 }
 
 .flex-col-nw {
-    display: flex;
-    flex-flow: column nowrap;
+  display: flex;
+  flex-flow: column nowrap;
 }
 
 .flex-col-w {
-    display: flex;
-    flex-flow: column wrap;
+  display: flex;
+  flex-flow: column wrap;
 }
 
 /* FLEXBOX */
 .fd-row {
-    flex-direction: row;
+  flex-direction: row;
 }
 
 .fd-col {
-    flex-direction: column;
+  flex-direction: column;
 }
 
 .wrap {
-    flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 
 .no-wrap {
-    flex-wrap: nowrap;
+  flex-wrap: nowrap;
 }
 
 .jc-baseline {
-    justify-content: baseline;
+  justify-content: baseline;
 }
 
 .jc-center {
-    justify-content: center;
+  justify-content: center;
 }
 
 .jc-start {
-    justify-content: flex-start;
+  justify-content: flex-start;
 }
 
 .jc-end {
-    justify-content: flex-end;
+  justify-content: flex-end;
 }
 
 .jc-around {
-    justify-content: space-around;
+  justify-content: space-around;
 }
 
 .jc-between {
-    justify-content: space-between;
+  justify-content: space-between;
 }
 
 .jc-evenly {
-    justify-content: space-evenly;
+  justify-content: space-evenly;
 }
 
 .ai-baseline {
-    align-items: baseline;
+  align-items: baseline;
 }
 
 .ai-center {
-    align-items: center;
+  align-items: center;
 }
 
 .ai-flex-start {
-    align-items: flex-start;
+  align-items: flex-start;
 }
 
 .ai-flex-end {
-    align-items: flex-end;
+  align-items: flex-end;
 }
 
 .ai-stretch {
-    align-items: stretch;
+  align-items: stretch;
 }
 
 .ai-baseline {
-    align-items: baseline;
+  align-items: baseline;
 }
 
 .gap-8 {
-    gap: 8px;
+  gap: 8px;
 }
 
 /* POSITIONS */
 .relative {
-    position: relative;
+  position: relative;
 }
 
 .absolute {
-    position: absolute;
+  position: absolute;
 }
 
 .fixed {
-    position: fixed;
+  position: fixed;
 }
 
 /* CENTERED */
 .put-in-center {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translateX(-50%) translateY(-50%);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
 }
 
 .margin-center {
-    margin: 0 auto;
+  margin: 0 auto;
 }
 
 .flexed-in-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* BACKGROUND COLOR */
 .gradient-25-100 {
-    background: -webkit-linear-gradient(180deg, #e2ecf800 25.24%, #E2ECF8 100%);
-    background: -o-linear-gradient(180deg, #e2ecf800 25.24%, #E2ECF8 100%);
-    background: -moz-linear-gradient(180deg, #e2ecf800 25.24%, #E2ECF8 100%);
-    background: linear-gradient(180deg, #e2ecf800 25.24%, #E2ECF8 100%);
+  background: -webkit-linear-gradient(180deg, #e2ecf800 25.24%, #E2ECF8 100%);
+  background: -o-linear-gradient(180deg, #e2ecf800 25.24%, #E2ECF8 100%);
+  background: -moz-linear-gradient(180deg, #e2ecf800 25.24%, #E2ECF8 100%);
+  background: linear-gradient(180deg, #e2ecf800 25.24%, #E2ECF8 100%);
 }
 
 .gradient-53-71 {
-    background: -webkit-linear-gradient(180deg, #E2ECF8 53.04%, #e2ecf800 71.38%);
-    background: -o-linear-gradient(180deg, #E2ECF8 53.04%, #e2ecf800 71.38%);
-    background: -moz-linear-gradient(180deg, #E2ECF8 53.04%, #e2ecf800 71.38%);
-    background: linear-gradient(180deg, #E2ECF8 53.04%, #e2ecf800 71.38%);
+  background: -webkit-linear-gradient(180deg, #E2ECF8 53.04%, #e2ecf800 71.38%);
+  background: -o-linear-gradient(180deg, #E2ECF8 53.04%, #e2ecf800 71.38%);
+  background: -moz-linear-gradient(180deg, #E2ECF8 53.04%, #e2ecf800 71.38%);
+  background: linear-gradient(180deg, #E2ECF8 53.04%, #e2ecf800 71.38%);
 }
 
 /* TEXT ALIGN */
 .text-center {
-    text-align: center;
+  text-align: center;
 }
 
 .text-left {
-    text-align: start;
+  text-align: start;
 }
 
 .text-right {
-    text-align: end;
+  text-align: end;
 }
 
 .text-justify {
-    text-align: justify;
+  text-align: justify;
 }
 
 /* MARGINS */
 .mb-4 {
-    margin-bottom: 4px;
+  margin-bottom: 4px;
 }
 
 .mb-12 {
-    margin-bottom: 12px;
+  margin-bottom: 12px;
 }
 
 .mb-16 {
-    margin-bottom: 16px;
+  margin-bottom: 16px;
 }
 
 .mb-24 {
-    margin-bottom: 24px;
+  margin-bottom: 24px;
 }
 
 .mb-27 {
-    margin-bottom: 27px;
+  margin-bottom: 27px;
 }
 
 .mb-32 {
-    margin-bottom: 32px;
+  margin-bottom: 32px;
 }
 
 .mt-16- {
-    margin-top: -16px;
+  margin-top: -16px;
 }
 
 .mt-24- {
-    margin-top: -24px;
+  margin-top: -24px;
 }
 
 .mt-27- {
-    margin-top: -27px;
+  margin-top: -27px;
 }
 
 .mt-32- {
-    margin-top: -32px;
+  margin-top: -32px;
 }
 
 .mt-16 {
-    margin-top: 16px;
+  margin-top: 16px;
 }
 
 .mt-24 {
-    margin-top: 24px;
+  margin-top: 24px;
 }
 
 .mt-27 {
-    margin-top: 27px;
+  margin-top: 27px;
 }
 
 .mt-32 {
-    margin-top: 32px;
+  margin-top: 32px;
 }
 
 .ml-16 {
-    margin-left: 16px;
+  margin-left: 16px;
 }
 
 /* GLOBAL */
 .link-blue {
-    color: var(--sky-blue);
-    text-decoration: none;
+  color: var(--sky-blue);
+  text-decoration: none;
 }
 
 .menu-visible {
-    display: block;
-    visibility: visible;
-    opacity: 1;
-    transition: all 0.4s linear;
+  display: block;
+  visibility: visible;
+  opacity: 1;
+  transition: all 0.4s linear;
 }
 
 .menu-hidden {
-    display: none;
-    visibility: hidden;
-    opacity: 0;
-    transition: all 0.4s linear;
+  display: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.4s linear;
 }
 
 .reveal-load {
-    position: relative;
-    transform: translateY(150px);
-    opacity: 0;
-    transition: 950ms all ease;
-    z-index: 1000;
+  position: relative;
+  transform: translateY(150px);
+  opacity: 0;
+  transition: 950ms all ease;
+  z-index: 1000;
 }
 
 .reveal-load.active {
-    transform: translateY(0);
-    opacity: 1;
+  transform: translateY(0);
+  opacity: 1;
 }
 
 .reveal {
-    position: relative;
-    transform: translateY(150px);
-    opacity: 0;
-    transition: 950ms all ease;
-    z-index: 1000;
+  position: relative;
+  transform: translateY(150px);
+  opacity: 0;
+  transition: 950ms all ease;
+  z-index: 1000;
 }
 
 .reveal.active {
-    transform: translateY(0);
-    opacity: 1;
+  transform: translateY(0);
+  opacity: 1;
 }
 
 .spin-around {
-    transform: rotate(360deg);
-    transition: transform 2.5s;
+  transform: rotate(360deg);
+  transition: transform 2.5s;
 }
 
 @keyframes expandSpan {
-    0% {
-        transform: scale(1);
-    }
+  0% {
+    transform: scale(1);
+  }
 
-    100% {
-        transform: scale(1.35);
-    }
+  100% {
+    transform: scale(1.35);
+  }
 }
 
 /* TRANSITIONS */
 img.doctor-icon {
-    transition: all 300ms ease;
+  transition: all 300ms ease;
 }
 
 img.doctor-icon:hover {
-    transform: scale(1.2);
-    transition: all 300ms ease;
+  transform: scale(1.2);
+  transition: all 300ms ease;
 }
 
 .bouncing {
-    -webkit-animation-name: bounce;
-    animation-name: bounce;
-    -webkit-animation-duration: 1s;
-    animation-duration: 1s;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
+  -webkit-animation-name: bounce;
+  animation-name: bounce;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
 }
 
 .img-float {
-    -webkit-animation: floatImageLeft 9.35s linear infinite;
-    animation: floatImageLeft 9.35s linear infinite
+  -webkit-animation: floatImageLeft 9.35s linear infinite;
+  animation: floatImageLeft 9.35s linear infinite
 }
 
 @keyframes floatImageLeft {
-    0% {
-        -webkit-transform: rotate(0deg) translatey(-41px) rotate(0deg);
-        transform: rotate(0deg) translatey(-41px) rotate(0deg)
-    }
+  0% {
+    -webkit-transform: rotate(0deg) translatey(-41px) rotate(0deg);
+    transform: rotate(0deg) translatey(-41px) rotate(0deg)
+  }
 
-    to {
-        -webkit-transform: rotate(1turn) translatey(-41px) rotate(-1turn);
-        transform: rotate(1turn) translatey(-41px) rotate(-1turn)
-    }
+  to {
+    -webkit-transform: rotate(1turn) translatey(-41px) rotate(-1turn);
+    transform: rotate(1turn) translatey(-41px) rotate(-1turn)
+  }
 }
 
 @keyframes bounce {
 
-    0%,
-    20%,
-    50%,
-    80%,
-    100% {
-        -webkit-transform: translateY(0);
-    }
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    -webkit-transform: translateY(0);
+  }
 
-    40% {
-        -webkit-transform: translateY(-30px);
-    }
+  40% {
+    -webkit-transform: translateY(-30px);
+  }
 
-    60% {
-        -webkit-transform: translateY(-15px);
-    }
+  60% {
+    -webkit-transform: translateY(-15px);
+  }
 }
 
 input[type=text],
 input[type=tel],
 input[type=password],
 input[type=email] {
-    font-family: PoppinsRegular;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
-    color: #4f5f6a;
+  font-family: PoppinsRegular;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #4f5f6a;
 }
 
 /* Title Animation Fade In*/
 
 
 .fade-in-title {
-    transform: scale(1);
-    animation: scale 2s forwards cubic-bezier(0.5, 1, 0.89, 1);
+  transform: scale(1);
+  animation: scale 2s forwards cubic-bezier(0.5, 1, 0.89, 1);
 }
 
 .fade-in-title span {
-    display: inline-block;
-    filter: blur(4px);
-    opacity: 0;
+  display: inline-block;
+  filter: blur(4px);
+  opacity: 0;
 }
 
 .fade-in-title span:not(:last-child) {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 span:nth-child(1) {
-    animation: fade-in 0.8s 0.1s forwards cubic-bezier(0.11, 0, 0.5, 0);
+  animation: fade-in 0.8s 0.1s forwards cubic-bezier(0.11, 0, 0.5, 0);
 }
 
 span:nth-child(2) {
-    animation: fade-in 0.8s 0.2s forwards cubic-bezier(0.11, 0, 0.5, 0);
+  animation: fade-in 0.8s 0.2s forwards cubic-bezier(0.11, 0, 0.5, 0);
 }
 
 span:nth-child(3) {
-    animation: fade-in 0.8s 0.3s forwards cubic-bezier(0.11, 0, 0.5, 0);
+  animation: fade-in 0.8s 0.3s forwards cubic-bezier(0.11, 0, 0.5, 0);
 }
 
 span:nth-child(4) {
-    animation: fade-in 0.8s 0.4s forwards cubic-bezier(0.11, 0, 0.5, 0);
+  animation: fade-in 0.8s 0.4s forwards cubic-bezier(0.11, 0, 0.5, 0);
 }
 
 span:nth-child(5) {
-    animation: fade-in 0.8s 0.5s forwards cubic-bezier(0.11, 0, 0.5, 0);
+  animation: fade-in 0.8s 0.5s forwards cubic-bezier(0.11, 0, 0.5, 0);
 }
 
 span:nth-child(6) {
-    animation: fade-in 0.8s 0.6s forwards cubic-bezier(0.11, 0, 0.5, 0);
+  animation: fade-in 0.8s 0.6s forwards cubic-bezier(0.11, 0, 0.5, 0);
 }
 
 span:nth-child(7) {
-    animation: fade-in 0.8s 0.7s forwards cubic-bezier(0.11, 0, 0.5, 0);
+  animation: fade-in 0.8s 0.7s forwards cubic-bezier(0.11, 0, 0.5, 0);
 }
 
 span:nth-child(8) {
-    animation: fade-in 0.8s 0.8s forwards cubic-bezier(0.11, 0, 0.5, 0);
+  animation: fade-in 0.8s 0.8s forwards cubic-bezier(0.11, 0, 0.5, 0);
 }
 
 span:nth-child(9) {
-    animation: fade-in 0.8s 0.9s forwards cubic-bezier(0.11, 0, 0.5, 0);
+  animation: fade-in 0.8s 0.9s forwards cubic-bezier(0.11, 0, 0.5, 0);
 }
 
 span:nth-child(10) {
-    animation: fade-in 0.8s 1s forwards cubic-bezier(0.11, 0, 0.5, 0);
+  animation: fade-in 0.8s 1s forwards cubic-bezier(0.11, 0, 0.5, 0);
 }
 
 span:nth-child(11) {
-    animation: fade-in 0.8s 1.1s forwards cubic-bezier(0.11, 0, 0.5, 0);
+  animation: fade-in 0.8s 1.1s forwards cubic-bezier(0.11, 0, 0.5, 0);
 }
 
 span:nth-child(12) {
-    animation: fade-in 0.8s 1.2s forwards cubic-bezier(0.11, 0, 0.5, 0);
+  animation: fade-in 0.8s 1.2s forwards cubic-bezier(0.11, 0, 0.5, 0);
 }
 
 span:nth-child(13) {
-    animation: fade-in 0.8s 1.3s forwards cubic-bezier(0.11, 0, 0.5, 0);
+  animation: fade-in 0.8s 1.3s forwards cubic-bezier(0.11, 0, 0.5, 0);
 }
 
 span:nth-child(14) {
-    animation: fade-in 0.8s 1.4s forwards cubic-bezier(0.11, 0, 0.5, 0);
+  animation: fade-in 0.8s 1.4s forwards cubic-bezier(0.11, 0, 0.5, 0);
 }
 
 span:nth-child(15) {
-    animation: fade-in 0.8s 1.5s forwards cubic-bezier(0.11, 0, 0.5, 0);
+  animation: fade-in 0.8s 1.5s forwards cubic-bezier(0.11, 0, 0.5, 0);
 }
 
 span:nth-child(16) {
-    animation: fade-in 0.8s 1.6s forwards cubic-bezier(0.11, 0, 0.5, 0);
+  animation: fade-in 0.8s 1.6s forwards cubic-bezier(0.11, 0, 0.5, 0);
 }
 
 span:nth-child(17) {
-    animation: fade-in 0.8s 1.7s forwards cubic-bezier(0.11, 0, 0.5, 0);
+  animation: fade-in 0.8s 1.7s forwards cubic-bezier(0.11, 0, 0.5, 0);
 }
 
 span:nth-child(18) {
-    animation: fade-in 0.8s 1.8s forwards cubic-bezier(0.11, 0, 0.5, 0);
+  animation: fade-in 0.8s 1.8s forwards cubic-bezier(0.11, 0, 0.5, 0);
 }
 
 @keyframes fade-in {
-    100% {
-        opacity: 1;
-        filter: blur(0);
-    }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+  }
 }
 
 @keyframes scale {
-    100% {
-        transform: scale(1);
-    }
+  100% {
+    transform: scale(1);
+  }
 }

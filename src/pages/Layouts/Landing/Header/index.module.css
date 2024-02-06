@@ -4,6 +4,7 @@
   width: 100%;
   max-width: 1440px;
   margin-inline: auto;
+  padding: 0px 32px;
 }
 
 .imageContainer {
@@ -130,12 +131,16 @@ a.blueRoundedLink[datatype=small] {
 
 }
 
-
 @media screen and (max-width: 1024px) {
   .imageContainer {
     width: 80px;
     height: 80px;
   }
+
+  .headerContainer {
+    padding: 0px 24px;
+  }
+
 
   .navigationHeader {
     min-height: 80px;

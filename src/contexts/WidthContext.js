@@ -18,9 +18,9 @@ const WidthProvider = ({ children }) => {
 
     return () => window.removeEventListener("resize", getWindowSize)
   }, [])
- 
+
   return (
-    <WidthContext.Provider value={{width}}>
+    <WidthContext.Provider value={{ width }}>
       {children}
     </WidthContext.Provider>
   )
