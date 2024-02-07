@@ -175,6 +175,15 @@
   text-decoration: none;
 }
 
+.blueLink {
+  transition: all 250ms linear;
+}
+
+.blueLink:hover {
+  background: #00A0E2;
+  transition: all 250ms linear;
+}
+
 .percentageNumber {
   color: var(--character-primary-85, rgba(0, 0, 0, 0.85));
   /* Footnote/description */

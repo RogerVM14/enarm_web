@@ -266,6 +266,12 @@ li.answerItem label {
 .containerFooterButtons button[type=button] {
   padding: 8px 16px;
   border-radius: 2px;
+  transition: all 250ms linear;
+}
+
+.containerFooterButtons button[type=button]:hover span {
+  color: white;
+  transition: all 250ms linear;
 }
 
 .containerFooterButtons button[type=button] span {
@@ -273,13 +279,15 @@ li.answerItem label {
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 24px;
+  line-height: 24px;  
+  transition: all 250ms linear;
 }
 
 button.getRetroButton {
   border: 1px solid var(--Neutral-5, #D9D9D9);
   background: var(--Neutral-1, #FFF);
   box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.02);
+  transition: all 250ms linear;
 }
 
 button.nextQuestionsButton {

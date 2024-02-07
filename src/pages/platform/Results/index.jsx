@@ -26,7 +26,7 @@ const ResultsPage = () => {
                   <h4>Simulador Infectología</h4>
                   <p datatype="large">Panel de Resultados</p>
                   <p datatype="small">Panel</p>
-                  <Link to={"#"} datatype="large">Comenzar Simulador</Link>
+                  <Link to={"#"} className={ui.blueLink} datatype="large">Comenzar Simulador</Link>
                 </div>
                 <p>
                   En este espacio puedes conocer las estadísticas de tu desempeño por cada intento realizado.

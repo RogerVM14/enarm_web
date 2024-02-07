@@ -111,7 +111,12 @@
   border-radius: 2px;
   background: rgba(5, 178, 250, 1);
   color: var(--character-primary-inverse, #FFF);
+  transition: all 250ms linear;
+}
 
+.buttonLinkBlue:hover {
+  background: #00A0E2;
+  transition: all 250ms linear;
 }
 
 .backButton {
