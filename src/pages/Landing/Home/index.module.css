@@ -206,6 +206,32 @@ form>.formInput {
   outline: 2px solid var(--blue);
 }
 
+.imageContainer[data-animate="blue-rounded"]::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 16%;
+  left: 10%;
+  border: 2px solid var(--blue);
+  border-radius: 50%;
+  z-index: -1;
+  aspect-ratio: 1;
+  width: 90%;
+  transform: scale(1);
+  animation: expandCircle 1.5s ease infinite alternate;
+}
+
+@keyframes expandCircle {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1.06);
+  }
+}
+
+
 @media screen and (max-width: 1024px) {
 
   #hero [aria-details="hero"] {
@@ -240,7 +266,7 @@ form>.formInput {
   .heroList {
     margin-bottom: 20px;
   }
-  
+
   #explorer .containerColumns {
     gap: 20px;
   }
@@ -305,18 +331,18 @@ form>.formInput {
   }
 
   .gridCards>.card {
-    padding: 1rem;    
+    padding: 1rem;
   }
 
-  
-  .gridCards>.card:first-child {    
-    flex-direction: column;    
+
+  .gridCards>.card:first-child {
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
     gap: 16px;
   }
-  
+
   .gridCards>.card:first-child>a {
     max-width: unset !important;
     width: 100%;

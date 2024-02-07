@@ -24,6 +24,7 @@ import SimulatorCoursePage from "./pages/Platform/SimulatorCourse";
 import CoursePage from "./pages/Platform/Course";
 import ResultsPage from "./pages/Platform/Results";
 import FeedbackPage from "./pages/Platform/Feedback";
+import AccountPage from "./pages/Platform/Account";
 /* Contexts */
 import AuthProvider from "./contexts/AuthContext";
 import GeneralProvider from "./contexts/GeneralContext";
@@ -110,6 +111,7 @@ const AppRouter = () => {
                 {/* <Route path={ROUTES.PLATAFORMA_RECURSOS_ID} element={<ResourceClass />} /> */}
                 <Route path={ROUTES.PLATAFORMA_SIMULADOR} element={<SimulatorsPage />} />
                 <Route path={ROUTES.PLATAFORMA_DOCUMENTOS} element={<StudyGuidePage />} />
+                <Route path={ROUTES.PLATAFORMA_CUENTA} element={<AccountPage />} />
                 <Route path={ROUTES.PLATAFORMA_DOCUMENTOS_GUIA} element={<StudyGuidePage />} />
                 <Route path={ROUTES.PLATAFORMA_DOCUMENTOS_PROGRAMA} element={<AcademicProgramPage />} />
                 <Route path={ROUTES.VERIFICAR_CORREO} element={<VerifyEmailCodePage />} />

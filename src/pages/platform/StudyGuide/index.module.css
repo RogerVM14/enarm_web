@@ -79,8 +79,7 @@
 }
 
 .guideIntroduction .blueParraf {
-  color: var(--Secondary, #1E73BE);
-
+  color: var(--Secondary, #1E73BE); 
 }
 
 .guideIntroduction p {

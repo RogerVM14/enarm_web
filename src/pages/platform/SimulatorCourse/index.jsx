@@ -9,8 +9,8 @@ import { SimulatorContext } from "../../../contexts/SimulatorContext";
 const SimulatorCoursePage = () => {
 
 
-  const [questionGroup, setQuestionGroup] = useState(false);
-  const [clinicGroup, setClinicGroup] = useState(false);
+  const [questionGroup, setQuestionGroup] = useState(true);
+  const [clinicGroup, setClinicGroup] = useState(true);
 
   const { setFeedbackModal } = useContext(GeneralContext);
   const { questions, handleSetAnswerToQuestion } = useContext(SimulatorContext);

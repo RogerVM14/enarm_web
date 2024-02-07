@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react"
 import DoctorsThumbUp from "../../pages/Assets/Images/DoctorsThumbUp.png";
 import DoctorsThumbUpSmall from "../../pages/Assets/Images/DoctorsThumbUp-small.png";
 import CheckIcon from "../../pages/Assets/Icons/checkIcon.svg";

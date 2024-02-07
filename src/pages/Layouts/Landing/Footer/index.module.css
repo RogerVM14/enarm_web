@@ -95,7 +95,7 @@ footer .blueButtonLink {
 }
 
 footer .blueButtonLink:hover {
-  background: #1E73BE;
+  background: #00A0E2;
   transition: all 200ms linear;
 }
 
@@ -113,10 +113,11 @@ footer .blueButtonLink:hover {
 
 
 @media screen and (max-width: 1280px) {
-  .footerContainer{
+  .footerContainer {
     padding: 80px 32px;
   }
 }
+
 @media screen and (max-width: 1024px) {
   .footerContainer {
     padding: 60px 32px;
@@ -124,7 +125,7 @@ footer .blueButtonLink:hover {
 
   .navigationLinks {
     display: none;
-  } 
+  }
 }
 
 @media screen and (max-width: 576px) {

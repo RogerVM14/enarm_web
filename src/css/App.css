@@ -581,15 +581,17 @@ body {
 button:hover {
   cursor: pointer;
   background-color: #00A0E2;
+  transition: background-color 250ms linear;
 }
 
 .button-rounded-blue-48 {
   width: 100%;
   height: 48px;
   border-radius: 50px;
-  background: var(--sky-blue);
+  background-color: var(--sky-blue);
   padding: 13px 0;
   border: none;
+  transition: background-color 250ms linear;
 }
 
 .button-rounded-blue-48 .button-text {

@@ -45,7 +45,9 @@
   background: transparent;
   border: none;
   outline: none;
-  padding: 12px;
+  height: 48px;
+  width: 48px;
+  display: block;
 }
 
 .containerUser {
@@ -54,6 +56,8 @@
   gap: 0.5rem;
   padding-left: 12px;
   padding-right: 12px;
+  height: 48px;
+  align-items: center;
 }
 
 .containerUser p {
@@ -141,7 +145,6 @@
 }
 
 .listOption .optionSublink {
-
   font-family: PoppinsRegular;
   font-size: 14px;
   font-style: normal;
@@ -225,7 +228,28 @@ aside[data-portability=false] {
   display: none;
 }
 
-@media screen and (max-width: 480px) {
+.dropDownMenu {
+  position: absolute;
+  z-index: 2080;
+  right: 1rem;
+  border: 1px solid gray;
+}
+
+.dropDownMenu li {
+  padding: 9px 24px;
+  display: block;
+  max-width: 200px;
+  width: 100%;
+  background: rgba(248, 248, 248, 1);
+}
+
+.dropDownMenu li:hover {
+
+  background: rgb(240, 242, 245);
+}
+
+
+@media screen and (max-width: 1024px) {
   #dashboardWrapper {
     display: block;
     position: relative;

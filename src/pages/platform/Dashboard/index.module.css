@@ -208,7 +208,12 @@
   display: none;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 1024px) {
+  
+}
+
+
+@media screen and (max-width: 576px) {
   .headerContainer {
     padding: 8px 16px 24px 16px;
   }

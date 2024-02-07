@@ -24,13 +24,13 @@ const DashboardLayout = ({ children }) => {
   const handleRunSimulation = () => {
     setSimulationOnCourse(true);
     setImportantModal(false);
-    navigation("/u/planes/11_meses/simulador/blabla");
+    navigation("/cursoENARM/planes/11_meses/simulador/blabla");
   }
 
   const handleRunFeedback = () => {
     setSimulationOnCourse(false);
     setFeedbackModal(false);
-    navigation("/u/planes/11_meses/retro");
+    navigation("/cursoENARM/planes/11_meses/retro");
   }
 
   const closeImportantModal = () => setImportantModal(false);
@@ -39,7 +39,7 @@ const DashboardLayout = ({ children }) => {
   useEffect(() => {
     function getWindowSize() {
       let xViewport = window.innerWidth;
-      setSmallDevice(xViewport <= 992);
+      setSmallDevice(xViewport <= 1024);
     }
 
     window.addEventListener("resize", getWindowSize);

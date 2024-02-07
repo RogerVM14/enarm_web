@@ -1,7 +1,7 @@
 import React from "react";
-import ui from "./index.module.css";
 import DashboardLayout from "../../Layouts/Dashboard";
 import { Link } from "react-router-dom";
+import ui from "./index.module.css";
 
 const StudyGuidePage = () => {
   return (

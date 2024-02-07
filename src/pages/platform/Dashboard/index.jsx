@@ -79,7 +79,7 @@ const DashboardPage = () => {
                     <li>Preguntas frecuentes.</li>
                     <li>Formas de contacto, y mucho más.</li>
                   </ul>
-                  <Link to="/u/planes/aviso_novedades">Ver todos los avisos</Link>
+                  <Link to="/cursoENARM/novedades">Ver todos los avisos</Link>
                 </div>
               </div>
             </div>
@@ -96,15 +96,15 @@ const DashboardPage = () => {
                 <div className={ui.bodyWrapper}>
                   <p>Descubre las fechas en que sube el nuevo material a Plataforma ENARM.</p>
                   <ul>
-                    <li><p><strong>18 de octubre</strong> para curso en <Link to="/u/planes/1">11 meses.</Link></p></li>
-                    <li><p><strong>1 de noviembre</strong> para curso en <Link to="/u/planes/2">10 meses.</Link></p></li>
-                    <li><p><strong>1 de diciembre</strong> para curso en <Link to="/u/planes/3">9 meses.</Link></p></li>
-                    <li><p><strong>1 de enero</strong> para curso en <Link to="/u/planes/4">8 meses.</Link></p></li>
-                    <li><p><strong>1 de febrero</strong> para curso en <Link to="/u/planes/5">7 meses.</Link></p></li>
-                    <li><p><strong>1 de marzo</strong> para curso en <Link to="/u/planes/6">6 meses.</Link></p></li>
-                    <li><p><strong>1 de abril</strong> para curso en <Link to="/u/planes/7">5 meses...</Link></p></li>
+                    <li><p><strong>18 de octubre</strong> para curso en <Link to="/cursoENARM/planes/1">11 meses.</Link></p></li>
+                    <li><p><strong>1 de noviembre</strong> para curso en <Link to="/cursoENARM/planes/2">10 meses.</Link></p></li>
+                    <li><p><strong>1 de diciembre</strong> para curso en <Link to="/cursoENARM/planes/3">9 meses.</Link></p></li>
+                    <li><p><strong>1 de enero</strong> para curso en <Link to="/cursoENARM/planes/4">8 meses.</Link></p></li>
+                    <li><p><strong>1 de febrero</strong> para curso en <Link to="/cursoENARM/planes/5">7 meses.</Link></p></li>
+                    <li><p><strong>1 de marzo</strong> para curso en <Link to="/cursoENARM/planes/6">6 meses.</Link></p></li>
+                    <li><p><strong>1 de abril</strong> para curso en <Link to="/cursoENARM/planes/7">5 meses...</Link></p></li>
                   </ul>
-                  <Link to="/u/planes/aviso_novedades">Ver todas las fechas</Link>
+                  <Link to="/cursoENARM/novedades">Ver todas las fechas</Link>
                 </div>
               </div>
             </div>

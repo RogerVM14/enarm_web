@@ -4,11 +4,10 @@ import EnarmLogo from "../../Assets/Images/EnarmLogo.jpg";
 import BurgerMenuIcon from "../../Assets/Icons/BurgerMenu.png";
 import ArrowDown from "../../Assets/Icons/ArrowDown.png"
 import ArrowUp from "../../Assets/Icons/ArrowUp.png"
-import ui from "../index.module.css";
 import { GeneralContext } from "../../../../contexts/GeneralContext";
 import CloseIcon from "../../Assets/Icons/CloseIcon.svg";
 import UserDefaultIcon from "../../Assets/Icons/DefaultUser.png";
-import Chevron from "../../Assets/Icons/ArrowDown.png";
+import ui from "../index.module.css";
 
 const DashboardAsideTemplate = ({
   smallDevice,
@@ -36,7 +35,7 @@ const DashboardAsideTemplate = ({
     >
       <div className={ui.asideBackground}></div>
       <div className={ui.asideContainer}>
-        <div className={ui.logoContainer} onClick={() => { navigate("/u/dashboard") }} >
+        <div className={ui.logoContainer} onClick={() => { navigate("/cursoENARM") }} >
           <div className={ui.imageContainer}>
             <img src={EnarmLogo} alt="Enarm Logo" />
           </div>
@@ -81,7 +80,7 @@ const DashboardAsideTemplate = ({
               </svg>
             </div>
             <UserTools display={displayTools} />
-            <div className="menu-toggle">
+            {/* <div className="menu-toggle">
               <button
                 className="toggle-button-menu"
                 onClick={() => {
@@ -91,7 +90,7 @@ const DashboardAsideTemplate = ({
               >
                 <img src={BurgerMenuIcon} alt="menu" className="menu-icon" />
               </button>
-            </div>
+            </div> */}
           </div>
         </nav>
       </div>
@@ -100,15 +99,12 @@ const DashboardAsideTemplate = ({
 };
 
 const UserTools = ({ display }) => {
-  if (display === false) return null;
-  return (
+  return display ? (
     <div className={ui.userTools}>
-      <Link>Mi cuenta</Link>
-      <button type="button">
-        Cerrar Sesión
-      </button>
+      <Link to="/cursoENARM/MiCuenta">Mi cuenta</Link>
+      <Link to="/">Cerrar Sesión</Link>
     </div>
-  )
+  ) : null;
 }
 
 const NavigationPlansSubmenu = ({

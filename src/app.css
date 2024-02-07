@@ -188,6 +188,15 @@
   line-height: normal;
 }
 
+
+.regular-parraf-14>span.strong {
+  font-family: inherit;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700 !important;
+  line-height: normal;
+}
+
 @media screen and (max-width: 1440px) {
   :root {
     --padding-x: 80px;

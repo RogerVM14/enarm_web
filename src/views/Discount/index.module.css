@@ -48,7 +48,14 @@ section[datatype=sharedSection] .containerFlex {
   text-decoration: none;
   white-space: nowrap;
   border: none;
+  transition: background-color 250ms linear;
   max-width: 216px;
+}
+
+.blueLink:hover{
+  cursor: pointer;
+  background-color: #00A0E2;
+  transition: background-color 250ms linear;
 }
  
 @media screen and (max-width: 576px) {

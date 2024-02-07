@@ -20,7 +20,7 @@ const GeneralProvider = (props) => {
   const [current, setCurrent] = useState(0);
   const [menu, setMenu] = useState([
     {
-      // route: "/u/planes",
+      // route: "/cursoENARM/planes",
       route: "#",
       label: "Planes de Estudio",
       isActive: true,
@@ -28,30 +28,30 @@ const GeneralProvider = (props) => {
       inactiveIcon: DashboardBlackIcon,
       alt: "dashboard",
       list: [
-        { route: "/u/planes/11_meses", label: "11 Meses", selected: false },
-        { route: "/u/planes/10_meses", label: "10 Meses", selected: false },
-        { route: "/u/planes/9_meses", label: "9 Meses", selected: false },
-        { route: "/u/planes/8_meses", label: "8 Meses", selected: false },
-        { route: "/u/planes/7_meses", label: "7 Meses", selected: false },
-        { route: "/u/planes/6_meses", label: "6 Meses", selected: false },
-        { route: "/u/planes/5_meses", label: "5 Meses", selected: false },
+        { route: "/cursoENARM/planes/11_meses", label: "11 Meses", selected: false },
+        { route: "/cursoENARM/planes/10_meses", label: "10 Meses", selected: false },
+        { route: "/cursoENARM/planes/9_meses", label: "9 Meses", selected: false },
+        { route: "/cursoENARM/planes/8_meses", label: "8 Meses", selected: false },
+        { route: "/cursoENARM/planes/7_meses", label: "7 Meses", selected: false },
+        { route: "/cursoENARM/planes/6_meses", label: "6 Meses", selected: false },
+        { route: "/cursoENARM/planes/5_meses", label: "5 Meses", selected: false },
       ],
     }, {
-      route: "/u/recursos",
+      route: "/cursoENARM/recursos",
       label: "Recursos",
       isActive: false,
       activeIcon: ResourcesBlueIcon,
       inactiveIcon: ResourcesBlackIcon,
       alt: "resources",
     }, {
-      route: "/u/simulador",
+      route: "/cursoENARM/simulador",
       label: "Simuladores",
       isActive: false,
       activeIcon: SimulatorBlueIcon,
       inactiveIcon: SimulatorBlackIcon,
       alt: "simulator",
     }, {
-      // route: "/u/documentos/guia",
+      // route: "/cursoENARM/documentos/guia",
       route: "#",
       label: "Documentos ENARM",
       isActive: false,
@@ -59,8 +59,8 @@ const GeneralProvider = (props) => {
       inactiveIcon: DocumentsBlackIcon,
       alt: "documents",
       list: [
-        { route: "/u/documentos/guia", label: "Guía de Estudio", selected: false },
-        { route: "/u/documentos/programa_academico", label: "Programa Académico", selected: false }
+        { route: "/cursoENARM/documentos/guia", label: "Guía de Estudio", selected: false },
+        { route: "/cursoENARM/documentos/programa_academico", label: "Programa Académico", selected: false }
       ],
     }
   ]);

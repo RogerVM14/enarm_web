@@ -19,12 +19,7 @@ const TestPage = () => {
   };
 
   const [width, setWidth] = useState(getWindowWidth());
-
-  const isMobile = () => {
-    if (["xs", "sm", "md"].includes(width)) return true;
-    if (["lg", "xl", "xxl"].includes(width)) return false;
-  }
-
+ 
   useEffect(() => {
     window.addEventListener("resize", () => {
       const x = getWindowWidth();
@@ -36,7 +31,7 @@ const TestPage = () => {
   return (
     <LandingLayout page="test">
       <Hero6 size={width} />
-      <AreYouReady ismobile={isMobile}/>
+      <AreYouReady />
       <SectionContact />
       <Advantages />
       <DiscountSection />

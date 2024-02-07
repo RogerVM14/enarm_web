@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ui from "../index.module.css";
 import UserDefaultIcon from "../../Assets/Icons/DefaultUser.png";
 import BurgerIcon from "../../Assets/Icons/BurgerIcon.svg";
@@ -9,6 +9,9 @@ import WhiteQuestionIcon from "../../Assets/Icons/WhiteQuestionIcon.svg";
 import { Link } from "react-router-dom";
 
 const DashboardHeaderTemplate = ({ handleShowMenu }) => {
+
+  const [open, setOpen] = useState(false);
+
   return (
     <header>
       <div className={ui.headerContainer}>
@@ -20,7 +23,7 @@ const DashboardHeaderTemplate = ({ handleShowMenu }) => {
             <button type="button">
               <img src={WhiteSearchIcon} alt="search" />
             </button>
-            <div className={ui.containerUser}>
+            <div className={ui.containerUser} onMouseEnter={() => { setOpen(true); }}>
               <div>
                 <img src={UserDefaultIcon} alt="User icon" width={24} height={24} />
               </div>
@@ -28,9 +31,10 @@ const DashboardHeaderTemplate = ({ handleShowMenu }) => {
             </div>
           </div>
         </nav>
+        <UserDialogMenu open={open} handleFocus={() => { setOpen(false); }} />
         <nav data-size="sm">
           <div className={ui.navContainer}>
-            <Link className={ui.mainLinkBlue} to="/u/dashboard">Plataforma ENARM</Link>
+            <Link className={ui.mainLinkBlue} to="/cursoENARM">Plataforma ENARM</Link>
             <button type="button" className={ui.doubtsButton}>
               <img src={QuestionIcon} alt="question" />
             </button>
@@ -50,6 +54,17 @@ const DashboardHeaderTemplate = ({ handleShowMenu }) => {
       </div>
     </header>
   )
+}
+
+const UserDialogMenu = ({ open, handleFocus = () => { } }) => {
+  return open ? (
+    <div onMouseLeave={handleFocus} className={ui.dropDownMenu}>
+      <ul>
+        <li><Link to="/cursoENARM/MiCuenta" className="regular-parraf-14">Mi cuenta</Link></li>
+        <li><Link to="/" className="regular-parraf-14">Cerrar Sesión</Link></li>
+      </ul>
+    </div>
+  ) : null
 }
 
 export default DashboardHeaderTemplate;

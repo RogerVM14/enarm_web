@@ -42,7 +42,7 @@ const HomePage = () => {
                   <li><p className="regular-parraf bold dark">Ingreso a comunidad exclusiva de Residentes.</p></li>
                 </ul>
               </div>
-              <div className={ui.imageContainer}>
+              <div className={ui.imageContainer} data-animate="blue-rounded">
                 <img src={HeroDoctorImage} alt="Hero Doctor ENARM" />
               </div>
             </div>

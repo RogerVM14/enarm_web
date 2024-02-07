@@ -13,21 +13,8 @@ import ui from "./index.module.css";
 const UsPage = () => {
 
   const { card, handleSelectNewsCard, stats } = useConstants(LandingConstants);
+  const wordsTitle = [ "Conoce", "el", "curso", "Online", "#1,", "el", "más", "completo", "y", "exitoso", "de", "todos." ];
 
-  const wordsTitle = [
-    "Conoce",
-    "el",
-    "curso",
-    "Online",
-    "#1,",
-    "el",
-    "más",
-    "completo",
-    "y",
-    "exitoso",
-    "de",
-    "todos."
-  ]
   return (
     <LandingLayout>
 

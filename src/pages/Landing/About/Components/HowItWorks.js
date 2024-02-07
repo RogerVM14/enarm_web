@@ -105,16 +105,14 @@ const HowItWorks = ({ size, ismobile }) => {
       <div className="hiw-container">
         {["xl", "xxl"].includes(size) && (<img className="vector-line-img" src={imageSource()} alt="vector-line" />)}
         <div className="hiw-container-header">
-          <h1 className="tiny-blue-title text-center">CÓMO FUNCIONA</h1>
-          <h2 className="subtitle text-center white">Conoce a detalle todos los métodos de estudio</h2>
+          <h2 className="tiny-blue-title text-center">CÓMO FUNCIONA</h2>
+          <h3 className="subtitle text-center white">Conoce a detalle todos los métodos de estudio</h3>
           <button className="button-rounded-blue-48">
             <span className="button-text">Solicitar Prueba Gratis</span>
           </button>
         </div>
         <div className="hiw-container-body">
-          {
-            (size === "md" || size === "lg") && (<img className="vector-line-img" src={imageSource()} alt="vector-line" />)
-          }
+          {(size === "md" || size === "lg") && (<img className="vector-line-img" src={imageSource()} alt="vector-line" />)}
           <div className="hiw-card-container">
             {
               cards_list.map((item, index) => {
@@ -126,7 +124,7 @@ const HowItWorks = ({ size, ismobile }) => {
                       <span>{index + 1}</span>
                     </div>
                     <div className="card-text">
-                      <h1 className={mobileDevice ? "bold-14" : "bold-16"}>{item.title}</h1>
+                      <h3 className={mobileDevice ? "bold-14" : "bold-16"}>{item.title}</h3>
                       <p className={mobileDevice ? "regular-14" : "regular-16"}>{item.parraf}</p>
                     </div>
                   </div>

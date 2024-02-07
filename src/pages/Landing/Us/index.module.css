@@ -49,6 +49,11 @@
   max-width: 246px;
 }
 
+#hero .containerInfo .blueLink:hover {
+  background: #0397d6;
+  transition: background-color 200ms linear;
+}
+
 #meetUs {
   display: block;
 }
@@ -230,6 +235,17 @@
   width: 200px;
   height: 200px;
   position: relative;
+  animation: rotateStat linear 3s infinite;
+}
+
+@keyframes rotateStat {
+  from {
+    transform: rotate(0deg)
+  }
+
+  to {
+    transform: rotate(359deg);
+  }
 }
 
 .statCircle .outerCircle {
@@ -318,7 +334,7 @@
 
   .containerStats {
     row-gap: 60px;
-  } 
+  }
 
   #meetUs .containerGrid {
     display: grid;
@@ -326,8 +342,8 @@
     grid-template-areas:
       "title title"
       "list image";
-      max-width: 700px;
-      margin-inline: auto;
+    max-width: 700px;
+    margin-inline: auto;
   }
 
   #meetUs [data-area="title"] {
@@ -337,7 +353,8 @@
   #meetUs [data-area="title"]>* {
     text-align: center;
   }
-  #meetUs [data-area="image"] { 
+
+  #meetUs [data-area="image"] {
     max-width: 255px;
     margin-left: auto;
   }
@@ -455,7 +472,7 @@
   #meetUs [data-area="image"] {
     max-width: unset;
   }
-  
+
   .gridColumn>* {
     text-align: center !important;
   }
