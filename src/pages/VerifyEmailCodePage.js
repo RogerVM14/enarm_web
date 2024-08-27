@@ -67,6 +67,7 @@ const VerifyEmailCodePage = () => {
         </div>
 
         {/* Code Fields */}
+        {/* Code Fields */}
 
         <div className="code-fields-container">
           {values.map((value, index) => (
