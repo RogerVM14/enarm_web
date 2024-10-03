@@ -12,7 +12,6 @@ import PaymentDetailsContainer from "../components/checkout/PaymentDetailsContai
 // import { setCookie } from "../utils/auth/cookieSession";
 // import { errorToast } from "../utils/toasts/commonToasts";
 import Conekta from "../components/Conekta";
-// import { ROUTES } from "../constants/routes";
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
