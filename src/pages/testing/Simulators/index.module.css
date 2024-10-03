@@ -1,0 +1,159 @@
+.wrapper {
+  padding: 24px;
+  background: #f0f2f5;
+  min-height: 100dvh;
+}
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: 278px 1fr;
+  gap: 24px;
+}
+
+.simulatorCard:not(:last-child) {
+  margin-bottom: 8px;
+}
+
+.simulatorCard .cardHeader {
+  border: 1px solid var(--Neutral-5, #D9D9D9);
+  background: var(--Neutral-2, #FAFAFA);
+  padding: 11px 16px;
+}
+
+.simulatorCard .cardHeader:hover {
+  cursor: pointer;
+}
+
+.simulatorCard .cardBody {
+  border-right: 1px solid var(--Neutral-5, #D9D9D9);
+  border-bottom: 1px solid var(--Neutral-5, #D9D9D9);
+  border-left: 1px solid var(--Neutral-5, #D9D9D9);
+  background: var(--White, #FFF);
+  padding: 16px;
+}
+
+.cardHeader .headerTitle {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.headerTitle h4 {
+  color: var(--character-primary-85, rgba(0, 0, 0, 0.85));
+  font-family: PoppinsBold;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 22px;
+}
+
+.cardHeader p {
+  color: var(--Black, #000);
+  font-family: PoppinsRegular;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+  display: block;
+  margin-left: 24px;
+}
+
+.guideList li {
+  padding-top: 8px;
+  margin-left: 16px;
+}
+
+.guideList * {
+  color: var(--Black, #000);
+  font-family: PoppinsRegular;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.guideList li>strong {
+  font-weight: 700;
+}
+
+.buttons {
+  display: flex;
+  gap: 20px;
+  padding: 12px 0px;
+}
+
+.buttons a,
+.backButton {
+  text-align: center;
+  font-family: PoppinsRegular;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+.buttonLinkWhite {
+  color: rgba(0, 0, 0, 0.85);
+  border-radius: 2px;
+  border: 1px solid var(--Neutral-5, #D9D9D9);
+  background: var(--Neutral-3, #FFF);
+  box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.02);
+}
+
+.buttonLinkWhite[aria-disabled] {
+  background: var(--Neutral-3, #F5F5F5);
+  color: rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+}
+
+.buttonLinkBlue {
+  border-radius: 2px;
+  background: rgba(5, 178, 250, 1);
+  color: var(--character-primary-inverse, #FFF);
+  transition: all 250ms linear;
+}
+
+.buttonLinkBlue:hover {
+  background: #00A0E2;
+  transition: all 250ms linear;
+}
+
+.backButton {
+  display: none;
+}
+
+img[data-selected=true] {
+  transform: rotate(90deg);
+  transition: transform 200ms linear;
+}
+
+img[data-selected=false] {
+  transform: rotate(0deg);
+  transition: transform 200ms linear;
+}
+
+@media screen and (max-width: 480px) {
+  .wrapper {
+    padding: 16px;
+  }
+
+  .gridContainer {
+    display: block;
+  }
+
+  .backButton {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    padding: 0px 0px 14px 0px;
+  }
+
+  .cardBody .buttons {
+    flex-direction: column-reverse;
+    gap: 16px;
+    padding-bottom: 0;
+  }
+}
