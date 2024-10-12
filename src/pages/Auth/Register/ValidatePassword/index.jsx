@@ -4,7 +4,7 @@ import { BsPatchCheckFill } from "react-icons/bs";
 import "./ValidatePassword.css";
 
 function ValidatePasswordInput(props) {
-  const { password, setPassword, handleChange } = props;
+  const { password, setPassword, handleChange, passwordReady } = props;
   const [showPassword, setShowPassword] = useState(false);
   const [isValid, setIsValid] = useState({
     length: false,
@@ -36,13 +36,11 @@ function ValidatePasswordInput(props) {
       newIsValid[type] = regex.test(value);
     });
     setIsValid(newIsValid);
+    passwordReady(Object.values(newIsValid).every((value) => value));
   };
 
   useEffect(() => {
     const isAllValid = Object.values(isValid).every((value) => value);
-    if (isAllValid) {
-      console.log("Cumple con todo el pass");
-    }
   }, [isValid]);
 
   return (

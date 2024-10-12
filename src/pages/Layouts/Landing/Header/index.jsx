@@ -11,7 +11,7 @@ const NavBar = () => {
     { label: "Inicio", url: "/" },
     { label: "Nosotros", url: "/nosotros" },
     { label: "Sobre el Curso", url: "/acerca" },
-    { label: "Blog", url: "/blog" },
+    // { label: "Blog", url: "/blog" },
     { label: "Prueba Gratis", url: "/prueba", rounded: true },
     { label: "Contacto", url: "/contacto" },
   ];

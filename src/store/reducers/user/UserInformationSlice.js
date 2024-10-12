@@ -11,10 +11,9 @@ const initialState = {
     create_at: "",
     isMemberActive: null,
   },
-  userPaymentInformation: {
-    phone: "",
-    userName: "",
+  userRegisterInformation: {
     email: "",
+    password: "",
   },
 };
 
@@ -22,19 +21,19 @@ export const UserInformationSlice = createSlice({
   name: "userInformation",
   initialState,
   reducers: {
-    setUserInformation(state, { payload }) {
-      state.userInformation = payload;
+    setCheckoutUserInformation(state, { payload }) {
+      state.userRegisterInformation = payload;
     },
-    setUserPaymentInformation(state, { payload }) {
-      state.userPaymentInformation = payload;
-    },
+    
     resetUserInformation: () => initialState,
   },
 });
 
-export const { setUserInformation, resetUserInformation } = UserInformationSlice.actions;
+export const { setUserInformation, setCheckoutUserInformation } = UserInformationSlice.actions;
 
 export const selectUserInformation = (state) => state.user.userInformation;
 export const selectUserEmail = (state) => state.user.userInformation.email;
+export const selectUserCheckoutInformation = (state) => state.user.userRegisterInformation;
+
 
 export default UserInformationSlice.reducer;

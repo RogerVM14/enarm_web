@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-  createClientConekta,
-  createOrderConekta,
-} from "../../apis/conekta/conektaApi";
+// import {
+//   createClientConekta,
+//   createOrderConekta,
+// } from "../../apis/conekta/conektaApi";
 import { selectUserInformation } from "../../store/reducers/user/UserInformationSlice";
 const { REACT_APP_CONEKTA_API_KEY } = process.env;
 

@@ -2,17 +2,19 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
-import { CreateNewUser } from "../../../apis/auth/authApi";
 import doctorImage from "../../../assets/imgs/Dres/stock-photo-doctor-wearing-white-coat-stethoscope-small.png";
-import ValidatePassword from "./ValidatePassword";
-import { TYPE_USER } from "../../../constants/generals";
 import { ROUTES } from "../../../constants/routes";
-import { setUserInformation } from "../../../store/reducers/user/UserInformationSlice";
+import {
+  setCheckoutUserInformation,
+  setUserInformation,
+} from "../../../store/reducers/user/UserInformationSlice";
 import "./RegisterPage.css";
 import ui from "./index.module.css";
 import LandingLayout from "../../Layouts/Landing";
+import ValidatePassword from "./ValidatePassword";
 
-const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const EMAIL_REGEX =
+  /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 const RegisterPage = () => {
   const dispatch = useDispatch();
@@ -26,28 +28,18 @@ const RegisterPage = () => {
   });
 
   const handleRegisterInformation = async () => {
+    const insertUser = () => {
+      const { email, password } = userInfo;
+      const userInformation = { email, password };
 
-    const { name, email, password, phone } = userInfo;
-    const userInformation = {
-      userName: name,
-      email,
-      password,
-      phone: `+52${phone}`,
-    };
-
-    dispatch(setUserInformation(userInformation));
-
-    CreateNewUser(
-      email,
-      password,
-      name,
-      phone,
-      TYPE_USER.USER_PREMIUM
-    ).then((res) => {
-      if (res.data.statusCode === 200) {
+      dispatch(setCheckoutUserInformation(userInformation));
+      console.log("insertUser");
+      console.log(userInformation);
+      setTimeout(() => {
         navigate(ROUTES.VERIFICAR_CORREO);
-      }
-    });
+      }, 1000);
+    };
+    insertUser();
   };
 
   setTimeout(() => {
@@ -62,9 +54,7 @@ const RegisterPage = () => {
           <div className={ui.subContainer}>
             <div className={ui.containerHead}>
               <h1 className="title fade-in-title">
-                <span className={ui.containerTitle}>
-                  Registro
-                </span>
+                <span className={ui.containerTitle}>Registro</span>
               </h1>
             </div>
             <div className="container-body">
@@ -84,53 +74,33 @@ const RegisterPage = () => {
   );
 };
 
-const RegisterForm = ({
-  handleUserInfo,
-  handleRegister,
-}) => {
-  const [phone, setPhone] = useState("");
-  const [name, setName] = useState("");
+const RegisterForm = ({ handleUserInfo, handleRegister }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [nameError, setNameError] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
-  const [phoneError, setPhoneError] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const [passwordComplete, setPasswordComplete] = useState(false);
 
-    if (isValidName()) return;
-    if (isValidEmail()) return;
-    if (isValidPassword()) return;
-    if (isValidPhone()) return;
+  const navigate = useNavigate();
 
+  const handleClick = async () => {
+    if (!isValidEmail()) return;
+    if (!isValidPassword()) return;
     await handleRegister();
+    // navigate(ROUTES.VERIFICAR_CORREO);
   };
 
-  const isValidName = () => {
-    if (name === "") {
-      setNameError(true);
-      return false;
-    }
-    if (name !== "" && nameError === true) {
-      setNameError(false);
-      return true;
-    }
-    return true;
-  }
-
+  const validFormatEmail = EMAIL_REGEX.test(email);
   const isValidEmail = () => {
-
-    const isValid = EMAIL_REGEX.test(email);
-    if (email === "" || !isValid) {
+    if (email === "" || !validFormatEmail) {
       setEmailError(true);
       return false;
     }
     setEmailError(false);
     return true;
-  }
+  };
 
   const isValidPassword = () => {
     if (password === "") {
@@ -139,50 +109,19 @@ const RegisterForm = ({
     }
     setPasswordError(false);
     return true;
-  }
-
-  const isValidPhone = () => {
-    if (phone === "") {
-      setPhoneError(true);
-      return false;
-    }
-    setPhoneError(false);
-    return true;
-  }
+  };
 
   const handleChangeUserInformation = (event) => {
     const { name, value } = event.target;
     handleUserInfo((prevState) => {
-      return { ...prevState, [name]: value, };
+      return { ...prevState, [name]: value };
     });
   };
-
-  const onlyNumberValidation = (event) => {
-    if (!Number(event.target.value) && event.target.value !== "") return false;
-    handleChangeUserInformation(event);
-    return true;
-  };
+  console.log(passwordComplete);
 
   return (
     <div className="form-container reveal-load">
-      <form method="POST" onSubmit={handleSubmit}>
-        <div className={ui.formGroup}>
-          <label className={ui.formLabel} htmlFor="form-user">
-            Nombre completo*
-          </label>
-          <input
-            type="text"
-            name="name"
-            id="form-fullname"
-            autoComplete="off"
-            placeholder="Federico Peréz Ochoa"
-            onChange={(e) => {
-              handleChangeUserInformation(e);
-              setName(e.target.value);
-            }}
-          />
-          {nameError ? (<span className={`${ui.formLabel} red`}> introduce un nombre personal válido </span>) : null}
-        </div>
+      <div>
         <div className={ui.formGroup}>
           <label className={ui.formLabel} htmlFor="form-user">
             Correo electrónico*
@@ -192,13 +131,17 @@ const RegisterForm = ({
             name="email"
             id="form-email"
             autoComplete="off"
-            placeholder="Corréo electrónico"
+            placeholder="Correo electrónico"
             onChange={(e) => {
               handleChangeUserInformation(e);
               setEmail(e.target.value);
             }}
           />
-          {emailError ? (<span className={`${ui.formLabel} red`}> Introduce un correo válido </span>) : null}
+          {emailError ? (
+            <span className={`${ui.formLabel} red`}>
+              Introduce un correo válido
+            </span>
+          ) : null}
         </div>
         <div className={ui.formGroup} style={{ marginBottom: "0" }}>
           <label className={ui.formLabel} htmlFor="form-password">
@@ -208,29 +151,20 @@ const RegisterForm = ({
             password={password}
             setPassword={setPassword}
             handleChange={handleChangeUserInformation}
+            passwordReady={setPasswordComplete}
           />
-          {passwordError ? (<span className={`${ui.formLabel} red`}> Introduzca una contraseña válida </span>) : null}
+          {passwordError ? (
+            <span className={`${ui.formLabel} red`}>
+              Introduce una contraseña válida
+            </span>
+          ) : null}
         </div>
-        <div className={ui.formGroup}>
-          <label className={ui.formLabel} htmlFor="form-password">
-            Numero Telefónico*
-          </label>
-          <input
-            type="text"
-            name="phone"
-            id="form-phone"
-            placeholder="355-5454-845"
-            autoComplete="off"
-            maxLength={10}
-            value={phone}
-            onChange={(e) => {
-              if (!onlyNumberValidation(e)) return;
-              setPhone(e.target.value);
-            }}
-          />
-          {phoneError ? (<span className={`${ui.formLabel} red`}> introduce un numero teléfonico válido </span>) : null}
-        </div>
-        <button className={ui.submitButton} type="submit">
+        <button
+          disabled={!validFormatEmail || !passwordComplete}
+          className={ui.submitButton}
+          type="button"
+          onClick={handleClick}
+        >
           <span className="button-text">Registrar</span>
         </button>
         <p className="flex-row-nw jc-center gap-8">
@@ -239,7 +173,7 @@ const RegisterForm = ({
             Iniciar Sesión
           </Link>
         </p>
-      </form>
+      </div>
     </div>
   );
 };

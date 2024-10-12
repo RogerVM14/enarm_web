@@ -32,14 +32,12 @@ import SimulatorProvider from "./contexts/SimulatorContext";
 import WidthProvider from "./contexts/WidthContext";
 import LandingProvider from "./contexts/LandingContext";
 /* Utils */
-import conektaHelper from "./utils/conekta/conektaUtils";
 import { ROUTES } from "./constants/routes";
 import BlogPage from "./pages/Landing/Blog";
 import "./css/App.css";
 
 const AppRouter = () => {
 
-  useEffect(() => { conektaHelper.initConekta(); }, []);
 
   useEffect(() => {
     function spinAround() {

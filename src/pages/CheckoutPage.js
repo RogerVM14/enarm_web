@@ -3,6 +3,13 @@ import "../css/checkout/CheckoutPage.css";
 import { useNavigate } from "react-router-dom";
 import PaymentOptionsContainer from "../components/checkout/PaymentOptionsContainer";
 import PaymentDetailsContainer from "../components/checkout/PaymentDetailsContainer";
+import { selectCardInformation } from "../store/reducers/checkout/checkoutInformationSlice";
+import { useSelector } from "react-redux";
+import {
+  createPaymentWithCard,
+  createTokenCardForPayment,
+} from "../apis/Checkout/CardPayment";
+import { ROUTES } from "../constants/routes";
 // import { useSelector } from "react-redux";
 // import { selectUserInformation } from "../store/reducers/user/UserInformationSlice";
 // import { CreateNewUser, loginUser } from "../apis/auth/authApi";
@@ -11,16 +18,15 @@ import PaymentDetailsContainer from "../components/checkout/PaymentDetailsContai
 // import { ERROR_MESSAGES, SUCCESS_MESSAGES } from "../constants/Messages";
 // import { setCookie } from "../utils/auth/cookieSession";
 // import { errorToast } from "../utils/toasts/commonToasts";
-import Conekta from "../components/Conekta";
+// import Conekta from "../components/Conekta";
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
   const [stepDetails, setStepDetails] = useState(false);
-  const [loading] = useState(false);
-  // const [cardTokenId, setCardTokenId] = useState("");
-  // const { nameUser, email, phoneNumber, password } = useSelector(
-  //   selectUserInformation
-  // );
+  const [loading, setLoading] = useState(false);
+  const { cardNumber, cvv, expirationDate, cardOwnerName } = useSelector(
+    selectCardInformation
+  );
 
   const getWindowWidth = () => {
     let x = window.innerWidth;
@@ -42,149 +48,69 @@ const CheckoutPage = () => {
   }, [width]);
 
   const isMobile = () => {
-    if (['xs', 'sm', 'md'].includes(width)) return true;
-    if (['lg', 'xl', 'xxl'].includes(width)) return false;
-  }
+    if (["xs", "sm", "md"].includes(width)) return true;
+    if (["lg", "xl", "xxl"].includes(width)) return false;
+  };
 
+  const handleSubmitPaymentInformation = async () => {
+    const sanitizedCardNumber = cardNumber.replace(/-/g, "");
+    const [expirationMonth, expirationYear] = expirationDate.split("/");
+    setLoading(true);
+    const payload = {
+      cardNumber: sanitizedCardNumber,
+      expirationMonth: parseInt(expirationMonth, 10), // Asegurarse de que sea un número
+      expirationYear: parseInt(expirationYear.slice(-2), 10), // Solo los últimos 2 dígitos del año
+      securityCode: cvv,
+      // cardholderName: cardOwnerName,
+      cardholderName: "APRO", //Usar APRO para pruebas
+      docType: "RFC",
+      docNumber: "123456789012",
+    };
 
-  // const [paymentCheckoutiInfo, setPaymentCheckoutInfo] = useState({
-  //   cardNumber: "",
-  //   cvv: "",
-  //   expiredDate: "",
-  //   cardOwnerName: "",
-  // });
+    console.log(payload);
 
-  // const toastError = (errorMessage) => {
-  //   return toast.error(errorMessage, {
-  //     style: {
-  //       fontFamily: "PoppinsMedium",
-  //       height: "55px",
-  //     },
-  //     duration: 7000,
-  //   });
-  // };
-
-  // const successCallback = (res) => {
-  //   setLoading(true);
-  //   const payload = {
-  //     name: nameUser,
-  //     phone: phoneNumber,
-  //     email: email,
-  //     token_id: res.id,
-  //   };
-  //   const order = createOrder(payload);
-  //   //4242424242424242
-  //   order
-  //     .then((res) => {
-  //       if (res?.data?.message === "Pago realizado con éxito") {
-  //         const userInformation = {
-  //           name: nameUser,
-  //           phone_number: phoneNumber,
-  //           email: email,
-  //           password: password,
-  //           status: 1,
-  //           created_date: moment(),
-  //           subscription_start: moment(),
-  //           subscription_end: getExpirationDate(),
-  //           type_user_id: 1,
-  //         };
-  //         console.log(userInformation);
-  //         CreateNewUser(userInformation)
-  //           .then((res) => {
-  //             if (
-  //               res.data.message === SUCCESS_MESSAGES.USER_CREATED_SUCCESSFULLY
-  //             ) {
-  //               loginUser({ email, password }).then((res) => {
-  //                 if (res.data.statusCode === 200) {
-  //                   setCookie("accessToken", res?.data?.token);
-  //                   navigate("/checkout_thankful");
-  //                   setLoading(false);
-  //                 }
-  //               });
-  //             }
-  //           })
-  //           .catch((err) => {
-  //             setLoading(false);
-  //             let errorMessageFromApi = err.response.data.message;
-  //             errorToast(ERROR_MESSAGES[errorMessageFromApi]);
-  //             console.log(err.response.data);
-  //           });
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log("Error: ", err.response.data.message);
-  //     });
-  // };
-
-  // const errorCallback = (err) => {
-  //   errorToast("Tarjeta inválida, intente nuevamente")
-  // };
-
-  // const handleSubmitPaymentInformation = async () => {
-  //   const { cardNumber, cvv, expiredDate, cardOwnerName } =
-  //     paymentCheckoutiInfo;
-
-  //   if (cardNumber === "" || cardNumber.length !== 16) {
-  //     errorToast("Favor de introducir un numero de tarjeta valido.");
-  //     return;
-  //   }
-
-  //   if (cvv === "") {
-  //     errorToast("Favor de introducir el CVV de su tarjeta.");
-  //     return;
-  //   }
-
-  //   if (expiredDate === "") {
-  //     errorToast("Favor de introducir la fecha de vencimiento de su tarjeta.");
-  //     return;
-  //   }
-
-  //   if (cardOwnerName === "") {
-  //     errorToast("Favor de introducir su nombre tal como viene en su tarjeta.");
-  //     return;
-  //   }
-
-  //   if (cardNumber && cvv && expiredDate && cardOwnerName) {
-  //     conektaHelper.tokenize(
-  //       paymentCheckoutiInfo.cardNumber,
-  //       paymentCheckoutiInfo.cardOwnerName,
-  //       paymentCheckoutiInfo.expiredDate.substring(0, 2),
-  //       paymentCheckoutiInfo.expiredDate.substring(
-  //         3,
-  //         paymentCheckoutiInfo.expiredDate.length
-  //       ),
-  //       paymentCheckoutiInfo.cvv,
-  //       (res) => successCallback(res),
-  //       (err) => errorCallback(err)
-  //     );
-  //   }
-  // };
-
-  // const handleSuccessPayment = (e) => {
-  //   console.log(e);
-  //   const paymentStatus = e.charge.status;
-  //   if (paymentStatus === "paid") {
-  //     navigate(ROUTES.CHECKOUT_SUCCESS)
-  //   }
-  // };
+    createTokenCardForPayment(payload)
+      .then((response) => {
+        if (response.data.statusCode === 200) {
+          const { payment_method_id, token } = response?.data?.body;
+          const createPaymentPayload = {
+            token: token,
+            transactionAmount: 100,
+            description: "Compra curso ENARM",
+            paymentMethodId: payment_method_id,
+            installments: 1,
+            payerEmail: "test_user@example.com",
+          };
+          console.log(createPaymentPayload);
+          createPaymentWithCard(createPaymentPayload).then((response) => {
+            console.log(response);
+            const { status, status_detail } = response?.data.body;
+            console.log(status, status_detail);
+            if(status === "approved" && status_detail === "accredited"){
+              setLoading(false);
+              navigate(ROUTES.CHECKOUT_SUCCESS);
+            }
+            setLoading(false);
+          });
+        }
+      })
+      .catch((error) => {
+        setLoading(false);
+        console.error(error);
+      });
+  };
   return !isMobile() ? (
     <>
       <div className={`background-gradial ${width}`}></div>
       <div className={`checkout-container ${width}`}>
         <h1 className="bold-47">Información de Pago</h1>
         <div className="payment-container">
-          <PaymentOptionsContainer
-            size={width}
-            isMobile={isMobile()}
-          // paymentInfoSetState={setPaymentCheckoutInfo}
-          />
-
-          <Conekta />
+          <PaymentOptionsContainer size={width} isMobile={isMobile()} />
 
           <PaymentDetailsContainer
             size={width}
             isMobile={isMobile()}
-            // handleSubmitPayment={handleSubmitPaymentInformation}
+            handleSubmitPayment={handleSubmitPaymentInformation}
             isLoading={loading}
           />
         </div>
@@ -214,13 +140,13 @@ const CheckoutPage = () => {
             <PaymentOptionsContainer
               size={width}
               isMobile={isMobile()}
-            // paymentInfoSetState={setPaymentCheckoutInfo}
+              // paymentInfoSetState={setPaymentCheckoutInfo}
             />
           ) : (
             <PaymentDetailsContainer
               size={width}
               isMobile={isMobile()}
-            // handleSubmitPayment={handleSubmitPaymentInformation}
+              // handleSubmitPayment={handleSubmitPaymentInformation}
             />
           )}
         </div>

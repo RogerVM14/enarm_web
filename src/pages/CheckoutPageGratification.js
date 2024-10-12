@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import drThump from "../assets/imgs/doctor_thump_up_medium.png";
 import "../css/checkout/CheckoutPageThankful.css";
+import { ROUTES } from "../constants/routes";
 
 const CheckoutPageGratification = () => {
   const getWindowWidth = () => {
@@ -15,16 +16,29 @@ const CheckoutPageGratification = () => {
   };
 
   const [width, setWidth] = useState(getWindowWidth());
+  const [countdown, setCountdown] = useState(5); // Estado para el contador
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.addEventListener("resize", () => {
       const x = getWindowWidth();
       setWidth(x);
     });
-  }, [width]);
- 
 
-  const navigate = useNavigate();
+    const timer = setInterval(() => {
+      setCountdown((prevCountdown) => prevCountdown - 1);
+    }, 1000);
+
+    // Redirigir después de 5 segundos
+    const redirectTimeout = setTimeout(() => {
+      navigate(ROUTES.PLATAFORMA_DASHBOARD, { replace: true });
+    }, 5000);
+
+    return () => {
+      clearInterval(timer);
+      clearTimeout(redirectTimeout); 
+    };
+  }, [navigate]);
 
   return (
     <>
@@ -38,11 +52,14 @@ const CheckoutPageGratification = () => {
         <button
           className="button-rounded-blue-48"
           onClick={() => {
-            navigate("/u/dashboard", { replace: false });
+            navigate(ROUTES.PLATAFORMA_DASHBOARD, { replace: true });
           }}
         >
           <span className="button-text">Descubre todo Sobre el Curso</span>
         </button>
+        <p className="auto-redirect-message">
+          Serás redirigido automáticamente en: {countdown} segundos
+        </p>
       </div>
     </>
   );

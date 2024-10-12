@@ -242,3 +242,11 @@ div.payment-details-box.xs div.details-payments div.details div.details-payments
     height: 90vh;
     clip-path: unset;
 }
+
+.visible {
+    display: block;
+}
+
+.hidden {
+    display: none;
+}

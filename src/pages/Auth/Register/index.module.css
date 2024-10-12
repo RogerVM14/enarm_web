@@ -93,6 +93,15 @@
   margin-bottom: 8px;
 }
 
+.submitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.submitButton:hover {
+  background: var(--sky-blue);
+}
+
 .submitButton span {
   font-family: MontserratBold;
   font-style: normal;
@@ -106,6 +115,22 @@
 
 .triangle {
   display: none;
+}
+
+.loader {
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #3498db;
+  border-radius: 50%;
+  width: 12px;
+  height: 12px;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 

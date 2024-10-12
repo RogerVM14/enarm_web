@@ -34,7 +34,7 @@ const Footer = ({
       { url: "/acerca", alt: "Curso ENARM", label: "Curso ENARM" }
     ],
     [
-      { url: "/blog", alt: "Blog", label: "Blog" },
+      // { url: "/blog", alt: "Blog", label: "Blog" },
       { url: "/prueba", alt: "Demo Gratis", label: "Demo Gratis" },
       { url: "/contacto", alt: "Contacto", label: "Contacto" }
     ]

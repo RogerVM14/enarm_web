@@ -5,10 +5,14 @@ import { useSelector } from "react-redux";
 import { selectUserEmail } from "../store/reducers/user/UserInformationSlice";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../constants/routes";
-import { verifyEmailCode } from "../apis/auth/authApi";
+// import { verifyEmailCode } from "../apis/auth/authApi";
+
 const VerifyEmailCodePage = () => {
   const [values, setValues] = useState(["", "", "", "", "", ""]);
   const [isReadyToVerify, setIsReadyToVerify] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isSuccess, setIsSuccess] = useState(false);
   const navigate = useNavigate();
   const fields = useRef([
     React.createRef(),
@@ -38,15 +42,25 @@ const VerifyEmailCodePage = () => {
     }
   };
 
-  const handleVerifyCode = () => {
+  const handleVerifyCode = async () => {
     const code = values.join("");
-    verifyEmailCode(email, code)
-      .then((res) => {
-        if (res.data.statusCode === 200) {
-          navigate(ROUTES.CHECKOUT);
-        }
-      })
-      .catch((err) => console.log(err));
+    setIsLoading(true);
+    setErrorMessage("");
+
+    try {
+      // const res = await verifyEmailCode(email, code);
+      const res = { data: { statusCode: 200 } };
+      if (res.data.statusCode === 200) {
+        setIsSuccess(true);
+        navigate(ROUTES.CHECKOUT);
+      } else {
+        setErrorMessage("Código incorrecto o ha expirado. Intenta nuevamente.");
+      }
+    } catch (error) {
+      setErrorMessage("Hubo un error con la verificación. Por favor, inténtalo nuevamente.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -61,12 +75,10 @@ const VerifyEmailCodePage = () => {
         <div className="we-sent-message">
           <p>
             Hemos enviado un código de verificación a la cuenta de correo
-            electrónico <strong> {email} </strong>. Asegúrate de revisar la
+            electrónico <strong>{email}</strong>. Asegúrate de revisar la
             carpeta de SPAM, en caso de no encontrarlo en tu bandeja principal.
           </p>
         </div>
-
-        {/* Code Fields */}
 
         <div className="code-fields-container">
           {values.map((value, index) => (
@@ -83,15 +95,24 @@ const VerifyEmailCodePage = () => {
             </div>
           ))}
         </div>
+
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
+
         <div className="verify-button-container">
-          <button disabled={!isReadyToVerify} onClick={handleVerifyCode}>
-            {" "}
-            Verificar{" "}
+          <button onClick={handleVerifyCode} disabled={!isReadyToVerify || isLoading}>
+            {isLoading ? (
+              <>
+                <span className="loader"></span> Verificando
+              </>
+            ) : (
+              "Verificar"
+            )}
           </button>
         </div>
+
         <div className="email-verify-footer">
           <p>Puede tomar un minuto el recibir el código.</p>
-          <p>¿No haz recibido el código?</p>
+          <p>¿No has recibido el código?</p>
           <p style={{ marginTop: "10px" }}>
             <strong>Reenviar nuevo código</strong>
           </p>

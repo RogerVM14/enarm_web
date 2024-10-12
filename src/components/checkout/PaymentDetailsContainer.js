@@ -1,11 +1,20 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import greenshield from "../../assets/icons/checkout/greenshield.png";
+import { currentPaymenthMethodSelected, selectCardInformation } from "../../store/reducers/checkout/checkoutInformationSlice";
+import { useSelector } from "react-redux";
 
 const PaymentDetailsContainer = (props) => {
   const navigate = useNavigate();
 
   const { size, isMobile, handleSubmitPayment, isLoading } = props;
+
+  const selectedPaymentMethod = useSelector(currentPaymenthMethodSelected);
+  const cardInformation = useSelector(selectCardInformation);
+  const { cardNumber, cvv, expirationDate, cardOwnerName } = cardInformation;
+
+  // Condición para deshabilitar el botón si falta algún dato
+  const shouldDisabled = !cardNumber || !cvv || !expirationDate || !cardOwnerName;
 
   const regularText = () => {
     return isMobile ? "regular-14" : "regular-16";
@@ -74,21 +83,23 @@ const PaymentDetailsContainer = (props) => {
             </span>
           </p>
         </div>
-        <div className={`checkout-payment ${size}`}>
-          <button
-            className="button-rounded-blue-48"
-            // type="submit"
-            onClick={() => handleSubmitPayment()}
-          >
-            <span className="button-text">
-              {isLoading ? "Realizando tu pago" : "Aceptar compra"}
-            </span>
-          </button>
-          <p className="regular-12">
-            Al presionar el botón Aceptar compra accedes a adquirir el curso.
-            Gracias por confirmar en nuestro servicio.
-          </p>
-        </div>
+        {selectedPaymentMethod === "card" && (
+          <div className={`checkout-payment ${size}`}>
+            <button
+              className={`button-rounded-blue-48 ${shouldDisabled ? 'button-rounded-blue-48--disabled' : ''}`}
+              onClick={handleSubmitPayment}
+              disabled={shouldDisabled}
+            >
+              <span className="button-text">
+                {isLoading ? "Realizando tu pago" : "Aceptar compra"}
+              </span>
+            </button>
+            <p className="regular-12">
+              Al presionar el botón Aceptar compra accedes a adquirir el curso.
+              Gracias por confirmar en nuestro servicio.
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
