@@ -5,7 +5,7 @@ import doctorImage from "../../../assets/imgs/Dres/stock-photo-surgeon-wearing-b
 import { ERROR_MESSAGES } from "../../../constants/Messages";
 import { setCookie } from "../../../utils/auth/cookieSession";
 import { validateEmailFormat } from "../../../utils/commons/commonFunctions";
-import { errorToast } from "../../../utils/toasts/commonToasts";
+import showToast from "../../../utils/toasts/commonToasts";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import "./LoginPage.css";
 import ui from "./index.module.css";
@@ -49,8 +49,8 @@ const FormLogin = () => {
   const [userEmail, setEmail] = useState("");
   const [userPass, setPass] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [emailError, setEmailError] = useState(false);
-  const [passwordError, setPasswordError] = useState(false);
+  const [emailError, ] = useState(false);
+  const [passwordError,] = useState(false);
 
   const toggleShowPassword = () => setShowPassword(!showPassword);
 
@@ -74,14 +74,14 @@ const FormLogin = () => {
             navigate("/u/dashboard", { replace: true });
           } else if (res.data.statusCode) {
             if (res.data.statusCode !== 200) {
-              errorToast(res.data.message);
+              showToast.error(res.data.message);
             }
           }
         })
         .catch((err) => {
           console.log(err.message);
           const error = err.response.data.message;
-          errorToast(ERROR_MESSAGES[error]);
+          showToast.error(ERROR_MESSAGES[error]);
         });
     }
   };

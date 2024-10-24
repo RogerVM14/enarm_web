@@ -5,7 +5,7 @@ import ui from "./index.module.css";
 const GuideContent = () => {
 
 
-  const [guideList, setGuideList] = useState([
+  const [guideList,] = useState([
     {
       title: "Guía de Estudio ENARM",
       url: "https://plataformaenarm.com/wp-content/uploads/2018/02/GUIA-DE-ESTUDIO-ENFERMEDADES-INFECCIOSAS-1a-VUELTA.pdf"

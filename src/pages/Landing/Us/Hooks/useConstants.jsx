@@ -3,7 +3,7 @@ import { useState } from "react";
 const useConstants = (constants) => {
 
   const [card, setCard] = useState(constants.novedades);
-  const [stats, setStats] = useState(constants.stats)
+  const [stats,] = useState(constants.stats)
 
   const handleSelectNewsCard = (index) => {
     setCard((prev) => {

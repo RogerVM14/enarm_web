@@ -6,7 +6,7 @@ import GraphicResults from "../Assets/Images/graphicResults.png";
 
 const ResultsPage = () => {
 
-  const [tries, setTries] = useState([
+  const [tries, ] = useState([
     { tryNumber: "1er Intento", result: "Respuestas correctas 75 de 100", percentage: "75", retro: true },
     { tryNumber: "2do Intento", result: "Sin registro", percentage: "0", retro: false },
     { tryNumber: "3er Intento", result: "Sin registro", percentage: "0", retro: false },

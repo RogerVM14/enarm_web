@@ -1,17 +1,20 @@
 /* eslint-disable no-useless-escape */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import doctorImage from "../../../assets/imgs/Dres/stock-photo-doctor-wearing-white-coat-stethoscope-small.png";
 import { ROUTES } from "../../../constants/routes";
 import {
+  resetUserInformation,
   setCheckoutUserInformation,
-  setUserInformation,
 } from "../../../store/reducers/user/UserInformationSlice";
 import "./RegisterPage.css";
 import ui from "./index.module.css";
 import LandingLayout from "../../Layouts/Landing";
 import ValidatePassword from "./ValidatePassword";
+import { CreateNewUser } from "../../../apis/auth/authApi";
+import showToast from "../../../utils/toasts/commonToasts";
+import { resetCheckoutInformation } from "../../../store/reducers/checkout/checkoutInformationSlice";
 
 const EMAIL_REGEX =
   /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -20,24 +23,41 @@ const RegisterPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [userInfo, setUserInfo] = useState({
-    name: "",
-    email: "",
-    password: "",
-    phone: "",
-  });
+  useEffect(() => {
+    dispatch(resetCheckoutInformation());
+    dispatch(resetUserInformation());
+  }, []);
+
+  const [userInfo, setUserInfo] = useState({ email: "", password: "" });
 
   const handleRegisterInformation = async () => {
-    const insertUser = () => {
+    const insertUser = async () => {
       const { email, password } = userInfo;
-      const userInformation = { email, password };
-
-      dispatch(setCheckoutUserInformation(userInformation));
-      console.log("insertUser");
+      const userInformation = { user_email: email, password };
       console.log(userInformation);
-      setTimeout(() => {
-        navigate(ROUTES.VERIFICAR_CORREO);
-      }, 1000);
+
+      CreateNewUser(userInformation)
+        .then((res) => {
+          console.log(res.data);
+          const message = res.data.status_Message;
+          if (message === "email exists")
+            showToast.warning("Este email ya está en uso");
+          if (message === "user was added successfully") {
+            showToast.success("Tu usuario ha sido creado");
+            const checkoutInf = {
+              ...userInformation,
+              user_id: res?.data?.user_id,
+            };
+            dispatch(setCheckoutUserInformation(checkoutInf));
+            navigate(ROUTES.VERIFICAR_CORREO, { replace: true });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          showToast.error(
+            "Hubo un error al crear tu usuario, intenta nuevamente"
+          );
+        });
     };
     insertUser();
   };
@@ -83,13 +103,10 @@ const RegisterForm = ({ handleUserInfo, handleRegister }) => {
 
   const [passwordComplete, setPasswordComplete] = useState(false);
 
-  const navigate = useNavigate();
-
   const handleClick = async () => {
     if (!isValidEmail()) return;
     if (!isValidPassword()) return;
     await handleRegister();
-    // navigate(ROUTES.VERIFICAR_CORREO);
   };
 
   const validFormatEmail = EMAIL_REGEX.test(email);
@@ -117,8 +134,6 @@ const RegisterForm = ({ handleUserInfo, handleRegister }) => {
       return { ...prevState, [name]: value };
     });
   };
-  console.log(passwordComplete);
-
   return (
     <div className="form-container reveal-load">
       <div>

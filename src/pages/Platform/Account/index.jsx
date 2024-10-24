@@ -1,23 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import DashboardLayout from "../../Layouts/Dashboard"
 import ui from "./index.module.css";
 
 const AccountPage = () => {
-
-  const [formData, setFormData] = useState({
-    name: "",
-    lastname: "",
-    username: "",
-    email: "",
-    password: "",
-    passwordNew: null,
-    passwordConfirm: null
-  });
-
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-  }
 
 
   return (

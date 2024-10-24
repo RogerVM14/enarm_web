@@ -1,6 +1,7 @@
 export const ROUTES = {
   CHECKOUT: "/compra_curso",
   CHECKOUT_SUCCESS: "/pago_exitoso",
+  CHECKOUT_FAILED: "/pago_fallido",
   VERIFICAR_CORREO: "/verificar_correo",
   HOME: "/",
   NOSOTROS: "/nosotros",

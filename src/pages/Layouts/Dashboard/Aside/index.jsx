@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import EnarmLogo from "../../Assets/Images/EnarmLogo.jpg";
-import BurgerMenuIcon from "../../Assets/Icons/BurgerMenu.png";
+// import BurgerMenuIcon from "../../Assets/Icons/BurgerMenu.png";
 import ArrowDown from "../../Assets/Icons/ArrowDown.png"
 import ArrowUp from "../../Assets/Icons/ArrowUp.png"
 import { GeneralContext } from "../../../../contexts/GeneralContext";

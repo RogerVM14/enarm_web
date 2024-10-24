@@ -7,6 +7,7 @@ import QuestionIcon from "../../Assets/Icons/QuestionIcon.svg";
 import WhiteSearchIcon from "../../Assets/Icons/WhiteSearchIcon.svg";
 import WhiteQuestionIcon from "../../Assets/Icons/WhiteQuestionIcon.svg";
 import { Link } from "react-router-dom";
+import { useLogout } from "../../../../contexts/useLogout";
 
 const DashboardHeaderTemplate = ({ handleShowMenu }) => {
 
@@ -61,7 +62,7 @@ const UserDialogMenu = ({ open, handleFocus = () => { } }) => {
     <div onMouseLeave={handleFocus} className={ui.dropDownMenu}>
       <ul>
         <li><Link to="/cursoENARM/MiCuenta" className="regular-parraf-14">Mi cuenta</Link></li>
-        <li><Link to="/" className="regular-parraf-14">Cerrar Sesión</Link></li>
+        <li><Link to="/" onClick={useLogout} className="regular-parraf-14">Cerrar Sesión</Link></li>
       </ul>
     </div>
   ) : null

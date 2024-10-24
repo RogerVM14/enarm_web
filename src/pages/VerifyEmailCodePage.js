@@ -2,9 +2,11 @@ import React, { useRef, useState } from "react";
 import "../css/VerifyEmailCode.css";
 import verifyIcon from "../assets/icons/verify-email-icon.png";
 import { useSelector } from "react-redux";
-import { selectUserEmail } from "../store/reducers/user/UserInformationSlice";
+import { selectUserCheckoutInformation } from "../store/reducers/user/UserInformationSlice";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../constants/routes";
+import { verifyEmailCode } from "../apis/auth/authApi";
+import showToast from "../utils/toasts/commonToasts";
 // import { verifyEmailCode } from "../apis/auth/authApi";
 
 const VerifyEmailCodePage = () => {
@@ -12,7 +14,6 @@ const VerifyEmailCodePage = () => {
   const [isReadyToVerify, setIsReadyToVerify] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [isSuccess, setIsSuccess] = useState(false);
   const navigate = useNavigate();
   const fields = useRef([
     React.createRef(),
@@ -23,7 +24,15 @@ const VerifyEmailCodePage = () => {
     React.createRef(),
   ]);
 
-  const email = useSelector(selectUserEmail);
+  // const email = useSelector(selectUserCheckoutEmail);
+  const userInfo = useSelector(selectUserCheckoutInformation);
+  const { user_email, user_id } = userInfo;
+  const getConcatenatedValues = () => {
+    const concatenatedValues = fields.current
+      .map((fieldRef) => fieldRef?.current?.value)
+      .join("");
+    return concatenatedValues;
+  };
 
   const handleChange = (index, event) => {
     const newValues = [...values];
@@ -43,21 +52,38 @@ const VerifyEmailCodePage = () => {
   };
 
   const handleVerifyCode = async () => {
-    const code = values.join("");
     setIsLoading(true);
     setErrorMessage("");
+    const verifyCode = getConcatenatedValues();
+    const payload = {
+      user_email,
+      auth_code: verifyCode,
+      user_id,
+    };
 
     try {
-      // const res = await verifyEmailCode(email, code);
-      const res = { data: { statusCode: 200 } };
-      if (res.data.statusCode === 200) {
-        setIsSuccess(true);
-        navigate(ROUTES.CHECKOUT);
-      } else {
-        setErrorMessage("Código incorrecto o ha expirado. Intenta nuevamente.");
-      }
+      verifyEmailCode(payload).then((res) => {
+        const message = res.data.status_Message;
+        if (message === "authentication expired")
+          setErrorMessage("El código es inválido o ya expiro");
+        if (message === "authentication done") {
+          setErrorMessage("");
+          showToast.success("Tú correo fue verificado");
+          navigate(ROUTES.CHECKOUT);
+        }
+
+        console.log(res);
+      });
+      // if (res.data.statusCode === 200) {
+      //   setIsSuccess(true);
+      //   navigate(ROUTES.CHECKOUT);
+      // } else {
+      //   setErrorMessage("Código incorrecto o ha expirado. Intenta nuevamente.");
+      // }
     } catch (error) {
-      setErrorMessage("Hubo un error con la verificación. Por favor, inténtalo nuevamente.");
+      setErrorMessage(
+        "Hubo un error con la verificación. Por favor, inténtalo nuevamente."
+      );
     } finally {
       setIsLoading(false);
     }
@@ -75,7 +101,7 @@ const VerifyEmailCodePage = () => {
         <div className="we-sent-message">
           <p>
             Hemos enviado un código de verificación a la cuenta de correo
-            electrónico <strong>{email}</strong>. Asegúrate de revisar la
+            electrónico <strong>{user_email}</strong>. Asegúrate de revisar la
             carpeta de SPAM, en caso de no encontrarlo en tu bandeja principal.
           </p>
         </div>
@@ -99,7 +125,10 @@ const VerifyEmailCodePage = () => {
         {errorMessage && <p className="error-message">{errorMessage}</p>}
 
         <div className="verify-button-container">
-          <button onClick={handleVerifyCode} disabled={!isReadyToVerify || isLoading}>
+          <button
+            onClick={handleVerifyCode}
+            disabled={!isReadyToVerify || isLoading}
+          >
             {isLoading ? (
               <>
                 <span className="loader"></span> Verificando

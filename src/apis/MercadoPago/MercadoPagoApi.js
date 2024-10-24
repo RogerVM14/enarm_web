@@ -1,5 +1,5 @@
 import axios from 'axios';
-const {REACT_APP_ENARM_API_GATEWAY_URL} = process.env;
+const {REACT_APP_ENARM_API_GATEWAY_URL_MP} = process.env;
 export const fetchMercadoPagoPreferenceId = () => {
   const requestInfo = {
     method: "POST",

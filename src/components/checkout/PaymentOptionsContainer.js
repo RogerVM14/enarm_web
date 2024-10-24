@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import oxxopay from "../../assets/icons/checkout/oxxopay.png";
+import React, { useState } from "react";
+// import oxxopay from "../../assets/icons/checkout/oxxopay.png";
 import americanexpress from "../../assets/icons/checkout/americanexpress.png";
 import visa from "../../assets/icons/checkout/visa.png";
 import mastercard from "../../assets/icons/checkout/mastercard.png";

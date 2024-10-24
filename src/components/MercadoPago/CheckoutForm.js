@@ -5,37 +5,29 @@ import { fetchMercadoPagoPreferenceId } from "../../apis/MercadoPago/MercadoPago
 
 const CheckoutForm = () => {
   const [preferenceId, setPreferenceId] = useState(null);
-  const { REACT_APP_MERCADOPAGO_PUBLIC_KEY } = process.env;
+  const { REACT_APP_MP_PUBLIC_KEY } = process.env;
+
   // Inicializar Mercado Pago solo la primera vez
   useEffect(() => {
-    initMercadoPago(REACT_APP_MERCADOPAGO_PUBLIC_KEY, {
+    initMercadoPago(REACT_APP_MP_PUBLIC_KEY, {
       locale: "es-MX",
     });
-  }, []);
+  }, [REACT_APP_MP_PUBLIC_KEY]);
 
-  // Llamada al servicio o recuperar del localStorage
+  // Obtener el ID de la preferencia de la API cada vez que se renderiza el componente
   useEffect(() => {
     const fetchPreferenceId = async () => {
-      const storedPreferenceId = localStorage.getItem("preferenceId");
-
-      if (storedPreferenceId) {
-        setPreferenceId(storedPreferenceId);
-      } else {
-        try {
-          const response = await fetchMercadoPagoPreferenceId();
-          const newPreferenceId = response.data.body.preferenceId;
-          setPreferenceId(newPreferenceId);
-          localStorage.setItem("preferenceId", newPreferenceId); // Guardar en localStorage
-        } catch (error) {
-          console.error("Error al obtener el ID de la preferencia:", error);
-        }
+      try {
+        const response = await fetchMercadoPagoPreferenceId();
+        const newPreferenceId = response.data.body.preferenceId;
+        setPreferenceId(newPreferenceId);
+      } catch (error) {
+        console.error("Error al obtener el ID de la preferencia:", error);
       }
     };
 
-    if (!preferenceId) {
-      fetchPreferenceId();
-    }
-  }, [preferenceId]); // Solo se ejecuta si preferenceId es null
+    fetchPreferenceId();
+  }, []); 
 
   return (
     <div

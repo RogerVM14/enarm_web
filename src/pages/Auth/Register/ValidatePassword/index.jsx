@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { BsPatchCheckFill } from "react-icons/bs";
 import "./ValidatePassword.css";
@@ -39,9 +39,7 @@ function ValidatePasswordInput(props) {
     passwordReady(Object.values(newIsValid).every((value) => value));
   };
 
-  useEffect(() => {
-    const isAllValid = Object.values(isValid).every((value) => value);
-  }, [isValid]);
+
 
   return (
     <div className="password-input">
@@ -53,7 +51,7 @@ function ValidatePasswordInput(props) {
         placeholder="Tu contraseña"
         value={password}
         onChange={handlePasswordChange}
-        autocomplete="new-password"
+        autoComplete="new-password"
       />
 
       <div className="password-icon" onClick={toggleShowPassword}>

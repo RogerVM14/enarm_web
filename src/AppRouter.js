@@ -35,6 +35,7 @@ import LandingProvider from "./contexts/LandingContext";
 import { ROUTES } from "./constants/routes";
 import BlogPage from "./pages/Landing/Blog";
 import "./css/App.css";
+import CheckoutPaymentFailed from "./pages/CheckoutPaymentFailed";
 
 const AppRouter = () => {
 
@@ -94,7 +95,8 @@ const AppRouter = () => {
                 <Route path={ROUTES.LOGIN} element={<LoginPage />} />
                 <Route path={ROUTES.REGISTRO} element={<RegisterPage />} />
                 <Route path={ROUTES.CHECKOUT} element={<CheckoutPage />} />
-                <Route path={ROUTES.CHECKOUT_SUCCESS} element={<CheckoutPageGratification />} />
+                <Route path={ROUTES.CHECKOUT_SUCCESS} element={<CheckoutPageGratification />} /> 
+                <Route path={ROUTES.CHECKOUT_FAILED} element={<CheckoutPaymentFailed />} /> 
                 <Route path={ROUTES.VERIFY_EMAIL_CODE} element={<VerifyEmailCodePage />} />
                 {/* Platform */}
                 <Route path={ROUTES.PLATAFORMA_DASHBOARD} element={<DashboardPage />} />
