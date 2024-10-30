@@ -58,7 +58,7 @@ const ResourceContainer = ({
             <h4>Infectología</h4>
             <p>Recursos</p>
           </div>
-          <div className={ui.resourseFilters}>
+          {/* <div className={ui.resourseFilters}>
             <div className={ui.filter}>
               <label htmlFor="resourseFilterOption">
                 Filtrar por:
@@ -82,7 +82,7 @@ const ResourceContainer = ({
                 <label htmlFor="turn">3ra</label>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </header>
       <div className={ui.containerBody}>

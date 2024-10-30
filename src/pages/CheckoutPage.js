@@ -24,7 +24,7 @@ const CheckoutPage = () => {
 
   const [stepDetails] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { cardNumber, cvv, expirationDate } = useSelector(
+  const { cardNumber, cvv, expirationDate, cardOwnerName } = useSelector(
     selectCardInformation
   );
   const userInfo = useSelector(selectUserCheckoutInformation);
@@ -67,7 +67,8 @@ const CheckoutPage = () => {
       expirationMonth: parseInt(expirationMonth, 10),
       expirationYear: parseInt(expirationYear.slice(-2), 10),
       securityCode: cvv,
-      cardholderName: "APRO", //Usar APRO para pruebas
+      // cardholderName: cardOwnerName, 
+      cardholderName: "APRO", //Usar para pruebas
       docType: "RFC",
       docNumber: "123456789012",
     };
@@ -75,14 +76,13 @@ const CheckoutPage = () => {
     createTokenCardForPayment(payload)
       .then((response) => {
         if (response.data.statusCode === 200) {
-          const { payment_method_id, token } = response?.data?.body;
+          const { token } = response?.data?.body;
           const createPaymentPayload = {
             token: token,
             transactionAmount: 100,
             description: "Compra curso ENARM",
-            paymentMethodId: payment_method_id,
             installments: 1,
-            payerEmail: "test_user@example.com",
+            payerEmail: "roger.vazquez12@gmail.com",
           };
           createPaymentWithCard(createPaymentPayload).then((response) => {
             const data = response?.data.body;
@@ -90,6 +90,13 @@ const CheckoutPage = () => {
             const comissions =
               data.transaction_details.total_paid_amount -
               data.transaction_details.net_received_amount;
+              console.log(status);
+            if (status === "rejected") {
+              setLoading(false);
+              showToast.error(
+                "Tu tarjeta fue rechazada, intenta con otra o espera un momento"
+              );
+            }
             if (status === "approved" && status_detail === "accredited") {
               const paymentInfo = {
                 user_id: user_id,
@@ -169,7 +176,12 @@ const CheckoutPage = () => {
             <div className="payment-container-medium">
               <PaymentOptionsContainer size={width} isMobile={isMobile()} />
 
-              <PaymentDetailsContainer size={width} isMobile={isMobile()} />
+              <PaymentDetailsContainer
+                size={width}
+                isMobile={isMobile()}
+                handleSubmitPayment={handleSubmitPaymentInformation}
+                isLoading={loading}
+              />
             </div>
           </div>
         </>

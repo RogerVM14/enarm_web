@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import DashboardLayout from "../../Layouts/Dashboard";
 import ui from "./index.module.css";
@@ -6,8 +6,15 @@ import { cardList } from "../Constants";
 import DashboardNovedadesPic from "../Assets/Images/dashboardNovedades.png";
 import DashboardAvisosPic from "../Assets/Images/dashboardAvisos.png";
 import DoctorWithStar from "../Assets/Images/doctorWithStar.png";
+import ModalComplementaryUserInfo from "../../../components/userInfoModal/ModalComplementaryUserInfo";
+import { useSelector } from "react-redux";
+import {  selectFullUserName, selectUserInfoComplete } from "../../../store/reducers/user/UserInformationSlice";
+import { saveComplementaryStudentInfo } from "../../../apis/student/studentApi";
 
 const DashboardPage = () => {
+ const userName = useSelector(selectFullUserName)
+ const firstName = userName?.split(" ")[0];
+
   return (
     <DashboardLayout>
       <header>
@@ -22,7 +29,7 @@ const DashboardPage = () => {
                 <img src={DoctorWithStar} alt="doctorWithStar" />
               </div>
               <div className={ui.greetingsUsername}>
-                <h4>Hola, <span>[Nombre de Usuario]</span>, tenemos todo listo!</h4>
+                <h4>Hola {firstName}, tenemos todo listo!</h4>
                 <p>Bienvenido a Plataforma ENARM</p>
               </div>
             </div>
@@ -111,6 +118,7 @@ const DashboardPage = () => {
           </article>
         </section>
       </div>
+      <ModalComplementaryUserInfo/>
     </DashboardLayout >
   )
 }

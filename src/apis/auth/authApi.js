@@ -18,22 +18,22 @@ export const CreateNewUser = (payload) => {
 
 export const loginUser = (payload) => {
   const request = {
-    method: "GET",
-    url: `${authUrl}signin`,
+    method: "POST",
+    url: `${authUrl}login`,
     headers: {
       "content-type": "application/json",
     },
-    data: {
-      new_user_email: "superadmin@enarm.com",
-      new_user_password: "superadmin",
-    },
+    data: payload,
+    // data: {
+    //   new_user_email: "superadmin@enarm.com",
+    //   new_user_password: "superadmin",
+    // },
   };
 
   return axios(request);
 };
 
 export const verifyEmailCode = (payload) => {
- 
   const request = {
     method: "POST",
     url: `${REACT_APP_ENARM_API_GATEWAY_URL}students/verify-student-pin-code-for-email`,

@@ -184,7 +184,7 @@ const RegisterForm = ({ handleUserInfo, handleRegister }) => {
         </button>
         <p className="flex-row-nw jc-center gap-8">
           <span className={ui.linkLabel}>¿Ya eres miembro?</span>
-          <Link className="regular-14 sky-blue no-style" to="/login">
+          <Link className="regular-14 sky-blue no-style" to={ROUTES.LOGIN}>
             Iniciar Sesión
           </Link>
         </p>

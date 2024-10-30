@@ -3,6 +3,7 @@ import { Navigate } from "react-router-dom";
 import DashboardLayout from "../components/layouts/DashboardLayout";
 import PlatformResponsiveProvider from "../contexts/platform/PlatformResponsiveContext";
 import { getCookie } from "../utils/auth/cookieSession";
+import { ROUTES } from "../constants/routes";
 
 const PlatformPrivateRoute = (props) => {
   const isAuthenticated = getCookie("accessToken");
@@ -13,7 +14,7 @@ const PlatformPrivateRoute = (props) => {
       </DashboardLayout>
     </PlatformResponsiveProvider>
   ) : (
-    <Navigate to="/iniciar_sesion" />
+    <Navigate to={ROUTES.LOGIN} />
   );
 };
 

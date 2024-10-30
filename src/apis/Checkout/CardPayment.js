@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const { REACT_APP_ENARM_API_GATEWAY_URL_MP, REACT_APP_ENARM_API_GATEWAY_URL } = process.env;
+const { REACT_APP_ENARM_API_GATEWAY_URL } = process.env;
 
 export const createTokenCardForPayment = (payload) => {
   const requestInfo = {
     method: "POST",
-    url: `${REACT_APP_ENARM_API_GATEWAY_URL_MP}mercado-pago/create-token`,
+    url: `${REACT_APP_ENARM_API_GATEWAY_URL}payments/mercado-pago/create-token`,
     headers: {
       "Content-Type": "application/json",
     },
@@ -18,7 +18,7 @@ export const createTokenCardForPayment = (payload) => {
 export const createPaymentWithCard = (payload) => {
   const requestInfo = {
     method: "POST",
-    url: `${REACT_APP_ENARM_API_GATEWAY_URL_MP}mercado-pago/create-payment`,
+    url: `${REACT_APP_ENARM_API_GATEWAY_URL}payments/mercado-pago/create-payment`,
     headers: {
       "Content-Type": "application/json",
     },

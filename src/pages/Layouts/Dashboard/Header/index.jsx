@@ -8,11 +8,13 @@ import WhiteSearchIcon from "../../Assets/Icons/WhiteSearchIcon.svg";
 import WhiteQuestionIcon from "../../Assets/Icons/WhiteQuestionIcon.svg";
 import { Link } from "react-router-dom";
 import { useLogout } from "../../../../contexts/useLogout";
+import { useSelector } from "react-redux";
+import { selectFullUserName } from "../../../../store/reducers/user/UserInformationSlice";
 
 const DashboardHeaderTemplate = ({ handleShowMenu }) => {
-
   const [open, setOpen] = useState(false);
-
+  const userFullname = useSelector(selectFullUserName);
+  const firstName = userFullname.split(" ")[0];
   return (
     <header>
       <div className={ui.headerContainer}>
@@ -24,29 +26,59 @@ const DashboardHeaderTemplate = ({ handleShowMenu }) => {
             <button type="button">
               <img src={WhiteSearchIcon} alt="search" />
             </button>
-            <div className={ui.containerUser} onMouseEnter={() => { setOpen(true); }}>
+            <div
+              className={ui.containerUser}
+              onMouseEnter={() => {
+                setOpen(true);
+              }}
+            >
               <div>
-                <img src={UserDefaultIcon} alt="User icon" width={24} height={24} />
+                <img
+                  src={UserDefaultIcon}
+                  alt="User icon"
+                  width={24}
+                  height={24}
+                />
               </div>
-              <p>Username</p>
+              <p>
+                <strong>{firstName}</strong>
+              </p>
             </div>
           </div>
         </nav>
-        <UserDialogMenu open={open} handleFocus={() => { setOpen(false); }} />
+        <UserDialogMenu
+          open={open}
+          handleFocus={() => {
+            setOpen(false);
+          }}
+        />
         <nav data-size="sm">
           <div className={ui.navContainer}>
-            <Link className={ui.mainLinkBlue} to="/cursoENARM">Plataforma ENARM</Link>
+            <Link className={ui.mainLinkBlue} to="/cursoENARM">
+              Plataforma ENARM
+            </Link>
             <button type="button" className={ui.doubtsButton}>
               <img src={QuestionIcon} alt="question" />
             </button>
-            <button type="button" className={ui.burgerMenu} onClick={() => { handleShowMenu() }}>
+            <button
+              type="button"
+              className={ui.burgerMenu}
+              onClick={() => {
+                handleShowMenu();
+              }}
+            >
               <img src={BurgerIcon} alt="burgerMenu" />
             </button>
           </div>
         </nav>
         <div className={ui.searchBar}>
           <div className={ui.searchbarInput}>
-            <input type="text" name="search" id="searchbar" placeholder="Buscar palabra clave" />
+            <input
+              type="text"
+              name="search"
+              id="searchbar"
+              placeholder="Buscar palabra clave"
+            />
             <button type="button" className={ui.searchIconButton}>
               <img src={SearchIcon} alt="search" />
             </button>
@@ -54,18 +86,26 @@ const DashboardHeaderTemplate = ({ handleShowMenu }) => {
         </div>
       </div>
     </header>
-  )
-}
+  );
+};
 
-const UserDialogMenu = ({ open, handleFocus = () => { } }) => {
+const UserDialogMenu = ({ open, handleFocus = () => {} }) => {
   return open ? (
     <div onMouseLeave={handleFocus} className={ui.dropDownMenu}>
       <ul>
-        <li><Link to="/cursoENARM/MiCuenta" className="regular-parraf-14">Mi cuenta</Link></li>
-        <li><Link to="/" onClick={useLogout} className="regular-parraf-14">Cerrar Sesión</Link></li>
+        {/* <li>
+          <Link to="/cursoENARM/MiCuenta" className="regular-parraf-14">
+            Mi cuenta
+          </Link>
+        </li> */}
+        <li>
+          <Link to="/" onClick={useLogout} className="regular-parraf-14">
+            Cerrar Sesión
+          </Link>
+        </li>
       </ul>
     </div>
-  ) : null
-}
+  ) : null;
+};
 
 export default DashboardHeaderTemplate;

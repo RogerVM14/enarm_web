@@ -79,7 +79,7 @@ const CheckoutPageGratification = () => {
         <button
           className="button-rounded-blue-48"
           onClick={() => {
-            navigate(ROUTES.PLATAFORMA_DASHBOARD, { replace: true });
+            navigate(ROUTES.LOGIN);
           }}
         >
           <span className="button-text">Descubre todo Sobre el Curso</span>

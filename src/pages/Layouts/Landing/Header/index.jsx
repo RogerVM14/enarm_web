@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import LogoIcon from "../../Assets/Images/EnarmLogo.jpg"
 import ui from "./index.module.css";
+import { ROUTES } from "../../../../constants/routes";
 
 const NavBar = () => {
 
@@ -43,7 +44,7 @@ const NavBar = () => {
               </li>
               <li className={ui.linkWithIcon}>
                 <UserIcon />
-                <Link to="/login" className={ui.loginLink}>Iniciar Sesión</Link>
+                <Link to={ROUTES.LOGIN} className={ui.loginLink}>Iniciar Sesión</Link>
               </li>
             </ul>
           </nav>
