@@ -1,7 +1,11 @@
-
 .organizedLinks li {
   padding-top: 8px;
+  padding-left: 1rem;
   list-style: none;
+}
+
+.studyGuideContent {
+  font-family: PoppinsRegular;
 }
 
 .unorganizedSublinks li {
@@ -9,6 +13,10 @@
   list-style-position: inside;
   position: relative;
   margin-left: 16px;
+}
+
+.resources {
+  padding-left: 2rem;
 }
 
 .unorganizedSublinks li::before {
@@ -23,7 +31,6 @@
   left: 0;
 }
 
-
 .organizedLinks li a,
 .unorganizedSublinks li a {
   text-decoration: none;
@@ -32,7 +39,8 @@
   font-style: normal;
   font-weight: 400;
   line-height: 22px;
-  color: #000;
+  color: #1e73be;
+  text-decoration: underline;
 }
 
 li a.guideHasUrl,
@@ -40,8 +48,7 @@ li a.linkHasUrl {
   color: rgba(30, 115, 190, 1);
 }
 
-li a.guideHasUrl:hover ,
-li a.linkHasUrl:hover  {
+li a.guideHasUrl:hover,
+li a.linkHasUrl:hover {
   text-decoration: underline;
-  
 }

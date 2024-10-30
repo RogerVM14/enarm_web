@@ -1,102 +1,74 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ui from "./index.module.css";
 
-const GuideContent = () => {
+const GuideContent = ({ resumeData }) => {
+  const [especialidades, setEspecialidades] = useState([]);
+  const [recursos, setRecursos] = useState([]);
+  const [tipos, setTipos] = useState([]);
 
-
-  const [guideList,] = useState([
-    {
-      title: "Guía de Estudio ENARM",
-      url: "https://plataformaenarm.com/wp-content/uploads/2018/02/GUIA-DE-ESTUDIO-ENFERMEDADES-INFECCIOSAS-1a-VUELTA.pdf"
-    },
-    {
-      title: "Programa Académico Infectología 2022",
-      url: "https://plataformaenarm.com/wp-content/uploads/2017/11/Infectologia-2022-.pdf"
-    },
-    {
-      title: "1. Fiebre de Origen Desconocido",
-      url: null,
-    },
-    {
-      title: "2. Fiebre Tifoidea",
-      url: null,
-      subtitles: [
-        { title: "GPC FOD niños ER", url: "http://www.cenetec-difusion.com/CMGPC/IMSS-350-13/ER.pdf" },
-        { title: "GPC Fiebre Tifoidea ER", url: "#" },
-        { title: "GPC FOD niños RR11", url: "http://www.cenetec-difusion.com/CMGPC/IMSS-350-13/ER.pdf" },
-        { title: "GPC Fiebre Tifoidea RR", url: "#" },
-        { title: "FOD Adultos Extra", url: "#" },
-        { title: "🔥 Mini-Resumen Fiebre de origen desconocido M-R", url: "#" },
-        { title: "🔥 Mini-Resumen Fiebre Tifoidea F-C", url: "#" },
-        { title: "🔥 Flash-Card Fiebre de origen desconocido F-C", url: "#" },
-        { title: "🔥 Flash-Card Fiebre Tifoidea F-C", url: "#" },
-      ]
-    },
-    {
-      title: "3. Fiebre Tifoidea",
-      url: null,
-      subtitles: [
-        { title: "NOM Brucelosis", url: "#" },
-        { title: "GPC Brucelosis", url: "#" },
-        { title: "🔥 Mini-Resumen Bruceslosis M-R", url: "#" },
-        { title: "🔥 Flash-Card Brucelosis F-C", url: "#" }
-      ]
-    }
-  ])
+  useEffect(() => {
+    setEspecialidades(resumeData.especialidades);
+    setRecursos(resumeData.recursos);
+    setTipos(resumeData.tipo_recursos);
+  }, [resumeData]);
 
   return (
     <div className={ui.studyGuideContent}>
-      <ul className={ui.organizedLinks}>
-        {
-          guideList?.map((guide, indexGuide) => {
-            const { title, url, subtitles } = guide;
-            const guideClass = url === null ? ui.guideHasNoUrl : ui.guideHasUrl;
-            return (
-              <li key={indexGuide}>
-                <Link
-                  to={url}
-                  className={guideClass}
-                  target="_blank"
-                >
-                  {title}
-                </Link>
-                <UnorganizedLinksList list={subtitles} />
-              </li>
-            )
-          })
-        }
-      </ul>
+      {especialidades?.map((especialidad) => {
+        return (
+          <>
+            <h1 className={ui.specialty_title}>{especialidad}</h1>
+            <ul className={ui.organizedLinks}>
+              {tipos?.map((tipo, tipoIndex) => {
+                return (
+                  <div key={tipoIndex}>
+                    <li>
+                      <span>
+                        {tipoIndex + 1}. {tipo}
+                      </span>
+                    </li>
+                    <ul className={ui.resources}>
+                      {recursos?.map((recurso, recursoIndex) => {
+                        return (
+                          recurso[1] === tipo[0] && (
+                            <li key={recursoIndex}>
+                              <Link to={recurso[4]} target="_blank">
+                                <svg
+                                  width="13px"
+                                  height="13px"
+                                  viewBox="0 0 100 100"
+                                  aria-hidden="true"
+                                  role="img"
+                                  class="iconify iconify--gis"
+                                  preserveAspectRatio="xMidYMid meet"
+                                  fill="#1e73be"
+                                >
+                                  <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+                                  <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+                                  <g id="SVGRepo_iconCarrier">
+                                    <path
+                                      d="M50 37.45c-6.89 0-12.55 5.66-12.55 12.549c0 6.89 5.66 12.55 12.55 12.55c6.655 0 12.112-5.294 12.48-11.862a3.5 3.5 0 0 0 .07-.688a3.5 3.5 0 0 0-.07-.691C62.11 42.74 56.653 37.45 50 37.45zm0 7c3.107 0 5.55 2.442 5.55 5.549s-2.443 5.55-5.55 5.55c-3.107 0-5.55-2.443-5.55-5.55c0-3.107 2.443-5.549 5.55-5.549z"
+                                      fill="#1e73be"
+                                    ></path>
+                                  </g>
+                                </svg>
+                                {recurso[3]}
+                              </Link>
+                            </li>
+                          )
+                        );
+                      })}
+                    </ul>
+                  </div>
+                );
+              })}
+            </ul>
+          </>
+        );
+      })}
     </div>
-  )
-}
-
-
-const UnorganizedLinksList = ({ list }) => {
-  if (list === undefined || list === null) return null;
-  return (
-    <ul className={ui.unorganizedSublinks}>
-      {
-        list?.map((item, index) => {
-          const { title, url } = item;
-          const linkClass = url === null
-            ? ui.linkHasNoUrl
-            : ui.linkHasUrl;
-          return (
-            <li key={index}>
-              <Link
-                to={url}
-                target="_blank"
-                className={linkClass}
-              >
-                {title}
-              </Link>
-            </li>
-          )
-        })
-      }
-    </ul>
-  )
-}
+  );
+};
 
 export default GuideContent;

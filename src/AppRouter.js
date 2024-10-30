@@ -38,8 +38,6 @@ import "./css/App.css";
 import CheckoutPaymentFailed from "./pages/CheckoutPaymentFailed";
 
 const AppRouter = () => {
-
-
   useEffect(() => {
     function spinAround() {
       let spins = document.querySelectorAll("div.spin");
@@ -73,14 +71,27 @@ const AppRouter = () => {
       }
     }
 
-    window.addEventListener("scroll", () => { reveal(); spinAround(); }, { capture: true });
+    window.addEventListener(
+      "scroll",
+      () => {
+        reveal();
+        spinAround();
+      },
+      { capture: true }
+    );
 
-    window.addEventListener("touchmove", () => { reveal(); }, { capture: true });
+    window.addEventListener(
+      "touchmove",
+      () => {
+        reveal();
+      },
+      { capture: true }
+    );
   }, []);
 
   return (
-      <LandingProvider> 
-    <AuthProvider>
+    <LandingProvider>
+      <AuthProvider>
         <WidthProvider>
           <GeneralProvider>
             <SimulatorProvider>
@@ -119,8 +130,8 @@ const AppRouter = () => {
             </SimulatorProvider>
           </GeneralProvider>
         </WidthProvider>
-    </AuthProvider>
-      </LandingProvider>
+      </AuthProvider>
+    </LandingProvider>
   );
 };
 
