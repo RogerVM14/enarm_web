@@ -36,10 +36,15 @@ import { ROUTES } from "./constants/routes";
 import BlogPage from "./pages/Landing/Blog";
 import "./css/App.css";
 import CheckoutPaymentFailed from "./pages/CheckoutPaymentFailed";
+import PlatformPrivateRoute from "./routes/PlatformPrivateRoute";
+import { useSelector } from "react-redux";
+import {
+  selectCheckoutUserId,
+  selectUserCheckoutEmail,
+} from "./store/reducers/user/UserInformationSlice";
+import RenderComponenteIf from "./routes/RenderComponentIf";
 
 const AppRouter = () => {
-
-
   useEffect(() => {
     function spinAround() {
       let spins = document.querySelectorAll("div.spin");
@@ -73,14 +78,36 @@ const AppRouter = () => {
       }
     }
 
-    window.addEventListener("scroll", () => { reveal(); spinAround(); }, { capture: true });
+    window.addEventListener(
+      "scroll",
+      () => {
+        reveal();
+        spinAround();
+      },
+      { capture: true }
+    );
 
-    window.addEventListener("touchmove", () => { reveal(); }, { capture: true });
+    window.addEventListener(
+      "touchmove",
+      () => {
+        reveal();
+      },
+      { capture: true }
+    );
   }, []);
 
+  const user_id = useSelector(selectCheckoutUserId);
+  const email_checkout = useSelector(selectUserCheckoutEmail);
+  const isIdOnCheckout =
+    user_id !== null && user_id !== undefined && user_id !== "";
+  const isEmailOnCheckout =
+    email_checkout !== null &&
+    email_checkout !== undefined &&
+    email_checkout !== "";
+
   return (
-      <LandingProvider> 
-    <AuthProvider>
+    <LandingProvider>
+      <AuthProvider>
         <WidthProvider>
           <GeneralProvider>
             <SimulatorProvider>
@@ -88,39 +115,183 @@ const AppRouter = () => {
                 <Route path={ROUTES.HOME} index={true} element={<HomePage />} />
                 <Route path={ROUTES.NOSOTROS} element={<UsPage />} />
                 <Route path={ROUTES.SOBRE_EL_CURSO} element={<AboutPage />} />
-                <Route path={ROUTES.BLOG} element={<BlogPage />} />
-                <Route path={ROUTES.BLOG_ENTRADA} element={<BlogEntryPage />} />
+                {/* <Route path={ROUTES.BLOG} element={<BlogPage />} />
+                <Route path={ROUTES.BLOG_ENTRADA} element={<BlogEntryPage />} /> */}
                 <Route path={ROUTES.PRUEBA} element={<TestPage />} />
                 <Route path={ROUTES.CONTACTO} element={<ContactPage />} />
                 <Route path={ROUTES.LOGIN} element={<LoginPage />} />
                 <Route path={ROUTES.REGISTRO} element={<RegisterPage />} />
-                <Route path={ROUTES.CHECKOUT} element={<CheckoutPage />} />
-                <Route path={ROUTES.CHECKOUT_SUCCESS} element={<CheckoutPageGratification />} /> 
-                <Route path={ROUTES.CHECKOUT_FAILED} element={<CheckoutPaymentFailed />} /> 
-                <Route path={ROUTES.VERIFY_EMAIL_CODE} element={<VerifyEmailCodePage />} />
+                <Route
+                  path={ROUTES.CHECKOUT}
+                  element={
+                    <RenderComponenteIf
+                      condition={isIdOnCheckout}
+                      redirectTo={ROUTES.REGISTRO}
+                    >
+                      <CheckoutPage />
+                    </RenderComponenteIf>
+                  }
+                />
+                <Route
+                  path={ROUTES.CHECKOUT_SUCCESS}
+                  element={
+                    <RenderComponenteIf
+                      condition={isIdOnCheckout}
+                      redirectTo={ROUTES.REGISTRO}
+                    >
+                      <CheckoutPageGratification />
+                    </RenderComponenteIf>
+                  }
+                />
+                <Route
+                  path={ROUTES.CHECKOUT_FAILED}
+                  element={
+                    <RenderComponenteIf
+                      condition={isIdOnCheckout}
+                      redirectTo={ROUTES.REGISTRO}
+                    >
+                      <CheckoutPaymentFailed />
+                    </RenderComponenteIf>
+                  }
+                />
+                <Route
+                  path={ROUTES.VERIFY_EMAIL_CODE}
+                  element={
+                    <RenderComponenteIf
+                      condition={isEmailOnCheckout && isIdOnCheckout}
+                      redirectTo={ROUTES.REGISTRO}
+                    >
+                      <VerifyEmailCodePage />
+                    </RenderComponenteIf>
+                  }
+                />
                 {/* Platform */}
-                <Route path={ROUTES.PLATAFORMA_DASHBOARD} element={<DashboardPage />} />
-                <Route path={ROUTES.PLATAFORMA_PLANES} element={<DashboardPage />} />
-                <Route path={ROUTES.PLATAFORMA_PLANES_ID} element={<PlanMonthPage />} />
-                <Route path={ROUTES.PLATAFORMA_PLANES_CONTENIDO} element={<CoursePage />} />
-                <Route path={ROUTES.PLATAFORMA_PLANES_RESULTADOS} element={<ResultsPage />} />
-                <Route path={ROUTES.PLATAFORMA_PLANES_SIMULADOR} element={<SimulatorCoursePage />} />
-                <Route path={ROUTES.PLATAFORMA_PLANES_RETROALIMENTACION} element={<FeedbackPage />} />
-                <Route path={ROUTES.PLATAFORMA_AVISO_NOVEDADES} element={<AdvicePage />} />
-                <Route path={ROUTES.PLATAFORMA_RECURSOS} element={<ResourcesPage />} />
-                {/* <Route path={ROUTES.PLATAFORMA_RECURSOS_ID} element={<ResourceClass />} /> */}
-                <Route path={ROUTES.PLATAFORMA_SIMULADOR} element={<SimulatorsPage />} />
-                <Route path={ROUTES.PLATAFORMA_DOCUMENTOS} element={<StudyGuidePage />} />
-                <Route path={ROUTES.PLATAFORMA_CUENTA} element={<AccountPage />} />
-                <Route path={ROUTES.PLATAFORMA_DOCUMENTOS_GUIA} element={<StudyGuidePage />} />
-                <Route path={ROUTES.PLATAFORMA_DOCUMENTOS_PROGRAMA} element={<AcademicProgramPage />} />
-                <Route path={ROUTES.VERIFICAR_CORREO} element={<VerifyEmailCodePage />} />
+                <Route
+                  path={ROUTES.PLATAFORMA_DASHBOARD}
+                  element={
+                    <PlatformPrivateRoute>
+                      <DashboardPage />
+                    </PlatformPrivateRoute>
+                  }
+                />
+                <Route
+                  path={ROUTES.PLATAFORMA_PLANES}
+                  element={
+                    <PlatformPrivateRoute>
+                      <DashboardPage />
+                    </PlatformPrivateRoute>
+                  }
+                />
+                <Route
+                  path={ROUTES.PLATAFORMA_PLANES_ID}
+                  element={
+                    <PlatformPrivateRoute>
+                      <PlanMonthPage />
+                    </PlatformPrivateRoute>
+                  }
+                />
+                <Route
+                  path={ROUTES.PLATAFORMA_PLANES_CONTENIDO}
+                  element={
+                    <PlatformPrivateRoute>
+                      <CoursePage />
+                    </PlatformPrivateRoute>
+                  }
+                />
+                <Route
+                  path={ROUTES.PLATAFORMA_PLANES_RESULTADOS}
+                  element={
+                    <PlatformPrivateRoute>
+                      <ResultsPage />
+                    </PlatformPrivateRoute>
+                  }
+                />
+                <Route
+                  path={ROUTES.PLATAFORMA_PLANES_SIMULADOR}
+                  element={
+                    <PlatformPrivateRoute>
+                      <SimulatorCoursePage />
+                    </PlatformPrivateRoute>
+                  }
+                />
+                <Route
+                  path={ROUTES.PLATAFORMA_PLANES_RETROALIMENTACION}
+                  element={
+                    <PlatformPrivateRoute>
+                      <FeedbackPage />
+                    </PlatformPrivateRoute>
+                  }
+                />
+                <Route
+                  path={ROUTES.PLATAFORMA_AVISO_NOVEDADES}
+                  element={
+                    <PlatformPrivateRoute>
+                      <AdvicePage />
+                    </PlatformPrivateRoute>
+                  }
+                />
+                <Route
+                  path={ROUTES.PLATAFORMA_RECURSOS}
+                  element={
+                    <PlatformPrivateRoute>
+                      <ResourcesPage />
+                    </PlatformPrivateRoute>
+                  }
+                />
+                <Route
+                  path={ROUTES.PLATAFORMA_SIMULADOR}
+                  element={
+                    <PlatformPrivateRoute>
+                      <SimulatorsPage />
+                    </PlatformPrivateRoute>
+                  }
+                />
+                <Route
+                  path={ROUTES.PLATAFORMA_DOCUMENTOS}
+                  element={
+                    <PlatformPrivateRoute>
+                      <StudyGuidePage />
+                    </PlatformPrivateRoute>
+                  }
+                />
+                <Route
+                  path={ROUTES.PLATAFORMA_CUENTA}
+                  element={
+                    <PlatformPrivateRoute>
+                      <AccountPage />
+                    </PlatformPrivateRoute>
+                  }
+                />
+                <Route
+                  path={ROUTES.PLATAFORMA_DOCUMENTOS_GUIA}
+                  element={
+                    <PlatformPrivateRoute>
+                      <StudyGuidePage />
+                    </PlatformPrivateRoute>
+                  }
+                />
+                <Route
+                  path={ROUTES.PLATAFORMA_DOCUMENTOS_PROGRAMA}
+                  element={
+                    <PlatformPrivateRoute>
+                      <AcademicProgramPage />
+                    </PlatformPrivateRoute>
+                  }
+                />
+                <Route
+                  path={ROUTES.VERIFICAR_CORREO}
+                  element={
+                    <PlatformPrivateRoute>
+                      <VerifyEmailCodePage />
+                    </PlatformPrivateRoute>
+                  }
+                />
               </Routes>
             </SimulatorProvider>
           </GeneralProvider>
         </WidthProvider>
-    </AuthProvider>
-      </LandingProvider>
+      </AuthProvider>
+    </LandingProvider>
   );
 };
 

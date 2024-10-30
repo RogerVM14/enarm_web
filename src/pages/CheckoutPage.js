@@ -21,6 +21,7 @@ import showToast from "../utils/toasts/commonToasts";
 const CheckoutPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  
 
   const [stepDetails] = useState(false);
   const [loading, setLoading] = useState(false);

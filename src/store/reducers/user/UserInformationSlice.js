@@ -70,5 +70,7 @@ export const selectUserInfoComplete = (state) =>
   state.user.userInformation.info_completed;
 export const selectFullUserName = (state) =>
   state.user.userInformation.fullname;
+export const selectCheckoutUserId = (state) =>
+  state.user.userRegisterInformation.user_id;
 
 export default UserInformationSlice.reducer;
