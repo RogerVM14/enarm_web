@@ -1,0 +1,377 @@
+#dashboardWrapper {
+  display: grid;
+  grid-template-areas:
+    "header header"
+    "nav main";
+  grid-template-rows: 48px calc(100vh - 48px);
+  grid-template-columns: 208px calc(100vw - 208px);
+  position: relative;
+}
+
+#dashboardWrapper>header {
+  grid-area: header;
+  background-color: rgba(30, 115, 190, 1);
+}
+
+#dashboardWrapper>aside {
+  grid-area: nav;
+  background-color: rgba(255, 255, 255, 1);
+}
+
+#dashboardWrapper>main {
+  grid-area: main;
+  background-color: rgba(240, 242, 245, 1);
+  overflow-y: auto;
+}
+
+/* Dashboard Header Template*/
+
+.headerContainer {
+  display: inline-block;
+  width: 100%;
+}
+
+.navContainer {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+  align-items: center;
+  width: inherit;
+  padding-right: 16px;
+  padding-left: 16px;
+}
+
+.navContainer>button {
+  background: transparent;
+  border: none;
+  outline: none;
+  height: 48px;
+  width: 48px;
+  display: block;
+}
+
+.containerUser {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 0.5rem;
+  padding-left: 12px;
+  padding-right: 12px;
+  height: 48px;
+  align-items: center;
+}
+
+.containerUser p {
+  font-size: 14px;
+  font-family: PoppinsRegular;
+  font-weight: 400;
+  line-height: 1.5;
+  color: white;
+}
+
+/* Dashboard Aside Template */
+.asideStyle {
+  position: relative;
+  z-index: 1010;
+  box-shadow: 4px 0px 18px 0px #00000012;
+}
+
+.asideContainer {
+  height: 100%;
+  box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.15);
+}
+
+.asideContainer * {
+  font-family: PoppinsRegular;
+}
+
+.asideContainer nav {
+  font-family: PoppinsRegular;
+  height: inherit;
+}
+
+.asideFooter {
+  position: absolute;
+  bottom: 0;
+}
+
+.logoContainer {
+  color: #05B2FA;
+  font-size: 14px;
+  font-family: PoppinsRegular;
+  font-weight: 400;
+  line-height: 1.5;
+  display: flex;
+  align-items: center;
+  padding: 8px 10px;
+  justify-content: space-between;
+}
+
+.logoContainer .imageContainer {
+  width: 60px;
+  height: 60px;
+}
+
+.imageContainer img {
+  display: block;
+  width: inherit;
+  height: inherit;
+}
+
+.listOption .optionLink,
+.listOption .optionLinkSelected {
+  width: 100%;
+  display: flex;
+  padding: 8px 10px;
+  align-items: center;
+  gap: 6px;
+  font-family: PoppinsRegular;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.5;
+  text-decoration: none;
+}
+
+.optionLink {
+  color: rgba(0, 0, 0, 0.85);
+}
+
+.optionLink:hover {
+  background: #05B2FA;
+}
+
+.optionLinkSelected {
+  color: #05B2FA;
+}
+
+.listOption .optionSublink {
+  font-family: PoppinsRegular;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.5;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.85);
+  padding: 8px 40px;
+  display: block;
+}
+
+.optionLink .linkIcon {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+.optionSublink:hover {
+  background: #E6F7FF;
+}
+
+.chevronButton {
+  margin-left: auto;
+  height: min-content;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+}
+
+.chevronButton:hover {
+  background: transparent;
+}
+
+.mainLinkBlue {
+  color: var(--Primary, #05B2FA);
+  font-family: PoppinsRegular;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 32px;
+  margin-right: auto;
+  text-decoration: none;
+}
+
+nav[data-size="sm"] {
+  display: none;
+}
+
+nav[data-size="sm"] .navContainer {
+  display: flex;
+  align-items: center;
+  padding: 4px 16px;
+  background: var(--Background-Default, #FFF);
+  border-bottom: 1px solid rgba(238, 238, 238, 1);
+}
+
+.searchBar {
+  display: none;
+}
+
+.menuList,
+.listOption {
+  list-style: none;
+}
+
+.asideBackground {
+  display: block;
+}
+
+
+aside[data-portability=false],
+aside[data-portability=false] {
+  display: block;
+}
+
+*[data-portability=false] {
+  display: none;
+}
+
+.dropDownMenu {
+  position: absolute;
+  z-index: 2080;
+  right: 1rem;
+  border: 1px solid gray;
+}
+
+.dropDownMenu li {
+  padding: 9px 24px;
+  display: block;
+  max-width: 200px;
+  width: 100%;
+  background: rgba(248, 248, 248, 1);
+}
+
+.dropDownMenu li:hover {
+
+  background: rgb(240, 242, 245);
+}
+
+
+@media screen and (max-width: 1024px) {
+  #dashboardWrapper {
+    display: block;
+    position: relative;
+  }
+
+  #dashboardWrapper>aside {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100dvh;
+    box-shadow: -8px 0px 20px 0px rgba(0, 0, 0, .35);
+  }
+
+  *[data-portability=false] {
+    display: none;
+  }
+
+  .closeButton {
+    background-color: transparent;
+    padding: 4px;
+    border: none;
+    float: right;
+    margin-top: 8px;
+    margin-right: 8px;
+  }
+
+  aside[data-active=false][data-portability=true] {
+    display: none;
+  }
+
+  aside[data-active=true][data-portability=true] {
+    display: block;
+  }
+
+  .headerContainer nav[data-size="xl"] {
+    display: none;
+  }
+
+  .asideBackground {
+    display: block;
+    position: fixed;
+    z-index: 1000;
+    left: -100%;
+    width: 100%;
+    height: inherit;
+    background: rgba(0, 0, 0, 0.35);
+  }
+
+  nav[data-size="sm"] {
+    display: block;
+  }
+
+  .searchBar {
+    display: block;
+    border-radius: 2px;
+    background: var(--Neutral-1, #FFF);
+  }
+
+  .searchbarInput {
+    display: flex;
+    flex-wrap: nowrap;
+    border: 1px solid var(--Neutral-5, #D9D9D9);
+    padding: 22px 16px 8px 16px;
+  }
+
+  .searchbarInput input[type=text] {
+    padding: 4px 12px;
+    width: 100%;
+    border: none;
+    max-height: 32px;
+  }
+
+  .searchIconButton {
+    border: none;
+    width: 32px;
+    display: block;
+    height: 32px;
+  }
+
+  .asideFooter {
+    width: 100%;
+  }
+
+  .asideFooter .containerUser {
+    display: flex;
+    align-items: center;
+    border: none;
+    box-shadow: unset;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .asideFooter .containerUser p {
+    color: rgba(0, 0, 0, 0.85);
+  }
+
+  .asideFooter .containerUser svg {
+    margin-left: auto;
+  }
+
+  .userTools {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .userTools * {
+    display: block;
+    color: var(--character-title-85, rgba(0, 0, 0, 0.85));
+    font-family: PoppinsRegular;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+    text-decoration: none;
+    border: none;
+    background-color: transparent;
+    text-align: start;
+    padding: 9px 24px 9px 32px;
+    width: 100%;
+  }
+
+  .logoContainer {
+    display: none;
+  }
+}

@@ -1,224 +1,191 @@
-import React, { useContext, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../css/checkout/CheckoutPage.css";
 import { useNavigate } from "react-router-dom";
 import PaymentOptionsContainer from "../components/checkout/PaymentOptionsContainer";
 import PaymentDetailsContainer from "../components/checkout/PaymentDetailsContainer";
-import WidthContext from "../contexts/WidthContext";
-// import { useSelector } from "react-redux";
-// import { selectUserInformation } from "../store/reducers/user/UserInformationSlice";
-// import { CreateNewUser, loginUser } from "../apis/auth/authApi";
-// import moment from "moment";
-// import { getExpirationDate } from "../utils/DateFormats";
-// import { ERROR_MESSAGES, SUCCESS_MESSAGES } from "../constants/Messages";
-// import { setCookie } from "../utils/auth/cookieSession";
-// import { errorToast } from "../utils/toasts/commonToasts";
-import Conekta from "../components/Conekta";
-// import { ROUTES } from "../constants/routes";
+import {
+  resetCheckoutInformation,
+  selectCardInformation,
+} from "../store/reducers/checkout/checkoutInformationSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  createPaymentWithCard,
+  createTokenCardForPayment,
+  savePaymentInformationOnDataBase,
+} from "../apis/Checkout/CardPayment";
+import { ROUTES } from "../constants/routes";
+import PaymentLoader from "../components/loaders/PaymentLoader";
+import { selectUserCheckoutInformation } from "../store/reducers/user/UserInformationSlice";
+import showToast from "../utils/toasts/commonToasts";
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
-  const [stepDetails, setStepDetails] = useState(false);
-  const [loading] = useState(false);
-  // const [cardTokenId, setCardTokenId] = useState("");
-  // const { nameUser, email, phoneNumber, password } = useSelector(
-  //   selectUserInformation
-  // );
+  const dispatch = useDispatch();
 
-  const size = useContext(WidthContext);
-  const isMobile = () => {
-    if (["xs", "sm", "md"].includes(size)) return true;
-    if (["lg", "xl", "xxl"].includes(size)) return false;
+  const [stepDetails] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const { cardNumber, cvv, expirationDate, cardOwnerName } = useSelector(
+    selectCardInformation
+  );
+  const userInfo = useSelector(selectUserCheckoutInformation);
+  const { user_email, password, user_id } = userInfo;
+
+  const getWindowWidth = () => {
+    let x = window.innerWidth;
+    if (x < 576) return "xs";
+    if (x >= 576 && x <= 767) return "sm";
+    if (x >= 768 && x <= 991) return "md";
+    if (x >= 992 && x <= 1199) return "lg";
+    if (x >= 1200 && x <= 1399) return "xl";
+    if (x >= 1400) return "xxl";
   };
 
-  // const [paymentCheckoutiInfo, setPaymentCheckoutInfo] = useState({
-  //   cardNumber: "",
-  //   cvv: "",
-  //   expiredDate: "",
-  //   cardOwnerName: "",
-  // });
+  const [width, setWidth] = useState(getWindowWidth());
 
-  // const toastError = (errorMessage) => {
-  //   return toast.error(errorMessage, {
-  //     style: {
-  //       fontFamily: "PoppinsMedium",
-  //       height: "55px",
-  //     },
-  //     duration: 7000,
-  //   });
-  // };
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      const x = getWindowWidth();
+      setWidth(x);
+    });
+  }, [width]);
 
-  // const successCallback = (res) => {
-  //   setLoading(true);
-  //   const payload = {
-  //     name: nameUser,
-  //     phone: phoneNumber,
-  //     email: email,
-  //     token_id: res.id,
-  //   };
-  //   const order = createOrder(payload);
-  //   //4242424242424242
-  //   order
-  //     .then((res) => {
-  //       if (res?.data?.message === "Pago realizado con éxito") {
-  //         const userInformation = {
-  //           name: nameUser,
-  //           phone_number: phoneNumber,
-  //           email: email,
-  //           password: password,
-  //           status: 1,
-  //           created_date: moment(),
-  //           subscription_start: moment(),
-  //           subscription_end: getExpirationDate(),
-  //           type_user_id: 1,
-  //         };
-  //         console.log(userInformation);
-  //         CreateNewUser(userInformation)
-  //           .then((res) => {
-  //             if (
-  //               res.data.message === SUCCESS_MESSAGES.USER_CREATED_SUCCESSFULLY
-  //             ) {
-  //               loginUser({ email, password }).then((res) => {
-  //                 if (res.data.statusCode === 200) {
-  //                   setCookie("accessToken", res?.data?.token);
-  //                   navigate("/checkout_thankful");
-  //                   setLoading(false);
-  //                 }
-  //               });
-  //             }
-  //           })
-  //           .catch((err) => {
-  //             setLoading(false);
-  //             let errorMessageFromApi = err.response.data.message;
-  //             errorToast(ERROR_MESSAGES[errorMessageFromApi]);
-  //             console.log(err.response.data);
-  //           });
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log("Error: ", err.response.data.message);
-  //     });
-  // };
+  const isMobile = () => {
+    if (["xs", "sm", "md"].includes(width)) return true;
+    if (["lg", "xl", "xxl"].includes(width)) return false;
+  };
 
-  // const errorCallback = (err) => {
-  //   errorToast("Tarjeta inválida, intente nuevamente")
-  // };
+  useEffect(() => {
+    dispatch(resetCheckoutInformation());
+  }, []);
 
-  // const handleSubmitPaymentInformation = async () => {
-  //   const { cardNumber, cvv, expiredDate, cardOwnerName } =
-  //     paymentCheckoutiInfo;
+  const handleSubmitPaymentInformation = async () => {
+    const sanitizedCardNumber = cardNumber.replace(/-/g, "");
+    const [expirationMonth, expirationYear] = expirationDate.split("/");
+    setLoading(true);
+    const payload = {
+      cardNumber: sanitizedCardNumber,
+      expirationMonth: parseInt(expirationMonth, 10),
+      expirationYear: parseInt(expirationYear.slice(-2), 10),
+      securityCode: cvv,
+      // cardholderName: cardOwnerName, 
+      cardholderName: "APRO", //Usar para pruebas
+      docType: "RFC",
+      docNumber: "123456789012",
+    };
 
-  //   if (cardNumber === "" || cardNumber.length !== 16) {
-  //     errorToast("Favor de introducir un numero de tarjeta valido.");
-  //     return;
-  //   }
+    createTokenCardForPayment(payload)
+      .then((response) => {
+        if (response.data.statusCode === 200) {
+          const { token } = response?.data?.body;
+          const createPaymentPayload = {
+            token: token,
+            transactionAmount: 100,
+            description: "Compra curso ENARM",
+            installments: 1,
+            payerEmail: "roger.vazquez12@gmail.com",
+          };
+          createPaymentWithCard(createPaymentPayload).then((response) => {
+            const data = response?.data.body;
+            const { status, status_detail, id } = data;
+            const comissions =
+              data.transaction_details.total_paid_amount -
+              data.transaction_details.net_received_amount;
+              console.log(status);
+            if (status === "rejected") {
+              setLoading(false);
+              showToast.error(
+                "Tu tarjeta fue rechazada, intenta con otra o espera un momento"
+              );
+            }
+            if (status === "approved" && status_detail === "accredited") {
+              const paymentInfo = {
+                user_id: user_id,
+                payment_method: "Tarjeta",
+                external_order_id: id,
+                total: data.transaction_details.total_paid_amount || 0,
+                subtotal: data.transaction_details.net_received_amount,
+                commission: comissions,
+                payment_transaction_status: status,
+                payment_transaction_verification: true,
+              };
+              savePaymentInformationOnDataBase(paymentInfo)
+                .then((res) => {
+                  const message = res.data.status_Message;
+                  if (message === "payment transaction success") {
+                    setLoading(false);
+                    navigate(ROUTES.CHECKOUT_SUCCESS);
+                  } else {
+                    setLoading(false);
+                    showToast.error("Hubo un error al intentar pagar tu curso");
+                  }
+                })
+                .catch((err) => {
+                  setLoading(false);
+                  showToast.error("Hubo un error al intentar pagar tu curso");
+                });
+            }
+            setLoading(false);
+          });
+        }
+      })
+      .catch((error) => {
+        setLoading(false);
+        console.error(error);
+      });
+  };
 
-  //   if (cvv === "") {
-  //     errorToast("Favor de introducir el CVV de su tarjeta.");
-  //     return;
-  //   }
-
-  //   if (expiredDate === "") {
-  //     errorToast("Favor de introducir la fecha de vencimiento de su tarjeta.");
-  //     return;
-  //   }
-
-  //   if (cardOwnerName === "") {
-  //     errorToast("Favor de introducir su nombre tal como viene en su tarjeta.");
-  //     return;
-  //   }
-
-  //   if (cardNumber && cvv && expiredDate && cardOwnerName) {
-  //     conektaHelper.tokenize(
-  //       paymentCheckoutiInfo.cardNumber,
-  //       paymentCheckoutiInfo.cardOwnerName,
-  //       paymentCheckoutiInfo.expiredDate.substring(0, 2),
-  //       paymentCheckoutiInfo.expiredDate.substring(
-  //         3,
-  //         paymentCheckoutiInfo.expiredDate.length
-  //       ),
-  //       paymentCheckoutiInfo.cvv,
-  //       (res) => successCallback(res),
-  //       (err) => errorCallback(err)
-  //     );
-  //   }
-  // };
-
-  // const handleSuccessPayment = (e) => {
-  //   console.log(e);
-  //   const paymentStatus = e.charge.status;
-  //   if (paymentStatus === "paid") {
-  //     navigate(ROUTES.CHECKOUT_SUCCESS)
-  //   }
-  // };
-  return !isMobile() ? (
+  return (
     <>
-      <div className={`background-gradial ${size}`}></div>
-      <div className={`checkout-container ${size}`}>
-        <h1 className="bold-47">Información de Pago</h1>
-        <div className="payment-container">
-          <PaymentOptionsContainer
-            size={size}
-            isMobile={isMobile()}
-            // paymentInfoSetState={setPaymentCheckoutInfo}
-          />
+      {loading && <PaymentLoader />}
+      {!isMobile() ? (
+        <>
+          <div className={`background-gradial ${width}`}></div>
+          <div className={`checkout-container ${width}`}>
+            <h1 className="bold-47">Información de Pago</h1>
+            <div className="payment-container">
+              <PaymentOptionsContainer size={width} isMobile={isMobile()} />
 
-          <Conekta  />
+              <PaymentDetailsContainer
+                size={width}
+                isMobile={isMobile()}
+                handleSubmitPayment={handleSubmitPaymentInformation}
+                isLoading={loading}
+              />
+            </div>
+            <button
+              type="submit"
+              className={`backpage-btn ${width}`}
+              onClick={() => {
+                navigate(-1);
+              }}
+            >
+              <i className="material-icons">chevron_left</i>
+              <span className="montse-18">Volver</span>
+            </button>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className={`background-gradial ${width}`}></div>
+          <div className={`checkout-container ${width}`}>
+            {!stepDetails && (
+              <h1 className={`bold-${isMobile() ? "44 text-center" : "47"}`}>
+                Seleccione método de Pago
+              </h1>
+            )}
+            <div className="payment-container-medium">
+              <PaymentOptionsContainer size={width} isMobile={isMobile()} />
 
-          <PaymentDetailsContainer
-            size={size}
-            isMobile={isMobile()}
-            // handleSubmitPayment={handleSubmitPaymentInformation}
-            isLoading={loading}
-          />
-        </div>
-        <button
-          type="submit"
-          className={`backpage-btn ${size}`}
-          onClick={() => {
-            navigate(-1);
-          }}
-        >
-          <i className="material-icons">chevron_left</i>
-          <span className="montse-18">Volver</span>
-        </button>
-      </div>
-    </>
-  ) : (
-    <>
-      <div className={`background-gradial ${size}`}></div>
-      <div className={`checkout-container ${size}`}>
-        {!stepDetails && (
-          <h1 className={`bold-${isMobile() ? "44 text-center" : "47"}`}>
-            Seleccione método de Pago
-          </h1>
-        )}
-        <div className="payment-container">
-          {!stepDetails ? (
-            <PaymentOptionsContainer
-              size={size}
-              isMobile={isMobile()}
-              // paymentInfoSetState={setPaymentCheckoutInfo}
-            />
-          ) : (
-            <PaymentDetailsContainer
-              size={size}
-              isMobile={isMobile()}
-              // handleSubmitPayment={handleSubmitPaymentInformation}
-            />
-          )}
-        </div>
-        {!stepDetails && (
-          <button
-            type="submit"
-            className={`button-rounded-blue-48 ${size}`}
-            onClick={() => {
-              setStepDetails(true);
-            }}
-          >
-            <span className="button-text">Continuar a Detalles de Compra</span>
-          </button>
-        )}
-      </div>
+              <PaymentDetailsContainer
+                size={width}
+                isMobile={isMobile()}
+                handleSubmitPayment={handleSubmitPaymentInformation}
+                isLoading={loading}
+              />
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 };

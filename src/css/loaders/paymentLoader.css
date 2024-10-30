@@ -1,0 +1,100 @@
+.loader-container {
+    position: fixed; /* Fijar el loader para que cubra toda la pantalla */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo semi-transparente */
+    z-index: 2000; /* Asegurarse de que esté por encima del contenido */
+  }
+  
+  .payment-loader {
+    width: 150px;
+  }
+  
+  .payment-loader .pad {
+    width: 110px;
+    height: 68px;
+    border-radius: 8px;
+    border: 2px solid #00c4bd;
+    padding: 6px;
+    margin: 0 auto;
+  }
+  
+  .payment-loader .chip {
+    width: 12px;
+    height: 8px;
+    background: #00c4bd;
+    border-radius: 3px;
+    margin-top: 4px;
+    margin-left: 3px;
+  }
+  
+  .payment-loader .line {
+    width: 52px;
+    margin-top: 6px;
+    margin-left: 3px;
+    height: 4px;
+    background: #00c4bd;
+    border-radius: 100px;
+    opacity: 0;
+    animation: writeline 3s infinite ease-in;
+  }
+  
+  .payment-loader .line2 {
+    width: 32px;
+    margin-top: 6px;
+    margin-left: 3px;
+    height: 4px;
+    background: #00c4bd;
+    border-radius: 100px;
+    opacity: 0;
+    animation: writeline2 3s infinite ease-in;
+  }
+  
+  .payment-loader .loader-text {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    line-height: 16px;
+    color: #5f6571;
+    font-family: "PoppinsRegular";
+  }
+  
+  @keyframes writeline {
+    0% {
+      width: 0px;
+      opacity: 0;
+    }
+    33% {
+      width: 52px;
+      opacity: 1;
+    }
+    70% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  
+  @keyframes writeline2 {
+    0% {
+      width: 0px;
+      opacity: 0;
+    }
+    33% {
+      width: 32px;
+      opacity: 1;
+    }
+    70% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  

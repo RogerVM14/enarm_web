@@ -2,13 +2,18 @@ import React, { useRef, useState } from "react";
 import "../css/VerifyEmailCode.css";
 import verifyIcon from "../assets/icons/verify-email-icon.png";
 import { useSelector } from "react-redux";
-import { selectUserEmail } from "../store/reducers/user/UserInformationSlice";
+import { selectUserCheckoutInformation } from "../store/reducers/user/UserInformationSlice";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../constants/routes";
 import { verifyEmailCode } from "../apis/auth/authApi";
+import showToast from "../utils/toasts/commonToasts";
+// import { verifyEmailCode } from "../apis/auth/authApi";
+
 const VerifyEmailCodePage = () => {
   const [values, setValues] = useState(["", "", "", "", "", ""]);
   const [isReadyToVerify, setIsReadyToVerify] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   const fields = useRef([
     React.createRef(),
@@ -19,7 +24,15 @@ const VerifyEmailCodePage = () => {
     React.createRef(),
   ]);
 
-  const email = useSelector(selectUserEmail);
+  // const email = useSelector(selectUserCheckoutEmail);
+  const userInfo = useSelector(selectUserCheckoutInformation);
+  const { user_email, user_id } = userInfo;
+  const getConcatenatedValues = () => {
+    const concatenatedValues = fields.current
+      .map((fieldRef) => fieldRef?.current?.value)
+      .join("");
+    return concatenatedValues;
+  };
 
   const handleChange = (index, event) => {
     const newValues = [...values];
@@ -38,15 +51,42 @@ const VerifyEmailCodePage = () => {
     }
   };
 
-  const handleVerifyCode = () => {
-    const code = values.join("");
-    verifyEmailCode(email, code)
-      .then((res) => {
-        if (res.data.statusCode === 200) {
+  const handleVerifyCode = async () => {
+    setIsLoading(true);
+    setErrorMessage("");
+    const verifyCode = getConcatenatedValues();
+    const payload = {
+      user_email,
+      auth_code: verifyCode,
+      user_id,
+    };
+
+    try {
+      verifyEmailCode(payload).then((res) => {
+        const message = res.data.status_Message;
+        if (message === "authentication expired")
+          setErrorMessage("El código es inválido o ya expiro");
+        if (message === "authentication done") {
+          setErrorMessage("");
+          showToast.success("Tú correo fue verificado");
           navigate(ROUTES.CHECKOUT);
         }
-      })
-      .catch((err) => console.log(err));
+
+        console.log(res);
+      });
+      // if (res.data.statusCode === 200) {
+      //   setIsSuccess(true);
+      //   navigate(ROUTES.CHECKOUT);
+      // } else {
+      //   setErrorMessage("Código incorrecto o ha expirado. Intenta nuevamente.");
+      // }
+    } catch (error) {
+      setErrorMessage(
+        "Hubo un error con la verificación. Por favor, inténtalo nuevamente."
+      );
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -61,12 +101,10 @@ const VerifyEmailCodePage = () => {
         <div className="we-sent-message">
           <p>
             Hemos enviado un código de verificación a la cuenta de correo
-            electrónico <strong> {email} </strong>. Asegúrate de revisar la
+            electrónico <strong>{user_email}</strong>. Asegúrate de revisar la
             carpeta de SPAM, en caso de no encontrarlo en tu bandeja principal.
           </p>
         </div>
-
-        {/* Code Fields */}
 
         <div className="code-fields-container">
           {values.map((value, index) => (
@@ -83,15 +121,27 @@ const VerifyEmailCodePage = () => {
             </div>
           ))}
         </div>
+
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
+
         <div className="verify-button-container">
-          <button disabled={!isReadyToVerify} onClick={handleVerifyCode}>
-            {" "}
-            Verificar{" "}
+          <button
+            onClick={handleVerifyCode}
+            disabled={!isReadyToVerify || isLoading}
+          >
+            {isLoading ? (
+              <>
+                <span className="loader"></span> Verificando
+              </>
+            ) : (
+              "Verificar"
+            )}
           </button>
         </div>
+
         <div className="email-verify-footer">
           <p>Puede tomar un minuto el recibir el código.</p>
-          <p>¿No haz recibido el código?</p>
+          <p>¿No has recibido el código?</p>
           <p style={{ marginTop: "10px" }}>
             <strong>Reenviar nuevo código</strong>
           </p>

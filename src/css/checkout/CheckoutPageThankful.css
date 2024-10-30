@@ -1,3 +1,6 @@
+
+
+
 div.gratification-container {
     display: flex;
     flex-direction: column;
@@ -5,27 +8,100 @@ div.gratification-container {
     position: relative;
     z-index: 1090;
     width: 100%;
-    max-width: 588px;
-    padding: 40px;
+    max-width: 90vw;
     align-items: center;
+    justify-content: center;
+    min-height: 100vh;
 }
 
 div.gratification-container img {
-    width: 413px;
+    width: 100%;
+    max-width: 400px;
+    height: auto;
     position: relative;
-} 
+}
 
 div.gratification-container h1 {
     text-align: center;
-    width: 588px;
+    width: 100%;
+    max-width: 90vw;
     position: relative;
     top: -32px;
+    font-size: 5vw;
 }
 
-div.gratification-container > span {
+div.gratification-container>span {
     position: relative;
     top: -32px;
     display: block;
-    width: 534px;
+    width: 100%;
+    max-width: 80vw;
     text-align: center;
+    font-size: 4vw;
+}
+
+.auto-redirect-message {
+    margin-top: 20px;
+    font-size: 16px;
+    text-align: center;
+    color: #555;
+    font-weight: 400;
+    font-family: PoppinsMedium;
+}
+
+
+
+
+@media (max-width: 576px) {
+    div.gratification-container {
+        padding: 10px;
+    }
+
+    div.gratification-container h1 {
+        font-size: 6vw;
+    }
+
+    div.gratification-container>span {
+        font-size: 3.5vw;
+    }
+
+    div.gratification-container img {
+        width: 70%;
+    }
+
+    .auto-redirect-message {
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1200px) {
+    div.gratification-container {
+        max-width: 600px;
+    }
+
+    div.gratification-container h1 {
+        font-size: 4vw;
+    }
+
+    div.gratification-container>span {
+        font-size: 3vw;
+    }
+}
+
+@media (min-width: 1200px) {
+    div.gratification-container {
+        max-width: 600px;
+    }
+
+    div.gratification-container h1 {
+        font-size: 2vw;
+    }
+
+    div.gratification-container>span {
+        font-size: 1.3vw;
+    }
+
+    div.gratification-container img {
+        width: 100%;
+    }
 }

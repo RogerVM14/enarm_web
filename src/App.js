@@ -4,10 +4,10 @@ import AppRouter from "./AppRouter";
 
 const App = () => {
   return (
-    <div>
+    <React.Fragment>
       <AppRouter />
       <Toaster />
-    </div>
+    </React.Fragment>
   );
 };
 

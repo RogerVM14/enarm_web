@@ -1,0 +1,47 @@
+
+.organizedLinks li {
+  padding-top: 8px;
+  list-style: none;
+}
+
+.unorganizedSublinks li {
+  padding-left: 12px;
+  list-style-position: inside;
+  position: relative;
+  margin-left: 16px;
+}
+
+.unorganizedSublinks li::before {
+  content: "";
+  width: 4px;
+  height: 4px;
+  background: rgba(30, 115, 190, 1);
+  border: none;
+  border-radius: 50%;
+  position: absolute;
+  top: 17px;
+  left: 0;
+}
+
+
+.organizedLinks li a,
+.unorganizedSublinks li a {
+  text-decoration: none;
+  font-family: PoppinsRegular;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+  color: #000;
+}
+
+li a.guideHasUrl,
+li a.linkHasUrl {
+  color: rgba(30, 115, 190, 1);
+}
+
+li a.guideHasUrl:hover ,
+li a.linkHasUrl:hover  {
+  text-decoration: underline;
+  
+}

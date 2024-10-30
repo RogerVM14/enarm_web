@@ -1,0 +1,112 @@
+section[datatype=sharedSection] {
+  position: relative;
+}
+
+section[datatype=sharedSection] .sectionContainer {
+  padding: 100px 120px;
+}
+
+section[datatype=sharedSection] .containerFlex {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.flexInformation>*:not(ul, a, p:last-child) {
+  margin-bottom: 16px;
+}
+
+.discountList {
+  margin-bottom: 40px;
+  list-style: none;
+}
+
+.discountList li {
+  display: inline-flex;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+
+.discountList>li:not(:last-child) {
+  margin-bottom: 12px;
+}
+
+.blueLink {
+  padding: 13px 24px;
+  display: block;
+  color: var(--White-Text, #FFF);
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+  letter-spacing: 0.36px;
+  border-radius: 50px;
+  background: #05B2FA;
+  text-decoration: none;
+  white-space: nowrap;
+  border: none;
+  transition: background-color 250ms linear;
+  max-width: 216px;
+}
+
+.blueLink:hover{
+  cursor: pointer;
+  background-color: #00A0E2;
+  transition: background-color 250ms linear;
+}
+ 
+@media screen and (max-width: 576px) {
+
+  section[datatype=sharedSection] .sectionContainer {
+    padding: 60px 0px 0px 0px !important;
+  }
+
+  section[datatype=sharedSection] .containerFlex {
+    flex-direction: column-reverse;
+  }
+
+  .discountList {
+    margin-bottom: 24px;
+  }
+
+  .discountList li {
+    gap: 6px;
+    align-items: flex-start;
+  }
+
+  .discountList>li:not(:last-child) {
+    margin-bottom: 6px;
+  }
+
+  .blueLink {
+    max-width: unset;
+    width: 100%;
+  }
+
+  .imageContainer{
+    width: 100%;
+    margin-top: 40px;
+  }
+  
+  .imageContainer img  {
+    display: inherit;    
+    width: inherit;
+    margin-inline: auto;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+
+  section[datatype=sharedSection] .sectionContainer {
+    padding: 70px 0px;
+  }
+ 
+  section[datatype=sharedSection] .containerFlex {
+    gap: 20px;
+    align-items: center;
+  }
+  
+}

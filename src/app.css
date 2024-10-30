@@ -1,0 +1,305 @@
+ 
+:root {
+  --padding-x: 120px;
+  --padding-section: 100px var(--padding-x) 100px var(--padding-x);
+  --dark: #000000;
+  --white: #FFFFFF;
+  --blue: #05B2FA;
+  --dark-blue: #1E73BE;
+  --danger: #f15e5e;
+  --green: #04B43E;
+  --gray: #96ACBC;
+}
+ 
+.full-container {
+  max-width: 1440px;
+  width: 100%;
+  margin-inline: auto;
+  position: relative; 
+}
+
+.container-section {
+  padding: var(--padding-section);
+}
+
+.main-title {
+  font-family: PoppinsMedium;
+  font-size: 47px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 1.4px;
+}
+
+.main-title-bold {
+  font-family: PoppinsBold;
+  font-size: 47px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.section-title {
+  font-family: PoppinsBold;
+  font-size: 39px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 58px;
+  letter-spacing: 1.2px;
+}
+
+.section-subtitle {
+  font-family: PoppinsBold;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+}
+
+.section-subtitle-33 {
+  font-family: PoppinsMedium;
+  font-size: 33px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.regular-parraf {
+  font-family: PoppinsRegular;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.regular-parraf-14 {
+  font-family: PoppinsRegular;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.regular-parraf-20 {
+  font-family: PoppinsRegular;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.input-label {
+  font-family: PoppinsMedium;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.blueLinkBtn {
+  display: block;
+  border-radius: 50px;
+  background-color: #05B2FA;
+  padding: 12px 32px;
+  color: var(--White-Text, #FFF);
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 800;
+  text-decoration: none;
+  line-height: normal;
+  letter-spacing: 0.36px;
+  transition: background-color 200ms linear;
+  max-width: max-content;
+}
+
+.blueLinkBtn:hover {
+  background: #0397d6;
+  transition: background-color 200ms linear;
+}
+
+.regular-parraf.bold {
+  font-weight: 700 !important;
+}
+
+.white {
+  color: var(--white);
+}
+
+.bg-white {
+  background: var(--white);
+}
+
+.dark {
+  color: var(--dark);
+}
+
+.bg-dark {
+  background: var(--dark);
+}
+
+.dark-blue {
+  color: var(--dark-blue);
+}
+
+.bg-dark-blue {
+  background: var(--dark-blue);
+}
+
+.danger {
+  color: var(--danger);
+}
+
+.bg-danger {
+  background: var(--danger);
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.text-left {
+  text-align: start;
+}
+
+.text-right {
+  text-align: end;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mx-auto {
+  margin-inline: auto;
+  display: block;
+}
+
+.regular-parraf>span.strong {
+  font-family: inherit;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700 !important;
+  line-height: normal;
+}
+
+
+.regular-parraf-14>span.strong {
+  font-family: inherit;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700 !important;
+  line-height: normal;
+}
+
+@media screen and (max-width: 1440px) {
+  :root {
+    --padding-x: 80px;
+    --padding-section: var(--padding-x);
+  }
+
+  .container-section {
+    padding: var(--padding-section);
+  }
+
+}
+
+@media screen and (max-width: 1280px) {
+
+  :root {
+    --padding-x: 32px;
+    --padding-section: 70px var(--padding-x) 70px var(--padding-x);
+  }
+
+  .container-section {
+    padding: var(--padding-section);
+  }
+
+}
+
+@media screen and (max-width: 1024px) {
+
+  :root {
+    --padding-x: 32px;
+    --padding-section: 60px var(--padding-x);
+  }
+
+  .container-section {
+    padding: var(--padding-section);
+  }
+
+  .section-title {
+    font-size: 33px;
+    line-height: 1.25;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  :root {
+    --padding-x: 24px;
+    --padding-section: 60px var(--padding-x);
+  }
+
+  .container-section {
+    padding: var(--padding-section);
+  }
+
+}
+
+@media screen and (max-width: 576px) {
+
+  .container-section {
+    padding: var(--padding-section);
+  }
+
+  .main-title,
+  .main-title-bold {
+    font-size: 44px;
+    font-weight: 700;
+    letter-spacing: 1.32px;
+    line-height: 1.25;
+  }
+
+  .regular-parraf,
+  .regular-parraf>span.strong {
+    font-size: 14px
+  }
+
+  .section-title {
+    font-size: 33px;
+    line-height: 1.25;
+  }
+
+  .input-label {
+    font-family: PoppinsMedium;
+    font-size: 14px;
+  }
+
+  .section-subtitle-33 {
+    font-size: 29px;
+    line-height: 1.25;
+  }
+
+  .blueLinkBtn.w-282,
+  .blueLinkBtn.w-216 {
+    width: 100%;
+  }
+
+  .regular-parraf-14 {
+    font-size: 12px;
+  }
+
+  .regular-parraf-23 {
+    font-size: 20px;
+  }
+
+  .full-width {
+    width: 100%;
+    max-width: 100% !important;
+  }
+}

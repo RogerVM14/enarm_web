@@ -1,0 +1,36 @@
+#ready {
+  position: relative;
+  padding: 72px 24px;
+}
+ 
+#ready h2 {
+  margin-bottom: 40px;
+}
+
+#ready .cards {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+}
+
+#ready .cards .card  {
+  width: 100%;
+  border: 2px solid var(--sky-blue);
+  border-radius: 10px;
+  padding: 40px;
+}
+
+.card .bg-white {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.cardList {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+ 

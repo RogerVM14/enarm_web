@@ -14,6 +14,14 @@ div.payment-container {
     margin-bottom: 54px;
 }
 
+div.payment-container-medium {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    margin-top: 30px;
+    margin-bottom: 54px;
+}
+
 div.payment-options-box {
     width: 100%;
     max-width: 588px;
@@ -25,6 +33,7 @@ div.payment-options-box {
 div.payment-options-box div.options-payments {
     display: flex;
     flex-direction: column;
+    margin-bottom: 20px;
 }
 
 div.options-payments div.payment {
@@ -98,6 +107,13 @@ div.payment-form form div.form-input input[type="text"] {
     padding: 16px 17px;
 }
 
+.form-fields {
+    background: #FFFFFF;
+    border: 1px solid #96ACBC;
+    border-radius: 10px;
+    padding: 16px 17px;
+}
+
 div.payment-form form div.form-input input[type="text"]::placeholder {
     color: #96ACBC;
 }
@@ -124,6 +140,13 @@ div.payment-details-box div.details-payments {
     display: flex;
     flex-direction: column;
     gap: 32px;
+}
+
+div.payment-details-box div.details-payments-medium {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    margin-top: 50px;
 }
 
 div.payment-details-box div.details-payments div.details {
@@ -241,4 +264,12 @@ div.payment-details-box.xs div.details-payments div.details div.details-payments
 .background-gradial.xs {
     height: 90vh;
     clip-path: unset;
+}
+
+.visible {
+    display: block;
+}
+
+.hidden {
+    display: none;
 }

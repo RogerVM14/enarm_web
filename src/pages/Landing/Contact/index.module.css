@@ -1,0 +1,134 @@
+#hero .sectionContainer {
+  padding: 100px 120px;
+}
+
+#hero .containerGrid {
+  display: grid;
+  grid-template-areas:
+    "title title form form"
+    "contact image form form"
+    "media image form form";
+}
+
+[data-area="title"] {
+  grid-area: title;
+  max-width: 588px;
+}
+
+[data-area="contact"] {
+  grid-area: contact;
+}
+
+[data-area="image"] {
+  grid-area: image;
+}
+
+[data-area="form"] {
+  grid-area: form;
+}
+
+[data-area="media"] {
+  grid-area: media;
+}
+
+.imageContainer img {
+  display: inherit;
+  width: inherit;
+}
+
+.mediaIcons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.formContainer form .formInput:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+
+
+.formInput input,
+.formInput textarea {
+  border-radius: 10px;
+  border: 1px solid #96ACBC;
+  background: #FFF;
+  padding: 18px 16px;
+  width: 100%;
+}
+
+.contactMedia {
+  position: relative;
+  padding-left: 32px;
+}
+
+.contactMedia img {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.mediaContainer {
+  padding: 12px 0px 32px 0px;
+}
+
+.mediaContainer p {
+  margin-bottom: 12px;
+}
+
+.contactContainer .containerBody {
+  margin-top: 12px;
+}
+
+@media screen and (max-width: 1024px) {
+  #hero .sectionContainer {
+    padding: 70px 0px;
+  }
+
+  #hero .containerGrid {
+    grid-template-areas:
+      "title title"
+      "contact form"
+      "media form"
+      "image form";
+  }
+
+  [data-area="title"] {
+    text-align: center;
+    margin-bottom: 16px;
+    margin-inline: auto;
+  }
+
+  [data-area="form"] {
+    width: 100%;
+    max-width: 337px;
+    margin-left: auto;
+  }
+}
+
+@media screen and (max-width: 576px) {
+
+  #hero .containerGrid {
+    grid-template-areas:
+      "title title"
+      "contact image"
+      "media media"
+      "form form";
+  }
+
+
+  [data-area="title"]>h1 {
+    margin-bottom: 16px;
+  }
+
+  [data-area="image"]>.imageContainer {
+    width: 100%;
+    max-width: 184px;
+    display: block;
+  }
+
+  [data-area="form"] {
+    width: 100%;
+    max-width: 100%;
+  }
+}

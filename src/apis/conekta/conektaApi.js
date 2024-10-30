@@ -1,6 +1,6 @@
 import axios from "axios";
-const { REACT_APP_ENARM_API_GATEWAY_URL } = process.env;
-const contektaUrl = `${REACT_APP_ENARM_API_GATEWAY_URL}conekta`;
+const { REACT_APP_ENARM_API_GATEWAY_URL_MP } = process.env;
+const contektaUrl = `${REACT_APP_ENARM_API_GATEWAY_URL_MP}conekta`;
 export const createClientConekta = (userName, email, phone) => {
   const payload = {
     name: userName,

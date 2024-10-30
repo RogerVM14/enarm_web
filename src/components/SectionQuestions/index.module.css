@@ -1,0 +1,39 @@
+#questions .sectionContainer {
+  display: block;
+  padding: 100px 0;
+  max-width: 790px;
+  margin-inline: auto;
+}
+
+.questionItems {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
+  justify-content: center;
+}
+
+.questionCard {
+  padding: 1rem;
+  width: 100%;
+  outline: 1px solid transparent;
+  background: white;
+  transition: all 200ms linear;
+}
+
+.questionCard[aria-selected=true] {
+  outline: 2px solid var(--blue);
+  border-radius: 10px;
+  transition: all 200ms linear;
+}
+
+.questionCard .containerBody {
+  padding-top: 12px;
+}
+
+.questionCard .containerBody a {
+  display: block;
+  margin-left: auto;
+  text-decoration: none;
+  max-width: max-content;
+}

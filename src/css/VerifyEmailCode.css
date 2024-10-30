@@ -120,6 +120,15 @@ div.email-verify-footer strong {
   margin-top: 30px;
 }
 
+.error-message {
+  color: red;
+  font-size: 14px;
+  font-family: PoppinsBold;
+  margin-top: 20px;
+  text-align: center;
+}
+
+
 /* // Medium devices (tablets, 768px and up) */
 @media screen and (min-width: 750px) {
   div.verify-email-container {

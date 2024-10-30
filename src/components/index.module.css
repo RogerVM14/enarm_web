@@ -1,0 +1,235 @@
+.headerContainer {
+  max-width: 1440px;
+  display: block;
+  position: relative;
+  padding-left: 32px;
+  padding-right: 32px;
+  margin-inline: auto;
+}
+
+.imageContainer {
+  width: 104px;
+  height: 104px;
+  display: block;
+}
+
+.imageContainer img {
+  width: inherit;
+  height: inherit;
+  display: inherit;
+}
+
+.containerNavigation {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.navigationLinks,
+.authLinks,
+.linkWithIcon {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  list-style: none;
+}
+
+.navigationLinks {
+  gap: 38px;
+}
+
+.authLinks {
+  gap: 28px;
+}
+
+li>a {
+  text-decoration: none;
+  color: #000;
+  font-family: PoppinsRegular;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  transition: color 200ms linear;
+}
+
+li:hover>a {
+  color: #05B2FA;
+  transition: color 200ms linear;
+}
+
+.containerNavLinks a[aria-current=page] {
+  color: #05B2FA;
+  font-weight: 600;
+}
+
+a[data-rounded=true] {
+  padding: 6px 14px;
+  border: 1px solid #000;
+  border-radius: 20px;
+} 
+
+.linkWithIcon {
+  gap: 8px;
+}
+
+.blueRoundedLink {
+  border-radius: 17.5px;
+  border: none;
+  background: #05B2FA;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+  color: var(--White-Text, #FFF);
+  text-align: center;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: Montserrat;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: 0.32px;
+  padding: 6px 27px;
+  transition: all 200ms linear;
+}
+
+.blueRoundedLink:hover {
+  outline: 1px solid #000;
+  color: #FFF;
+  transition: all 200ms linear;
+}
+
+.navigationHeader[datatype=small],
+.containerNavLinks>div[datatype=small],
+a.blueRoundedLink[datatype=small] {
+  display: none;
+}
+
+.closeButton,
+.burgerMenu {
+  border: none;
+  background: transparent;
+  display: block;
+  width: max-content;
+  height: max-content;
+  height: 24px;
+  width: 24px;
+}
+
+@media screen and (max-width: 1280px) {
+  li>a {
+    font-size: 14px;
+  }
+
+  .navigationLinks {
+    gap: 20px;
+  }
+
+  .authLinks {
+    gap: 16px;
+  }
+
+}
+
+
+@media screen and (max-width: 1024px) {
+  .imageContainer {
+    width: 80px;
+    height: 80px;
+  }
+
+  .headerContainer {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .navigationHeader {
+    min-height: 80px;
+    display: flex !important;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .containerNavLinks[data-display=true] {
+    display: flex !important;
+  }
+
+  .containerNavLinks[data-display=false] {
+    display: none !important;
+  }
+
+  .containerNavLinks {
+    position: fixed;
+    height: calc(100dvh - 80px);
+    width: 100%;
+    top: 80px;
+    left: 0;
+    background: #FFF;
+    z-index: 2010;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 28px;
+  }
+
+  .containerNavigation .navigationLinks {
+    flex-flow: column nowrap;
+    height: 100%;
+    width: 100%;
+    gap: 27px;
+  }
+
+  .navigationLinks li {
+    width: inherit;
+  }
+
+  .headerTools {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .imageContainer[datatype=large] {
+    display: none;
+  }
+
+  a[data-rounded=true] {
+    padding: 0;
+    border: unset;
+    border-radius: unset;
+  }
+
+  .navigationLinks li>a {
+    line-height: 40px;
+    text-align: start;
+    padding-left: 6px;
+    font-family: MontserratRegular;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: .32px;
+    display: block;
+    width: inherit;
+    padding: 8px 0px;
+  }
+
+  a.blueRoundedLink[datatype=small] {
+    display: block;
+    text-align: center;
+    font-size: 14px;
+    text-decoration: none;
+    font-weight: 700;
+  }
+
+  .containerNavLinks a.blueRoundedLink[datatype=small] {
+    max-width: 480px;
+    margin-inline: auto;
+    width: 100%;
+  }
+
+  .authLinks {
+    display: none;
+  }
+}

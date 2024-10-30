@@ -1,0 +1,43 @@
+.sectionContainer {
+  padding: 100px 0;
+}
+
+.sectionContainer h2 {
+  margin-bottom: 16px;
+}
+
+.containerIcons {
+  padding-top: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 160px; 
+}
+
+.containerIcons a img {
+  width: 40px;
+  height: 40px;
+  display: block;
+  transform: scale(1);
+  transition: all 200ms linear;
+}
+
+.containerIcons a:hover img {
+  transform: scale(1.5);
+  transition: all 200ms linear;
+}
+
+@media screen and (max-width: 576px) {
+  .sectionContainer {
+    padding: 60px 0;
+  }
+
+  .containerIcons {
+    padding-top: 32px;
+    justify-content: space-between;
+    gap: unset; 
+    width: 100%;
+
+  }
+}

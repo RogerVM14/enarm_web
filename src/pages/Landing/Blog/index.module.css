@@ -1,0 +1,138 @@
+#heroBlog [aria-details="hero"] {
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+#heroBlog .containerTitle {
+  max-width: 790px;
+  margin-inline: auto;
+  display: block;
+  padding-bottom: 40px;
+}
+
+#heroBlog .containerParraf {
+  max-width: 588px;
+  margin-inline: auto;
+  display: block;
+  padding-bottom: 8px;
+}
+
+#article [aria-details="entries"] {
+  padding-top: 0px;
+}
+
+#article .containerGrid {
+  margin-top: 40px;
+}
+
+#article .gridEntries {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(384px, 1fr));
+  gap: 24px;
+}
+ 
+
+#entries .gridEntries {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(384px, 1fr));
+  grid-template-rows: repeat(3, 1fr);
+  row-gap: 24px;
+  column-gap: 24px;
+}
+
+#entries [aria-details="entries"]>h2 {
+  margin-bottom: 32px;
+}
+
+.entryCard {
+  overflow: hidden;
+}
+
+.cardImage {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.entryCard .cardImage img {
+  width: -webkit-fill-available;
+  display: block;
+  object-fit: inherit;
+  height: inherit;
+  transition: all 200ms linear;
+}
+
+.entryCard:hover .cardImage img {
+  transform: scale(1.15);
+  transition: all 200ms linear;
+}
+
+.entryCard .cardInformation {
+  box-shadow: inset 0px 0px 0px 2px var(--blue);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding: 16px;
+}
+
+.cardInformation .informationDate {
+  color: #96ACBC;
+  font-family: PoppinsRegular;
+  font-size: 14px;
+}
+
+.cardInformation>p {
+  font-size: 16px;
+  padding: 0.5rem 0;
+}
+
+.gridPagination {
+  padding-top: 40px;
+  text-align: center;
+}
+
+@media screen and (max-width: 1440px) {
+ 
+
+  #article .containerGrid,
+  #entries .containerGrid {
+    max-width: 1200px;
+    margin-inline: auto;
+  }
+
+}
+
+@media screen and (max-width: 1280px) {
+ 
+  #article .gridEntries,
+  #entries .gridEntries {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .headerContainer {
+    padding: 70px 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+
+  #article .gridEntries,
+  #entries .gridEntries {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 576px) {
+
+  #article .gridEntries,
+  #entries .gridEntries {
+    grid-template-columns: 1fr;
+  }
+  #heroBlog .containerParraf {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}

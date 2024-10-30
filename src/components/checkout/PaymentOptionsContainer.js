@@ -1,98 +1,117 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 // import oxxopay from "../../assets/icons/checkout/oxxopay.png";
-// import americanexpress from "../../assets/icons/checkout/americanexpress.png";
-// import visa from "../../assets/icons/checkout/visa.png";
-// import mastercard from "../../assets/icons/checkout/mastercard.png";
-import Conekta from "../Conekta";
+import americanexpress from "../../assets/icons/checkout/americanexpress.png";
+import visa from "../../assets/icons/checkout/visa.png";
+import mastercard from "../../assets/icons/checkout/mastercard.png";
+import mercadoPago from "../../assets/icons/checkout/mercadopago.webp";
+import CheckoutForm from "../MercadoPago/CheckoutForm";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  currentPaymenthMethodSelected,
+  selectCardInformation,
+  setPaymentMethod,
+  updateCardInformation,
+} from "../../store/reducers/checkout/checkoutInformationSlice";
 
-// import paypal from "../../assets/icons/checkout/paypal.png";
 const PaymentOptionsContainer = (props) => {
-  // const [cardNumber, setCardNumber] = useState("");
-  // const [cvvCode, setCvvCode] = useState("");
-  // const [expireDate, setExpireDate] = useState("");
+  const { size, isMobile } = props;
 
-  const { size, handleSuccesPayment } = props;
-  // const { size, isMobile, paymentInfoSetState } = props;
+  // Redux hooks
+  const dispatch = useDispatch();
 
-  // const regularText = () => {
-  //   return isMobile ? "regular-14" : "regular-16";
-  // };
+  // Obtener la información desde Redux
+  const selectedPaymentMethod = useSelector(currentPaymenthMethodSelected);
+  const { cardNumber, cvv, expirationDate, cardOwnerName } = useSelector(
+    selectCardInformation
+  );
 
-  // const mediumText = () => {
-  //   return isMobile ? "medium-14" : "medium-16";
-  // };
+  const [showMercadoPago, setShowMercadoPago] = useState(
+    selectedPaymentMethod === "mercadoPago"
+  );
 
-  // const boldText = () => {
-  //   return isMobile ? "bold-14" : "bold-16";
-  // };
+  const regularText = () => (isMobile ? "regular-14" : "regular-16");
+  const mediumText = () => (isMobile ? "medium-14" : "medium-16");
+  const boldText = () => (isMobile ? "bold-14" : "bold-16");
 
-  useEffect(() => {}, []);
+  const handleChange = (event) => {
+    const { name, value } = event.target;
 
-  // const handleChange = (event) => {
-  //   const { name, value } = event.target;
-  //   paymentInfoSetState((prevState) => {
-  //     return {
-  //       ...prevState,
-  //       [name]: value,
-  //     };
-  //   });
-  // };
+    if (name === "cardOwnerName" && !/^[a-zA-Z\s]*$/.test(value)) {
+      return; 
+    }
+    dispatch(updateCardInformation(name, value));
+  };
 
-  // const onlyNumberValidation = (event) => {
-  //   if (!Number(event.target.value) && event.target.value !== "") return false;
-  //   handleChange(event);
-  //   return true;
-  // };
+  const handleCardNumberChange = (e) => {
+    const value = e.target.value.replace(/\D/g, ""); 
+    const formattedValue = value.replace(/(\d{4})(?=\d)/g, "$1-"); 
+    handleChange({ target: { name: "cardNumber", value: formattedValue } });
+  };
 
-  //Handles Functions
-  //   const handleOwnerName = (name) => setCardOwnerName(name);
-  //   const handleCvvNumber = (cvv) => setCvv(cvv);
-  //   const handleExpireDate = (date) => setExpirationDate(date);
-  //   const handleCardNumber = (cardNumber) => setCardNumber(cardNumber);
+  const handleCvvChange = (e) => {
+    const value = e.target.value.replace(/\D/g, ""); 
+    handleChange({ target: { name: "cvv", value: value.slice(0, 4) } });
+  };
+
+  const handleExpireDateChange = (e) => {
+    const value = e.target.value.replace(/\D/g, ""); 
+    let formattedValue = value;
+    if (value.length > 2) {
+      formattedValue = `${value.slice(0, 2)}/${value.slice(2, 6)}`; 
+    }
+    handleChange({ target: { name: "expirationDate", value: formattedValue } });
+  };
+
+  const handlePaymentMethodChange = (event) => {
+    dispatch(setPaymentMethod(event.target.value));
+    setShowMercadoPago(event.target.value === "mercadoPago");
+  };
 
   return (
     <div className={`payment-options-box ${size}`}>
       <div className="options-payments">
-        <Conekta handleSuccess = { handleSuccesPayment} />
-        {/* <div className="payment oxxo-payment">
+        {/* Otras opciones de pago */}
+        <div className="payment oxxo-payment">
           <div className="payment__head">
             <div className="payment-type">
               <div className="input-span">
-                <input type="radio" name="payment-input" id="" />
-                <span className={boldText()}>Oxxo Pay</span>
+                <input
+                  type="radio"
+                  name="payment-input"
+                  value="mercadoPago"
+                  onChange={handlePaymentMethodChange}
+                  checked={selectedPaymentMethod === "mercadoPago"}
+                />
+                <span className={boldText()}>Mercado Pago</span>
               </div>
               <div className="options-imgs">
-                <img src={oxxopay} alt="oxxo-pay" />
+                <img width={110} src={mercadoPago} alt="mercado-pago" />
               </div>
             </div>
             <p className={regularText()}>
-              Obtén un número de referencia para pagar con efectivo en tu OXXO
-              más cercano.
+              La plataforma de pago más confiable de Latinoamérica. Usa tus
+              tarjetas de crédito y débito.
             </p>
           </div>
-        </div> */}
-        {/* <div className="payment paypal-payment">
-          <div className="payment__head">
-            <div className="payment-type">
-              <div className="input-span">
-                <input type="radio" name="payment-input" id="" />
-                <span className={boldText()}>PayPal</span>
-              </div>
-              <div className="options-imgs">
-                <img src={paypal} alt="paypal" />
-              </div>
+          {/* Renderizar el CheckoutForm solo si el usuario selecciona Mercado Pago */}
+          {showMercadoPago && (
+            <div className="checkout-form">
+              <CheckoutForm />
             </div>
-            <p className={regularText()}>
-              Pagos seguros en línea. Es necesario contar con Tarjeta de
-              Crédito. Cuenta de PayPal no es necesaria.
-            </p>
-          </div>
-        </div> */}
-        {/* <div className="payment bank-payment selected">
+          )}
+        </div>
+
+        <div className="payment bank-payment selected">
           <div className="payment__head">
             <div className="payment-type">
               <div className="input-span">
-                <input type="radio" name="payment-input" id="" />
+                <input
+                  type="radio"
+                  name="payment-input"
+                  value="card"
+                  checked={selectedPaymentMethod === "card"}
+                  onChange={handlePaymentMethodChange}
+                />
                 <span className={boldText()}>Tarjeta Bancaria</span>
               </div>
               <div className="options-imgs">
@@ -102,141 +121,116 @@ const PaymentOptionsContainer = (props) => {
               </div>
             </div>
             <p className={regularText()}>
-              Transferencias seguras o pago a crédito con tarjetas particpantes.
+              Transferencias seguras o pago a crédito con tarjetas
+              participantes.
             </p>
           </div>
-          <hr
-            style={{
-              width: "calc(100% - 64px)",
-              margin: "0 auto",
-              background: "rgba(150, 172, 188, 1)",
-            }}
-          />
-          <div className="payment__body">
-            <div className="payment-form">
-              <form action="">
-                <div className="form-input">
-                  <label className={mediumText()} htmlFor="">
-                    Número de Tarjeta
-                  </label>
-                  <input
-                    type="text"
-                    name="cardNumber"
-                    id=""
-                    value={cardNumber}
-                    autoComplete="off"
-                    maxLength={16}
-                    placeholder="6655-8844-2233-5599"
-                    onChange={(e) => {
-                      if (!onlyNumberValidation(e)) return;
-                      setCardNumber(e.target.value);
-                      handleChange(e);
-                    }}
-                  />
-                </div>
-                {isMobile ? (
-                  <>
-                    <div className="form-input">
-                      <label className={mediumText()} htmlFor="">
-                        Código CVV
-                      </label>
-                      <input
-                        className="regular-14"
-                        type="text"
-                        autoComplete="off"
-                        name="cvv"
-                        id=""
-                        value={cvvCode}
-                        maxLength={4}
-                        placeholder="xxx"
-                        onChange={(e) => {
-                          if (!onlyNumberValidation(e)) return;
-                          setCvvCode(e.target.value);
-                          handleChange(e);
-                        }}
-                      />
-                    </div>
-                    <div className="form-input">
-                      <label className={mediumText()} htmlFor="">
-                        Fecha de Vencimiento
-                      </label>
-                      <input
-                        className="regular-14"
-                        type="text"
-                        autoComplete="off"
-                        name="expiredDate"
-                        maxLength={5}
-                        id=""
-                        value={expireDate}
-                        placeholder="MM/YY"
-                        onChange={(e) => {
-                          setExpireDate(e.target.value);
-                          handleChange(e);
-                        }}
-                      />
-                    </div>
-                  </>
-                ) : (
-                  <div className="two-input-forms">
-                    <div className="form-input">
-                      <label className={mediumText()} htmlFor="">
-                        Código CVV
-                      </label>
-                      <input
-                        className="regular-14"
-                        type="text"
-                        name="cvv"
-                        id=""
-                        autoComplete="off"
-                        value={cvvCode}
-                        maxLength={4}
-                        placeholder="xxx"
-                        onChange={(e) => {
-                          if (!onlyNumberValidation(e)) return;
-                          setCvvCode(e.target.value);
-                          handleChange(e);
-                        }}
-                      />
-                    </div>
-                    <div className="form-input">
-                      <label className={mediumText()} htmlFor="">
-                        Fecha de Vencimiento
-                      </label>
-                      <input
-                        className="regular-14"
-                        type="text"
-                        name="expiredDate"
-                        id=""
-                        value={expireDate}
-                        autoComplete="off"
-                        maxLength={5}
-                        placeholder="MM/YY"
-                        onChange={(e) => {
-                          setExpireDate(e.target.value);
-                          handleChange(e);
-                        }}
-                      />
-                    </div>
+
+          {/* Formulario de tarjeta bancaria */}
+          {selectedPaymentMethod === "card" && (
+            <div className="payment__body">
+              <div className="payment-form">
+                <form action="">
+                  <div className="form-input">
+                    <label className={mediumText()} htmlFor="cardNumber">
+                      Número de Tarjeta
+                    </label>
+                    <input
+                      type="text"
+                      name="cardNumber"
+                      value={cardNumber}
+                      autoComplete="off"
+                      maxLength={19}
+                      placeholder="1111-2222-3333-4444"
+                      onChange={handleCardNumberChange}
+                    />
                   </div>
-                )}
-                <div className="form-input">
-                  <label className={mediumText()} htmlFor="">
-                    Nombre de Tarjetahabiente
-                  </label>
-                  <input
-                    className="regular-14"
-                    type="text"
-                    autoComplete="off"
-                    name="cardOwnerName"
-                    id=""
-                    placeholder="Nombre como aparece en tarjeta"
-                    onChange={(e) => handleChange(e)}
-                  />
-                </div>
-              </form>
+
+                  {isMobile ? (
+                    <>
+                      <div className="form-input">
+                        <label className={mediumText()} htmlFor="cvv">
+                          Código CVV
+                        </label>
+                        <input
+                          className="regular-14"
+                          type="text"
+                          name="cvv"
+                          value={cvv}
+                          maxLength={4}
+                          placeholder="xxx"
+                          onChange={handleCvvChange}
+                        />
+                      </div>
+                      <div className="form-input">
+                        <label className={mediumText()} htmlFor="expirationDate">
+                          Fecha de Vencimiento
+                        </label>
+                        <input
+                          className="regular-14"
+                          type="text"
+                          name="expirationDate"
+                          value={expirationDate}
+                          placeholder="MM/YYYY"
+                          maxLength={7}
+                          onChange={handleExpireDateChange}
+                        />
+                      </div>
+                    </>
+                  ) : (
+                    <div className="two-input-forms">
+                      <div className="form-input">
+                        <label className={mediumText()} htmlFor="cvv">
+                          Código CVV
+                        </label>
+                        <input
+                          className="regular-14"
+                          type="text"
+                          name="cvv"
+                          value={cvv}
+                          autoComplete="off"
+                          maxLength={4}
+                          placeholder="xxx"
+                          onChange={handleCvvChange}
+                        />
+                      </div>
+                      <div className="form-input">
+                        <label className={mediumText()} htmlFor="expirationDate">
+                          Fecha de Vencimiento
+                        </label>
+                        <input
+                          className="regular-14"
+                          type="text"
+                          name="expirationDate"
+                          value={expirationDate}
+                          autoComplete="off"
+                          maxLength={7}
+                          placeholder="MM/YYYY"
+                          onChange={handleExpireDateChange}
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="form-input">
+                    <label className={mediumText()} htmlFor="cardOwnerName">
+                      Nombre de Tarjetahabiente
+                    </label>
+                    <input
+                      className="regular-14"
+                      type="text"
+                      autoComplete="off"
+                      name="cardOwnerName"
+                      value={cardOwnerName}
+                      placeholder="Nombre como aparece en tarjeta"
+                      onChange={handleChange}
+                    />
+                  </div>
+                </form>
+              </div>
             </div>
-          </div>
-        </div> */}
+          )}
+        </div>
       </div>
     </div>
   );
