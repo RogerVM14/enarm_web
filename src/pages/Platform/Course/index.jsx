@@ -101,6 +101,10 @@ const CoursePage = () => {
     setResume({ especialidades: resume_specialty, tipo_recursos: resume_types, recursos: resume_data });
   }, [resources]);
 
+useEffect(()=>{
+console.log({simulators})
+},[simulators])
+
   return (
     <DashboardLayout>
       <div className={ui.wrapper}>
@@ -196,7 +200,7 @@ const CoursePage = () => {
                           key={video[1]}
                           style={{ width: "100%", height: "500px" }}
                         >
-                          <source src={video[3]} type="video/mp4" />
+                          <source src={video[4]} type="video/mp4" />
                         </video>
                       );
                     })}
