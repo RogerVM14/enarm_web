@@ -67,7 +67,11 @@ const FormLogin = () => {
     const isValidEmail = validateEmailFormat(userEmail);
 
     if (isValidEmail && userPass) {
-      loginUser({ new_user_email: userEmail, new_user_password: userPass })
+      loginUser({
+        new_user_email: userEmail,
+        new_user_password: userPass,
+        environment: "platform",
+      })
         .then((res) => {
           if (res.data.status_Message === "valid user") {
             const { status_Message, ...rest } = res.data;
