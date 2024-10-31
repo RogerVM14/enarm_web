@@ -11,6 +11,7 @@
     "axios": "^0.27.2",
     "card-validator": "^10.0.0",
     "conekta-card-tokenizer": "^1.0.1",
+    "crypto-js": "^4.2.0",
     "file-saver": "^2.0.5",
     "js-cookie": "^3.0.1",
     "moment": "^2.29.4",

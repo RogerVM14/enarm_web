@@ -36,10 +36,11 @@ const BodyContent = ({ display }) => {
         Los Planes de Estudio estân distribuidos en semanas. Comienza en la primera y ve avanzando hasta terminar.
         Realiza tus Gráficos revisando los Resúmenes ó bibliografia extra. Si tienes dudas sobre los Gráficos a realizar
         te recomendamos consultar nuestras
-        <Link to="#"> Guía de Estudio parte 1</Link> y <Link to="#">Guía de Estudio parte 2</Link>.
+        <a href="https://enarm-assets.s3.us-east-1.amazonaws.com/docs/Guia+ENARM+parte+1.pdf" target="_blank"> Guía de Estudio parte 1</a> y <a href="https://enarm-assets.s3.us-east-1.amazonaws.com/docs/Guia+ENARM+parte+2.pdf" target="_blank">Guía de Estudio parte 2</a>.
         <br />
         Sólo después de realizar tus gráficos deberás ver las Video-Clases. Una vez visto las video clases, repasarás
         los contenido con los Simuladores.
+        Antes de comenzar, es importante también que veas el ejemplo de nuestro <a href="https://enarm-assets.s3.us-east-1.amazonaws.com/docs/Ejemplo+calendario+estudio+.htm" target="_blank">calendario de estudio</a>, donde podrás observar la manera adecuada de llevar a cabo tu curso.
       </p>
       <div className={ui.alerts}>
         <img src={AlertIcon} alt="alert" width={16} height={16} />

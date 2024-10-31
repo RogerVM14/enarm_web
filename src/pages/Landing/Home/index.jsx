@@ -16,6 +16,7 @@ import FadeInTitle from "../../../components/FadeInTitle";
 import { useDispatch } from "react-redux";
 import { resetCheckoutInformation } from "../../../store/reducers/checkout/checkoutInformationSlice";
 import { resetUserInformation } from "../../../store/reducers/user/UserInformationSlice";
+import { ROUTES } from "../../../constants/routes";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -49,7 +50,7 @@ const HomePage = () => {
                     <img src={PlataformaEnarm} alt="Plataforma ENARM" />
                   </div>
                 </div>
-                <Link to="#" className={ui.blueLink}>
+                <Link to={ROUTES.REGISTRO} className={ui.blueLink}>
                   Inscríbete Ahora
                 </Link>
                 <ul className={ui.heroList}>
@@ -113,7 +114,7 @@ const HomePage = () => {
                       placeholder="Nombre completo"
                       name="name"
                     />
-                    <span className="regular-parraf danger">Error</span>
+                    {/* <span className="regular-parraf danger">Error</span> */}
                   </div>
                   <div className={ui.formInput}>
                     <label className="input-label white" htmlFor="correo">
@@ -124,7 +125,7 @@ const HomePage = () => {
                       placeholder="Tu correo electrónico"
                       name="email"
                     />
-                    <span className="regular-parraf danger">Error</span>
+                    {/* <span className="regular-parraf danger">Error</span> */}
                   </div>
                   <div className={ui.formInputColumns}>
                     <div className={ui.formInput}>
@@ -137,10 +138,10 @@ const HomePage = () => {
                         placeholder="Tu número de WhatsApp"
                         name="tel"
                       />
-                      <span className="regular-parraf danger">Error</span>
+                      {/* <span className="regular-parraf danger">Error</span> */}
                     </div>
-                    <Link to="#" className={ui.blueLink}>
-                      Quiero mi Demo
+                    <Link to={ROUTES.REGISTRO} className={ui.blueLink}>
+                      Quiero mi curso
                     </Link>
                   </div>
                 </form>
@@ -152,11 +153,10 @@ const HomePage = () => {
                   </div>
                   <div className={ui.cardDescription}>
                     <h3 className="regular-parraf white bold">
-                      Primera ventaja
+                      Nuestro contenido
                     </h3>
                     <p className="regular-parraf white">
-                      Esta tarjeta debería destacar detalles de la primer
-                      ventaja de obtener el Demo.
+                      Contenido 100% actualizado, didáctico y sin paja.
                     </p>
                   </div>
                 </div>
@@ -166,11 +166,10 @@ const HomePage = () => {
                   </div>
                   <div className={ui.cardDescription}>
                     <h3 className="regular-parraf white bold">
-                      Primera ventaja
+                      Método de aprendizaje
                     </h3>
                     <p className="regular-parraf white">
-                      Esta tarjeta debería destacar detalles de la segunda
-                      ventaja de obtener el Demo.
+                      Aprenderás a estudiar Inteligente
                     </p>
                   </div>
                 </div>
@@ -179,12 +178,9 @@ const HomePage = () => {
                     <img src={CardPicture3} alt="Ventaja 3" />
                   </div>
                   <div className={ui.cardDescription}>
-                    <h3 className="regular-parraf white bold">
-                      Primera ventaja
-                    </h3>
+                    <h3 className="regular-parraf white bold">Simuladores</h3>
                     <p className="regular-parraf white">
-                      Esta tarjeta debería destacar detalles de la tercer
-                      ventaja de obtener el Demo.
+                      Simulador idéntico en preguntas y formato al ENARM
                     </p>
                   </div>
                 </div>
@@ -255,7 +251,7 @@ const HomePage = () => {
                   <h2 className="section-subtitle-33">
                     Hechos que te respaldan en plataforma ENARM
                   </h2>
-                  <Link to="#" className={ui.blueLink}>
+                  <Link to={ROUTES.REGISTRO} className={ui.blueLink}>
                     Inscribirme ahora
                   </Link>
                 </div>

@@ -43,6 +43,8 @@ import {
   selectUserCheckoutEmail,
 } from "./store/reducers/user/UserInformationSlice";
 import RenderComponenteIf from "./routes/RenderComponentIf";
+import PageNotFound from "./pages/PageNotFound";
+import PublicRoutes from "./routes/PublicRoutes";
 
 const AppRouter = () => {
   useEffect(() => {
@@ -100,10 +102,13 @@ const AppRouter = () => {
   const email_checkout = useSelector(selectUserCheckoutEmail);
   const isIdOnCheckout =
     user_id !== null && user_id !== undefined && user_id !== "";
+  console.log(isIdOnCheckout);
   const isEmailOnCheckout =
     email_checkout !== null &&
     email_checkout !== undefined &&
     email_checkout !== "";
+
+    console.log(isEmailOnCheckout);
 
   return (
     <LandingProvider>
@@ -112,15 +117,79 @@ const AppRouter = () => {
           <GeneralProvider>
             <SimulatorProvider>
               <Routes>
-                <Route path={ROUTES.HOME} index={true} element={<HomePage />} />
-                <Route path={ROUTES.NOSOTROS} element={<UsPage />} />
-                <Route path={ROUTES.SOBRE_EL_CURSO} element={<AboutPage />} />
-                {/* <Route path={ROUTES.BLOG} element={<BlogPage />} />
-                <Route path={ROUTES.BLOG_ENTRADA} element={<BlogEntryPage />} /> */}
-                <Route path={ROUTES.PRUEBA} element={<TestPage />} />
-                <Route path={ROUTES.CONTACTO} element={<ContactPage />} />
-                <Route path={ROUTES.LOGIN} element={<LoginPage />} />
-                <Route path={ROUTES.REGISTRO} element={<RegisterPage />} />
+                <Route
+                  path={ROUTES.HOME}
+                  index={true}
+                  element={
+                    <PublicRoutes>
+                      <HomePage />
+                    </PublicRoutes>
+                  }
+                />
+                <Route
+                  path={ROUTES.NOSOTROS}
+                  element={
+                    <PublicRoutes>
+                      <UsPage />
+                    </PublicRoutes>
+                  }
+                />
+                <Route
+                  path={ROUTES.SOBRE_EL_CURSO}
+                  element={
+                    <PublicRoutes>
+                      <AboutPage />
+                    </PublicRoutes>
+                  }
+                />
+                {/* <Route
+                    path={ROUTES.BLOG}
+                    element={
+                      <PublicRoutes>
+                        <BlogPage />
+                      </PublicRoutes>
+                    }
+                  />
+                  <Route
+                    path={ROUTES.BLOG_ENTRADA}
+                    element={
+                      <PublicRoutes>
+                        <BlogEntryPage />
+                      </PublicRoutes>
+                    }
+                  /> */}
+                {/* <Route
+                  path={ROUTES.PRUEBA}
+                  element={
+                    <PublicRoutes>
+                      <TestPage />
+                    </PublicRoutes>
+                  }
+                /> */}
+                <Route
+                  path={ROUTES.CONTACTO}
+                  element={
+                    <PublicRoutes>
+                      <ContactPage />
+                    </PublicRoutes>
+                  }
+                />
+                <Route
+                  path={ROUTES.LOGIN}
+                  element={
+                    <PublicRoutes>
+                      <LoginPage />
+                    </PublicRoutes>
+                  }
+                />
+                <Route
+                  path={ROUTES.REGISTRO}
+                  element={
+                    <PublicRoutes>
+                      <RegisterPage />
+                    </PublicRoutes>
+                  }
+                />
                 <Route
                   path={ROUTES.CHECKOUT}
                   element={
@@ -281,11 +350,15 @@ const AppRouter = () => {
                 <Route
                   path={ROUTES.VERIFICAR_CORREO}
                   element={
-                    <PlatformPrivateRoute>
+                    <RenderComponenteIf
+                      condition={isEmailOnCheckout}
+                      redirectTo={ROUTES.REGISTRO}
+                    >
                       <VerifyEmailCodePage />
-                    </PlatformPrivateRoute>
+                    </RenderComponenteIf>
                   }
                 />
+                <Route path="*" element={<PageNotFound />} />
               </Routes>
             </SimulatorProvider>
           </GeneralProvider>

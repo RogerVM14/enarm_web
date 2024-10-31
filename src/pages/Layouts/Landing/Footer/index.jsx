@@ -9,6 +9,7 @@ import Instagram from "./Icons/Instagram.svg";
 import Pinterest from "./Icons/Pinterest.svg";
 import Twitter from "./Icons/X.svg";
 import Messenger from "./Icons/Messenger.svg";
+import { ROUTES } from "../../../../constants/routes";
 
 const Footer = ({
   visible
@@ -31,7 +32,7 @@ const Footer = ({
     [
       { url: "/", alt: "Inicio", label: "Inicio" },
       { url: "/nosotros", alt: "Nosotros", label: "Nosotros" },
-      { url: "/acerca", alt: "Curso ENARM", label: "Curso ENARM" }
+      { url: ROUTES.SOBRE_EL_CURSO, alt: "Curso ENARM", label: "Curso ENARM" }
     ],
     [
       // { url: "/blog", alt: "Blog", label: "Blog" },

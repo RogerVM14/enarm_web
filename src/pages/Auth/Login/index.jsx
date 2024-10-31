@@ -16,6 +16,7 @@ import {
   setUserInformation,
 } from "../../../store/reducers/user/UserInformationSlice";
 import { ROUTES } from "../../../constants/routes";
+import { encryptPassword } from "../../../utils/auth";
 
 const LoginPage = () => {
   setTimeout(() => {
@@ -60,7 +61,7 @@ const FormLogin = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -69,7 +70,7 @@ const FormLogin = () => {
     if (isValidEmail && userPass) {
       loginUser({
         new_user_email: userEmail,
-        new_user_password: userPass,
+        new_user_password: encryptPassword(userPass.toLocaleLowerCase()),
         environment: "platform",
       })
         .then((res) => {
@@ -177,3 +178,5 @@ const FormLogin = () => {
 };
 
 export default LoginPage;
+
+

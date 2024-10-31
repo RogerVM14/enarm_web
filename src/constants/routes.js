@@ -5,7 +5,7 @@ export const ROUTES = {
   VERIFICAR_CORREO: "/verificar_correo",
   HOME: "/",
   NOSOTROS: "/nosotros",
-  SOBRE_EL_CURSO: "/acerca",
+  SOBRE_EL_CURSO: "/sobre-el-curso",
   // BLOG: "/blog",
   // BLOG_ENTRADA: "/blog/:id",
   PRUEBA: "/prueba",

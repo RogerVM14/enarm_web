@@ -108,7 +108,8 @@ const HowItWorks = ({ size, ismobile }) => {
           <h2 className="tiny-blue-title text-center">CÓMO FUNCIONA</h2>
           <h3 className="subtitle text-center white">Conoce a detalle todos los métodos de estudio</h3>
           <button className="button-rounded-blue-48">
-            <span className="button-text">Solicitar Prueba Gratis</span>
+            {/* <span className="button-text">Solicitar Prueba Gratis</span> */}
+            <span className="button-text">Inicia ahora mismo</span>
           </button>
         </div>
         <div className="hiw-container-body">
