@@ -8,7 +8,7 @@ export const saveComplementaryStudentInfo = (payload) => {
     url: `${REACT_APP_ENARM_API_GATEWAY_URL}students/complete-student-info`,
     headers: {
       "Content-Type": "application/json",
-      Auth_token: accessToken,
+      auth_token: accessToken,
     },
     data: payload,
   };
