@@ -5,6 +5,7 @@ import LupaIcon from "../../pages/Assets/Icons/bulbIcon.svg";
 import BulbIcon from "../../pages/Assets/Icons/lupaIcon.svg";
 import HatIcon from "../../pages/Assets/Icons/hatIcon.svg";
 import ui from "./index.module.css";
+import { ROUTES } from "../../constants/routes";
 
 const ResourcesSection = () => {
   return (
@@ -21,29 +22,32 @@ const ResourcesSection = () => {
                 <div className={ui.imageContainer}>
                   <img src={PlayIcon} alt="card-icon" />
                 </div>
-                <h3 className={ui.cardTitle}>Vive la experiencia ENARM gratis</h3>
-                <Link to="#" className={ui.cardLink}>Prueba Gratis</Link>
+                {/* <h3 className={ui.cardTitle}>Vive la experiencia ENARM gratis</h3> */}
+                <h3 className={ui.cardTitle}>Vive la experiencia ENARM</h3>
+                {/* <Link to="#" className={ui.cardLink}>Prueba Gratis</Link> */}
+                <Link to={ROUTES.REGISTRO} className={ui.cardLink}>El mejor curso</Link>
               </div>
               <div className={ui.gridCard}>
                 <div className={ui.imageContainer}>
                   <img src={BulbIcon} alt="card-icon" />
                 </div>
-                <h3 className={ui.cardTitle}>Guía descriptiva del curso 2021</h3>
-                <Link to="#" className={ui.cardLink}>Descargar</Link>
+                <h3 className={ui.cardTitle}>Guía descriptiva del curso 2024</h3>
+                {/* <Link to="#" className={ui.cardLink}>Descargar</Link> */}
+                <Link to={ROUTES.REGISTRO} className={ui.cardLink}>Iniciar</Link>
               </div>
               <div className={ui.gridCard}>
                 <div className={ui.imageContainer}>
                   <img src={LupaIcon} alt="card-icon" />
                 </div>
                 <h3 className={ui.cardTitle}>Abarcamos todas las exigencias del ENARM</h3>
-                <Link to="#" className={ui.cardLink}>Iniciar hoy mismo</Link>
+                <Link to={ROUTES.REGISTRO} className={ui.cardLink}>Iniciar hoy mismo</Link>
               </div>
               <div className={ui.gridCard}>
                 <div className={ui.imageContainer}>
                   <img src={HatIcon} alt="card-icon" />
                 </div>
                 <h3 className={ui.cardTitle}>Conoce nuestra metodología de estudio</h3>
-                <Link to="#" className={ui.cardLink}>Ver método de estudio</Link>
+                <Link to={ROUTES.SOBRE_EL_CURSO} className={ui.cardLink}>Ver método de estudio</Link>
               </div>
             </div>
           </div>

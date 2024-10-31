@@ -6,10 +6,10 @@ import SearchIcon from "../../Assets/Icons/SearchIcon.svg";
 import QuestionIcon from "../../Assets/Icons/QuestionIcon.svg";
 import WhiteSearchIcon from "../../Assets/Icons/WhiteSearchIcon.svg";
 import WhiteQuestionIcon from "../../Assets/Icons/WhiteQuestionIcon.svg";
-import { Link } from "react-router-dom";
-import { useLogout } from "../../../../contexts/useLogout";
-import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { selectFullUserName } from "../../../../store/reducers/user/UserInformationSlice";
+import { logout } from "../../../../utils/auth";
 
 const DashboardHeaderTemplate = ({ handleShowMenu }) => {
   const [open, setOpen] = useState(false);
@@ -90,6 +90,12 @@ const DashboardHeaderTemplate = ({ handleShowMenu }) => {
 };
 
 const UserDialogMenu = ({ open, handleFocus = () => {} }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout(dispatch, navigate);
+  };
   return open ? (
     <div onMouseLeave={handleFocus} className={ui.dropDownMenu}>
       <ul>
@@ -99,7 +105,7 @@ const UserDialogMenu = ({ open, handleFocus = () => {} }) => {
           </Link>
         </li> */}
         <li>
-          <Link to="/" onClick={useLogout} className="regular-parraf-14">
+          <Link to="/" onClick={handleLogout} className="regular-parraf-14">
             Cerrar Sesión
           </Link>
         </li>

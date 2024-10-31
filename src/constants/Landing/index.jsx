@@ -25,19 +25,19 @@ export const novedades = [
     selected: false
   },
   {
-    h2: "Simulador Pro 2022",
+    h2: "Simulador Pro 2024",
     p: "Experimenta la experiencia más parecida al ENARM con el mismo formato y tiempo cronometrado con más eficacia para practicar antes de tu ENARM.",
     selected: false
   },
   {
-    h2: "Nuevo contenido 2022",
-    p: "Disfruta de la más amplia cobertura de información que tenemos para ti:",
+    h2: "Nuevo contenido 2024",
+    p: "Disfruta de la más amplia cobertura de información que tenemos para ti.",
     selected: false
   }
 ];
 
 export const stats = [
-  { value: "26", name: "ESPECIALIDADES" },
+  { value: "29", name: "ESPECIALIDADES" },
   { value: "360", name: "MINI RESÚMENES" },
   { value: "2800", name: "FLASH CARDS" },
   { value: "1500", name: "HORAS DE VIDEO" },

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import bgImageMedium from "../../../Assets/Images/Heroes.png";
 import FadeInTitle from "../../../../components/FadeInTitle";
 import "./Hero3.css";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../../../constants/routes";
 
 const Hero3 = ({ size, isMobile }) => {
 
@@ -31,7 +33,8 @@ const Hero3 = ({ size, isMobile }) => {
   }, 100);
 
   const wordsTitle = ["Obtén", "un", "seguimiento", "personalizado", "e", "intensivo"]
-
+  const navigate = useNavigate()
+  const handleNavigate = () => navigate(ROUTES.REGISTRO)
   return (
     <div className={`hero-3 ${size}`}>
       <div className="hero-3-container">
@@ -44,15 +47,15 @@ const Hero3 = ({ size, isMobile }) => {
           </p>
         </div>
         <div className="hero-3-container-body reveal-load">
-          <button type="button" className="button-rounded-blue-48">
+          <button type="button" className="button-rounded-blue-48" onClick={handleNavigate}>
             <span className="button-text">
               Obtener Curso
             </span>
           </button>
-          <button type="button" className="only-letters">
+          {/* <button type="button" className="only-letters">
             <span>Ver Contenido del Curso</span>
             <i className="material-icons-outlined">chevron_right</i>
-          </button>
+          </button> */}
         </div>
         {mobileDevice && (<div className="bg-image" style={{ backgroundImage: `url("${bgImageMedium}")` }}></div>)}
       </div>

@@ -11,9 +11,9 @@ const NavBar = () => {
   const navigationLinks = [
     { label: "Inicio", url: "/" },
     { label: "Nosotros", url: "/nosotros" },
-    { label: "Sobre el Curso", url: "/acerca" },
+    { label: "Sobre el Curso", url: ROUTES.SOBRE_EL_CURSO },
     // { label: "Blog", url: "/blog" },
-    { label: "Prueba Gratis", url: "/prueba", rounded: true },
+    // { label: "Prueba Gratis", url: "/prueba", rounded: true },
     { label: "Contacto", url: "/contacto" },
   ];
 
@@ -36,11 +36,11 @@ const NavBar = () => {
                 list={navigationLinks}
                 handleDisplay={() => { setDisplay(false) }}
               />
-              <Link datatype="small" to="/registro" className={ui.blueRoundedLink}>Obtener Curso</Link>
+              <Link datatype="small" to={ROUTES.REGISTRO} className={ui.blueRoundedLink}>Obtener Curso</Link>
             </div>
             <ul className={ui.authLinks}>
               <li>
-                <Link datatype="large" to="/registro" className={ui.blueRoundedLink}>Obtener Curso</Link>
+                <Link datatype="large" to={ROUTES.REGISTRO} className={ui.blueRoundedLink}>Obtener Curso</Link>
               </li>
               <li className={ui.linkWithIcon}>
                 <UserIcon />
@@ -64,7 +64,7 @@ const MobileHeaderNavTools = ({ display, handleDisplay }) => {
     )
     : (
       <div className={ui.headerTools}>
-        <Link datatype="small" to="/registro" className={ui.blueRoundedLink}>Obtener Curso</Link>
+        <Link datatype="small" to={ROUTES.REGISTRO} className={ui.blueRoundedLink}>Obtener Curso</Link>
         <button type="button" className={ui.burgerMenu} onClick={() => { handleDisplay(true) }}>
           <BurgerIcon />
         </button>

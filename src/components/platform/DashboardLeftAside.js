@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import "../../css/platform/components/LeftAside.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import ResIcon from "../../assets/icons/platform/resources-icon.png";
 import SimIcon from "../../assets/icons/platform/simulator-icon.png";
 import DocIcon from "../../assets/icons/platform/documents-icon.png";
@@ -17,8 +17,7 @@ import { CurrentCourseContext } from "../../contexts/platform/CurrentCourseConte
 import { PlanRoutesContext } from "../../contexts/platform/PlanRoutesContext";
 import userIcon from "../../assets/icons/platform/default-user-icon.png";
 
-import { useLogout } from "../../contexts/useLogout";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectUserEmail } from "../../store/reducers/user/UserInformationSlice";
 
 const activeStyle = { color: "rgba(30, 115, 190, 1)" };
@@ -113,7 +112,12 @@ const DashboardLeftAside = (props) => {
 
   const { setRouteString } = useContext(PlanRoutesContext);
 
-  const logout = useLogout();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout(dispatch, navigate);
+  };
 
   const asideNavigationItems = [
     /* pos: 0 */ {
@@ -399,7 +403,7 @@ const DashboardLeftAside = (props) => {
                     <i className="material-icons">settings</i>
                     <span className="roboto-14">Mi cuenta</span>
                   </div>
-                  <div onClick={()=> logout()}>
+                  <div onClick={handleLogout}>
                     <i className="material-icons">logout</i>
                     <span className="roboto-14" style={{ fontWeight: "400" }}>
                       Cerrar Sesión

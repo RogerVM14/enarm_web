@@ -60,12 +60,12 @@ const questions = [
     content: <Item8 />,
     selected: false
   },
-  {
-    title: "No puedo ver el contenido de mi Plataforma / Pasos para ingresar a la Plataforma",
-    parraf: "Para poder ingresar a tu PLATAFORMA ENARM ",
-    content: <Item9 />,
-    selected: false
-  },
+  // {
+  //   title: "No puedo ver el contenido de mi Plataforma / Pasos para ingresar a la Plataforma",
+  //   parraf: "Para poder ingresar a tu PLATAFORMA ENARM ",
+  //   content: <Item9 />,
+  //   selected: false
+  // },
 ]
 
 const SectionQuestions = () => {

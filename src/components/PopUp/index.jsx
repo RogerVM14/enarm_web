@@ -1,9 +1,17 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import closeButton from "./closeButton.png";
 import "./index.css";
+import { ROUTES } from "../../constants/routes";
 
 const PopUp = ({ open, closeModal }) => {
+
+  const navigate = useNavigate()
+
+  const handleGetCourse = () => {
+    closeModal()
+    navigate(ROUTES.REGISTRO)
+  }
 
   return open ? (
     <div className="modal">
@@ -12,7 +20,7 @@ const PopUp = ({ open, closeModal }) => {
         <Link to="#" onClick={() => { closeModal() }}>
           <img className="close-button" src={closeButton} alt="close"></img>
         </Link>
-        <h1 className="title">Adquiere tu curso hoy mismo y obtén una beca del 40%.</h1>
+        <h1 className="title">Adquiere tu curso hoy mismo y obtén una beca del 30%.</h1>
         <h2 className="subtitle">Ingresa a tu curso de plataforma ENARM y comienza hoy a preparte para aprobar el ENARM a la primera.</h2>
         <ul className="ls-none">
           <li className="list-ip">
@@ -44,7 +52,7 @@ const PopUp = ({ open, closeModal }) => {
             <p className="text-list">Ingreso a comunidad exclusiva de Residentes.</p>
           </li>
         </ul>
-        <button className="rounded-blue">Quiero mi descuento</button>
+        <button onClick={handleGetCourse} className="rounded-blue">Adquirir curso</button>
       </div>
     </div>
   ) : null

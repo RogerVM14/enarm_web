@@ -23,6 +23,12 @@ const CoursePage = () => {
     if (["xs", "sm", "md"].includes(width)) return true;
     if (["lg", "xl", "xxl"].includes(width)) return false;
   }
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, []);
 
   useEffect(() => {
     window.addEventListener("resize", () => {

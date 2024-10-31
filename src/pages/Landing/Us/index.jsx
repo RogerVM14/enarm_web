@@ -9,6 +9,7 @@ import useConstants from "./Hooks/useConstants";
 import FadeInTitle from "../../../components/FadeInTitle";
 import SectionPromise from "../../../components/SectionPromise";
 import ui from "./index.module.css";
+import { ROUTES } from "../../../constants/routes";
 
 const UsPage = () => {
 
@@ -30,7 +31,7 @@ const UsPage = () => {
                 <p className="regular-parraf">
                   Integrado por un Equipo de más de 20 Médicos Especialistas, de casi todas las áreas de la medicina, que te llevarán de la mano para aprobar tu ENARM a la primera.
                 </p>
-                <Link to="#" className={ui.blueLink}>Inscríbete ahora</Link>
+                <Link to={ROUTES.REGISTRO} className={ui.blueLink}>Inscríbete ahora</Link>
               </div>
             </div>
           </div>
@@ -59,7 +60,8 @@ const UsPage = () => {
                     <li><img src={CheckIcon} alt="checkicon" /><p className="regular-parraf white">Tips, y ¡mucho más!</p></li>
                   </ul>
                 </div>
-                <Link to="#" className="blueLinkBtn w-282 full-width">Solicitar Prueba Gratis</Link>
+                {/* <Link to="#" className="blueLinkBtn w-282 full-width">Solicitar Prueba Gratis</Link> */}
+                <Link to={ROUTES.REGISTRO} className="blueLinkBtn w-282 full-width">Comenzar mi curso</Link>
               </div>
               <div className={ui.gridColumn} data-area="image">
                 <div className={ui.imageContainer}>
@@ -171,7 +173,7 @@ const UsPage = () => {
                 <p className="regular-parraf-20 white text-left">20 médicos especialistas y toda una comunidad respaldan nuestro curso.</p>
               </div>
             </div>
-            <Link to="#" className="blueLinkBtn w-282 mx-auto full-width">Inscribirme ahora</Link>
+            <Link to={ROUTES.REGISTRO} className="blueLinkBtn w-282 mx-auto full-width">Inscribirme ahora</Link>
           </div>
         </div>
       </section>

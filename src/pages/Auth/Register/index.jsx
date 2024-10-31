@@ -15,6 +15,7 @@ import ValidatePassword from "./ValidatePassword";
 import { CreateNewUser } from "../../../apis/auth/authApi";
 import showToast from "../../../utils/toasts/commonToasts";
 import { resetCheckoutInformation } from "../../../store/reducers/checkout/checkoutInformationSlice";
+import { encryptPassword } from "../../../utils/auth";
 
 const EMAIL_REGEX =
   /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -33,12 +34,12 @@ const RegisterPage = () => {
   const handleRegisterInformation = async () => {
     const insertUser = async () => {
       const { email, password } = userInfo;
-      const userInformation = { user_email: email, password };
+      const encryptPass = encryptPassword(password.toLocaleLowerCase());
+      const userInformation = { user_email: email, password: encryptPass };
       console.log(userInformation);
 
       CreateNewUser(userInformation)
         .then((res) => {
-          console.log(res.data);
           const message = res.data.status_Message;
           if (message === "email exists")
             showToast.warning("Este email ya está en uso");

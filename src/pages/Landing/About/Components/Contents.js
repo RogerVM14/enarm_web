@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import whatDoctorsSay from "../../../Assets/Images/AboutHero.jpg";
 import "./Contents.css";
+import { Link } from "react-router-dom";
+import { ROUTES } from "../../../../constants/routes";
 
 const Contents = ({ size, ismobile }) => {
 
@@ -46,7 +48,7 @@ const Contents = ({ size, ismobile }) => {
             </p>
             <MetodologyList />
             <button className="button-rounded-blue-48">
-              <span className="button-text">Inscríbete Ahora</span>
+              <Link to={ROUTES.REGISTRO} style={{textDecoration:"none"}} className="button-text">Inscríbete Ahora</Link>
             </button>
           </div>
 
