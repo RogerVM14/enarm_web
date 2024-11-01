@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import LandingLayout from "../../Layouts/Landing";
 import { Link } from "react-router-dom";
 import HeroDoctorImage from "../../Assets/Images/HeroDoctorImage-2.png";
@@ -16,6 +16,12 @@ const UsPage = () => {
   const { card, handleSelectNewsCard, stats } = useConstants(LandingConstants);
   const wordsTitle = [ "Conoce", "el", "curso", "Online", "#1,", "el", "más", "completo", "y", "exitoso", "de", "todos." ];
 
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, []);
   return (
     <LandingLayout>
 

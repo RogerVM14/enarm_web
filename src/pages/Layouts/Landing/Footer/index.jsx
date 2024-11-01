@@ -10,34 +10,35 @@ import Pinterest from "./Icons/Pinterest.svg";
 import Twitter from "./Icons/X.svg";
 import Messenger from "./Icons/Messenger.svg";
 import { ROUTES } from "../../../../constants/routes";
+import { SOCIAL_MEDIA_LINKS } from "../../../../constants/generals";
 
 const Footer = ({
   visible
 }) => {
 
   const socialMediaLinks = [
-    { url: "#", alt: "Facebook", icon: Facebook },
-    { url: "#", alt: "Twitter", icon: Twitter },
-    { url: "#", alt: "Pinterest", icon: Pinterest },
-    { url: "#", alt: "Instagram", icon: Instagram }
+    { url: SOCIAL_MEDIA_LINKS.FACEBOOK, alt: "Facebook", icon: Facebook },
+    { url: SOCIAL_MEDIA_LINKS.TWITTER, alt: "Twitter", icon: Twitter },
+    { url: SOCIAL_MEDIA_LINKS.PINTEREST, alt: "Pinterest", icon: Pinterest },
+    { url: SOCIAL_MEDIA_LINKS.INSTAGRAM, alt: "Instagram", icon: Instagram }
   ];
 
   const contactLinks = [
-    { url: "#", alt: "WhatsApp", icon: Whatsapp, label: "Whatsapp" },
-    { url: "#", alt: "Telegram", icon: Telegram, label: "Telegram" },
-    { url: "#", alt: "Messenger", icon: Messenger, label: "Messenger" }
+    { url: SOCIAL_MEDIA_LINKS.WHATSAPP, alt: "WhatsApp", icon: Whatsapp, label: "Whatsapp" },
+    { url: SOCIAL_MEDIA_LINKS.TELEGRAM, alt: "Telegram", icon: Telegram, label: "Telegram" },
+    // { url: "#", alt: "Messenger", icon: Messenger, label: "Messenger" }
   ];
 
   const routerLinks = [
     [
-      { url: "/", alt: "Inicio", label: "Inicio" },
-      { url: "/nosotros", alt: "Nosotros", label: "Nosotros" },
+      { url: ROUTES.HOME, alt: "Inicio", label: "Inicio" },
+      { url: ROUTES.NOSOTROS, alt: "Nosotros", label: "Nosotros" },
       { url: ROUTES.SOBRE_EL_CURSO, alt: "Curso ENARM", label: "Curso ENARM" }
     ],
     [
       // { url: "/blog", alt: "Blog", label: "Blog" },
-      { url: "/prueba", alt: "Demo Gratis", label: "Demo Gratis" },
-      { url: "/contacto", alt: "Contacto", label: "Contacto" }
+      // { url: "/prueba", alt: "Demo Gratis", label: "Demo Gratis" },
+      { url: ROUTES.CONTACTO, alt: "Contacto", label: "Contacto" }
     ]
   ];
 
@@ -49,7 +50,7 @@ const Footer = ({
           <div className={ui.imageContainer}>
             <img src={LogoIcon} alt="logo" />
           </div>
-          <Link to="#" datatype="onlySmall" className={ui.blueButtonLink}>Inscribirme ahora</Link>
+          <Link to={ROUTES.REGISTRO} datatype="onlySmall" className={ui.blueButtonLink}>Inscribirme ahora</Link>
           <div className={ui.navigationLinks}>
             <h5>Enlaces</h5>
             {

@@ -25,6 +25,13 @@ const HomePage = () => {
     dispatch(resetUserInformation());
   }, []);
 
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, []);
+
   const wordsTitle = [
     "¿Te",
     "gustaría",

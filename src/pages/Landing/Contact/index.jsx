@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SectionQuestions from "../../../components/SectionQuestions";
 import SectionContact from "../../../components/SectionContact";
 import doctorCoffee from "../../../assets/imgs/monis/einstein-coffee.png";
@@ -18,6 +18,12 @@ const ContactPage = () => {
     e.preventDefault();
     return;
   };
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, []);
   return (
     <LandingLayout page="contact">
       <section id={ui.hero}>
