@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 /* Landing Pages*/
 import HomePage from "./pages/Landing/Home";
 import UsPage from "./pages/Landing/Us";
@@ -102,13 +102,13 @@ const AppRouter = () => {
   const email_checkout = useSelector(selectUserCheckoutEmail);
   const isIdOnCheckout =
     user_id !== null && user_id !== undefined && user_id !== "";
-  // console.log(isIdOnCheckout);
+  console.log(isIdOnCheckout);
   const isEmailOnCheckout =
     email_checkout !== null &&
     email_checkout !== undefined &&
     email_checkout !== "";
 
-    // console.log(isEmailOnCheckout);
+  console.log(isEmailOnCheckout);
 
   return (
     <LandingProvider>
@@ -358,7 +358,11 @@ const AppRouter = () => {
                     </RenderComponenteIf>
                   }
                 />
-                <Route path="*" element={<PageNotFound />} />
+                {/* <Route path="*" element={<PageNotFound />} /> */}
+                <Route
+                  path="*"
+                  element={<Navigate to={ROUTES.HOME} replace />}
+                />
               </Routes>
             </SimulatorProvider>
           </GeneralProvider>
