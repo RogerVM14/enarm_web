@@ -6,7 +6,7 @@ const PlanCourseCollapse = ({ weeksList }) => {
   const navigate = useNavigate();
 
   const handleShowBodyContent = (week) => {
-    navigate(`/cursoENARM/planes/11_Meses/contenido/${week}?week=${week}&plan_id=${6}`);
+    navigate(`/cursoENARM/planes/11_Meses/contenido/${week}?week=${week}&plan_id=${1}`);
   }; 
   return (
     <section>
