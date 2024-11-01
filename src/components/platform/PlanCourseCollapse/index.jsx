@@ -53,9 +53,9 @@ const PlanCourseCollapse = ({ weeksList }) => {
                         {week?.resources.map((resource, index) => {
                           return (
                             <div className={ui.dayClass} key={index}>
-                              <p>{resource[0]} - </p>
+                              <p>{" "}{resource[0]} - </p>
                               <span>
-                                {resource[1]} {resource[1] === 1 ? "día" : "días"}
+                                {resource[1]} 
                               </span>
                             </div>
                           );

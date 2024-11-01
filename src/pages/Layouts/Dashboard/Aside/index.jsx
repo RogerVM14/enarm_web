@@ -24,13 +24,13 @@ const DashboardAsideTemplate = ({ smallDevice, isMenuActive, handleShowMenu = ()
   const [menuPlansSelected, setMenuPlansSelected] = useState(false);
   const [menuItemSelected, setMenuItemSelected] = useState(null);
   const [menuPlans, setMenuPlans] = useState([
-    { route: "/cursoENARM/planes/11_meses", label: "11 Meses", isActive: false },
-    { route: "/cursoENARM/planes/10_meses", label: "10 Meses", isActive: false },
-    { route: "/cursoENARM/planes/9_meses", label: "9 Meses", isActive: false },
-    { route: "/cursoENARM/planes/8_meses", label: "8 Meses", isActive: false },
-    { route: "/cursoENARM/planes/7_meses", label: "7 Meses", isActive: false },
-    { route: "/cursoENARM/planes/6_meses", label: "6 Meses", isActive: false },
-    { route: "/cursoENARM/planes/5_meses", label: "5 Meses", isActive: false },
+    { route: "/cursoENARM/planes/11_meses", label: "11 Meses", isActive: true },
+    // { route: "/cursoENARM/planes/10_meses", label: "10 Meses", isActive: false },
+    // { route: "/cursoENARM/planes/9_meses", label: "9 Meses", isActive: false },
+    // { route: "/cursoENARM/planes/8_meses", label: "8 Meses", isActive: false },
+    // { route: "/cursoENARM/planes/7_meses", label: "7 Meses", isActive: false },
+    // { route: "/cursoENARM/planes/6_meses", label: "6 Meses", isActive: false },
+    // { route: "/cursoENARM/planes/5_meses", label: "5 Meses", isActive: false },
   ]);
   const [menuDocumentsSelected, setMenuDocumentsSelected] = useState(false);
   const [menuDocuments, setMenuDocuments] = useState([

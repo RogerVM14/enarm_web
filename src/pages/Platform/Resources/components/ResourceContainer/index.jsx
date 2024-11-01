@@ -48,7 +48,7 @@ const ResourceContainer = ({ resourcesContent }) => {
             <h4>{specialtiesNames.join(" / ")}</h4>
             <p style={{ fontFamily: "PoppinsRegular" }}>Recursos</p>
           </div>
-          <div className={ui.resourseFilters}>
+          {/* <div className={ui.resourseFilters}>
             <div className={ui.filter}>
               <label htmlFor="resourseFilterOption">Filtrar por:</label>
               <select name="resourceFilterOption" id="resourceFilterOption" disabled>
@@ -72,7 +72,7 @@ const ResourceContainer = ({ resourcesContent }) => {
                 <label htmlFor="turn">3ra</label>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </header>
       <div className={ui.containerBody}>

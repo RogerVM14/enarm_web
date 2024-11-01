@@ -62,22 +62,23 @@ const ContactPage = () => {
                     <a
                       href="https://www.facebook.com/plataformaenarm"
                       target="_blank"
+                      rel="noreferrer"
                     >
                       <img src={facebookIcon} alt="facebook" />
                     </a>
-                    <a href="https://t.me/PlataformaENARM" target="_blank">
+                    <a href="https://t.me/PlataformaENARM" target="_blank" rel="noreferrer">
                       <img src={telegramIcon} alt="telegram" />
                     </a>
-                    <a href="https://whatsapp.com/channel/0029Va55YOO7Noa5jWtRxi1x" target="_blank">
+                    <a href="https://whatsapp.com/channel/0029Va55YOO7Noa5jWtRxi1x" target="_blank" rel="noreferrer">
                       <img src={whatsappIcon} alt="whatsApp" />
                     </a>
-                    <a href="https://twitter.com/EnarMoficial?s=09" target="_blank">
+                    <a href="https://twitter.com/EnarMoficial?s=09" target="_blank" rel="noreferrer">
                       <img src={twitterIcon} alt="twitter" />
                     </a>
-                    <a href="https://pin.it/1UbrEA8" target="_blank">
+                    <a href="https://pin.it/1UbrEA8" target="_blank" rel="noreferrer">
                       <img src={pinterestIcon} alt="pinterest" />
                     </a>
-                    <a href="https://instagram.com/plataformaenarm?utm_medium=3wcopy_link" target="_blank">
+                    <a href="https://instagram.com/plataformaenarm?utm_medium=3wcopy_link" target="_blank" rel="noreferrer">
                       <img src={instagramIcon} alt="instagram" />
                     </a>
                   </div>

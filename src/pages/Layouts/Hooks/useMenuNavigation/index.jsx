@@ -24,12 +24,12 @@ const useMenuNavigation = () => {
       alt: "dashboard",
       list: [
         { route: "/u/planes/11_meses", label: "11 Meses", selected: false },
-        { route: "/u/planes/10_meses", label: "10 Meses", selected: false },
-        { route: "/u/planes/9_meses", label: "9 Meses", selected: false },
-        { route: "/u/planes/8_meses", label: "8 Meses", selected: false },
-        { route: "/u/planes/7_meses", label: "7 Meses", selected: false },
-        { route: "/u/planes/6_meses", label: "6 Meses", selected: false },
-        { route: "/u/planes/5_meses", label: "5 Meses", selected: false },
+        // { route: "/u/planes/10_meses", label: "10 Meses", selected: false },
+        // { route: "/u/planes/9_meses", label: "9 Meses", selected: false },
+        // { route: "/u/planes/8_meses", label: "8 Meses", selected: false },
+        // { route: "/u/planes/7_meses", label: "7 Meses", selected: false },
+        // { route: "/u/planes/6_meses", label: "6 Meses", selected: false },
+        // { route: "/u/planes/5_meses", label: "5 Meses", selected: false },
       ],
     }, {
       route: "/u/recursos",

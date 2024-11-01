@@ -235,7 +235,7 @@ const CoursePage = () => {
           </section>
 
           <aside>
-            <section id={ui.advance}>
+            {/* <section id={ui.advance}>
               <header>
                 <div className={ui.sectionHeader}>
                   <h5>Registra tu avance</h5>
@@ -264,7 +264,7 @@ const CoursePage = () => {
                   <label htmlFor="dayOne">Día 5</label>
                 </div>
               </div>
-            </section>
+            </section> */}
             <section id={ui.studyMethods}>
               <header>
                 <div className={ui.sectionHeader}>
