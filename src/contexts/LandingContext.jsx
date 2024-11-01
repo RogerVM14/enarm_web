@@ -4,7 +4,7 @@ export const LandingContext = createContext(null);
 
 const LandingProvider = ({ children }) => {
 
-  const [popUp, setPopUp] = useState(true);
+  const [popUp, setPopUp] = useState(false);
 
   return (
     <LandingContext.Provider value={{
