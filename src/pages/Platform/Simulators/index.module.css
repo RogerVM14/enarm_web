@@ -15,8 +15,8 @@
 }
 
 .simulatorCard .cardHeader {
-  border: 1px solid var(--Neutral-5, #D9D9D9);
-  background: var(--Neutral-2, #FAFAFA);
+  border: 1px solid var(--Neutral-5, #d9d9d9);
+  background: var(--Neutral-2, #fafafa);
   padding: 11px 16px;
 }
 
@@ -25,10 +25,10 @@
 }
 
 .simulatorCard .cardBody {
-  border-right: 1px solid var(--Neutral-5, #D9D9D9);
-  border-bottom: 1px solid var(--Neutral-5, #D9D9D9);
-  border-left: 1px solid var(--Neutral-5, #D9D9D9);
-  background: var(--White, #FFF);
+  border-right: 1px solid var(--Neutral-5, #d9d9d9);
+  border-bottom: 1px solid var(--Neutral-5, #d9d9d9);
+  border-left: 1px solid var(--Neutral-5, #d9d9d9);
+  background: var(--White, #fff);
   padding: 16px;
 }
 
@@ -72,7 +72,7 @@
   line-height: 20px;
 }
 
-.guideList li>strong {
+.guideList li > strong {
   font-weight: 700;
 }
 
@@ -96,13 +96,13 @@
 .buttonLinkWhite {
   color: rgba(0, 0, 0, 0.85);
   border-radius: 2px;
-  border: 1px solid var(--Neutral-5, #D9D9D9);
-  background: var(--Neutral-3, #FFF);
+  border: 1px solid var(--Neutral-5, #d9d9d9);
+  background: var(--Neutral-3, #fff);
   box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.02);
 }
 
 .buttonLinkWhite[aria-disabled] {
-  background: var(--Neutral-3, #F5F5F5);
+  background: var(--Neutral-3, #f5f5f5);
   color: rgba(0, 0, 0, 0.25);
   pointer-events: none;
 }
@@ -110,12 +110,12 @@
 .buttonLinkBlue {
   border-radius: 2px;
   background: rgba(5, 178, 250, 1);
-  color: var(--character-primary-inverse, #FFF);
+  color: var(--character-primary-inverse, #fff);
   transition: all 250ms linear;
 }
 
 .buttonLinkBlue:hover {
-  background: #00A0E2;
+  background: #00a0e2;
   transition: all 250ms linear;
 }
 
@@ -123,12 +123,12 @@
   display: none;
 }
 
-img[data-selected=true] {
+img[data-selected="true"] {
   transform: rotate(90deg);
   transition: transform 200ms linear;
 }
 
-img[data-selected=false] {
+img[data-selected="false"] {
   transform: rotate(0deg);
   transition: transform 200ms linear;
 }
@@ -156,4 +156,8 @@ img[data-selected=false] {
     gap: 16px;
     padding-bottom: 0;
   }
+}
+
+.selectSpecialty {
+  outline: 1px solid red;
 }

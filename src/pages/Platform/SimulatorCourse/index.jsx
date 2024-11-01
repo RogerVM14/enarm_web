@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import ui from "./index.module.css";
 import DashboardLayout from "../../Layouts/Dashboard";
 import { Link, useLocation } from "react-router-dom";
+import SimulatorsAdvice from "./components/SimulatorAdvice/SimulatorsAdvice";
 import { useQuery } from "react-query";
 import { getSimulatorQuestions, addAnswerSimulatorByStudent } from "../../../apis/platform";
 import toast from "react-hot-toast";
@@ -17,13 +18,13 @@ const useQueryParams = () => {
 
 const SimulatorCoursePage = () => {
   const [questionGroup, setQuestionGroup] = useState(true);
-  const [clinicGroup, setClinicGroup] = useState(true);
+  const [open, setOpen] = useState(false);
   const [current, setCurrent] = useState(0);
   const [squares, setSquares] = useState([]);
   const [squareSelected, setSquareSelected] = useState(null);
   const [answersSimulator, setAnwersSimulator] = useState([]);
 
-  const { simulator_id } = useQueryParams();
+  const { simulator_id, plan } = useQueryParams();
   const {
     isLoading,
     isError,
@@ -204,7 +205,7 @@ const SimulatorCoursePage = () => {
                   type="button"
                   className={ui.getRetroButton}
                   onClick={() => {
-                    // setFeedbackModal(true);
+                    setOpen(true);
                   }}
                 >
                   <span>Obtener retroalimentación</span>
@@ -233,6 +234,7 @@ const SimulatorCoursePage = () => {
                 )}
               </div>
             </div>
+            <SimulatorsAdvice open={open} onClose={() => setOpen(false)} query={{ simulator: simulator_id, plan }} />
           </section>
         </div>
       </div>

@@ -1,17 +1,25 @@
 import React, { useState } from "react";
-import ui from "./index.module.css"
-import { Link } from "react-router-dom";
+import ui from "./index.module.css";
+import { Link, useLocation } from "react-router-dom";
 import DashboardLayout from "../../Layouts/Dashboard";
 import GraphicResults from "../Assets/Images/graphicResults.png";
 
-const ResultsPage = () => {
+const useQueryParams = () => {
+  const { search } = useLocation();
+  const queryParameters = new URLSearchParams(search);
+  const plan = parseInt(queryParameters.get("plan"));
+  const simulator = parseInt(queryParameters.get("id"));
 
-  const [tries, ] = useState([
+  return { plan, simulator };
+};
+
+const ResultsPage = () => {
+  const [tries] = useState([
     { tryNumber: "1er Intento", result: "Respuestas correctas 75 de 100", percentage: "75", retro: true },
     { tryNumber: "2do Intento", result: "Sin registro", percentage: "0", retro: false },
     { tryNumber: "3er Intento", result: "Sin registro", percentage: "0", retro: false },
     { tryNumber: "4to Intento", result: "Sin registro", percentage: "0", retro: false },
-    { tryNumber: "5to Intento", result: "Sin registro", percentage: "0", retro: false }
+    { tryNumber: "5to Intento", result: "Sin registro", percentage: "0", retro: false },
   ]);
 
   return (
@@ -26,14 +34,18 @@ const ResultsPage = () => {
                   <h4>Simulador Infectología</h4>
                   <p datatype="large">Panel de Resultados</p>
                   <p datatype="small">Panel</p>
-                  <Link to={"#"} className={ui.blueLink} datatype="large">Comenzar Simulador</Link>
+                  <Link to="/cursoENARM/simuladores" className={ui.blueLink} datatype="large">
+                    Comenzar Simulador
+                  </Link>
                 </div>
                 <p>
-                  En este espacio puedes conocer las estadísticas de tu desempeño por cada intento realizado.
-                  Además, para una mejor retroalimentación hemos dividido los resultados por categorías para que identifiques
+                  En este espacio puedes conocer las estadísticas de tu desempeño por cada intento realizado. Además,
+                  para una mejor retroalimentación hemos dividido los resultados por categorías para que identifiques
                   rápidamente cuáles son tus puntos fuertes y cuáles son aquellas que necesitas reforzar.
                 </p>
-                <Link to={"#"} datatype="small">Comenzar Simulador</Link>
+                <Link to={"#"} datatype="small">
+                  Comenzar Simulador
+                </Link>
               </div>
             </div>
           </header>
@@ -59,7 +71,9 @@ const ResultsPage = () => {
                 <div className={ui.graphicContainer}>
                   <div className={ui.graphicTabs}>
                     <ul className={ui.tabList}>
-                      <li className={ui.tabItem} data-selected="selected">1er Intento</li>
+                      <li className={ui.tabItem} data-selected="selected">
+                        1er Intento
+                      </li>
                       <li className={ui.tabItem}>2do Intento</li>
                       <li className={ui.tabItem}>3er Intento</li>
                       <li className={ui.tabItem}>4to Intento</li>
@@ -76,38 +90,29 @@ const ResultsPage = () => {
         </div>
       </div>
     </DashboardLayout>
-  )
-}
+  );
+};
 
 const TryResultContainer = ({ tries }) => {
   return (
     <React.Fragment>
-      {
-        tries?.map((item, index) => {
-
-          const { tryNumber, result, percentage, retro } = item;
-          return (
-            <div className={ui.tryResult} key={index}>
-              <div className={ui.resultInfo}>
-                <h5>{tryNumber}</h5>
-                <p>{result}</p>
-                {
-                  retro
-                    ? <Link to={"#"}>Ver Retroalimentación</Link>
-                    : null
-                }
-              </div>
-              <div className={ui.percentage}>
-                <div className={ui.percentageNumber}>
-                  {percentage}%
-                </div>
-              </div>
+      {tries?.map((item, index) => {
+        const { tryNumber, result, percentage, retro } = item;
+        return (
+          <div className={ui.tryResult} key={index}>
+            <div className={ui.resultInfo}>
+              <h5>{tryNumber}</h5>
+              <p>{result}</p>
+              {retro ? <Link to={"#"}>Ver Retroalimentación</Link> : null}
             </div>
-          )
-        })
-      }
+            <div className={ui.percentage}>
+              <div className={ui.percentageNumber}>{percentage}%</div>
+            </div>
+          </div>
+        );
+      })}
     </React.Fragment>
-  )
-}
+  );
+};
 
 export default ResultsPage;

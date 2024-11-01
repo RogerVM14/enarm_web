@@ -5,9 +5,9 @@ import PlanCourseCollapse from "../../../components/platform/PlanCourseCollapse"
 import ui from "./index.module.css";
 import { useQuery } from "react-query";
 import { getStudyPlanById } from "../../../apis/platform";
-import TablaEstudios from "./components/TablaEstudios";
-import Calendario from "./components/Calendario";
-import Avances from "./components/Avances";
+// import TablaEstudios from "./components/TablaEstudios";
+// import Calendario from "./components/Calendario";
+// import Avances from "./components/Avances";
 
 const PlanMonthPage = () => {
   const [weeksList, setWeekList] = useState([]);
@@ -39,9 +39,9 @@ const PlanMonthPage = () => {
             <PlanCourseCollapse weeksList={weeksList} />
           </section>
           <aside>
-            <Calendario />
+            {/* <Calendario />
             <Avances />
-            <TablaEstudios />
+            <TablaEstudios /> */}
           </aside>
         </div>
       </div>

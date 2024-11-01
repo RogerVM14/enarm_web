@@ -1,68 +1,134 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import EnarmLogo from "../../Assets/Images/EnarmLogo.jpg";
-// import BurgerMenuIcon from "../../Assets/Icons/BurgerMenu.png";
 import ArrowDown from "../../Assets/Icons/ArrowDown.png";
 import ArrowUp from "../../Assets/Icons/ArrowUp.png";
-import { GeneralContext } from "../../../../contexts/GeneralContext";
 import CloseIcon from "../../Assets/Icons/CloseIcon.svg";
 import UserDefaultIcon from "../../Assets/Icons/DefaultUser.png";
 import ui from "../index.module.css";
 import { ROUTES } from "../../../../constants/routes";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../../utils/auth";
+import DashboardBlueIcon from "../../../Layouts/Assets/Icons/DashboardBlue.svg";
+import DashboardBlackIcon from "../../../Layouts/Assets/Icons/DashboardBlack.svg";
+import DocumentsBlackIcon from "../../../Layouts/Assets/Icons/DocumentsBlack.png";
+import DocumentsBlueIcon from "../../../Layouts/Assets/Icons/DocumentsBlue.png";
+import ResourcesBlackIcon from "../../../Layouts/Assets/Icons/ResourcesBlack.png";
+import ResourcesBlueIcon from "../../../Layouts/Assets/Icons/ResourcesBlue.png";
+import SimulatorBlackIcon from "../../../Layouts/Assets/Icons/SimulatorBlack.png";
+import SimulatorBlueIcon from "../../../Layouts/Assets/Icons/SimulatorBlue.png";
+import { GeneralContext } from "../../../../contexts/GeneralContext";
 
 const DashboardAsideTemplate = ({ smallDevice, isMenuActive, handleShowMenu = () => {} }) => {
   const [displayTools, setDisplayTools] = useState(false);
+  const [menuPlansSelected, setMenuPlansSelected] = useState(false);
+  const [menuItemSelected, setMenuItemSelected] = useState(null);
+  const [menuPlans, setMenuPlans] = useState([
+    { route: "/cursoENARM/planes/11_meses", label: "11 Meses", isActive: false },
+    { route: "/cursoENARM/planes/10_meses", label: "10 Meses", isActive: false },
+    { route: "/cursoENARM/planes/9_meses", label: "9 Meses", isActive: false },
+    { route: "/cursoENARM/planes/8_meses", label: "8 Meses", isActive: false },
+    { route: "/cursoENARM/planes/7_meses", label: "7 Meses", isActive: false },
+    { route: "/cursoENARM/planes/6_meses", label: "6 Meses", isActive: false },
+    { route: "/cursoENARM/planes/5_meses", label: "5 Meses", isActive: false },
+  ]);
+  const [menuDocumentsSelected, setMenuDocumentsSelected] = useState(false);
+  const [menuDocuments, setMenuDocuments] = useState([
+    { route: "/cursoENARM/documentos/guia", label: "Guía de Estudio", isActive: false },
+    { route: "/cursoENARM/documentos/programa_academico", label: "Programa Académico", isActive: false },
+  ]);
+  const [menu, setMenu] = useState([
+    {
+      route: "/cursoENARM/planes/11_meses",
+      label: "Planes de Estudio",
+      isActive: false,
+      active: DashboardBlueIcon,
+      inactive: DashboardBlackIcon,
+    },
+    {
+      route: "/cursoENARM/recursos",
+      label: "Recursos",
+      isActive: false,
+      active: ResourcesBlueIcon,
+      inactive: ResourcesBlackIcon,
+    },
+    {
+      route: "/cursoENARM/simuladores",
+      label: "Simuladores",
+      isActive: false,
+      active: SimulatorBlueIcon,
+      inactive: SimulatorBlackIcon,
+    },
+    {
+      route: "/cursoENARM/documentos/guia",
+      label: "Documentos ENARM",
+      isActive: false,
+      active: DocumentsBlueIcon,
+      inactive: DocumentsBlackIcon,
+    },
+  ]);
 
-  const { menu, current, menuPlans, menuDocuments, handleMenuSelected } = useContext(GeneralContext);
+  const navigateTo = useNavigate();
+  const { globalMenuSelected, setGlobalMenuSelected } = useContext(GeneralContext);
 
-  const navigate = useNavigate();
+  const onClickEventMenu = (index, route) => {
+    setGlobalMenuSelected(index);
+    if (index === 0) setMenuPlansSelected(!menuPlansSelected);
+    if (index === 3) setMenuDocumentsSelected(!menuDocumentsSelected);
+    navigateTo(route);
+  };
+
+  useEffect(() => {
+    setMenu((prev) => {
+      const _array_ = prev?.map((item, index) => {
+        return index === globalMenuSelected
+          ? {
+              ...item,
+              isActive: true,
+            }
+          : item;
+      });
+      return _array_;
+    });
+  }, [globalMenuSelected]);
 
   return (
     <aside className={ui.asideStyle} data-portability={smallDevice} data-active={isMenuActive}>
       <div className={ui.asideBackground}></div>
       <div className={ui.asideContainer}>
-        <div
+        <Link
           className={ui.logoContainer}
-          onClick={() => {
-            navigate("/cursoENARM");
-          }}
+          to="/cursoENARM"
+          style={{ cursor: "pointer" }}
+          onClick={() => setGlobalMenuSelected(null)}
         >
           <div className={ui.imageContainer}>
             <img src={EnarmLogo} alt="Enarm Logo" />
           </div>
           Plataforma ENARM
-        </div>
+        </Link>
         <nav>
           <ul className={ui.menuList}>
             <li data-portability={smallDevice}>
-              <button
-                type="button"
-                className={ui.closeButton}
-                onClick={() => {
-                  handleShowMenu();
-                }}
-              >
+              <button type="button" className={ui.closeButton} onClick={() => handleShowMenu()}>
                 <img src={CloseIcon} alt="close" />
               </button>
             </li>
-            {menu?.map((item, index) => {
-              const { isActive, label, route, list, alt } = item;
-              const isSelected = isActive && current === index;
-              const optionClass = isSelected ? ui.optionLinkSelected : ui.optionLink;
-              return (
-                <li key={index} className={ui.listOption}>
-                  <NavLink className={optionClass} to={route} onClick={() => handleMenuSelected(index)}>
-                    <NavigationIcon item={item} />
-                    {label}
-                    <ChevronIcon list={list} isActive={isActive} />
-                  </NavLink>
-                  <NavigationPlansSubmenu list={list} isActive={isActive} alt={alt} toggle={menuPlans} />
-                  <NavigationDocumentsSubmenu list={list} isActive={isActive} alt={alt} toggle={menuDocuments} />
-                </li>
-              );
-            })}
+
+            {menu?.map((item, index) => (
+              <li key={index}>
+                <button
+                  type="button"
+                  onClick={() => onClickEventMenu(index, item.route)}
+                  className={item.isActive ? ui.buttonMenuItemSelected : ui.buttonMenuItem}
+                >
+                  <img src={item.isActive ? item.active : item.inactive} alt="" />
+                  {item.label}
+                </button>
+                <Submenu submenu={menuPlans} visible={item.isActive && globalMenuSelected === 0} />
+                <Submenu submenu={menuDocuments} visible={item.isActive && globalMenuSelected === 3} />
+              </li>
+            ))}
           </ul>
           <div className={ui.asideFooter}>
             <div
@@ -84,22 +150,27 @@ const DashboardAsideTemplate = ({ smallDevice, isMenuActive, handleShowMenu = ()
               </svg>
             </div>
             <UserTools display={displayTools} />
-            {/* <div className="menu-toggle">
-              <button
-                className="toggle-button-menu"
-                onClick={() => {
-                  if (smallDevice === false) return;
-                  handleShowMenu()
-                }}
-              >
-                <img src={BurgerMenuIcon} alt="menu" className="menu-icon" />
-              </button>
-            </div> */}
           </div>
         </nav>
       </div>
     </aside>
   );
+};
+
+const Submenu = ({ submenu, visible }) => {
+  return visible ? (
+    <ul className={ui.submenuList}>
+      {submenu?.map((sub, index) => {
+        return (
+          <li key={index}>
+            <Link to={sub.route} className={ui.buttonMenuItem}>
+              {sub.label}
+            </Link>
+          </li>
+        );
+      })}
+    </ul>
+  ) : null;
 };
 
 const UserTools = ({ display }) => {
@@ -116,62 +187,6 @@ const UserTools = ({ display }) => {
         Cerrar Sesión
       </Link>
     </div>
-  ) : null;
-};
-
-const NavigationPlansSubmenu = ({ list = [], isActive, alt, toggle }) => {
-  if (alt !== "dashboard" || toggle === false) return null;
-  return list && isActive ? (
-    <ul>
-      {list?.map((i, index) => {
-        return (
-          <li key={index} className={ui.listOption}>
-            <NavLink to={i.route} className={ui.optionSublink}>
-              {i.label}
-            </NavLink>
-          </li>
-        );
-      })}
-    </ul>
-  ) : null;
-};
-
-const NavigationDocumentsSubmenu = ({ list = [], isActive, alt, toggle }) => {
-  if (alt !== "documents" || toggle === false) return null;
-  return list && isActive ? (
-    <ul>
-      {list?.map((i, index) => {
-        return (
-          <li key={index} className={ui.listOption}>
-            <NavLink to={i.route} className={ui.optionSublink}>
-              {i.label}
-            </NavLink>
-          </li>
-        );
-      })}
-    </ul>
-  ) : null;
-};
-
-const NavigationIcon = ({ item }) => {
-  const { activeIcon, isActive, alt, inactiveIcon } = item;
-
-  if (activeIcon === undefined) return null;
-
-  return <img className={ui.linkIcon} src={isActive ? activeIcon : inactiveIcon} alt={alt} />;
-};
-
-const ChevronIcon = ({ list, isActive, handleEventList }) => {
-  return list ? (
-    <button
-      type="button"
-      className={ui.chevronButton}
-      onClick={() => {
-        handleEventList();
-      }}
-    >
-      <img className={ui.linkArrow} src={isActive ? ArrowUp : ArrowDown} alt="ArrowMenu" />
-    </button>
   ) : null;
 };
 

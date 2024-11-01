@@ -17,7 +17,7 @@ export const ROUTES = {
   PLATAFORMA_PLANES: "/cursoENARM/planes",
   PLATAFORMA_PLANES_ID: "/cursoENARM/planes/:id",
   PLATAFORMA_PLANES_CONTENIDO: "/cursoENARM/planes/:id/contenido/:id",
-  PLATAFORMA_PLANES_RESULTADOS: "/cursoENARM/planes/:id/panel_resultados/:id",
+  PLATAFORMA_PLANES_RESULTADOS: "/cursoENARM/resultados",
   PLATAFORMA_PLANES_SIMULADOR: "/cursoENARM/simulador",
   PLATAFORMA_PLANES_RETROALIMENTACION: "/cursoENARM/planes/:id/retro",
   PLATAFORMA_AVISO_NOVEDADES: "/cursoENARM/novedades",
@@ -27,5 +27,5 @@ export const ROUTES = {
   PLATAFORMA_DOCUMENTOS: "/cursoENARM/documentos",
   PLATAFORMA_CUENTA: "/cursoENARM/MiCuenta",
   PLATAFORMA_DOCUMENTOS_GUIA: "/cursoENARM/documentos/guia",
-  PLATAFORMA_DOCUMENTOS_PROGRAMA: "/cursoENARM/documentos/programa_academico"
+  PLATAFORMA_DOCUMENTOS_PROGRAMA: "/cursoENARM/documentos/programa_academico",
 };

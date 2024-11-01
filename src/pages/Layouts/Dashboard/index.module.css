@@ -8,17 +8,17 @@
   position: relative;
 }
 
-#dashboardWrapper>header {
+#dashboardWrapper > header {
   grid-area: header;
   background-color: rgba(30, 115, 190, 1);
 }
 
-#dashboardWrapper>aside {
+#dashboardWrapper > aside {
   grid-area: nav;
   background-color: rgba(255, 255, 255, 1);
 }
 
-#dashboardWrapper>main {
+#dashboardWrapper > main {
   grid-area: main;
   background-color: rgba(240, 242, 245, 1);
   overflow-y: auto;
@@ -41,7 +41,7 @@
   padding-left: 16px;
 }
 
-.navContainer>button {
+.navContainer > button {
   background: transparent;
   border: none;
   outline: none;
@@ -95,7 +95,7 @@
 }
 
 .logoContainer {
-  color: #05B2FA;
+  color: #05b2fa;
   font-size: 14px;
   font-family: PoppinsRegular;
   font-weight: 400;
@@ -137,11 +137,11 @@
 }
 
 .optionLink:hover {
-  background: #05B2FA;
+  background: #05b2fa;
 }
 
 .optionLinkSelected {
-  color: #05B2FA;
+  color: #05b2fa;
 }
 
 .listOption .optionSublink {
@@ -163,7 +163,7 @@
 }
 
 .optionSublink:hover {
-  background: #E6F7FF;
+  background: #e6f7ff;
 }
 
 .chevronButton {
@@ -183,7 +183,7 @@
 }
 
 .mainLinkBlue {
-  color: var(--Primary, #05B2FA);
+  color: var(--Primary, #05b2fa);
   font-family: PoppinsRegular;
   font-size: 14px;
   font-style: normal;
@@ -201,7 +201,7 @@ nav[data-size="sm"] .navContainer {
   display: flex;
   align-items: center;
   padding: 4px 16px;
-  background: var(--Background-Default, #FFF);
+  background: var(--Background-Default, #fff);
   border-bottom: 1px solid rgba(238, 238, 238, 1);
 }
 
@@ -214,17 +214,23 @@ nav[data-size="sm"] .navContainer {
   list-style: none;
 }
 
+.menuList,
+.submenuList {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+}
+
 .asideBackground {
   display: block;
 }
 
-
-aside[data-portability=false],
-aside[data-portability=false] {
+aside[data-portability="false"],
+aside[data-portability="false"] {
   display: block;
 }
 
-*[data-portability=false] {
+*[data-portability="false"] {
   display: none;
 }
 
@@ -244,10 +250,8 @@ aside[data-portability=false] {
 }
 
 .dropDownMenu li:hover {
-
   background: rgb(240, 242, 245);
 }
-
 
 @media screen and (max-width: 1024px) {
   #dashboardWrapper {
@@ -255,15 +259,15 @@ aside[data-portability=false] {
     position: relative;
   }
 
-  #dashboardWrapper>aside {
+  #dashboardWrapper > aside {
     position: fixed;
     top: 0;
     right: 0;
     height: 100dvh;
-    box-shadow: -8px 0px 20px 0px rgba(0, 0, 0, .35);
+    box-shadow: -8px 0px 20px 0px rgba(0, 0, 0, 0.35);
   }
 
-  *[data-portability=false] {
+  *[data-portability="false"] {
     display: none;
   }
 
@@ -276,11 +280,11 @@ aside[data-portability=false] {
     margin-right: 8px;
   }
 
-  aside[data-active=false][data-portability=true] {
+  aside[data-active="false"][data-portability="true"] {
     display: none;
   }
 
-  aside[data-active=true][data-portability=true] {
+  aside[data-active="true"][data-portability="true"] {
     display: block;
   }
 
@@ -305,17 +309,17 @@ aside[data-portability=false] {
   .searchBar {
     display: block;
     border-radius: 2px;
-    background: var(--Neutral-1, #FFF);
+    background: var(--Neutral-1, #fff);
   }
 
   .searchbarInput {
     display: flex;
     flex-wrap: nowrap;
-    border: 1px solid var(--Neutral-5, #D9D9D9);
+    border: 1px solid var(--Neutral-5, #d9d9d9);
     padding: 22px 16px 8px 16px;
   }
 
-  .searchbarInput input[type=text] {
+  .searchbarInput input[type="text"] {
     padding: 4px 12px;
     width: 100%;
     border: none;
@@ -374,4 +378,31 @@ aside[data-portability=false] {
   .logoContainer {
     display: none;
   }
+}
+
+.buttonMenuItemSelected,
+.buttonMenuItem {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  height: 40px;
+  border: none;
+  padding: 0 0.75rem;
+  font-size: 14px;
+  column-gap: 10px;
+}
+
+.buttonMenuItemSelected {
+  background-color: #e6f7ff;
+  color: #05b2fa;
+}
+
+.buttonMenuItem {
+  background-color: #fff;
+  color: black;
+}
+
+a.buttonMenuItem {
+  padding: 0 2.5rem;
 }
