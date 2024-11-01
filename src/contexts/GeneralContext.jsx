@@ -20,8 +20,7 @@ const GeneralProvider = (props) => {
   const [current, setCurrent] = useState(0);
   const [menu, setMenu] = useState([
     {
-      // route: "/cursoENARM/planes",
-      route: "#",
+      route: "/cursoENARM/planes",
       label: "Planes de Estudio",
       isActive: true,
       activeIcon: DashboardBlueIcon,
@@ -44,7 +43,7 @@ const GeneralProvider = (props) => {
       inactiveIcon: ResourcesBlackIcon,
       alt: "resources",
     }, {
-      route: "/cursoENARM/simulador",
+      route: "/cursoENARM/simuladores",
       label: "Simuladores",
       isActive: false,
       activeIcon: SimulatorBlueIcon,

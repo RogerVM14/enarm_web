@@ -102,13 +102,13 @@ const AppRouter = () => {
   const email_checkout = useSelector(selectUserCheckoutEmail);
   const isIdOnCheckout =
     user_id !== null && user_id !== undefined && user_id !== "";
-  console.log(isIdOnCheckout);
+  // console.log(isIdOnCheckout);
   const isEmailOnCheckout =
     email_checkout !== null &&
     email_checkout !== undefined &&
     email_checkout !== "";
 
-    console.log(isEmailOnCheckout);
+    // console.log(isEmailOnCheckout);
 
   return (
     <LandingProvider>

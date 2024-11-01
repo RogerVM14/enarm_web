@@ -36,7 +36,7 @@ const RegisterPage = () => {
       const { email, password } = userInfo;
       const encryptPass = encryptPassword(password.toLocaleLowerCase());
       const userInformation = { user_email: email, password: encryptPass };
-      console.log(userInformation);
+      // console.log(userInformation);
 
       CreateNewUser(userInformation)
         .then((res) => {
@@ -54,7 +54,7 @@ const RegisterPage = () => {
           }
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
           showToast.error(
             "Hubo un error al crear tu usuario, intenta nuevamente"
           );

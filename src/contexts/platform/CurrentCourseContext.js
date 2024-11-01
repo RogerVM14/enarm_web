@@ -29,11 +29,7 @@ const CurrentCourseProvider = (props) => {
       }
     });
   }
-
-  useEffect(() => {
-    console.log(currentCourse);
-  }, [currentCourse]);
-
+ 
   return (
     <CurrentCourseContext.Provider value={{ currentCourse, handleRoutePlan, handleCourse }}>
       {props.children}

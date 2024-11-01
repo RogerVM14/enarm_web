@@ -1,16 +1,14 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import DashboardLayout from "../../Layouts/Dashboard";
 import ui from "./index.module.css";
 import ChevronIcon from "../Assets/Icons/chevronicon.svg";
 import AlertIcon from "../Assets/Icons/alertIcon.png";
 import GuideContent from "../../../components/platform/GuideContent";
-import { GeneralContext } from "../../../contexts/GeneralContext";
 import { useQuery } from "react-query";
-import toast from "react-hot-toast";
-import axios from "axios";
-import { getHeaders } from "../../../utils/auth/cookieSession";
-const { REACT_APP_ENARM_API_GATEWAY_URL: url } = process.env;
+import SimulatorsAdvice from "./components/SimulatorsAdvice";
+import { getWeekResourcesByWeekAndPlan } from "../../../apis/platform";
+import VimeoPlayer from "../../../components/VimeoPlayer";
 
 const useQueryParams = () => {
   const { search } = useLocation();
@@ -26,6 +24,8 @@ const CoursePage = () => {
   const [videos, setVideos] = useState([]);
   const [resume, setResume] = useState([]);
   const [simulators, setSimulators] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [dataQuery, setDataQuery] = useState({});
 
   const handleDisplayCardBody = (i) => {
     setCardDisplay((prev) => {
@@ -36,36 +36,9 @@ const CoursePage = () => {
     });
   };
 
-  const { setImportantModal } = useContext(GeneralContext);
-
   const params = useQueryParams();
 
-  const { data: resources } = useQuery("resources", () => getWeekResourcesByWeekAndPlan());
-
-  const getWeekResourcesByWeekAndPlan = async () => {
-    try {
-      const endpoint = `${url}study-plan/get-week-resources-by-week-and-plan`;
-      const headers = getHeaders()
-      const body = {
-        study_plan_id: params.plan,
-        week: params.week,
-      };
-
-      const { data, status } = await axios.post(endpoint, body, headers);
-      if (data.status_Message === "there are resources" && status === 200) {
-        const { resource_List, week_names } = data;
-        return {
-          resource_List,
-          week_names,
-        };
-      }
-    } catch (error) {
-      toast.error("Se presentó un error al obtener recursos.", {
-        position: "bottom-right",
-        duration: 3500,
-      });
-    }
-  };
+  const { data: resources } = useQuery("resources", () => getWeekResourcesByWeekAndPlan(params));
 
   useEffect(() => {
     if (!resources) return;
@@ -100,10 +73,6 @@ const CoursePage = () => {
     resume_specialty = [...new Set(resume_specialty.map((resource) => resource[0]))];
     setResume({ especialidades: resume_specialty, tipo_recursos: resume_types, recursos: resume_data });
   }, [resources]);
-
-useEffect(()=>{
-console.log({simulators})
-},[simulators])
 
   return (
     <DashboardLayout>
@@ -193,15 +162,16 @@ console.log({simulators})
                   <div className={ui.videoContainerGroup}>
                     {videos?.map((video) => {
                       return (
-                        <video
-                          width="320"
-                          height="240"
-                          controls
-                          key={video[1]}
-                          style={{ width: "100%", height: "500px" }}
-                        >
-                          <source src={video[4]} type="video/mp4" />
-                        </video>
+                        <VimeoPlayer />
+                        // <video
+                        //   width="320"
+                        //   height="240"
+                        //   controls
+                        //   key={video[1]}
+                        //   style={{ width: "100%", height: "500px" }}
+                        // >
+                        //   <source src={video[4]} type="video/mp4" />
+                        // </video>
                       );
                     })}
                   </div>
@@ -220,7 +190,7 @@ console.log({simulators})
                   >
                     <div className={ui.cardTitle}>
                       <img src={ChevronIcon} alt="chevron" width={12} height={12} data-selected={cardDisplay[3]} />
-                      <h5>4. Simulador {simulator[2]}</h5>
+                      <h5>4. Simulador {simulator[3]}</h5>
                     </div>
                     <div className={ui.cardDescription}>
                       <p>Practica en nuestro simulador</p>
@@ -249,8 +219,9 @@ console.log({simulators})
                         <button
                           type="button"
                           className={ui.buttonLinkBlue}
-                          onClick={() => {
-                            setImportantModal(true);
+                          onClick={() => { 
+                            setOpen(true);
+                            setDataQuery({ simulator: simulator[0][5], plan: 1 });
                           }}
                         >
                           Comenzar Simulador
@@ -345,6 +316,7 @@ console.log({simulators})
           </aside>
         </div>
       </div>
+      <SimulatorsAdvice open={open} onClose={() => setOpen(false)} query={dataQuery} />
     </DashboardLayout>
   );
 };

@@ -12,24 +12,15 @@ import { ROUTES } from "../../../../constants/routes";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../../utils/auth";
 
-const DashboardAsideTemplate = ({
-  smallDevice,
-  isMenuActive,
-  handleShowMenu = () => {},
-}) => {
+const DashboardAsideTemplate = ({ smallDevice, isMenuActive, handleShowMenu = () => {} }) => {
   const [displayTools, setDisplayTools] = useState(false);
 
-  const { menu, current, menuPlans, menuDocuments, handleMenuSelected } =
-    useContext(GeneralContext);
+  const { menu, current, menuPlans, menuDocuments, handleMenuSelected } = useContext(GeneralContext);
 
   const navigate = useNavigate();
 
   return (
-    <aside
-      className={ui.asideStyle}
-      data-portability={smallDevice}
-      data-active={isMenuActive}
-    >
+    <aside className={ui.asideStyle} data-portability={smallDevice} data-active={isMenuActive}>
       <div className={ui.asideBackground}></div>
       <div className={ui.asideContainer}>
         <div
@@ -59,32 +50,16 @@ const DashboardAsideTemplate = ({
             {menu?.map((item, index) => {
               const { isActive, label, route, list, alt } = item;
               const isSelected = isActive && current === index;
-              const optionClass = isSelected
-                ? ui.optionLinkSelected
-                : ui.optionLink;
+              const optionClass = isSelected ? ui.optionLinkSelected : ui.optionLink;
               return (
                 <li key={index} className={ui.listOption}>
-                  <NavLink
-                    className={optionClass}
-                    to={route}
-                    onClick={() => handleMenuSelected(index)}
-                  >
+                  <NavLink className={optionClass} to={route} onClick={() => handleMenuSelected(index)}>
                     <NavigationIcon item={item} />
                     {label}
                     <ChevronIcon list={list} isActive={isActive} />
                   </NavLink>
-                  <NavigationPlansSubmenu
-                    list={list}
-                    isActive={isActive}
-                    alt={alt}
-                    toggle={menuPlans}
-                  />
-                  <NavigationDocumentsSubmenu
-                    list={list}
-                    isActive={isActive}
-                    alt={alt}
-                    toggle={menuDocuments}
-                  />
+                  <NavigationPlansSubmenu list={list} isActive={isActive} alt={alt} toggle={menuPlans} />
+                  <NavigationDocumentsSubmenu list={list} isActive={isActive} alt={alt} toggle={menuDocuments} />
                 </li>
               );
             })}
@@ -97,20 +72,9 @@ const DashboardAsideTemplate = ({
                 setDisplayTools(!displayTools);
               }}
             >
-              <img
-                src={UserDefaultIcon}
-                alt="User icon"
-                width={"24px"}
-                height={"24px"}
-              />
+              <img src={UserDefaultIcon} alt="User icon" width={"24px"} height={"24px"} />
               <p>Username</p>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="10"
-                height="9"
-                viewBox="0 0 10 9"
-                fill="none"
-              >
+              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="9" viewBox="0 0 10 9" fill="none">
                 <path
                   fillRule="evenodd"
                   clipRule="evenodd"
@@ -194,13 +158,7 @@ const NavigationIcon = ({ item }) => {
 
   if (activeIcon === undefined) return null;
 
-  return (
-    <img
-      className={ui.linkIcon}
-      src={isActive ? activeIcon : inactiveIcon}
-      alt={alt}
-    />
-  );
+  return <img className={ui.linkIcon} src={isActive ? activeIcon : inactiveIcon} alt={alt} />;
 };
 
 const ChevronIcon = ({ list, isActive, handleEventList }) => {
@@ -212,11 +170,7 @@ const ChevronIcon = ({ list, isActive, handleEventList }) => {
         handleEventList();
       }}
     >
-      <img
-        className={ui.linkArrow}
-        src={isActive ? ArrowUp : ArrowDown}
-        alt="ArrowMenu"
-      />
+      <img className={ui.linkArrow} src={isActive ? ArrowUp : ArrowDown} alt="ArrowMenu" />
     </button>
   ) : null;
 };

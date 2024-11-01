@@ -1,16 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import DashboardLayout from "../../Layouts/Dashboard";
-import SpecialitiesList from "../../../components/platform/SpecialitiesList";
+import SpecialitiesList from "./components/SpecialitiesList";
 import ui from "./index.module.css";
-import ChevronIcon from "../Assets/Icons/chevronicon.svg";
-import BackIcon from "../Assets/Icons/backicon.svg";
-import { Link } from "react-router-dom";
-import { GeneralContext } from "../../../contexts/GeneralContext";
+import SimulationCardsContainer from "./components/SimulationCardsContainer";
+import { useQuery } from "react-query";
+import { getSpecialties, getResourcesBySpecialty } from "../../../apis/platform";
 
 const SimulatorsPage = () => {
-
   const [displayContainer, setDisplayContainer] = useState(false);
   const [smallDevice, setSmallDevice] = useState(null);
+  const [resourcesContent, setResourcesContent] = useState({});
+  const [specialtyPosition, setSpecialtyPosition] = useState(0);
+  const { isLoading, isError, data: especialidades } = useQuery("resource-specialties", () => getSpecialties());
 
   useEffect(() => {
     function getWindowSize() {
@@ -19,95 +20,46 @@ const SimulatorsPage = () => {
     }
     window.addEventListener("resize", getWindowSize);
     getWindowSize();
-    return () => window.removeEventListener("resize", getWindowSize)
-  }, [])
+    return () => window.removeEventListener("resize", getWindowSize);
+  }, []);
+
+  const specialtyListProps = {
+    data: especialidades,
+    selectSpecialty: (position) => {
+      setSpecialtyPosition(position);
+    },
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!especialidades || specialtyPosition === 0) return;
+      const list = await getResourcesBySpecialty(especialidades, specialtyPosition);
+      setResourcesContent(list);
+    };
+    fetchData();
+  }, [specialtyPosition, especialidades]);
 
   return (
     <DashboardLayout>
       <div className={ui.wrapper}>
         <div className={ui.gridContainer}>
-          <SpecialitiesList
-            displayContainer={displayContainer}
-            handleDisplay={() => { setDisplayContainer(!displayContainer) }}
-            smallDevice={smallDevice} />
-          <SimulationCardsContainer
-            displayContainer={displayContainer}
-            handleDisplay={() => { setDisplayContainer(!displayContainer) }}
-            smallDevice={smallDevice}
-          />
+          {isLoading && !isError ? <span>Cargando...</span> : null}
+          {!isLoading && isError ? <span>Error...</span> : null}
+          {!isLoading && !isError ? <SpecialitiesList {...specialtyListProps} /> : null}
+          {!resourcesContent ? null : (
+            <SimulationCardsContainer
+              displayContainer={displayContainer}
+              handleDisplay={() => {
+                setDisplayContainer(!displayContainer);
+              }}
+              smallDevice={smallDevice}
+              resourcesContent={resourcesContent}
+            />
+          )}
         </div>
       </div>
-    </DashboardLayout >
-  )
-}
-
-const SimulationCardsContainer = ({
-  displayContainer,
-  handleDisplay = () => { },
-  smallDevice
-}) => {
-  if (displayContainer === false && smallDevice === true) return null;
-  return (
-    <section id={ui.simulatorsSection} data-size="">
-      <div className={ui.sectionContainer}>
-        <button
-          type="button"
-          className={ui.backButton}
-          onClick={() => handleDisplay()}
-        >
-          <img src={BackIcon} alt="chevron" />
-          Volver
-        </button>
-        <div className={ui.containerBody}>
-          <SimulatorCard />
-          <SimulatorCard />
-          <SimulatorCard />
-        </div>
-      </div>
-    </section>
-  )
-}
-
-const SimulatorCard = () => {
-
-  const [display, setDisplay] = useState(false);
-
-  return (
-    <div className={ui.simulatorCard}>
-      <div className={ui.cardHeader} onClick={() => { setDisplay(!display) }} >
-        <div className={ui.headerTitle} >
-          <img src={ChevronIcon} alt="chevron" width={12} height={12} data-selected={display} />
-          <h4>Simulador Infectología #1</h4>
-        </div>
-        <p>Practica en nuestro simulador</p>
-      </div>
-      <CardBody display={display} />
-    </div>
-  )
-}
-
-const CardBody = ({ display }) => {
-
-  const { setImportantModal } = useContext(GeneralContext);
-
-  if (display === false) return null;
-  return (
-    <div className={ui.cardBody}>
-      <ol className={ui.guideList}>
-        <li>Simulador con <strong>50 preguntas.</strong></li>
-        <li>Tiempo para resolverlo: <strong>1 hora 15 minutos.</strong></li>
-        <li>🔥<strong> 5 intentos</strong> permitidos para resolverlo</li>
-        <li>Conoce tus resultados al finalizar presionando <strong>Finish Quiz.</strong></li>
-      </ol>
-      <div className={ui.buttons}>
-        <Link to={"#"} className={ui.buttonLinkWhite} aria-disabled>Ir al panel de resultados</Link>
-        <Link to={"#"}
-          className={ui.buttonLinkBlue}
-          onClick={(e) => { setImportantModal(true) }}
-        >Comenzar Simulador</Link>
-      </div>
-    </div>
-  )
-}
+    </DashboardLayout>
+  );
+};
 
 export default SimulatorsPage;

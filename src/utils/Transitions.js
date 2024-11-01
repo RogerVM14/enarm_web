@@ -1,5 +1,4 @@
-const revealOnLoad = () => {
-    console.log("Enter revealOnLoad");
+const revealOnLoad = () => { 
     let reveals = document.querySelectorAll(".reveal-load");
   
     for (let i = 0; i < reveals.length; i++) {

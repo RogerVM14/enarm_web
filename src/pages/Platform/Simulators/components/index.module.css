@@ -1,0 +1,93 @@
+.simulatorCard {
+  background: var(--Neutral-2, #fafafa);
+}
+.simulatorCard:not(:last-child) {
+  margin-bottom: 1rem;
+}
+.simulatorHeader {
+  border: 1px solid var(--Neutral-5, #d9d9d9); 
+  padding: 11px 16px;
+  cursor: pointer;
+  &:hover {
+    background: #05b2fa60;
+    transition: all 150ms linear;
+  }
+}
+
+.simulatorTitle {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-start;
+  align-items: center;
+  font-family: PoppinsSemiBold;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.simulatorDescription p {
+  color: var(--Black, #000);
+  font-family: PoppinsRegular;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+  display: inline-block;
+  margin-left: 1.5rem;
+}
+
+.simulatorBody {
+  background: white; 
+  padding: 1rem;
+  border: 1px solid var(--Neutral-5, #d9d9d9); 
+  border-top: none;
+}
+
+ol.guideList {
+  padding-left: 1rem;
+  font-family: PoppinsRegular;
+  font-size: 14px !important;
+  & > li {
+    height: 1.75rem;
+    margin-bottom: 12px;
+  }
+}
+
+ol.guideList p strong {
+  font-weight: 700;
+  font-family: PoppinsBold;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  column-gap: 1rem;
+  padding: 8px 0;
+}
+
+.buttonLinkWhite {
+  padding: 0.5rem 1rem;
+  border: 1px solid #d9d9d9;
+  border-radius: 2px;
+  font-family: PoppinsRegular;
+  font-size: 1rem;
+  list-style: 1.5;
+  text-decoration: none;
+  color: #000;
+
+  &:disabled {
+    background-color: #d9d9d9;
+    color: #00000040;
+  }
+}
+
+.buttonLinkBlue {
+  padding: 0.5rem 1rem;
+  border: 1px solid #d9d9d9;
+  border-radius: 2px;
+  font-family: PoppinsRegular;
+  font-size: 1rem;
+  list-style: 1.5;
+  text-decoration: none;
+  color: #FFF;
+  background: #05b2fa;
+}

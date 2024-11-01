@@ -72,7 +72,7 @@ const VerifyEmailCodePage = () => {
           navigate(ROUTES.CHECKOUT);
         }
 
-        console.log(res);
+        // console.log(res);
       });
       // if (res.data.statusCode === 200) {
       //   setIsSuccess(true);

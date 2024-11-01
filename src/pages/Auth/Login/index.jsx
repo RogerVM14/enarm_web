@@ -95,7 +95,7 @@ const FormLogin = () => {
           }
         })
         .catch((err) => {
-          console.log(err.message);
+          // console.log(err.message);
           const error = err.response.data.message;
           showToast.error(ERROR_MESSAGES[error]);
         });

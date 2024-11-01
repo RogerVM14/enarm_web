@@ -1,95 +1,87 @@
 import React, { useState, useEffect } from "react";
 import DashboardLayout from "../../Layouts/Dashboard";
-import SpecialitiesList from "../../../components/platform/SpecialitiesList";
-import GuideContent from "../../../components/platform/GuideContent"; 
-import BackIcon from "../Assets/Icons/backicon.svg";
+import SpecialitiesList from "./components/SpecialitiesList"; 
 import ui from "./index.module.css";
+import { useQuery } from "react-query";
+import { getHeaders } from "../../../utils/auth/cookieSession";
+import axios from "axios";
+import toast from "react-hot-toast";
+import ResourceContainer from "./components/ResourceContainer";
+
+const { REACT_APP_ENARM_API_GATEWAY_URL: url } = process.env;
 
 const ResourcesPage = () => {
+  const [specialtyPosition, setSpecialtyPosition] = useState(0);
+  const [resourcesContent, setResourcesContent] = useState({});
 
-  const [display, setDisplay] = useState(false);
-  const [smallDevice, setSmallDevice] = useState(null);
+  const { isLoading, isError, data: especialidades } = useQuery("resource-specialties", () => getSpecialties());
+
+  const getSpecialties = async () => {
+    try {
+      const endpoint = `${url}specialties/get-specialties`;
+      const headers = getHeaders();
+
+      const { data, status } = await axios.get(endpoint, headers);
+      if (data.status_Message === "there are specialties" && status === 200) {
+        return data.specialty_List;
+      }
+    } catch (error) {
+      toast.error("Error al obtener especialidades.", {
+        position: "bottom-right",
+        duration: 3500,
+      });
+    }
+  };
+
+  const specialtyListProps = {
+    data: especialidades,
+    selectSpecialty: (position) => {
+      setSpecialtyPosition(position);
+    },
+  };
 
   useEffect(() => {
-    function getWindowSize() {
-      let xViewport = window.innerWidth;
-      const xIsForPortableDevice = xViewport <= 992;
-      setSmallDevice(xIsForPortableDevice);
-    }
-    window.addEventListener("resize", getWindowSize);
-    getWindowSize();
-    return () => window.removeEventListener("resize", getWindowSize)
-  }, []);
+    const getResourcesBySpecialty = async () => {
+      try {
+        if (!especialidades || specialtyPosition === 0) return;
+        const { specialty_id } = especialidades?.find((item) => item.specialty_id === specialtyPosition);
+        const endpoint = `${url}study-plan/get-resources-simulators-by-specialty-id`;
+        const headers = getHeaders();
+        const body = {
+          specialty_id,
+        };
+        const { data, status } = await axios.post(endpoint, body, headers);
+        if (data.status_Message === "there are resources or simulators" && status === 200) {
+          setResourcesContent(data.resources_simulators);
+          return;
+        }
+        throw new Error();
+      } catch (error) {
+        toast.error("Error al obtener recursos.", {
+          position: "bottom-right",
+          duration: 3500,
+        });
+      }
+    };
+    getResourcesBySpecialty();
+  }, [specialtyPosition, especialidades]);
 
   return (
     <DashboardLayout>
       <div className={ui.wrapper}>
         <div className={ui.gridContainer}>
-          <SpecialitiesList
-            displayContainer={display}
-            handleDisplay={() => { setDisplay(!display) }}
-            smallDevice={smallDevice}
-          />
-          <ResourceContainer
-            display={display}
-            handleDisplay={() => { setDisplay(!display) }}
-            smallDevice={smallDevice}
-          />
+          {isLoading && !isError ? <span>Cargando...</span> : null}
+          {!isLoading && isError ? <span>Error al cargar contenido</span> : null}
+          {!isLoading && !isError ? (
+            <>
+              <SpecialitiesList {...specialtyListProps} />
+              <ResourceContainer resourcesContent={resourcesContent} />
+            </>
+          ) : null}
         </div>
       </div>
     </DashboardLayout>
-  )
-}
-
-const ResourceContainer = ({
-  display,
-  handleDisplay = () => { },
-  smallDevice
-}) => {
-  if (display === false && smallDevice === true) return null;
-  return (
-    <section id={ui.resourceSectionContainer}>
-      <header>
-        <div className={ui.containerHeader}>
-          <div className={ui.resourceTitle}>
-            <button type="button" className={ui.backButton} onClick={() => { handleDisplay() }}>
-              <img src={BackIcon} alt="chevron" height={14} width={14} />
-            </button>
-            <h4>Infectología</h4>
-            <p>Recursos</p>
-          </div>
-          {/* <div className={ui.resourseFilters}>
-            <div className={ui.filter}>
-              <label htmlFor="resourseFilterOption">
-                Filtrar por:
-              </label>
-              <select name="resourceFilterOption" id="resourceFilterOption" disabled>
-                <option value="0" selected>Tipo de documento</option>
-              </select>
-            </div>
-            <div className={ui.turns}>
-              <p>Vuelta</p>
-              <div className={ui.checkboxLabel}>
-                <input type="checkbox" name="firstTurn" id="firstTurn" />
-                <label htmlFor="turn">1ra</label>
-              </div>
-              <div className={ui.checkboxLabel}>
-                <input type="checkbox" name="secondTurn" id="secondTurn" />
-                <label htmlFor="turn">2da</label>
-              </div>
-              <div className={ui.checkboxLabel}>
-                <input type="checkbox" name="thirdTurn" id="thirdTurn" />
-                <label htmlFor="turn">3ra</label>
-              </div>
-            </div>
-          </div> */}
-        </div>
-      </header>
-      <div className={ui.containerBody}>
-        <GuideContent />
-      </div>
-    </section>
-  )
-}
+  );
+};
 
 export default ResourcesPage;

@@ -1,0 +1,90 @@
+.specialitiesContainer {
+  width: 100%;
+  overflow-y: auto;
+  max-height: 716px;
+}
+
+.specialityItem {
+  width: 100%;
+  display: block;
+  list-style: none;
+  display: flex;
+  height: clamp(56px, 56px, 56px);
+  text-align: start;
+  align-items: center;
+  justify-content: flex-start;
+  background: white;
+  border: none;
+  box-shadow: 0px 1px 0px 0px #f0f0f0 inset;
+  position: relative;
+  > p {
+    font-family: PoppinsRegular;
+    font-size: 14px;
+    color: gray;
+    margin-left: 1rem;
+  }
+}
+
+.specialityButton,
+.specialityItem:nth-child(0) {
+  width: inherit;
+  height: 100%;
+  display: flex;
+  height: clamp(56px, 56px, 56px);
+  text-align: start;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 1rem;
+  font-size: 14px !important;
+  background: white;
+  border: none;
+  box-shadow: 0px 1px 0px 0px #f0f0f0 inset;
+  position: relative;
+  & > span {
+    font-family: PoppinsRegular;
+    font-size: 14px;
+  }
+  &:hover {
+    background: #e6f7ff;
+  }
+  &:hover::before {
+    content: "";
+    width: 3px;
+    height: 56px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-shadow: 3px 0px 0px 0px #05b2fa inset;
+    z-index: 100;
+  }
+}
+
+.specialityButtonSelected {
+  width: inherit;
+  height: 100%;
+  display: flex;
+  height: clamp(56px, 56px, 56px);
+  text-align: start;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 1rem;
+  font-size: 14px !important;
+  background: white;
+  border: none;
+  box-shadow: 0px 1px 0px 0px #f0f0f0 inset;
+  position: relative;
+  & > span {
+    font-family: PoppinsRegular;
+    font-size: 14px;
+  }
+  &::before {
+    content: "";
+    width: 3px;
+    height: 56px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-shadow: 3px 0px 0px 0px #05b2fa inset;
+    z-index: 100;
+  }
+}

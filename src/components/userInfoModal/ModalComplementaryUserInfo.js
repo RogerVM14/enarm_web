@@ -11,8 +11,7 @@ import showToast from "../../utils/toasts/commonToasts";
 
 const ModalComplementaryUserInfo = ({ isOpen, onClose }) => {
   const isModalOpen = useSelector(selectUserInfoComplete);
-  const [isUserInfoAlreadySaved, setIsUserInfoAlreadySaved] =
-    useState(isModalOpen);
+  const [isUserInfoAlreadySaved, setIsUserInfoAlreadySaved] = useState(isModalOpen);
   const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
@@ -28,7 +27,7 @@ const ModalComplementaryUserInfo = ({ isOpen, onClose }) => {
       telephone_number: formData.phone,
       top_specialties: `${formData.specialty1.trim()}-${formData.specialty2.trim()}`,
     };
-    console.log(info);
+    // console.log(info);
     saveComplementaryStudentInfo(info)
       .then((res) => {
         if (res.data.status_Message === "student info updated") {
@@ -61,8 +60,7 @@ const ModalComplementaryUserInfo = ({ isOpen, onClose }) => {
   const validateField = (name, value) => {
     let errorMsg = "";
     if (!value && name !== "phone") errorMsg = "Este campo es obligatorio.";
-    if (name === "phone" && value && !/^\d+$/.test(value))
-      errorMsg = "El teléfono debe contener solo números.";
+    if (name === "phone" && value && !/^\d+$/.test(value)) errorMsg = "El teléfono debe contener solo números.";
     setErrors((prevErrors) => ({ ...prevErrors, [name]: errorMsg }));
   };
 
@@ -80,12 +78,9 @@ const ModalComplementaryUserInfo = ({ isOpen, onClose }) => {
   return (
     <div className="user-info-modal-overlay">
       <div className="user-info-modal-container">
-        <h2 className="user-info-modal-title">
-          Llena la información para continuar
-        </h2>
+        <h2 className="user-info-modal-title">Llena la información para continuar</h2>
         <p className="user-info-modal-subtitle">
-          La siguiente información es importante para mantener tu perfil
-          correctamente administrado.
+          La siguiente información es importante para mantener tu perfil correctamente administrado.
         </p>
         <form onSubmit={handleSubmit} className="user-info-modal-form">
           <label className="user-info-modal-form-label">
@@ -98,9 +93,7 @@ const ModalComplementaryUserInfo = ({ isOpen, onClose }) => {
               className="user-info-modal-form-input"
               required
             />
-            {errors.fullName && (
-              <span className="user-info-modal-error">{errors.fullName}</span>
-            )}
+            {errors.fullName && <span className="user-info-modal-error">{errors.fullName}</span>}
           </label>
 
           <label className="user-info-modal-form-label">
@@ -113,9 +106,7 @@ const ModalComplementaryUserInfo = ({ isOpen, onClose }) => {
               className="user-info-modal-form-input"
               required
             />
-            {errors.specialty1 && (
-              <span className="user-info-modal-error">{errors.specialty1}</span>
-            )}
+            {errors.specialty1 && <span className="user-info-modal-error">{errors.specialty1}</span>}
           </label>
 
           <label className="user-info-modal-form-label">
@@ -128,9 +119,7 @@ const ModalComplementaryUserInfo = ({ isOpen, onClose }) => {
               className="user-info-modal-form-input"
               required
             />
-            {errors.specialty2 && (
-              <span className="user-info-modal-error">{errors.specialty2}</span>
-            )}
+            {errors.specialty2 && <span className="user-info-modal-error">{errors.specialty2}</span>}
           </label>
 
           <label className="user-info-modal-form-label">
@@ -142,16 +131,10 @@ const ModalComplementaryUserInfo = ({ isOpen, onClose }) => {
               onChange={handleChange}
               className="user-info-modal-form-input"
             />
-            {errors.phone && (
-              <span className="user-info-modal-error">{errors.phone}</span>
-            )}
+            {errors.phone && <span className="user-info-modal-error">{errors.phone}</span>}
           </label>
 
-          <button
-            type="submit"
-            className="user-info-modal-submit-button"
-            disabled={!isFormValid()}
-          >
+          <button type="submit" className="user-info-modal-submit-button" disabled={!isFormValid()}>
             Continuar
           </button>
         </form>

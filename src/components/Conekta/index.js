@@ -50,13 +50,13 @@ const Conekta = (props) => {
           },
         },
         onFinalizePayment: function (e) {
-          console.log(e.charge.status);
+          // console.log(e.charge.status);
           var estadoPag = e.charge.status;
           if (estadoPag === "paid") {
-            console.log("Pagado");
+            // console.log("Pagado");
             navigate('/checkout_thankful')
           } else {
-            console.log("En espera de pago");
+            // console.log("En espera de pago");
           }
         },
       });
