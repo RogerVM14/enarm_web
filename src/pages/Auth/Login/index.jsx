@@ -148,7 +148,7 @@ const FormLogin = () => {
               Introduzca una contraseña válida
             </span>
           )}
-          <div className={ui.subGroup}>
+          {/* <div className={ui.subGroup}>
             <Link className={`${ui.linkLabel} sky-blue no-style`} to="#">
               {" "}
               Olvidé Contraseña{" "}
@@ -159,9 +159,9 @@ const FormLogin = () => {
                 Recordarme
               </label>
             </div>
-          </div>
+          </div> */}
         </div>
-        <button className="button-rounded-blue-48" type="submit">
+        <button className="button-rounded-blue-48" type="submit" style={{marginTop:"20px"}}>
           <span className="button-text">Iniciar Sesión</span>
         </button>
         <hr style={{ margin: "2rem 0 1rem 0" }} />
