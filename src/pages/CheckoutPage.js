@@ -15,7 +15,7 @@ import {
 } from "../apis/Checkout/CardPayment";
 import { ROUTES } from "../constants/routes";
 import PaymentLoader from "../components/loaders/PaymentLoader";
-import { selectUserCheckoutInformation } from "../store/reducers/user/UserInformationSlice";
+import { selectUserCheckoutEmail, selectUserCheckoutInformation } from "../store/reducers/user/UserInformationSlice";
 import showToast from "../utils/toasts/commonToasts";
 
 const CheckoutPage = () => {
@@ -57,6 +57,7 @@ const CheckoutPage = () => {
   useEffect(() => {
     dispatch(resetCheckoutInformation());
   }, []);
+  const user_checkout_email = useSelector(selectUserCheckoutEmail)
 
   const handleSubmitPaymentInformation = async () => {
     const sanitizedCardNumber = cardNumber.replace(/-/g, "");
@@ -79,10 +80,10 @@ const CheckoutPage = () => {
           const { token } = response?.data?.body;
           const createPaymentPayload = {
             token: token,
-            transactionAmount: 100,
+            transactionAmount: 7000,
             description: "Compra curso ENARM",
             installments: 1,
-            payerEmail: "roger.vazquez12@gmail.com",
+            payerEmail: user_checkout_email || "",
           };
           createPaymentWithCard(createPaymentPayload).then((response) => {
             const data = response?.data.body;
