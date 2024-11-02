@@ -71,7 +71,7 @@ export const getStudyPlanById = async () => {
   try {
     const endpoint = `${url}study-plan/get-study-plan-by-id`;
     const headers = getHeaders();
-    const body = { study_plan_id: 1 };
+    const body = { study_plan_id: 2 };
     const { data, status } = await axios.post(endpoint, body, headers);
     if (data.status_Message === "there is study plan" && status === 200) {
       return data.study_plan;
