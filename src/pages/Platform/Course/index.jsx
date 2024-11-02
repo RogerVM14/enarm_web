@@ -26,7 +26,6 @@ const CoursePage = () => {
   const [simulators, setSimulators] = useState([]);
   const [open, setOpen] = useState(false);
   const [dataQuery, setDataQuery] = useState({});
-
   const handleDisplayCardBody = (i) => {
     setCardDisplay((prev) => {
       return prev.map((position, index) => {
@@ -73,7 +72,6 @@ const CoursePage = () => {
     resume_specialty = [...new Set(resume_specialty.map((resource) => resource[0]))];
     setResume({ especialidades: resume_specialty, tipo_recursos: resume_types, recursos: resume_data });
   }, [resources]);
-
   return (
     <DashboardLayout>
       <div className={ui.wrapper}>
@@ -162,7 +160,7 @@ const CoursePage = () => {
                   <div className={ui.videoContainerGroup}>
                     {videos?.map((video) => {
                       return (
-                        <VimeoPlayer videoUrl={video?.resource_url} />
+                        <VimeoPlayer videoUrl={video} />
                         // <video
                         //   width="320"
                         //   height="240"
