@@ -20,6 +20,7 @@ export const ROUTES = {
   PLATAFORMA_PLANES_RESULTADOS: "/cursoENARM/resultados",
   PLATAFORMA_PLANES_SIMULADOR: "/cursoENARM/simulador",
   PLATAFORMA_PLANES_RETROALIMENTACION: "/cursoENARM/planes/:id/retro",
+  // PLATAFORMA_PLANES_RETROALIMENTACION: "/cursoENARM/simulador/retro/:especialidad/:id/:intento/resultados",
   PLATAFORMA_AVISO_NOVEDADES: "/cursoENARM/novedades",
   PLATAFORMA_RECURSOS: "/cursoENARM/recursos",
   PLATAFORMA_RECURSOS_ID: "/cursoENARM/recursos/:id",

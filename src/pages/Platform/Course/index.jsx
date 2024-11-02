@@ -162,7 +162,7 @@ const CoursePage = () => {
                   <div className={ui.videoContainerGroup}>
                     {videos?.map((video) => {
                       return (
-                        <VimeoPlayer />
+                        <VimeoPlayer videoUrl={video?.resource_url} />
                         // <video
                         //   width="320"
                         //   height="240"

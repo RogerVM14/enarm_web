@@ -9,12 +9,13 @@ const NavBar = () => {
   const [display, setDisplay] = useState(false);
 
   const navigationLinks = [
-    { label: "Inicio", url: "/" },
-    { label: "Nosotros", url: "/nosotros" },
+    { label: "Inicio", url: ROUTES.HOME },
+    { label: "Inciar Sesión", url: ROUTES.LOGIN },
+    { label: "Nosotros", url: ROUTES.NOSOTROS },
     { label: "Sobre el Curso", url: ROUTES.SOBRE_EL_CURSO },
     // { label: "Blog", url: "/blog" },
     // { label: "Prueba Gratis", url: "/prueba", rounded: true },
-    { label: "Contacto", url: "/contacto" },
+    { label: "Contacto", url: ROUTES.CONTACTO },
   ];
 
   return (
