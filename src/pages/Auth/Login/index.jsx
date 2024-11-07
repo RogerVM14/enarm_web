@@ -148,18 +148,18 @@ const FormLogin = () => {
               Introduzca una contraseña válida
             </span>
           )}
-          {/* <div className={ui.subGroup}>
-            <Link className={`${ui.linkLabel} sky-blue no-style`} to="#">
+          <div className={ui.subGroup}>
+            <Link className={`${ui.linkLabel} sky-blue no-style`} to={ROUTES.FORGOT_PASSWORD}>
               {" "}
-              Olvidé Contraseña{" "}
+              Olvidé mi contraseña{" "}
             </Link>
-            <div className={ui.checkBox}>
+            {/* <div className={ui.checkBox}>
               <input type="checkbox" name="remember" id="checkbox-remember" />
               <label className={ui.linkLabel} htmlFor="checkbox-remember">
                 Recordarme
               </label>
-            </div>
-          </div> */}
+            </div> */}
+          </div>
         </div>
         <button className="button-rounded-blue-48" type="submit" style={{marginTop:"20px"}}>
           <span className="button-text">Iniciar Sesión</span>

@@ -45,6 +45,9 @@ import {
 import RenderComponenteIf from "./routes/RenderComponentIf";
 import PageNotFound from "./pages/PageNotFound";
 import PublicRoutes from "./routes/PublicRoutes";
+import ForgotPassword from "./pages/Auth/ForgoPassword";
+import OTPVerification from "./pages/Auth/OTPVerification";
+import PasswordReset from "./pages/Auth/PasswordReset";
 
 const AppRouter = () => {
   useEffect(() => {
@@ -359,6 +362,19 @@ const AppRouter = () => {
                   }
                 />
                 {/* <Route path="*" element={<PageNotFound />} /> */}
+                <Route
+                  path={ROUTES.FORGOT_PASSWORD}
+                  element={<ForgotPassword />}
+                />
+                <Route
+                  path={ROUTES.OTP_VERIFICATION}
+                  element={<OTPVerification />}
+                />
+                <Route
+                  path={ROUTES.RESTABLISH_PASSWORD}
+                  element={<PasswordReset />}
+                />
+                
                 <Route
                   path="*"
                   element={<Navigate to={ROUTES.HOME} replace />}

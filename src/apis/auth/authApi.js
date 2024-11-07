@@ -45,3 +45,18 @@ export const verifyEmailCode = (payload) => {
 
   return axios(request);
 };
+
+export const requestOTPForPasswordChange = (email) => {
+  const request = {
+    method: "POST",
+    url: `${authUrl}change-password-request`,
+    headers: {
+      "content-type": "application/json",
+    },
+    data: {
+      user_email: email,
+    },
+  };
+
+  return axios(request);
+};
