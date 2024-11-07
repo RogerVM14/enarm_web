@@ -15,6 +15,18 @@ export const createTokenCardForPayment = (payload) => {
   return axios(requestInfo);
 };
 
+export const savePaymentWithCard = (payload) => {
+  const requestInfo = {
+    method: "POST",
+    url: `https://7gb741dj56.execute-api.us-west-1.amazonaws.com/v1/payment`,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: payload,
+  };
+
+  return axios(requestInfo);
+};
 export const createPaymentWithCard = (payload) => {
   const requestInfo = {
     method: "POST",
