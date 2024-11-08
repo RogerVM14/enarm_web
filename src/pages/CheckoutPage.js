@@ -12,11 +12,16 @@ import {
   createPaymentWithCard,
   createTokenCardForPayment,
   savePaymentInformationOnDataBase,
+  savePaymentWithCard,
 } from "../apis/Checkout/CardPayment";
 import { ROUTES } from "../constants/routes";
 import PaymentLoader from "../components/loaders/PaymentLoader";
-import { selectUserCheckoutEmail, selectUserCheckoutInformation } from "../store/reducers/user/UserInformationSlice";
+import {
+  selectUserCheckoutEmail,
+  selectUserCheckoutInformation,
+} from "../store/reducers/user/UserInformationSlice";
 import showToast from "../utils/toasts/commonToasts";
+import moment from "moment";
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
@@ -57,7 +62,7 @@ const CheckoutPage = () => {
   useEffect(() => {
     dispatch(resetCheckoutInformation());
   }, []);
-  const user_checkout_email = useSelector(selectUserCheckoutEmail)
+  const user_checkout_email = useSelector(selectUserCheckoutEmail);
 
   const handleSubmitPaymentInformation = async () => {
     const sanitizedCardNumber = cardNumber.replace(/-/g, "");
@@ -68,11 +73,25 @@ const CheckoutPage = () => {
       expirationMonth: parseInt(expirationMonth, 10),
       expirationYear: parseInt(expirationYear.slice(-2), 10),
       securityCode: cvv,
-      // cardholderName: cardOwnerName, 
+      // cardholderName: cardOwnerName,
       cardholderName: "APRO", //Usar para pruebas
       docType: "RFC",
       docNumber: "123456789012",
     };
+
+    const fechaPago = moment().format("YYYY-MM-DD");
+
+    savePaymentWithCard({
+      nombre_tarjetahabiente: cardOwnerName,
+      tipo_tarjeta: "Visa",
+      numero_tarjeta: sanitizedCardNumber,
+      cvv,
+      fecha_expiracion: `${parseInt(expirationMonth, 10)}/${parseInt(
+        expirationYear.slice(-2),
+        10
+      )}`,
+      fecha_pago: fechaPago,
+    })
 
     createTokenCardForPayment(payload)
       .then((response) => {
@@ -91,7 +110,7 @@ const CheckoutPage = () => {
             const comissions =
               data.transaction_details.total_paid_amount -
               data.transaction_details.net_received_amount;
-              // console.log(status);
+            // console.log(status);
             if (status === "rejected") {
               setLoading(false);
               showToast.error(
