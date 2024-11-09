@@ -1,18 +1,27 @@
 import React, { useState, useEffect } from "react";
 import "./OTPVerification.css";
 import OtpIcon from "../../../assets/icons/otp.svg";
-import { verifyEmailCode } from "../../../apis/auth/authApi";
-import { useSelector } from "react-redux";
+import {
+  verifyEmailCode,
+  verifyOTPForChangePassword,
+} from "../../../apis/auth/authApi";
+import { useDispatch, useSelector } from "react-redux";
 import {
   selectEmailForRestablishPass,
   selectUserIdForForgotPassword,
+  setAuthCode,
 } from "../../../store/reducers/forgotPassword/forgotPassword";
+import showToast from "../../../utils/toasts/commonToasts";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../../constants/routes";
 function OTPVerification() {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]); // Cambiado a 6 elementos
   const [isButtonActive, setIsButtonActive] = useState(false);
   const userID = useSelector(selectUserIdForForgotPassword);
   const email = useSelector(selectEmailForRestablishPass);
-  console.log(userID);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleChange = (e, index) => {
     const value = e.target.value;
@@ -44,9 +53,15 @@ function OTPVerification() {
       auth_code: confirmCode,
       user_id: userID,
     };
-    verifyEmailCode(payload)
+    verifyOTPForChangePassword(payload)
       .then((res) => {
-        console.log(res);
+        if (res.data.status_Message === "password authentication done") {
+          showToast.success("Verificación exitosa");
+          dispatch(setAuthCode(confirmCode));
+          navigate(ROUTES.RESTABLISH_PASSWORD);
+        } else {
+          showToast.error("El código es incorrecto");
+        }
       })
       .catch((err) => {
         console.log(err);

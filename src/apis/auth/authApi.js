@@ -60,3 +60,29 @@ export const requestOTPForPasswordChange = (email) => {
 
   return axios(request);
 };
+
+export const verifyOTPForChangePassword = (payload) => {
+  const request = {
+    method: "POST",
+    url: `${authUrl}verify-otp-to-change-password`,
+    headers: {
+      "content-type": "application/json",
+    },
+    data: payload,
+  };
+
+  return axios(request);
+};
+
+export const reestablishUserPasswordByOTP = (payload) => {
+  const request = {
+    method: "POST",
+    url: `${authUrl}change-user-password`,
+    headers: {
+      "content-type": "application/json",
+    },
+    data: payload,
+  };
+
+  return axios(request);
+};

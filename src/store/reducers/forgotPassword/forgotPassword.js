@@ -5,6 +5,7 @@ const initialState = {
   step: 0,
   userId: "",
   email: "",
+  authCode: "",
 };
 
 export const ForgotPasswordSlice = createSlice({
@@ -20,6 +21,9 @@ export const ForgotPasswordSlice = createSlice({
     setForgotPassEmail(state, { payload }) {
       state.email = payload;
     },
+    setAuthCode(state, { payload }) {
+      state.authCode = payload;
+    },
     setUserIdForForgotPass(state, { payload }) {
       state.userId = payload;
     },
@@ -33,6 +37,7 @@ export const {
   setUserIdForForgotPass,
   setForgotPassEmail,
   resetForgotPasswordProcess,
+  setAuthCode,
 } = ForgotPasswordSlice.actions;
 
 export const selectCurrentForgotPasswordStep = (state) =>
@@ -43,5 +48,6 @@ export const selectUserIdForForgotPassword = (state) =>
   state.forgotPassword.userId;
 export const selectEmailForRestablishPass = (state) =>
   state.forgotPassword.email;
+export const selectCurrentAuthCode = (state) => state.forgotPassword.authCode;
 
 export default ForgotPasswordSlice.reducer;
