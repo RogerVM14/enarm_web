@@ -1,8 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import EnarmLogo from "../../Assets/Images/EnarmLogo.jpg";
-import ArrowDown from "../../Assets/Icons/ArrowDown.png";
-import ArrowUp from "../../Assets/Icons/ArrowUp.png";
 import CloseIcon from "../../Assets/Icons/CloseIcon.svg";
 import UserDefaultIcon from "../../Assets/Icons/DefaultUser.png";
 import ui from "../index.module.css";
@@ -21,8 +19,7 @@ import { GeneralContext } from "../../../../contexts/GeneralContext";
 
 const DashboardAsideTemplate = ({ smallDevice, isMenuActive, handleShowMenu = () => {} }) => {
   const [displayTools, setDisplayTools] = useState(false);
-  const [menuPlansSelected, setMenuPlansSelected] = useState(false);
-  const [menuItemSelected, setMenuItemSelected] = useState(null);
+  const [menuPlansSelected, setMenuPlansSelected] = useState(false); 
   const [menuPlans, setMenuPlans] = useState([
     { route: "/cursoENARM/planes/11_meses", label: "11 Meses", isActive: true },
     // { route: "/cursoENARM/planes/10_meses", label: "10 Meses", isActive: false },
@@ -69,9 +66,14 @@ const DashboardAsideTemplate = ({ smallDevice, isMenuActive, handleShowMenu = ()
   ]);
 
   const navigateTo = useNavigate();
-  const { globalMenuSelected, setGlobalMenuSelected } = useContext(GeneralContext);
+  const { globalMenuSelected, setGlobalMenuSelected, simulatorIsActive, setSimulatorCooldownAdvice } =
+    useContext(GeneralContext);
 
   const onClickEventMenu = (index, route) => {
+    if (simulatorIsActive) {
+      setSimulatorCooldownAdvice(true);
+      return;
+    }
     setGlobalMenuSelected(index);
     if (index === 0) setMenuPlansSelected(!menuPlansSelected);
     if (index === 3) setMenuDocumentsSelected(!menuDocumentsSelected);

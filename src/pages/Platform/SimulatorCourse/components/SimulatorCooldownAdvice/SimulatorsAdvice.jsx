@@ -1,12 +1,12 @@
 import { useContext } from "react";
+import { GeneralContext } from "../../../../../contexts/GeneralContext";
 import ui from "./index.module.css";
 import { useNavigate } from "react-router-dom";
-import { GeneralContext } from "../../../../../contexts/GeneralContext";
 
-const SimulatorsAdvice = ({ open, onClose, query, data, onBeforeSubmit }) => {
+const SimulatorCooldownAdvice = ({ query, onBeforeSubmit }) => {
   const navigate = useNavigate();
 
-  const { setSimulatorIsActive, setSimulatorCooldownAdvice } = useContext(GeneralContext);
+  const { setSimulatorIsActive, simulatorCooldownAdvice, setSimulatorCooldownAdvice } = useContext(GeneralContext);
 
   const linkTo = async () => {
     const response = await onBeforeSubmit();
@@ -19,11 +19,11 @@ const SimulatorsAdvice = ({ open, onClose, query, data, onBeforeSubmit }) => {
     }
   };
 
-  return open ? (
+  return simulatorCooldownAdvice ? (
     <div className={ui.dialogModal}>
       <div className={ui.modalContainer}>
         <div className={ui.closeButtonModal}>
-          <button type="button" onClick={() => onClose()}>
+          <button type="button" onClick={() => setSimulatorCooldownAdvice(false)}>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
               <g clipPath="url(#clip0_2656_57461)">
                 <path
@@ -53,18 +53,18 @@ const SimulatorsAdvice = ({ open, onClose, query, data, onBeforeSubmit }) => {
               </clipPath>
             </defs>
           </svg>
-          <h5>¿Estás seguro que quieres la Restroalimentación ahora?</h5>
+          <h5>¿Estás seguro de abandonar el simulador ahora?</h5>
         </div>
         <div className={ui.containerBody}>
           <p>Si detienes el Simulador ahora, el intento de él, se marcará como completado.</p>
         </div>
         <div className={ui.containerFooter}>
           <div className={ui.footerButtons}>
-            <button type="button" className={ui.buttonCancel} onClick={() => onClose()}>
+            <button type="button" className={ui.buttonCancel} onClick={() => setSimulatorCooldownAdvice(false)}>
               <span>No, volver</span>
             </button>
             <button type="button" className={ui.linkButtonBlue} onClick={linkTo}>
-              <span>Si, quiero Retroalimentacion</span>
+              <span>Si, quiero finalizar</span>
             </button>
           </div>
         </div>
@@ -73,4 +73,4 @@ const SimulatorsAdvice = ({ open, onClose, query, data, onBeforeSubmit }) => {
   ) : null;
 };
 
-export default SimulatorsAdvice;
+export default SimulatorCooldownAdvice;

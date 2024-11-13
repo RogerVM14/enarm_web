@@ -1,11 +1,18 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ui from "./index.module.css";
 import DashboardLayout from "../../Layouts/Dashboard";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import SimulatorsAdvice from "./components/SimulatorAdvice/SimulatorsAdvice";
 import { useQuery } from "react-query";
-import { getSimulatorQuestions, addAnswerSimulatorByStudent } from "../../../apis/platform";
+import { getSimulatorQuestions, addAnswerSimulatorByStudent, getSimulatorStatsByStudent } from "../../../apis/platform";
 import toast from "react-hot-toast";
+import ClinicCaseQuestion from "./components/ClinicCaseQuestion";
+import QuestionsSquaresGroup from "./components/QuestionsSquaresGroup";
+import ClinicCasesGroup from "./components/ClinicCasesGroup";
+import CountdownTimer from "./components/CountdownTimer";
+import { ChevronRight } from "./icons/ChevronRight";
+import { GeneralContext } from "../../../contexts/GeneralContext";
+import SimulatorCooldownAdvice from "./components/SimulatorCooldownAdvice/SimulatorsAdvice";
 
 const useQueryParams = () => {
   const { search } = useLocation();
@@ -21,18 +28,48 @@ const SimulatorCoursePage = () => {
   const [open, setOpen] = useState(false);
   const [current, setCurrent] = useState(0);
   const [squares, setSquares] = useState([]);
+  const [duration, setDuration] = useState("");
+  const [totalAttempts, setTotalAttempts] = useState(0);
   const [squareSelected, setSquareSelected] = useState(null);
   const [answersSimulator, setAnwersSimulator] = useState([]);
 
   const { simulator_id, plan } = useQueryParams();
+  const { setSimulatorIsActive } = useContext(GeneralContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      event.preventDefault();
+      event.returnValue = "";
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    // Limpia el evento cuando el componente se desmonte
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
+
   const {
     isLoading,
     isError,
     data: simulatorQuestions,
   } = useQuery("questions", () => getSimulatorQuestions(simulator_id));
 
+  const { data: statsAttempts } = useQuery("stats", () => getSimulatorStatsByStudent(simulator_id));
+
+  useEffect(() => {
+    if (statsAttempts === undefined) return;
+    const positions = ["er", "do", "ro", "to", "to", "to", "mo", "vo", "no", "mo"];
+    const { answer_list } = statsAttempts;
+    const index = Object.entries(answer_list).length === 0 ? 0 : answer_list.length;
+    const stringAttempt = `${index + 1}${positions[index]}`;
+    setTotalAttempts(stringAttempt);
+  }, [statsAttempts]);
+
   const pushAnswer = (data) => {
-    const { clinic_case_id, questions_case, answerPosition } = data;
+    const { clinic_case_id, questions_case, answerPosition, id } = data;
     const [{ simulator_question_id, answers }] = questions_case;
     const correct_answer_index = answers.findIndex((element) => element.correct_answer === true);
     const estructure = {
@@ -45,6 +82,7 @@ const SimulatorCoursePage = () => {
           correct_answer_index,
         },
       ],
+      id,
     };
     setAnwersSimulator((prev) => {
       const index = prev?.findIndex((element) => element.clinic_case_id === clinic_case_id);
@@ -70,8 +108,26 @@ const SimulatorCoursePage = () => {
     const _array = simulatorQuestions.questions?.map((element) => {
       return { ...element, isAnswered: false };
     });
+
+    setDuration(simulatorQuestions?.simulator_duration);
     setSquares(_array);
-  }, [simulatorQuestions]);
+    setSimulatorIsActive(true);
+
+    const answeredSimulatorsStructure = _array.map((cases, index) => ({
+      clinic_case_id: cases.clinic_case_id,
+      questions: [
+        {
+          simulator_question_id: cases.questions_case[0].simulator_question_id,
+          answer_index_selected: null,
+          was_correct: null,
+          correct_answer_index: null,
+        },
+      ],
+      id: index + 1,
+    }));
+
+    setAnwersSimulator(answeredSimulatorsStructure);
+  }, [simulatorQuestions, setSimulatorIsActive]);
 
   useEffect(() => {
     if (squareSelected === null) return;
@@ -83,10 +139,10 @@ const SimulatorCoursePage = () => {
     });
   }, [squareSelected]);
 
-  const seeResults = async () => {
+  const seeResults = async (onCloseUp = false) => {
     const total_answers = answersSimulator.length;
-    const correct_answers = answersSimulator.filter(({ questions }) => questions[0].was_correct === true).length;
-    const total_questions = simulatorQuestions.questions.length;
+    const correct_answers = answersSimulator?.filter(({ questions }) => questions[0].was_correct === true).length;
+    const total_questions = simulatorQuestions?.questions?.length;
     const rate_percent =
       total_answers === 50 ? (correct_answers / total_answers) * 100 : (correct_answers / total_questions) * 100;
     const objectData = {
@@ -101,15 +157,22 @@ const SimulatorCoursePage = () => {
     };
     const response = await addAnswerSimulatorByStudent(objectData);
     if (response) {
-      toast.success("Se ha agregado con exito.", {
-        position: "bottom-right",
-        duration: 3500,
-      });
+      if (!onCloseUp) {
+        toast.success("Se ha agregado con exito.", {
+          position: "bottom-right",
+          duration: 3500,
+        });
+      } else {
+        return true;
+      }
     } else {
-      toast.error("Error insertando respuestas.", {
-        position: "bottom-right",
-        duration: 3500,
-      });
+      if (onCloseUp) {
+        toast.error("Error insertando respuestas.", {
+          position: "bottom-right",
+          duration: 3500,
+        });
+      }
+      return false;
     }
   };
 
@@ -121,53 +184,32 @@ const SimulatorCoursePage = () => {
             <div className={ui.asideContainer}>
               <div className={ui.containerHead}>
                 <h5>Simulador Infectología</h5>
-                <h5>2do Intento</h5>
+                <h5>{totalAttempts} Intento</h5>
               </div>
               <div className={ui.containerBody}>
-                <div className={ui.countdownWrapper}>
-                  <p>Tiempo restante</p>
-                  <input type="time" name="countdown" id="countdown" disabled />
-                </div>
+                <CountdownTimer initialTime={duration} isCooldownZero={async () => await seeResults()} />
                 <div className={ui.questionsWrapper}>
                   <div className={ui.questionsGroup}>
                     <div
-                      className={ui.groupHeader}
-                      onClick={() => {
-                        setQuestionGroup(!questionGroup);
-                      }}
+                      className={`${ui.groupHeader} poppins-regular-14 gap-x-1 py-2`}
+                      onClick={() => setQuestionGroup(!questionGroup)}
                       data-selected-questions={questionGroup}
                     >
-                      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
-                        <path
-                          d="M8.73779 6.02419L4.08936 2.0154C3.91602 1.86648 3.66211 2.00075 3.66211 2.24123V10.2588C3.66211 10.4993 3.91602 10.6336 4.08936 10.4846L8.73779 6.47585C8.87085 6.36111 8.87085 6.13894 8.73779 6.02419Z"
-                          fill="black"
-                          fillOpacity="0.85"
-                        />
-                      </svg>
+                      <ChevronRight />
                       <p>Preguntas</p>
                     </div>
-                    <QuestionsSquaresGroup squares={squares} display={questionGroup} />
+                    <QuestionsSquaresGroup
+                      squares={squares}
+                      display={questionGroup}
+                      onChangeCurrent={(e) => setCurrent(e)}
+                    />
                   </div>
                 </div>
-                {/* <div className={ui.clinicCasesGroup}>
-                  <div
-                    className={ui.groupHeader}
-                    onClick={() => {
-                      setClinicGroup(!clinicGroup);
-                    }}
-                    data-selected-cases={clinicGroup}
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
-                      <path
-                        d="M8.73779 6.02419L4.08936 2.0154C3.91602 1.86648 3.66211 2.00075 3.66211 2.24123V10.2588C3.66211 10.4993 3.91602 10.6336 4.08936 10.4846L8.73779 6.47585C8.87085 6.36111 8.87085 6.13894 8.73779 6.02419Z"
-                        fill="black"
-                        fillOpacity="0.85"
-                      />
-                    </svg>
-                    <p>Casos clínicos (5)</p>
-                  </div>
-                  <ClinicCasesGroup display={clinicGroup} />
-                </div> */}
+                <ClinicCasesGroup
+                  currentPosition={current}
+                  cases={simulatorQuestions?.questions}
+                  changeCurrentPosition={(e) => setCurrent(e)}
+                />
               </div>
             </div>
           </aside>
@@ -179,7 +221,7 @@ const SimulatorCoursePage = () => {
                 {!isLoading && isError && <span>..Error..</span>}
                 {!isLoading && !isError ? (
                   <>
-                    <SimulatorQuestion
+                    <ClinicCaseQuestion
                       handleSelectAnswer={(e) => {
                         pushAnswer(e);
                         setSquareSelected(current);
@@ -188,7 +230,7 @@ const SimulatorCoursePage = () => {
                       data={simulatorQuestions?.questions[current]}
                       id={current + 1}
                     />
-                    <SimulatorQuestion
+                    <ClinicCaseQuestion
                       handleSelectAnswer={(e) => {
                         pushAnswer(e);
                         setSquareSelected(current + 1);
@@ -201,13 +243,7 @@ const SimulatorCoursePage = () => {
                 ) : null}
               </div>
               <div className={ui.containerFooterButtons}>
-                <button
-                  type="button"
-                  className={ui.getRetroButton}
-                  onClick={() => {
-                    setOpen(true);
-                  }}
-                >
+                <button type="button" className={ui.getRetroButton} onClick={() => setOpen(true)}>
                   <span>Obtener retroalimentación</span>
                 </button>
                 {current < 48 ? (
@@ -215,10 +251,7 @@ const SimulatorCoursePage = () => {
                     type="button"
                     className={ui.nextQuestionsButton}
                     style={{ cursor: "pointer" }}
-                    onClick={() => {
-                      setCurrent(current + 2);
-                    }}
-                    // disabled={answeredPosition?.some((i) => i === false)}
+                    onClick={() => setCurrent(current + 2)}
                   >
                     <span>Siguiente</span>
                   </button>
@@ -227,120 +260,33 @@ const SimulatorCoursePage = () => {
                     type="button"
                     className={ui.nextQuestionsButton}
                     style={{ cursor: "pointer" }}
-                    onClick={() => seeResults()}
+                    onClick={async () => {
+                      const response = await seeResults(true);
+                      if (response) {
+                        navigate(`/cursoENARM/retroalimentacion?plan=${plan}&simulator=${simulator_id}`);
+                      }
+                    }}
                   >
                     <span>Ver resultados</span>
                   </button>
                 )}
               </div>
             </div>
-            <SimulatorsAdvice open={open} onClose={() => setOpen(false)} query={{ simulator: simulator_id, plan }} />
+            <SimulatorsAdvice
+              open={open}
+              onClose={() => setOpen(false)}
+              data={answersSimulator}
+              query={{ simulator: simulator_id, plan }}
+              onBeforeSubmit={() => seeResults(true)}
+            />
+            <SimulatorCooldownAdvice
+              query={{ simulator: simulator_id, plan }}
+              onBeforeSubmit={() => seeResults(true)}
+            />
           </section>
         </div>
       </div>
     </DashboardLayout>
   );
 };
-
-const SimulatorQuestion = ({ data, position, handleSelectAnswer = () => {}, id }) => {
-  const answerLetter = ["A", "B", "C", "D"];
-  return (
-    <div className={ui.question}>
-      <div className={ui.questionHead}>
-        <h2>Caso Clínico</h2>
-      </div>
-      <div className={ui.questionDescription}>
-        <p>{data?.clinic_case}</p>
-      </div>
-      <div className={ui.answerNumber}>
-        <h3>Pregunta {id}</h3>
-      </div>
-      <div className={ui.questionAnswers}>
-        <p>{data?.questions_case[0].simulator_question}</p>
-        <ul className={ui.answersList}>
-          {data?.questions_case[0].answers?.map((answer, index) => {
-            return (
-              <QuestionAnswerOption
-                question={answer}
-                index={index}
-                position={id}
-                letter={answerLetter[index]}
-                positionQuestion={position}
-                key={index}
-                handleSelectAnswer={(answerPosition) => handleSelectAnswer({ answerPosition, ...data })}
-              />
-            );
-          })}
-        </ul>
-      </div>
-    </div>
-  );
-};
-
-const QuestionsSquaresGroup = ({ squares, display }) => {
-  if (display === false || !squares || squares.length === 0) return;
-  return (
-    <div className={ui.groupBody}>
-      {squares?.map((quest, index) => {
-        const { isAnswered } = quest;
-        const squareClass = isAnswered === true ? ui.squareSelected : ui.square;
-        return (
-          <div key={index} className={squareClass}>
-            {index + 1}
-          </div>
-        );
-      })}
-    </div>
-  );
-};
-
-// const ClinicCasesGroup = ({ display }) => {
-//   if (display === false) return null;
-//   return (
-//     <div className={ui.groupBody}>
-//       <div className={ui.questionPreview}>
-//         <p>Trabajador de la construcción que acude a consulta por la pres...</p>
-//         <Link to="#">Ir a caso clínico</Link>
-//       </div>
-//       <div className={ui.questionPreview}>
-//         <p>Mujer previamente sana se presenta a consulta con dolor de 15 hora...</p>
-//         <Link to="#">Ir a caso clínico</Link>
-//       </div>
-//       <div className={ui.questionPreview}>
-//         <p>hombre de 49 años acude a urgencias por tos productiva dis...</p>
-//         <Link to="#">Ir a caso clínico</Link>
-//       </div>
-//       <div className={ui.questionPreview}>
-//         <p>Trabajador de la construcción que acude a consulta por la pres...</p>
-//         <Link to="#">Ir a caso clínico</Link>
-//       </div>
-//       <div className={ui.questionPreview}>
-//         <p>Mujer previamente sana se presenta a consulta con dolor de 15 hora...</p>
-//         <Link to="#">Ir a caso clínico</Link>
-//       </div>
-//     </div>
-//   );
-// };
-
-const QuestionAnswerOption = ({ question, index, position, letter, handleSelectAnswer }) => {
-  const identifier = "answer" + index + "Question" + position;
-  const group = "question" + position;
-  return (
-    <li className={ui.answerItem}>
-      <label htmlFor={identifier}>{letter}</label>
-      <input
-        type="radio"
-        name={group}
-        id={identifier}
-        data-answer={index}
-        data-question={position}
-        onClick={(e) => {
-          handleSelectAnswer(index, question);
-        }}
-      />
-      <label htmlFor={identifier}>{question?.answer}</label>
-    </li>
-  );
-};
-
 export default SimulatorCoursePage;

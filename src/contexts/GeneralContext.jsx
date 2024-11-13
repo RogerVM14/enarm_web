@@ -9,6 +9,9 @@ const GeneralProvider = (props) => {
   const [menuPlans, setMenuPlans] = useState(true);
   const [menuDocuments, setMenuDocuments] = useState(false);
   const [globalMenuSelected, setGlobalMenuSelected] = useState(null);
+  const [answersFromSimulator, setAnswersFromSimulator] = useState({});
+  const [simulatorIsActive, setSimulatorIsActive] = useState(false);
+  const [simulatorCooldownAdvice, setSimulatorCooldownAdvice] = useState(false);
 
   return (
     <GeneralContext.Provider
@@ -25,6 +28,12 @@ const GeneralProvider = (props) => {
         setMenuDocuments,
         simulationOnCourse,
         setSimulationOnCourse,
+        answersFromSimulator,
+        setAnswersFromSimulator,
+        simulatorIsActive,
+        setSimulatorIsActive,
+        simulatorCooldownAdvice,
+        setSimulatorCooldownAdvice,
       }}
     >
       {props.children}

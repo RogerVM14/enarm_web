@@ -3,12 +3,14 @@ import ui from "./index.module.css";
 import { Link, useLocation } from "react-router-dom";
 import DashboardLayout from "../../Layouts/Dashboard";
 import GraphicResults from "../Assets/Images/graphicResults.png";
+import { getSimulatorStatsByStudent } from "../../../apis/platform";
+import { useQuery } from "react-query";
 
 const useQueryParams = () => {
   const { search } = useLocation();
   const queryParameters = new URLSearchParams(search);
   const plan = parseInt(queryParameters.get("plan"));
-  const simulator = parseInt(queryParameters.get("id"));
+  const simulator = parseInt(queryParameters.get("simulator"));
 
   return { plan, simulator };
 };
@@ -22,6 +24,10 @@ const ResultsPage = () => {
     { tryNumber: "5to Intento", result: "Sin registro", percentage: "0", retro: false },
   ]);
 
+  const { plan, simulator } = useQueryParams();
+  const { data: stats } = useQuery(["student-stats"], () => getSimulatorStatsByStudent(simulator));
+  console.log({ stats, plan });
+
   return (
     <DashboardLayout>
       <div className={ui.wrapper}>
@@ -32,9 +38,14 @@ const ResultsPage = () => {
                 <div className={ui.bodyTop}>
                   <img src="" alt="" />
                   <h4>Simulador Infectología</h4>
+
                   <p datatype="large">Panel de Resultados</p>
                   <p datatype="small">Panel</p>
-                  <Link to="/cursoENARM/simuladores" className={ui.blueLink} datatype="large">
+                  <Link
+                    to={`/cursoENARM/simulador?plan=${plan}&id=${simulator}`}
+                    className={ui.blueLink}
+                    datatype="large"
+                  >
                     Comenzar Simulador
                   </Link>
                 </div>

@@ -110,11 +110,55 @@ export const addAnswerSimulatorByStudent = async (objectData) => {
     const headers = getHeaders();
 
     const { data, status } = await axios.post(endpoint, objectData, headers);
-    if ((data.status_Message = "answer insertion done" && status === 201)) {
-      console.log({ data, status });
+    if ((data.status_Message = "answer insertion done" && status === 201)) { 
       return true;
     }
   } catch (error) {
+    return false;
+  }
+};
+
+export const getAnswersSimulatorAttemptByStudent = async (simulatorID) => {
+  try {
+    const endpoint = `${url}simulators/get-answers-simulator-attempt-by-student`;
+    const headers = getHeaders();
+
+    const { attempt_count, attempts_completed, answer_list } = await getSimulatorStatsByStudent(simulatorID);
+
+    const body = {
+      simulator_id: simulatorID,
+      attempt: answer_list.length,
+    };
+    const { data, status } = await axios.post(endpoint, body, headers);
+    if (data.status_Message === "simulator answers founded" && status === 200) {
+      return { ...data, attempt_count, attempts_completed, answer_list };
+    }
+  } catch (error) {
+    toast.error("Error obteniendo respuestas.", {
+      position: "bottom-right",
+      duration: 3500,
+    });
+    return false;
+  }
+};
+
+export const getSimulatorStatsByStudent = async (simulatorID) => {
+  try {
+    const endpoint = `${url}simulators/get-simulator-stats-by-student`;
+    const body = {
+      simulator_id: simulatorID,
+    };
+    const headers = getHeaders();
+
+    const { data, status } = await axios.post(endpoint, body, headers);
+    if (data.status_Message === "simulator stats founded" && status === 200) { 
+      return data;
+    }
+  } catch (error) {
+    toast.error("Error obteniendo respuestas.", {
+      position: "bottom-right",
+      duration: 3500,
+    });
     return false;
   }
 };

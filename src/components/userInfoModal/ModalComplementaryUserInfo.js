@@ -22,15 +22,15 @@ const ModalComplementaryUserInfo = ({ isOpen, onClose }) => {
     phone: "",
   });
 
-  const user_id = useSelector(selectUserId)
+  const user_id = useSelector(selectUserId);
   const handleComplementaryInformation = () => {
     const info = {
       fullname: formData.fullName,
       telephone_number: formData.phone,
       top_specialties: `${formData.specialty1.trim()}-${formData.specialty2.trim()}`,
-      user_id
+      user_id,
     };
-    // console.log(info);
+    
     saveComplementaryStudentInfo(info)
       .then((res) => {
         if (res.data.status_Message === "student info updated") {

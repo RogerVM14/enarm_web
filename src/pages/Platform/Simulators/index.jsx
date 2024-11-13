@@ -33,16 +33,12 @@ const SimulatorsPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       if (!especialidades || specialtyPosition === 0) return;
-      const list = await getResourcesBySpecialty(especialidades, specialtyPosition);
+      const list = await getResourcesBySpecialty(especialidades, specialtyPosition); 
       setResourcesContent(list);
     };
     fetchData();
   }, [specialtyPosition, especialidades]);
-
-  useEffect(() => {
-    console.log({ resourcesContent });
-  }, [resourcesContent]);
-
+ 
   return (
     <DashboardLayout>
       <div className={ui.wrapper}>

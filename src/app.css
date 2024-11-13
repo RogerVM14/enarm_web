@@ -1,21 +1,24 @@
- 
 :root {
   --padding-x: 120px;
   --padding-section: 100px var(--padding-x) 100px var(--padding-x);
   --dark: #000000;
-  --white: #FFFFFF;
-  --blue: #05B2FA;
-  --dark-blue: #1E73BE;
+  --white: #ffffff;
+  --blue: #05b2fa;
+  --dark-blue: #1e73be;
   --danger: #f15e5e;
-  --green: #04B43E;
-  --gray: #96ACBC;
+  --green: #04b43e;
+  --gray: #96acbc;
 }
- 
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .full-container {
   max-width: 1440px;
   width: 100%;
   margin-inline: auto;
-  position: relative; 
+  position: relative;
 }
 
 .container-section {
@@ -103,9 +106,9 @@
 .blueLinkBtn {
   display: block;
   border-radius: 50px;
-  background-color: #05B2FA;
+  background-color: #05b2fa;
   padding: 12px 32px;
-  color: var(--White-Text, #FFF);
+  color: var(--White-Text, #fff);
   text-align: center;
   font-family: Montserrat;
   font-size: 18px;
@@ -116,6 +119,19 @@
   letter-spacing: 0.36px;
   transition: background-color 200ms linear;
   max-width: max-content;
+}
+
+.poppins-regular-12 {
+  font-family: PoppinsRegular;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;  
+}
+.poppins-regular-14 {
+  font-family: PoppinsRegular;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;  
 }
 
 .blueLinkBtn:hover {
@@ -180,7 +196,7 @@
   display: block;
 }
 
-.regular-parraf>span.strong {
+.regular-parraf > span.strong {
   font-family: inherit;
   font-size: 16px;
   font-style: normal;
@@ -188,8 +204,7 @@
   line-height: normal;
 }
 
-
-.regular-parraf-14>span.strong {
+.regular-parraf-14 > span.strong {
   font-family: inherit;
   font-size: 14px;
   font-style: normal;
@@ -206,11 +221,9 @@
   .container-section {
     padding: var(--padding-section);
   }
-
 }
 
 @media screen and (max-width: 1280px) {
-
   :root {
     --padding-x: 32px;
     --padding-section: 70px var(--padding-x) 70px var(--padding-x);
@@ -219,11 +232,9 @@
   .container-section {
     padding: var(--padding-section);
   }
-
 }
 
 @media screen and (max-width: 1024px) {
-
   :root {
     --padding-x: 32px;
     --padding-section: 60px var(--padding-x);
@@ -248,11 +259,9 @@
   .container-section {
     padding: var(--padding-section);
   }
-
 }
 
 @media screen and (max-width: 576px) {
-
   .container-section {
     padding: var(--padding-section);
   }
@@ -266,8 +275,8 @@
   }
 
   .regular-parraf,
-  .regular-parraf>span.strong {
-    font-size: 14px
+  .regular-parraf > span.strong {
+    font-size: 14px;
   }
 
   .section-title {

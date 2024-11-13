@@ -28,10 +28,11 @@ const SimulationCardsContainer = ({ displayContainer, handleDisplay = () => {}, 
       return acc;
     }, {});
     const [[, array]] = Object.entries(list).filter((element) => element[0] === "Simulador");
+    console.log({array})
     setSimulators(array);
   }, [resourcesContent]);
 
-  const onSelectSimulator = ({specialty_id}) => {
+  const onSelectSimulator = ({ specialty_id }) => {
     setOpen(true);
     setDataQuery({ simulator: specialty_id, plan: 1 });
   };
@@ -48,7 +49,6 @@ const SimulationCardsContainer = ({ displayContainer, handleDisplay = () => {}, 
           </button>
           <div className={ui.containerBody}>
             {simulators?.map((simulator, index) => {
-              console.log({ simulator });
               return (
                 <SimulatorCard data={simulator} key={index} count={index + 1} onSelectSimulator={onSelectSimulator} />
               );

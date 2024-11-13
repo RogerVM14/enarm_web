@@ -4,7 +4,7 @@ import { useState } from "react";
 
 const CardBody = ({ data, count, onSelectSimulator }) => {
   const [display, setDisplay] = useState(false);
-
+  console.log({ data });
   return (
     <div className={ui.simulatorCard}>
       <div className={ui.simulatorHeader} onClick={() => setDisplay(!display)}>
@@ -43,7 +43,7 @@ const CardBody = ({ data, count, onSelectSimulator }) => {
             </li>
           </ol>
           <div className={ui.buttons}>
-            <Link to="#" className={ui.buttonLinkWhite} disabled>
+            <Link to={`/cursoENARM/resultados?plan=2&simulator=${data?.id}`} className={ui.buttonLinkWhite} disabled>
               Ir al panel de resultados
             </Link>
             <button
