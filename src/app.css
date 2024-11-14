@@ -125,20 +125,35 @@
   font-family: PoppinsRegular;
   font-size: 12px;
   font-weight: 400;
-  line-height: 18px;  
+  line-height: 18px;
 }
 .poppins-regular-14 {
   font-family: PoppinsRegular;
   font-size: 14px;
   font-weight: 400;
-  line-height: 22px;  
-} 
+  line-height: 22px;
+}
+
 .poppins-semibold-14 {
   font-family: PoppinsSemiBold;
   font-size: 14px;
   font-weight: 400;
-  line-height: 22px;  
-} 
+  line-height: 22px;
+}
+
+.poppins-bold-14 {
+  font-family: PoppinsBold;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 22px;
+}
+
+.poppins-medium-20 {
+  font-family: PoppinsMedium;
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.75rem;
+}
 
 .blueLinkBtn:hover {
   background: #0397d6;

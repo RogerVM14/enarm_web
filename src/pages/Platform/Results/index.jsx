@@ -26,7 +26,6 @@ const ResultsPage = () => {
 
   const { plan, simulator } = useQueryParams();
   const { data: stats } = useQuery(["student-stats"], () => getSimulatorStatsByStudent(simulator));
-  console.log({ stats, plan });
 
   return (
     <DashboardLayout>

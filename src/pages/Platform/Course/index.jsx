@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import DashboardLayout from "../../Layouts/Dashboard";
 import ui from "./index.module.css";
-import ChevronIcon from "../Assets/Icons/chevronicon.svg";
-import AlertIcon from "../Assets/Icons/alertIcon.png";
-import GuideContent from "../../../components/platform/GuideContent";
 import { useQuery } from "react-query";
-import SimulatorsAdvice from "./components/SimulatorsAdvice";
 import { getWeekResourcesByWeekAndPlan } from "../../../apis/platform";
-import VimeoPlayer from "../../../components/VimeoPlayer";
+import Resumes from "./components/Resumes";
+import Videos from "./components/Videos";
+import Graphics from "./components/Graphics";
+import Simulators from "./components/Simulators";
 
 const useQueryParams = () => {
   const { search } = useLocation();
@@ -24,8 +23,7 @@ const CoursePage = () => {
   const [videos, setVideos] = useState([]);
   const [resume, setResume] = useState([]);
   const [simulators, setSimulators] = useState([]);
-  const [open, setOpen] = useState(false);
-  const [dataQuery, setDataQuery] = useState({});
+
   const handleDisplayCardBody = (i) => {
     setCardDisplay((prev) => {
       return prev.map((position, index) => {
@@ -45,6 +43,7 @@ const CoursePage = () => {
     let resume_data = [];
     let resume_specialty = [];
     let resume_types = [];
+    let simulator_types = [];
     Object.values(resource_List).forEach((resource) => {
       const [resourceItem, resourceArray] = Object.entries(resource)[0];
       const _array = resourceArray.map((data) => {
@@ -67,170 +66,42 @@ const CoursePage = () => {
         resume_specialty.push(tipoEspecialidades);
         resume_data.push(..._array);
       }
-      if (resourceItem === "Simulador") setSimulators([{ key: _array.key, ..._array }]);
+      if (resourceItem === "Simulador") {
+        simulator_types.push(_array);
+      }
     });
+    setSimulators(simulator_types);
     resume_specialty = [...new Set(resume_specialty.map((resource) => resource[0]))];
     setResume({ especialidades: resume_specialty, tipo_recursos: resume_types, recursos: resume_data });
   }, [resources]);
+
   return (
     <DashboardLayout>
-      <div className={ui.wrapper}>
-        <div className={ui.gridContainer}>
-          <section id={ui.containerCourse}>
+      <div className="p-6">
+        <div className="grid grid-cols-[1fr_17.375rem] gap-x-6">
+          <div>
             <header>
-              <div className={ui.headerContent}>
-                <div className={ui.contentTop}>
-                  <h4>{resources?.week_names}</h4>
-                  <p>Contenido</p>
+              <div className="p-6 bg-white mb-2 border-solid border-[1px] border-[#d9d9d9]">
+                <div className="flex flex-row justify-start gap-x-3 mb-6 items-center">
+                  <h4 className="poppins-medium-20 text-[#000000D9]">{resources?.week_names}</h4>
+                  <p className="poppins-regular-14 text-[#00000073]">Contenido</p>
                 </div>
-                <p>
-                  Bienvenido al contenido de Infectología. A continuación tendrás acceso a los contenidos que tenemos
-                  preparados especialmente para ti. Es importante que revises cada uno de ellos en el orden en el que se
-                  presentan para asegurar el éxito de este curso.
+                <p className="poppins-regular-14">
+                  Bienvenido al contenido de{" "}
+                  <strong className="poppins-bold-14">
+                    {resume === undefined || resume.length === 0 ? "" : resume?.especialidades[0]}
+                  </strong>
+                  . A continuación tendrás acceso a los contenidos que tenemos preparados especialmente para ti. Es
+                  importante que revises cada uno de ellos en el orden en el que se presentan para asegurar el éxito de
+                  este curso.
                 </p>
               </div>
             </header>
-            {/* Resumenes */}
-            <div className={ui.courseCard}>
-              <div
-                className={ui.cardHeader}
-                onClick={() => {
-                  handleDisplayCardBody(0);
-                }}
-              >
-                <div className={ui.cardTitle}>
-                  <img src={ChevronIcon} alt="chevron" width={12} height={12} data-selected={cardDisplay[0]} />
-                  <h5>1. Resúmenes</h5>
-                </div>
-                <div className={ui.cardDescription}>
-                  <p>Resúmenes, Flash cards y Tips</p>
-                  <span>130 recursos</span>
-                </div>
-              </div>
-              {cardDisplay[0] === false ? null : (
-                <div className={ui.cardBody}>
-                  <GuideContent resumeData={resume} />
-                </div>
-              )}
-            </div>
-            {/* Graficas */}
-            <div className={ui.courseCard} data-card="graficos">
-              <div
-                className={ui.cardHeader}
-                onClick={() => {
-                  handleDisplayCardBody(1);
-                }}
-              >
-                <div className={ui.cardTitle}>
-                  <img
-                    src={AlertIcon}
-                    alt="alert"
-                    width={12}
-                    height={12}
-                    // data-selected={cardDisplay[1]}
-                  />
-                  <h5>2. Gráficos</h5>
-                </div>
-                <div className={ui.cardDescription}>
-                  <p>
-                    Antes de continuar, asegúrate de tener tus <strong>gráficos</strong>
-                  </p>
-                </div>
-              </div>
-            </div>
-            {/* Videos */}
-            <div className={ui.courseCard}>
-              <div
-                className={ui.cardHeader}
-                onClick={() => {
-                  handleDisplayCardBody(2);
-                }}
-              >
-                <div className={ui.cardTitle}>
-                  <img src={ChevronIcon} alt="chevron" width={12} height={12} data-selected={cardDisplay[2]} />
-                  <h5>3. Video-Clases</h5>
-                </div>
-                <div className={ui.cardDescription}>
-                  <p>Repasa tus gráficos con las video-clases</p>
-                  <span>{videos.length} video-clases</span>
-                </div>
-              </div>
-              {cardDisplay[2] === false ? null : (
-                <div className={ui.cardBody}>
-                  <div className={ui.videoContainerGroup}>
-                    {videos?.map((video) => {
-                      return (
-                        <VimeoPlayer videoUrl={video} />
-                        // <video
-                        //   width="320"
-                        //   height="240"
-                        //   controls
-                        //   key={video[1]}
-                        //   style={{ width: "100%", height: "500px" }}
-                        // >
-                        //   <source src={video[4]} type="video/mp4" />
-                        // </video>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
-            </div>
-            {/* Simuladores*/}
-            {simulators?.map((simulator, index) => {
-              return (
-                <div className={ui.courseCard} key={index}>
-                  <div
-                    className={ui.cardHeader}
-                    onClick={() => {
-                      handleDisplayCardBody(3);
-                    }}
-                  >
-                    <div className={ui.cardTitle}>
-                      <img src={ChevronIcon} alt="chevron" width={12} height={12} data-selected={cardDisplay[3]} />
-                      <h5>4. Simulador {simulator[3]}</h5>
-                    </div>
-                    <div className={ui.cardDescription}>
-                      <p>Practica en nuestro simulador</p>
-                    </div>
-                  </div>
-                  {cardDisplay[3] === false ? null : (
-                    <div className={ui.cardBody}>
-                      <ol className={ui.guideList}>
-                        <li>
-                          Simulador con <strong>50 preguntas.</strong>
-                        </li>
-                        <li>
-                          Tiempo para resolverlo: <strong>1 hora 15 minutos.</strong>
-                        </li>
-                        <li>
-                          🔥<strong> 5 intentos</strong> permitidos para resolverlo
-                        </li>
-                        <li>
-                          Conoce tus resultados al finalizar presionando <strong>Finish Quiz.</strong>
-                        </li>
-                      </ol>
-                      <div className={ui.buttons}>
-                        <Link to={"#"} className={ui.buttonLinkWhite} aria-disabled>
-                          Ir al panel de resultados
-                        </Link>
-                        <button
-                          type="button"
-                          className={ui.buttonLinkBlue}
-                          onClick={() => { 
-                            setOpen(true);
-                            setDataQuery({ simulator: simulator[0][5], plan: 1 });
-                          }}
-                        >
-                          Comenzar Simulador
-                        </button>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </section>
+            <Resumes resume={resume} handleDisplayCardBody={handleDisplayCardBody} cardDisplay={cardDisplay[0]} />
+            <Graphics handleDisplayCardBody={handleDisplayCardBody} />
+            <Videos videos={videos} handleDisplayCardBody={handleDisplayCardBody} cardDisplay={cardDisplay[2]} />
+            <Simulators simulators={simulators[0]} cardDisplay={cardDisplay[3]} plan={params?.plan} />
+          </div>
 
           <aside>
             {/* <section id={ui.advance}>
@@ -266,7 +137,7 @@ const CoursePage = () => {
             <section id={ui.studyMethods}>
               <header>
                 <div className={ui.sectionHeader}>
-                  <h5>Método de Estudio</h5>
+                  <h5 className="poppins-regular-14">Método de Estudio</h5>
                 </div>
               </header>
               <div className={ui.sectionBody}>
@@ -314,7 +185,6 @@ const CoursePage = () => {
           </aside>
         </div>
       </div>
-      <SimulatorsAdvice open={open} onClose={() => setOpen(false)} query={dataQuery} />
     </DashboardLayout>
   );
 };

@@ -68,17 +68,15 @@ const DashboardAsideTemplate = ({ smallDevice, isMenuActive, handleShowMenu = ()
     },
   ];
 
-  const onClickEventMenu = useCallback(
-    (index, route) => {
-      if (simulatorIsActive) {
-        setSimulatorCooldownAdvice(true);
-        return;
-      }
-      setGlobalMenuSelected(index);
-      navigateTo(route);
-    },
-    [simulatorIsActive, setSimulatorCooldownAdvice, setGlobalMenuSelected, navigateTo]
-  );
+  const onClickEventMenu = (index, route) => {
+    if (simulatorIsActive) {
+      console.log({ simulatorIsActive });
+      setSimulatorCooldownAdvice(true);
+      return;
+    }
+    setGlobalMenuSelected(index);
+    navigateTo(route);
+  };
 
   return (
     <aside className={ui.asideStyle} data-portability={smallDevice} data-active={isMenuActive}>
@@ -86,9 +84,16 @@ const DashboardAsideTemplate = ({ smallDevice, isMenuActive, handleShowMenu = ()
       <div className={ui.asideContainer}>
         <Link
           className={ui.logoContainer}
-          to="/cursoENARM"
           style={{ cursor: "pointer" }}
-          onClick={() => setGlobalMenuSelected(null)}
+          onClick={() => {
+            if (simulatorIsActive) {
+              console.log({ simulatorIsActive });
+              setSimulatorCooldownAdvice(true);
+              return;
+            }
+            setGlobalMenuSelected(null);
+            navigate("/cursoENARM");
+          }}
         >
           <div className={ui.imageContainer}>
             <img src={EnarmLogo} alt="Enarm Logo" />
@@ -106,7 +111,7 @@ const DashboardAsideTemplate = ({ smallDevice, isMenuActive, handleShowMenu = ()
               <li key={index}>
                 <button
                   onClick={() => {
-                    if (globalMenuSelected === 0 && index === 0) { 
+                    if (globalMenuSelected === 0 && index === 0) {
                       return;
                     }
                     onClickEventMenu(index, item.route);
@@ -123,7 +128,7 @@ const DashboardAsideTemplate = ({ smallDevice, isMenuActive, handleShowMenu = ()
                         <button
                           type="button"
                           onClick={() => {
-                            if (simulatorIsActive) { 
+                            if (simulatorIsActive) {
                               setSimulatorCooldownAdvice(true);
                               return;
                             }
@@ -154,9 +159,16 @@ const DashboardAsideTemplate = ({ smallDevice, isMenuActive, handleShowMenu = ()
 };
 
 const UserTools = React.memo(({ display }) => {
+  const { setSimulatorIsActive, setSimulatorCooldownAdvice } = useContext(GeneralContext);
+  setSimulatorIsActive(false);
+  setSimulatorCooldownAdvice(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const handleLogout = useCallback(() => logout(dispatch, navigate), [dispatch, navigate]);
+  const handleLogout = useCallback(() => {
+    setSimulatorIsActive(false);
+    setSimulatorCooldownAdvice(false);
+    logout(dispatch, navigate);
+  }, [dispatch, navigate, setSimulatorIsActive, setSimulatorCooldownAdvice]);
 
   return display ? (
     <div className={ui.userTools}>

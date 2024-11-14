@@ -201,14 +201,20 @@ const SimulatorCoursePage = () => {
                     <QuestionsSquaresGroup
                       squares={squares}
                       display={questionGroup}
-                      onChangeCurrent={(e) => setCurrent(e)}
+                      onChangeCurrent={(e) => {
+                        setCurrent(e);
+                        setAnswerResponse(0);
+                      }}
                     />
                   </div>
                 </div>
                 <ClinicCasesGroup
                   currentPosition={current}
                   cases={simulatorQuestions?.questions}
-                  changeCurrentPosition={(e) => setCurrent(e)}
+                  changeCurrentPosition={(e) => {
+                    setCurrent(e);
+                    setAnswerResponse(0);
+                  }}
                 />
               </div>
             </div>
@@ -225,6 +231,7 @@ const SimulatorCoursePage = () => {
                       handleSelectAnswer={(e) => {
                         pushAnswer(e);
                         setSquareSelected(current);
+                        if (answerResponse === 2) return;
                         setAnswerResponse(answerResponse + 1);
                       }}
                       position={0}
@@ -235,6 +242,7 @@ const SimulatorCoursePage = () => {
                       handleSelectAnswer={(e) => {
                         pushAnswer(e);
                         setSquareSelected(current + 1);
+                        if (answerResponse === 2) return;
                         setAnswerResponse(answerResponse + 1);
                       }}
                       position={1}
@@ -269,7 +277,10 @@ const SimulatorCoursePage = () => {
                     onClick={async () => {
                       const response = await seeResults(true);
                       if (response) {
-                        navigate(`/cursoENARM/retroalimentacion?plan=${plan}&simulator=${simulator_id}`);
+                        setSimulatorIsActive(false);
+                        setTimeout(() => {
+                          navigate(`/cursoENARM/retroalimentacion?plan=${plan}&simulator=${simulator_id}`);
+                        }, 1500);
                       }
                     }}
                   >
