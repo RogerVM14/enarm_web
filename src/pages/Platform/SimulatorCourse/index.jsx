@@ -32,6 +32,7 @@ const SimulatorCoursePage = () => {
   const [totalAttempts, setTotalAttempts] = useState(0);
   const [squareSelected, setSquareSelected] = useState(null);
   const [answersSimulator, setAnwersSimulator] = useState([]);
+  const [answerResponse, setAnswerResponse] = useState(0);
 
   const { simulator_id, plan } = useQueryParams();
   const { setSimulatorIsActive } = useContext(GeneralContext);
@@ -45,7 +46,6 @@ const SimulatorCoursePage = () => {
 
     window.addEventListener("beforeunload", handleBeforeUnload);
 
-    // Limpia el evento cuando el componente se desmonte
     return () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
@@ -225,6 +225,7 @@ const SimulatorCoursePage = () => {
                       handleSelectAnswer={(e) => {
                         pushAnswer(e);
                         setSquareSelected(current);
+                        setAnswerResponse(answerResponse + 1);
                       }}
                       position={0}
                       data={simulatorQuestions?.questions[current]}
@@ -234,6 +235,7 @@ const SimulatorCoursePage = () => {
                       handleSelectAnswer={(e) => {
                         pushAnswer(e);
                         setSquareSelected(current + 1);
+                        setAnswerResponse(answerResponse + 1);
                       }}
                       position={1}
                       data={simulatorQuestions?.questions[current + 1]}
@@ -251,7 +253,11 @@ const SimulatorCoursePage = () => {
                     type="button"
                     className={ui.nextQuestionsButton}
                     style={{ cursor: "pointer" }}
-                    onClick={() => setCurrent(current + 2)}
+                    disabled={answerResponse !== 2}
+                    onClick={() => {
+                      setCurrent(current + 2);
+                      setAnswerResponse(0);
+                    }}
                   >
                     <span>Siguiente</span>
                   </button>

@@ -2,7 +2,7 @@ import React from "react";
 import ui from "./index.module.css";
 import { Link } from "react-router-dom";
 
-const SimulatorsAdvice = ({ open, onClose, query }) => { 
+const SimulatorsAdvice = ({ open, onClose, query }) => {
   return open ? (
     <div className={ui.dialogModal}>
       <div className={ui.modalContainer}>
@@ -41,10 +41,9 @@ const SimulatorsAdvice = ({ open, onClose, query }) => {
         </div>
         <div className={ui.containerBody}>
           <ul className={ui.adviceList}>
-            <li>Asegura una conexión a internet estable.</li>
             <li>
-              Espacio libre de interrupciones por al menos <strong>10 horas</strong> (5 horas del simulador y 5 horas de
-              revisión).
+              Asegura una conexión a Internet estable, espacio libre de interrupciones por al menos el tiempo estimado
+              del simulador
             </li>
             <li>Utiliza una computadora de escritorio o portátil.</li>
             <li>El dispositivo móvil no es ideal para llevar a cabo el simulador.</li>

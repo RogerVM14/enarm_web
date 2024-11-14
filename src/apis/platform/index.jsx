@@ -67,14 +67,16 @@ export const getWeekResourcesByWeekAndPlan = async (params) => {
   }
 };
 
-export const getStudyPlanById = async () => {
+export const getStudyPlanById = async (plan) => {
   try {
     const endpoint = `${url}study-plan/get-study-plan-by-id`;
     const headers = getHeaders();
-    const body = { study_plan_id: 2 };
+    const body = { study_plan_id: plan };
     const { data, status } = await axios.post(endpoint, body, headers);
     if (data.status_Message === "there is study plan" && status === 200) {
       return data.study_plan;
+    } else {
+      throw new Error();
     }
   } catch (error) {
     toast.error("Se presentó un error al cargar plan de estudios", {
@@ -110,7 +112,7 @@ export const addAnswerSimulatorByStudent = async (objectData) => {
     const headers = getHeaders();
 
     const { data, status } = await axios.post(endpoint, objectData, headers);
-    if ((data.status_Message = "answer insertion done" && status === 201)) { 
+    if ((data.status_Message = "answer insertion done" && status === 201)) {
       return true;
     }
   } catch (error) {
@@ -151,7 +153,7 @@ export const getSimulatorStatsByStudent = async (simulatorID) => {
     const headers = getHeaders();
 
     const { data, status } = await axios.post(endpoint, body, headers);
-    if (data.status_Message === "simulator stats founded" && status === 200) { 
+    if (data.status_Message === "simulator stats founded" && status === 200) {
       return data;
     }
   } catch (error) {
@@ -160,5 +162,24 @@ export const getSimulatorStatsByStudent = async (simulatorID) => {
       duration: 3500,
     });
     return false;
+  }
+};
+
+export const getStudyPlans = async () => {
+  try {
+    const endpoint = `${url}study-plan/get-study-plans`;
+    const headers = getHeaders();
+
+    const { data, status } = await axios.get(endpoint, headers);
+
+    if (data.status_Message === "there are study plans" && status === 200) {
+      return data.study_plans;
+    }
+    throw new Error();
+  } catch (error) {
+    toast.error("Se presentó un error al obtener planes de estudio.", {
+      duration: 3500,
+      position: "top-right",
+    });
   }
 };

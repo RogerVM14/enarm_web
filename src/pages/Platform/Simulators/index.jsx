@@ -56,8 +56,8 @@ const SimulatorsPage = () => {
                   <rect
                     fill="#37A9FF"
                     stroke="#37A9FF"
-                    stroke-width="5"
-                    stroke-linejoin="round"
+                    strokeWidth="5"
+                    strokeLinejoin="round"
                     width="30"
                     height="30"
                     x="85"

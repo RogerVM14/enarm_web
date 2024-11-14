@@ -15,7 +15,7 @@ const SimulatorCooldownAdvice = ({ query, onBeforeSubmit }) => {
       setSimulatorCooldownAdvice(false);
       setTimeout(() => {
         navigate(`/cursoENARM/retroalimentacion?plan=${query.plan}&simulator=${query.simulator}`);
-      }, 1500);
+      }, 500);
     }
   };
 

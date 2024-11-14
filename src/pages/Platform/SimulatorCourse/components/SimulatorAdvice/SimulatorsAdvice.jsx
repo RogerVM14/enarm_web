@@ -1,22 +1,27 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import ui from "./index.module.css";
 import { useNavigate } from "react-router-dom";
 import { GeneralContext } from "../../../../../contexts/GeneralContext";
 
 const SimulatorsAdvice = ({ open, onClose, query, data, onBeforeSubmit }) => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const { setSimulatorIsActive, setSimulatorCooldownAdvice } = useContext(GeneralContext);
 
   const linkTo = async () => {
+    setLoading(true);
     const response = await onBeforeSubmit();
     if (response) {
       setSimulatorIsActive(false);
       setSimulatorCooldownAdvice(false);
+
       setTimeout(() => {
+        setLoading(false);
         navigate(`/cursoENARM/retroalimentacion?plan=${query.plan}&simulator=${query.simulator}`);
       }, 1500);
     }
+    setLoading(false);
   };
 
   return open ? (
@@ -64,7 +69,7 @@ const SimulatorsAdvice = ({ open, onClose, query, data, onBeforeSubmit }) => {
               <span>No, volver</span>
             </button>
             <button type="button" className={ui.linkButtonBlue} onClick={linkTo}>
-              <span>Si, quiero Retroalimentacion</span>
+              <span>{loading ? "Cargando..." : "Si, quiero Retroalimentacion"}</span>
             </button>
           </div>
         </div>

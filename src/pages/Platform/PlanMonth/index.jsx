@@ -1,17 +1,27 @@
 import React, { useEffect, useState } from "react";
 import DashboardLayout from "../../Layouts/Dashboard";
-import PlanCourse from "../../../components/platform/PlanCourse";
-import PlanCourseCollapse from "../../../components/platform/PlanCourseCollapse";
+import PlanCourse from "./components/PlanCourse";
+import PlanCourseCollapse from "./components/PlanCourseCollapse";
 import ui from "./index.module.css";
 import { useQuery } from "react-query";
 import { getStudyPlanById } from "../../../apis/platform";
-// import TablaEstudios from "./components/TablaEstudios";
-// import Calendario from "./components/Calendario";
-// import Avances from "./components/Avances";
+import { useLocation } from "react-router-dom";
+
+const useQueryParams = () => {
+  const { search } = useLocation();
+  const queryParameters = new URLSearchParams(search);
+  const plan = parseInt(queryParameters.get("id"));
+  const name = queryParameters.get("name");
+
+  return { plan, name };
+};
 
 const PlanMonthPage = () => {
   const [weeksList, setWeekList] = useState([]);
-  const { data: studyplans } = useQuery("study-plans-by-id", () => getStudyPlanById());
+
+  const { plan, name } = useQueryParams();
+
+  const { data: studyplans } = useQuery([name], () => getStudyPlanById(plan));
 
   useEffect(() => {
     if (!studyplans) return;
@@ -35,14 +45,9 @@ const PlanMonthPage = () => {
       <div className={ui.wrapper}>
         <div className={ui.gridContainer}>
           <section>
-            <PlanCourse />
-            <PlanCourseCollapse weeksList={weeksList} />
+            <PlanCourse planName={name} />
+            <PlanCourseCollapse weeksList={weeksList} planID={plan} />
           </section>
-          <aside>
-            {/* <Calendario />
-            <Avances />
-            <TablaEstudios /> */}
-          </aside>
         </div>
       </div>
     </DashboardLayout>

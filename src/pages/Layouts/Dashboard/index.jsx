@@ -8,30 +8,24 @@ import { GeneralContext } from "../../../contexts/GeneralContext";
 import { useNavigate } from "react-router-dom";
 
 const DashboardLayout = ({ children }) => {
-
   const navigation = useNavigate();
   const [smallDevice, setSmallDevice] = useState(null);
   const [smallMenu, setSmallMenu] = useState(false);
 
-  const {
-    feedbackModal,
-    setFeedbackModal,
-    importantModal,
-    setImportantModal,
-    setSimulationOnCourse
-  } = useContext(GeneralContext);
+  const { feedbackModal, setFeedbackModal, importantModal, setImportantModal, setSimulationOnCourse } =
+    useContext(GeneralContext);
 
   const handleRunSimulation = () => {
     setSimulationOnCourse(true);
     setImportantModal(false);
     navigation("/cursoENARM/planes/11_meses/simulador/blabla");
-  }
+  };
 
   const handleRunFeedback = () => {
     setSimulationOnCourse(false);
     setFeedbackModal(false);
     navigation("/cursoENARM/planes/11_meses/retro");
-  }
+  };
 
   const closeImportantModal = () => setImportantModal(false);
   const closeFeedbackModal = () => setFeedbackModal(false);
@@ -46,24 +40,16 @@ const DashboardLayout = ({ children }) => {
 
     getWindowSize();
 
-    return () => window.removeEventListener("resize", getWindowSize)
-  }, [])
+    return () => window.removeEventListener("resize", getWindowSize);
+  }, []);
 
   const handleShowMenu = () => setSmallMenu(!smallMenu);
 
   return (
     <div id={ui.dashboardWrapper}>
-      <DashboardHeaderTemplate
-        handleShowMenu={handleShowMenu}
-      />
-      <DashboardAsideTemplate
-        smallDevice={smallDevice}
-        isMenuActive={smallMenu}
-        handleShowMenu={handleShowMenu}
-      />
-      <main>
-        {children}
-      </main>
+      <DashboardHeaderTemplate handleShowMenu={handleShowMenu} />
+      <DashboardAsideTemplate smallDevice={smallDevice} isMenuActive={smallMenu} handleShowMenu={handleShowMenu} />
+      <main>{children}</main>
       <ImportantAdvice
         open={importantModal}
         handleRunSimulation={handleRunSimulation}
@@ -75,7 +61,7 @@ const DashboardLayout = ({ children }) => {
         handleRunFeedback={handleRunFeedback}
       />
     </div>
-  )
-}
+  );
+};
 
 export default DashboardLayout;

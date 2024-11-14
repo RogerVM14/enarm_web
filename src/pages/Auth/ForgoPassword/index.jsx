@@ -38,8 +38,7 @@ function PasswordRecovery() {
     if (isEmailValid) {
       setIsLoading(true);
       requestOTPForPasswordChange(email)
-        .then((res) => {
-          console.log(res);
+        .then((res) => { 
           if (
             res.data.status_Message !== "change password request failed" &&
             res.data.user_id !== ""
@@ -55,8 +54,7 @@ function PasswordRecovery() {
           }
           setIsLoading(false);
         })
-        .catch((err) => {
-          console.log(err);
+        .catch((err) => { 
           setIsLoading(false);
         });
     }

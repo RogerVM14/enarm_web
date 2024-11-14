@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import ui from "./index.module.css";
 
 const ResourceContainer = ({ resourcesContent }) => {
   const [resumeData, setResumeData] = useState([]);
@@ -29,11 +28,11 @@ const ResourceContainer = ({ resourcesContent }) => {
   }, [resourcesContent]);
 
   return Object.keys(resourcesContent).length > 0 ? (
-    <section id={ui.resourceSectionContainer}>
+    <section>
       <header>
-        <div className={ui.containerHeader}>
-          <div className={ui.resourceTitle}>
-            <button type="button" className={ui.backButton}>
+        <div className="py-4 px-6 border-[1px] bg-white flex flex-row justify-between">
+          <div className="poppins-regular-14 flex flex-row gap-x-4">
+            <button type="button" className="hidden">
               <svg width="14px" height="14px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                 <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
@@ -45,8 +44,8 @@ const ResourceContainer = ({ resourcesContent }) => {
                 </g>
               </svg>
             </button>
-            <h4>{specialtiesNames.join(" / ")}</h4>
-            <p style={{ fontFamily: "PoppinsRegular" }}>Recursos</p>
+            <h4 className="poppins-regular-14 !text-[20px]">{specialtiesNames.join(" / ")}</h4>
+            <p className="poppins-regular-14">Recursos</p>
           </div>
           {/* <div className={ui.resourseFilters}>
             <div className={ui.filter}>
@@ -75,16 +74,16 @@ const ResourceContainer = ({ resourcesContent }) => {
           </div> */}
         </div>
       </header>
-      <div className={ui.containerBody}>
+      <div className="p-6 border-r border-b border-l border-[#d9d9d9] bg-white">
         {resumeData?.map(([specialty, data], index) => {
           return (
             <div key={index}>
-              <h5 className={ui.specialyName}>{specialty}</h5>
-              <ul className={ui.resourcesList}>
+              <h5 className="poppins-regular-16">{specialty}</h5>
+              <ul className="ml-6 list-disc mb-4">
                 {data?.map((resource) => {
                   return (
-                    <li className={ui.resourceItem}>
-                      <p>{resource.name}</p>
+                    <li className=" text-[#1e73be]">
+                      <p className="poppins-regular-14">{resource.name}</p>
                     </li>
                   );
                 })}
@@ -95,10 +94,7 @@ const ResourceContainer = ({ resourcesContent }) => {
       </div>
     </section>
   ) : (
-    <section
-      id={ui.selectSpecialty}
-      style={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center" }}
-    >
+    <section style={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
       <span style={{ fontFamily: "PoppinsRegular", fontSize: "2rem", display: "block" }}>
         Selecciona una especialidad
       </span>
@@ -107,8 +103,8 @@ const ResourceContainer = ({ resourcesContent }) => {
           <rect
             fill="#37A9FF"
             stroke="#37A9FF"
-            stroke-width="5"
-            stroke-linejoin="round"
+            strokeWidth="5"
+            strokeLinejoin="round"
             width="30"
             height="30"
             x="85"

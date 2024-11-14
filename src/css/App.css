@@ -579,8 +579,7 @@ body {
 }
 
 button:hover {
-  cursor: pointer;
-  background-color: #00A0E2;
+  cursor: pointer; 
   transition: background-color 250ms linear;
 }
 

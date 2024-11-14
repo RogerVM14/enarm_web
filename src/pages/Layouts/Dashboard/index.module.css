@@ -381,7 +381,8 @@ aside[data-portability="false"] {
 }
 
 .buttonMenuItemSelected,
-.buttonMenuItem {
+.buttonMenuItem,
+.buttonSubMenuItem {
   display: flex;
   width: 100%;
   justify-content: flex-start;
@@ -391,9 +392,11 @@ aside[data-portability="false"] {
   padding: 0 0.75rem;
   font-size: 14px;
   column-gap: 10px;
+  white-space: nowrap;
 }
 
-.buttonMenuItemSelected {
+.buttonMenuItemSelected, 
+.buttonSunenuItemSelected {
   background-color: #e6f7ff;
   color: #05b2fa;
 }
@@ -405,4 +408,7 @@ aside[data-portability="false"] {
 
 a.buttonMenuItem {
   padding: 0 2.5rem;
+}
+.buttonSubMenuItem {
+  padding: 0 0 0 2rem;
 }

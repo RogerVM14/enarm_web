@@ -13,7 +13,7 @@ import VimeoPlayer from "../../../components/VimeoPlayer";
 const useQueryParams = () => {
   const { search } = useLocation();
   const queryParameters = new URLSearchParams(search);
-  const plan = parseInt(queryParameters.get("plan_id"));
+  const plan = parseInt(queryParameters.get("plan"));
   const week = parseInt(queryParameters.get("week"));
 
   return { plan, week };

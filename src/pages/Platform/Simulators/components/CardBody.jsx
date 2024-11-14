@@ -3,8 +3,7 @@ import ui from "./index.module.css";
 import { useState } from "react";
 
 const CardBody = ({ data, count, onSelectSimulator }) => {
-  const [display, setDisplay] = useState(false);
-  console.log({ data });
+  const [display, setDisplay] = useState(false); 
   return (
     <div className={ui.simulatorCard}>
       <div className={ui.simulatorHeader} onClick={() => setDisplay(!display)}>

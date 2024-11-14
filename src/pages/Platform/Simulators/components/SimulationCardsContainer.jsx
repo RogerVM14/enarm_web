@@ -28,7 +28,6 @@ const SimulationCardsContainer = ({ displayContainer, handleDisplay = () => {}, 
       return acc;
     }, {});
     const [[, array]] = Object.entries(list).filter((element) => element[0] === "Simulador");
-    console.log({array})
     setSimulators(array);
   }, [resourcesContent]);
 

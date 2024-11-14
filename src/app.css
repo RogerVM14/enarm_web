@@ -132,7 +132,13 @@
   font-size: 14px;
   font-weight: 400;
   line-height: 22px;  
-}
+} 
+.poppins-semibold-14 {
+  font-family: PoppinsSemiBold;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;  
+} 
 
 .blueLinkBtn:hover {
   background: #0397d6;

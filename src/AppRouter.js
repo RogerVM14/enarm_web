@@ -38,10 +38,7 @@ import "./css/App.css";
 import CheckoutPaymentFailed from "./pages/CheckoutPaymentFailed";
 import PlatformPrivateRoute from "./routes/PlatformPrivateRoute";
 import { useSelector } from "react-redux";
-import {
-  selectCheckoutUserId,
-  selectUserCheckoutEmail,
-} from "./store/reducers/user/UserInformationSlice";
+import { selectCheckoutUserId, selectUserCheckoutEmail } from "./store/reducers/user/UserInformationSlice";
 import RenderComponenteIf from "./routes/RenderComponentIf";
 import PageNotFound from "./pages/PageNotFound";
 import PublicRoutes from "./routes/PublicRoutes";
@@ -103,15 +100,8 @@ const AppRouter = () => {
 
   const user_id = useSelector(selectCheckoutUserId);
   const email_checkout = useSelector(selectUserCheckoutEmail);
-  const isIdOnCheckout =
-    user_id !== null && user_id !== undefined && user_id !== "";
-  console.log(isIdOnCheckout);
-  const isEmailOnCheckout =
-    email_checkout !== null &&
-    email_checkout !== undefined &&
-    email_checkout !== "";
-
-  console.log(isEmailOnCheckout);
+  const isIdOnCheckout = user_id !== null && user_id !== undefined && user_id !== "";
+  const isEmailOnCheckout = email_checkout !== null && email_checkout !== undefined && email_checkout !== "";
 
   return (
     <LandingProvider>
@@ -196,10 +186,7 @@ const AppRouter = () => {
                 <Route
                   path={ROUTES.CHECKOUT}
                   element={
-                    <RenderComponenteIf
-                      condition={isIdOnCheckout}
-                      redirectTo={ROUTES.REGISTRO}
-                    >
+                    <RenderComponenteIf condition={isIdOnCheckout} redirectTo={ROUTES.REGISTRO}>
                       <CheckoutPage />
                     </RenderComponenteIf>
                   }
@@ -207,10 +194,7 @@ const AppRouter = () => {
                 <Route
                   path={ROUTES.CHECKOUT_SUCCESS}
                   element={
-                    <RenderComponenteIf
-                      condition={isIdOnCheckout}
-                      redirectTo={ROUTES.REGISTRO}
-                    >
+                    <RenderComponenteIf condition={isIdOnCheckout} redirectTo={ROUTES.REGISTRO}>
                       <CheckoutPageGratification />
                     </RenderComponenteIf>
                   }
@@ -218,10 +202,7 @@ const AppRouter = () => {
                 <Route
                   path={ROUTES.CHECKOUT_FAILED}
                   element={
-                    <RenderComponenteIf
-                      condition={isIdOnCheckout}
-                      redirectTo={ROUTES.REGISTRO}
-                    >
+                    <RenderComponenteIf condition={isIdOnCheckout} redirectTo={ROUTES.REGISTRO}>
                       <CheckoutPaymentFailed />
                     </RenderComponenteIf>
                   }
@@ -229,10 +210,7 @@ const AppRouter = () => {
                 <Route
                   path={ROUTES.VERIFY_EMAIL_CODE}
                   element={
-                    <RenderComponenteIf
-                      condition={isEmailOnCheckout && isIdOnCheckout}
-                      redirectTo={ROUTES.REGISTRO}
-                    >
+                    <RenderComponenteIf condition={isEmailOnCheckout && isIdOnCheckout} redirectTo={ROUTES.REGISTRO}>
                       <VerifyEmailCodePage />
                     </RenderComponenteIf>
                   }
@@ -240,14 +218,6 @@ const AppRouter = () => {
                 {/* Platform */}
                 <Route
                   path={ROUTES.PLATAFORMA_DASHBOARD}
-                  element={
-                    <PlatformPrivateRoute>
-                      <DashboardPage />
-                    </PlatformPrivateRoute>
-                  }
-                />
-                <Route
-                  path={ROUTES.PLATAFORMA_PLANES}
                   element={
                     <PlatformPrivateRoute>
                       <DashboardPage />
@@ -353,32 +323,17 @@ const AppRouter = () => {
                 <Route
                   path={ROUTES.VERIFICAR_CORREO}
                   element={
-                    <RenderComponenteIf
-                      condition={isEmailOnCheckout}
-                      redirectTo={ROUTES.REGISTRO}
-                    >
+                    <RenderComponenteIf condition={isEmailOnCheckout} redirectTo={ROUTES.REGISTRO}>
                       <VerifyEmailCodePage />
                     </RenderComponenteIf>
                   }
                 />
                 {/* <Route path="*" element={<PageNotFound />} /> */}
-                <Route
-                  path={ROUTES.FORGOT_PASSWORD}
-                  element={<ForgotPassword />}
-                />
-                <Route
-                  path={ROUTES.OTP_VERIFICATION}
-                  element={<OTPVerification />}
-                />
-                <Route
-                  path={ROUTES.RESTABLISH_PASSWORD}
-                  element={<PasswordReset />}
-                />
-                
-                <Route
-                  path="*"
-                  element={<Navigate to={ROUTES.HOME} replace />}
-                />
+                <Route path={ROUTES.FORGOT_PASSWORD} element={<ForgotPassword />} />
+                <Route path={ROUTES.OTP_VERIFICATION} element={<OTPVerification />} />
+                <Route path={ROUTES.RESTABLISH_PASSWORD} element={<PasswordReset />} />
+
+                <Route path="*" element={<Navigate to={ROUTES.HOME} replace />} />
               </Routes>
             </SimulatorProvider>
           </GeneralProvider>
