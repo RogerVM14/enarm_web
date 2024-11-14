@@ -11,10 +11,7 @@ import "./LoginPage.css";
 import ui from "./index.module.css";
 import LandingLayout from "../../Layouts/Landing";
 import { useDispatch } from "react-redux";
-import {
-  setCheckoutUserId,
-  setUserInformation,
-} from "../../../store/reducers/user/UserInformationSlice";
+import { setCheckoutUserId, setUserInformation } from "../../../store/reducers/user/UserInformationSlice";
 import { ROUTES } from "../../../constants/routes";
 import { encryptPassword } from "../../../utils/auth";
 
@@ -65,12 +62,15 @@ const FormLogin = () => {
     const isValidEmail = validateEmailFormat(userEmail);
 
     if (isValidEmail && userPass) {
+      const password = encryptPassword(userPass);
       loginUser({
         new_user_email: userEmail,
         new_user_password: encryptPassword(userPass),
         environment: "platform",
       })
         .then((res) => {
+          console.log({ password });
+          debugger
           if (res.data.status_Message === "valid user") {
             const { status_Message, ...rest } = res.data;
             if (!rest.has_payments) {
@@ -120,11 +120,7 @@ const FormLogin = () => {
           }}
           onKeyDown={handleKeyDown} // Detect Enter key
         />
-        {emailError && (
-          <span className={`${ui.formLabel} red`}>
-            Introduce un correo válido
-          </span>
-        )}
+        {emailError && <span className={`${ui.formLabel} red`}>Introduce un correo válido</span>}
       </div>
       <div className={ui.formGroup}>
         <label className={ui.formLabel} htmlFor="form-password">

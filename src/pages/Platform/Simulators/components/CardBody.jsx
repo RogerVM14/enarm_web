@@ -3,44 +3,45 @@ import ui from "./index.module.css";
 import { useState } from "react";
 
 const CardBody = ({ data, count, onSelectSimulator }) => {
-  const [display, setDisplay] = useState(false); 
+  const [display, setDisplay] = useState(false);
   return (
-    <div className={ui.simulatorCard}>
-      <div className={ui.simulatorHeader} onClick={() => setDisplay(!display)}>
-        <div className={ui.simulatorTitle}>
+    <div className="bg-[#FAFAFA] mb-2">
+      <div className="border-[1px] border-solid border-[#d9d9d9] py-3 px-4 hover:cursor-pointer" onClick={() => setDisplay(!display)}>
+        <div className="flex flex-row gap-3 justify-start">
           <ChevronIcon />
-          <h5>
+          <h5 className="poppins-semibold-14">
             Simulador {data.specialty_name} #{count}
           </h5>
         </div>
         <div className={ui.simulatorDescription}>
-          <p>Practica en nuestro simulador</p>
+          <p className="poppins-regular-14">Practica en nuestro simulador</p>
         </div>
       </div>
       {display ? (
-        <div className={ui.simulatorBody}>
-          <ol className={ui.guideList}>
-            <li>
-              <p>
-                Simulador con <strong>50 preguntas.</strong>
+        <div className="bg-white p-4 border-solid border-[1px] border-[#d9d9d9] border-t-0">
+          <ul className="">
+            <li className="min-h-10 flex flex-row items-center">
+              <p className="poppins-regular-14">
+                1. Simulador con <strong className="poppins-bold-14">50 preguntas.</strong>
               </p>
             </li>
-            <li>
-              <p>
-                Tiempo para resolverlo: <strong>1 hora 15 minutos.</strong>
+            <li className="min-h-10 flex flex-row items-center">
+              <p className="poppins-regular-14">
+                2. Tiempo para resolverlo: <strong className="poppins-bold-14">1 hora 15 minutos.</strong>
               </p>
             </li>
-            <li>
-              <p>
-                🔥<strong> 5 intentos</strong> permitidos para resolverlo
+            <li className="min-h-10 flex flex-row items-center">
+              <p className="poppins-regular-14">
+                3. 🔥<strong className="poppins-bold-14"> 5 intentos</strong> permitidos para resolverlo
               </p>
             </li>
-            <li>
-              <p>
-                Conoce tus resultados al finalizar presionando <strong>Finish Quiz.</strong>
+            <li className="min-h-10 flex flex-row items-center">
+              <p className="poppins-regular-14">
+                4. Conoce tus resultados al finalizar presionando{" "}
+                <strong className="poppins-bold-14">Finish Quiz.</strong>
               </p>
             </li>
-          </ol>
+          </ul>
           <div className={ui.buttons}>
             <Link to={`/cursoENARM/resultados?plan=2&simulator=${data?.id}`} className={ui.buttonLinkWhite} disabled>
               Ir al panel de resultados

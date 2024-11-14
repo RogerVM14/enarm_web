@@ -40,22 +40,19 @@ const SimulationCardsContainer = ({ displayContainer, handleDisplay = () => {}, 
 
   return (
     <>
-      <section id={ui.simulatorsSection} data-size="">
-        <div className={ui.sectionContainer}>
-          <button type="button" className={ui.backButton} onClick={() => handleDisplay()}>
-            <img src={BackIcon} alt="chevron" />
-            Volver
-          </button>
-          <div className={ui.containerBody}>
-            {simulators?.map((simulator, index) => {
-              return (
-                <SimulatorCard data={simulator} key={index} count={index + 1} onSelectSimulator={onSelectSimulator} />
-              );
-            })}
-          </div>
+      <div>
+        {/* <button type="button" onClick={handleDisplay}>
+          <img src={BackIcon} alt="chevron" />
+          Volver
+        </button> */}
+        <div>
+          {simulators?.map((simulator, index) => {
+            return (
+              <SimulatorCard data={simulator} key={index} count={index + 1} onSelectSimulator={onSelectSimulator} />
+            );
+          })}
         </div>
-      </section>
-
+      </div>
       <SimulatorsAdvice open={open} onClose={() => setOpen(false)} query={dataQuery} />
     </>
   );

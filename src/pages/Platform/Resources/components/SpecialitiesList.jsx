@@ -19,9 +19,9 @@ const SpecialitiesList = ({ handleDisplay = () => {}, data, selectSpecialty }) =
   }, [data]);
 
   return (
-    <aside>
+    <aside className="border-solid border-[1px] border-[#d9d9d9]">
       <ul>
-        <li className=" bg-white w-full list-none flex h-14 max-h-14 min-h-14 text-start items-center justify-start border-none shadow-[0px_1px_0px_0px_#f0f0f0f_inset] relative">
+      <li className=" bg-white w-full list-none flex h-14 max-h-14 min-h-14 text-start items-center justify-start border-b border-solid border-[#d9d9d9] relative">
           <p className="pl-4 poppins-regular-14 text-gray-400">Especialidades</p>
         </li>
       </ul>
@@ -30,7 +30,7 @@ const SpecialitiesList = ({ handleDisplay = () => {}, data, selectSpecialty }) =
           {specialities?.map((speciality, index) => {
             const { isActive, name, id } = speciality;
             return (
-              <li key={index}>
+              <li key={index} className={index === 0 ? "" : "border-t border-solid border-t-[#d9d9d9]"}>
                 <button
                   type="button"
                   className={`w-full list-none flex h-14 max-h-14 min-h-14 text-start items-center justify-start border-none shadow-[0px_1px_0px_0px_#f0f0f0f_inset] relative pl-4 hover:bg-[#D3F2FF] bg-[#FFF] ${
