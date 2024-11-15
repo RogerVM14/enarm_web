@@ -31,7 +31,7 @@ const PurchaseDetails = ({ size, isMobile, regularText, boldText }) => {
       </div>
       <div className="details__total">
         <span className={boldText()}>Total:</span>
-        <span className={`bold-${isMobile ? "18" : "20"}`}>$7,000.00</span>
+        <span className={`bold-${isMobile ? "18" : "20"}`}>$6,000.00</span>
       </div>
     </div>
   );

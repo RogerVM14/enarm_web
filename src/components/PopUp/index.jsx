@@ -20,7 +20,7 @@ const PopUp = ({ open, closeModal }) => {
         <Link to="#" onClick={() => { closeModal() }}>
           <img className="close-button" src={closeButton} alt="close"></img>
         </Link>
-        <h1 className="title">Adquiere tu curso hoy mismo y obtén una beca del 30%.</h1>
+        <h1 className="title">Adquiere tu curso hoy mismo y obtén una beca del 40%.</h1>
         <h2 className="subtitle">Ingresa a tu curso de plataforma ENARM y comienza hoy a preparte para aprobar el ENARM a la primera.</h2>
         <ul className="ls-none">
           <li className="list-ip">

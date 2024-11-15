@@ -9,6 +9,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import "./app.css";
 import { Toaster } from "react-hot-toast";
 import { QueryClient, QueryClientProvider } from "react-query";
+import WhatsAppFloatButton from "./components/WhatsAppFloatButton";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -28,6 +29,7 @@ root.render(
         <PersistGate loading={null} persistor={persistantStore}>
           <App />
           <Toaster />
+          <WhatsAppFloatButton/>
         </PersistGate>
       </Provider>
     </BrowserRouter>

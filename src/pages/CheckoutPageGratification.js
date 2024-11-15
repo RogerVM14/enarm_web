@@ -7,6 +7,7 @@ import { savePaymentInformationOnDataBase } from "../apis/Checkout/CardPayment";
 import showToast from "../utils/toasts/commonToasts";
 import { useSelector } from "react-redux";
 import { selectUserCheckoutInformation } from "../store/reducers/user/UserInformationSlice";
+import { CONFIG } from "../constants/config";
 
 const CheckoutPageGratification = () => {
   const getWindowWidth = () => {
@@ -47,8 +48,8 @@ const CheckoutPageGratification = () => {
         user_id: user_id,
         payment_method: "Mercado Pago",
         external_order_id: payment_id,
-        total: 7000,
-        subtotal: 7000,
+        total: CONFIG.PRICE,
+        subtotal: CONFIG.PRICE,
         commission: 0,
         payment_transaction_status: status,
         payment_transaction_verification: status === "approved" ? true : false,

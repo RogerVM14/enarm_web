@@ -25,10 +25,10 @@ const DiscountSection = () => {
             <div className={ui.flexInformation}>
               <h2 className="section-subtitle uppercase text-left blue">Descuento</h2>
               <p className="regular-parraf">
-                Obten una beca del <span className="strong">30% del descuento.</span>
+                Obten una beca del <span className="strong">40% del descuento.</span>
               </p>
               <h3 className="section-title" style={{ marginBottom: "2px" }}>
-                MX $7,000
+                MX $6,000
               </h3>
               <p
                 className="regular-parraf danger"

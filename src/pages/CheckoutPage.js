@@ -22,6 +22,7 @@ import {
 } from "../store/reducers/user/UserInformationSlice";
 import showToast from "../utils/toasts/commonToasts";
 import moment from "moment";
+import { CONFIG } from "../constants/config";
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
@@ -99,7 +100,7 @@ const CheckoutPage = () => {
           const { token } = response?.data?.body;
           const createPaymentPayload = {
             token: token,
-            transactionAmount: 7000,
+            transactionAmount: CONFIG.PRICE,
             description: "Compra curso ENARM",
             installments: 1,
             payerEmail: user_checkout_email || "",
