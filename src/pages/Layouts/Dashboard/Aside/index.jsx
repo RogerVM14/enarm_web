@@ -69,8 +69,7 @@ const DashboardAsideTemplate = ({ smallDevice, isMenuActive, handleShowMenu = ()
   ];
 
   const onClickEventMenu = (index, route) => {
-    if (simulatorIsActive) {
-      console.log({ simulatorIsActive });
+    if (simulatorIsActive) { 
       setSimulatorCooldownAdvice(true);
       return;
     }
@@ -86,8 +85,7 @@ const DashboardAsideTemplate = ({ smallDevice, isMenuActive, handleShowMenu = ()
           className={ui.logoContainer}
           style={{ cursor: "pointer" }}
           onClick={() => {
-            if (simulatorIsActive) {
-              console.log({ simulatorIsActive });
+            if (simulatorIsActive) { 
               setSimulatorCooldownAdvice(true);
               return;
             }

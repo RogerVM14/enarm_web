@@ -55,24 +55,17 @@ export const {
   setUserFullname,
   setInfoCompleted,
   setCheckoutUserId,
-  setCheckoutUserEmail
+  setCheckoutUserEmail,
 } = UserInformationSlice.actions;
 
 export const selectUserInformation = (state) => state.user.userInformation;
 export const selectUserEmail = (state) => state.user.userInformation.email;
-export const selectUserCheckoutInformation = (state) =>
-  state.user.userRegisterInformation;
-export const selectUserCheckoutEmail = (state) =>
-  state.user.userRegisterInformation.user_email;
-export const selectIsVerifiedUser = (state) =>
-  state.user.userInformation.is_verified;
-export const selectUserInfoComplete = (state) =>
-  state.user.userInformation.info_completed;
-export const selectFullUserName = (state) =>
-  state.user.userInformation.fullname;
-export const selectCheckoutUserId = (state) =>
-  state.user.userRegisterInformation.user_id;
-export const selectUserId = (state) =>
-  state.user.userInformation.user_id;
+export const selectUserCheckoutInformation = (state) => state.user.userRegisterInformation;
+export const selectUserCheckoutEmail = (state) => state.user.userRegisterInformation.user_email;
+export const selectIsVerifiedUser = (state) => state.user.userInformation.is_verified;
+export const selectUserInfoComplete = (state) => state.user.userInformation.info_completed;
+export const selectFullUserName = (state) => state.user.userInformation.fullname;
+export const selectCheckoutUserId = (state) => state.user.userRegisterInformation.user_id;
+export const selectUserId = (state) => state.user.userInformation.user_id;
 
 export default UserInformationSlice.reducer;

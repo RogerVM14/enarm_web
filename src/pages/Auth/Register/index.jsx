@@ -4,10 +4,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import doctorImage from "../../../assets/imgs/Dres/stock-photo-doctor-wearing-white-coat-stethoscope-small.png";
 import { ROUTES } from "../../../constants/routes";
-import {
-  resetUserInformation,
-  setCheckoutUserInformation,
-} from "../../../store/reducers/user/UserInformationSlice";
+import { resetUserInformation, setCheckoutUserInformation } from "../../../store/reducers/user/UserInformationSlice";
 import "./RegisterPage.css";
 import ui from "./index.module.css";
 import LandingLayout from "../../Layouts/Landing";
@@ -36,13 +33,11 @@ const RegisterPage = () => {
       const { email, password } = userInfo;
       const encryptPass = encryptPassword(password.toLocaleLowerCase());
       const userInformation = { user_email: email, password: encryptPass };
-      // console.log(userInformation);
 
       CreateNewUser(userInformation)
         .then((res) => {
           const message = res.data.status_Message;
-          if (message === "email exists")
-            showToast.warning("Este email ya está en uso");
+          if (message === "email exists") showToast.warning("Este email ya está en uso");
           if (message === "user was added successfully") {
             showToast.success("Tu usuario ha sido creado");
             const checkoutInf = {
@@ -54,10 +49,7 @@ const RegisterPage = () => {
           }
         })
         .catch((err) => {
-          // console.log(err);
-          showToast.error(
-            "Hubo un error al crear tu usuario, intenta nuevamente"
-          );
+          showToast.error("Hubo un error al crear tu usuario, intenta nuevamente");
         });
     };
     insertUser();
@@ -79,10 +71,7 @@ const RegisterPage = () => {
               </h1>
             </div>
             <div className="container-body">
-              <RegisterForm
-                handleUserInfo={setUserInfo}
-                handleRegister={handleRegisterInformation}
-              />
+              <RegisterForm handleUserInfo={setUserInfo} handleRegister={handleRegisterInformation} />
             </div>
           </div>
           <div className={ui.imageContainer}>
@@ -153,11 +142,7 @@ const RegisterForm = ({ handleUserInfo, handleRegister }) => {
               setEmail(e.target.value);
             }}
           />
-          {emailError ? (
-            <span className={`${ui.formLabel} red`}>
-              Introduce un correo válido
-            </span>
-          ) : null}
+          {emailError ? <span className={`${ui.formLabel} red`}>Introduce un correo válido</span> : null}
         </div>
         <div className={ui.formGroup} style={{ marginBottom: "0" }}>
           <label className={ui.formLabel} htmlFor="form-password">
@@ -169,11 +154,7 @@ const RegisterForm = ({ handleUserInfo, handleRegister }) => {
             handleChange={handleChangeUserInformation}
             passwordReady={setPasswordComplete}
           />
-          {passwordError ? (
-            <span className={`${ui.formLabel} red`}>
-              Introduce una contraseña válida
-            </span>
-          ) : null}
+          {passwordError ? <span className={`${ui.formLabel} red`}>Introduce una contraseña válida</span> : null}
         </div>
         <button
           disabled={!validFormatEmail || !passwordComplete}

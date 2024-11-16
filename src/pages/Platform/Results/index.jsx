@@ -5,26 +5,21 @@ import DashboardLayout from "../../Layouts/Dashboard";
 import GraphicResults from "../Assets/Images/graphicResults.png";
 import { getSimulatorStatsByStudent } from "../../../apis/platform";
 import { useQuery } from "react-query";
+import ArrowLeft from "./ArrowLeft";
+import TryList from "./components/TryList";
 
 const useQueryParams = () => {
   const { search } = useLocation();
   const queryParameters = new URLSearchParams(search);
   const plan = parseInt(queryParameters.get("plan"));
   const simulator = parseInt(queryParameters.get("simulator"));
+  const specialty = queryParameters.get("specialty");
 
-  return { plan, simulator };
+  return { plan, simulator, specialty };
 };
 
 const ResultsPage = () => {
-  const [tries] = useState([
-    { tryNumber: "1er Intento", result: "Respuestas correctas 75 de 100", percentage: "75", retro: true },
-    { tryNumber: "2do Intento", result: "Sin registro", percentage: "0", retro: false },
-    { tryNumber: "3er Intento", result: "Sin registro", percentage: "0", retro: false },
-    { tryNumber: "4to Intento", result: "Sin registro", percentage: "0", retro: false },
-    { tryNumber: "5to Intento", result: "Sin registro", percentage: "0", retro: false },
-  ]);
-
-  const { plan, simulator } = useQueryParams();
+  const { plan, simulator, specialty } = useQueryParams();
   const { data: stats } = useQuery(["student-stats"], () => getSimulatorStatsByStudent(simulator));
 
   return (
@@ -35,40 +30,43 @@ const ResultsPage = () => {
             <div className={ui.headerContainer}>
               <div className={ui.containerBody}>
                 <div className={ui.bodyTop}>
-                  <img src="" alt="" />
-                  <h4>Simulador Infectología</h4>
-
+                  <ArrowLeft />
+                  <h4>{specialty}</h4>
                   <p datatype="large">Panel de Resultados</p>
                   <p datatype="small">Panel</p>
-                  <Link
-                    to={`/cursoENARM/simulador?plan=${plan}&id=${simulator}`}
-                    className={ui.blueLink}
-                    datatype="large"
-                  >
-                    Comenzar Simulador
-                  </Link>
+                  {!stats?.attempts_completed ? (
+                    <Link
+                      to={`/cursoENARM/simulador?plan=${plan}&id=${simulator}`}
+                      className={ui.blueLink}
+                      datatype="large"
+                    >
+                      Comenzar Simulador
+                    </Link>
+                  ) : null}
                 </div>
                 <p>
                   En este espacio puedes conocer las estadísticas de tu desempeño por cada intento realizado. Además,
                   para una mejor retroalimentación hemos dividido los resultados por categorías para que identifiques
                   rápidamente cuáles son tus puntos fuertes y cuáles son aquellas que necesitas reforzar.
                 </p>
-                <Link to={"#"} datatype="small">
-                  Comenzar Simulador
-                </Link>
+                {!stats?.attempts_completed ? (
+                  <Link to={"#"} datatype="small">
+                    Comenzar Simulador
+                  </Link>
+                ) : null}
               </div>
             </div>
           </header>
           <aside>
             <div className={ui.asideContainer}>
-              <div className={ui.containerHead}>
-                <h5>Resultados por Intento</h5>
+              <div className="bg-white py-4 px-4 shadow-[0px_-1px_0px_0px_#F0F0F0_inset]">
+                <h5 className="poppins-medium-16 text-[#000000D9]">Resultados por Intento</h5>
               </div>
-              <div className={ui.containerBody}>
-                <div className={ui.bodyTitle}>
-                  <p>¡Porcentajes de tus intentos!</p>
+              <div className="p-4 bg-white">
+                <div>
+                  <p className="poppins-regular-14 text-[#00000073]">¡Porcentajes de tus intentos!</p>
                 </div>
-                <TryResultContainer tries={tries} />
+                <TryList list={stats?.answer_list} simulatorID={simulator} planID={plan} />
               </div>
             </div>
           </aside>
@@ -100,28 +98,6 @@ const ResultsPage = () => {
         </div>
       </div>
     </DashboardLayout>
-  );
-};
-
-const TryResultContainer = ({ tries }) => {
-  return (
-    <React.Fragment>
-      {tries?.map((item, index) => {
-        const { tryNumber, result, percentage, retro } = item;
-        return (
-          <div className={ui.tryResult} key={index}>
-            <div className={ui.resultInfo}>
-              <h5>{tryNumber}</h5>
-              <p>{result}</p>
-              {retro ? <Link to={"#"}>Ver Retroalimentación</Link> : null}
-            </div>
-            <div className={ui.percentage}>
-              <div className={ui.percentageNumber}>{percentage}%</div>
-            </div>
-          </div>
-        );
-      })}
-    </React.Fragment>
   );
 };
 

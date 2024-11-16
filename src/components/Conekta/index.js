@@ -44,19 +44,15 @@ const Conekta = (props) => {
             logo: {
               size: "large", // small | medium | large
               typeImage: "url", // url | base64
-              source:
-                "https://assets-enarm-general.s3.amazonaws.com/logos/logoEnarm.png",
+              source: "https://assets-enarm-general.s3.amazonaws.com/logos/logoEnarm.png",
             },
           },
         },
         onFinalizePayment: function (e) {
-          // console.log(e.charge.status);
           var estadoPag = e.charge.status;
           if (estadoPag === "paid") {
-            // console.log("Pagado");
-            navigate('/checkout_thankful')
+            navigate("/checkout_thankful");
           } else {
-            // console.log("En espera de pago");
           }
         },
       });

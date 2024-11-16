@@ -71,8 +71,7 @@ const VerifyEmailCodePage = () => {
           showToast.success("Tú correo fue verificado");
           navigate(ROUTES.CHECKOUT);
         }
-
-        // console.log(res);
+ 
       });
       // if (res.data.statusCode === 200) {
       //   setIsSuccess(true);

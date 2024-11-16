@@ -144,6 +144,25 @@ export const getAnswersSimulatorAttemptByStudent = async (simulatorID) => {
   }
 };
 
+export const getSimulatorsBySpecialty = async (specialty_id) => {
+  try {
+    const endpoint = `${url}simulators/get-simulators-by-specialty`;
+    const body = { specialty_id };
+    const headers = getHeaders();
+
+    const { data, status } = await axios.post(endpoint, body, headers);
+    if (status === 200 && data.status_Message === "there are simulators") {
+      return data.simulator_List;
+    }
+  } catch (error) {
+    toast.error("Error obteniendo simuladores.", {
+      position: "bottom-right",
+      duration: 3500,
+    });
+    return false;
+  }
+};
+
 export const getSimulatorStatsByStudent = async (simulatorID) => {
   try {
     const endpoint = `${url}simulators/get-simulator-stats-by-student`;

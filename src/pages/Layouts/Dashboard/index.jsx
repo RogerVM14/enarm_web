@@ -49,7 +49,7 @@ const DashboardLayout = ({ children }) => {
     <div id={ui.dashboardWrapper}>
       <DashboardHeaderTemplate handleShowMenu={handleShowMenu} />
       <DashboardAsideTemplate smallDevice={smallDevice} isMenuActive={smallMenu} handleShowMenu={handleShowMenu} />
-      <main className="max-h-[calc(100dvh_-_3rem] min-h-[calc(100dvh_-_3rem]">{children}</main>
+      <main className="max-h-[calc(100dvh_-_3rem] min-h-[calc(100dvh_-_3rem] overflow-y-hidden">{children}</main>
       <ImportantAdvice
         open={importantModal}
         handleRunSimulation={handleRunSimulation}

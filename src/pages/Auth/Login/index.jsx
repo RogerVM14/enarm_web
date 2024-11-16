@@ -62,15 +62,12 @@ const FormLogin = () => {
     const isValidEmail = validateEmailFormat(userEmail);
 
     if (isValidEmail && userPass) {
-      const password = encryptPassword(userPass);
       loginUser({
         new_user_email: userEmail,
         new_user_password: encryptPassword(userPass),
         environment: "platform",
       })
         .then((res) => {
-          console.log({ password });
-          debugger
           if (res.data.status_Message === "valid user") {
             const { status_Message, ...rest } = res.data;
             if (!rest.has_payments) {

@@ -11,58 +11,98 @@ const Simulators = ({ simulators, cardDisplay, plan }) => {
 
   useEffect(() => {
     if (simulators?.length === 0 || simulators === undefined) return;
-    setSimulatorsDisplay(new Array(Object.values(simulators)[0]?.length).fill(false));
+    const _array = simulators?.map((element) => ({ ...element, isDisplayed: false }));
+
+    setSimulatorsDisplay(_array);
   }, [simulators]);
 
   const handleDisplaySimulator = (position) => {
     setSimulatorsDisplay((prev) => {
       return prev.map((element, index) => {
-        if (index !== position) return element;
-        return !element;
+        return index === position ? { ...element, isDisplayed: !element.isDisplayed } : element;
       });
     });
   };
 
+  const durationSplitted = (duration) => {
+    if (duration === undefined || duration === null) return;
+    const [hh, mm] = duration.split(":");
+    const hour = parseInt(hh) === 1 ? "1 hora" : parseInt(hh) === 0 ? "" : `${parseInt(hh)} horas`;
+    const minutes = parseInt(mm) === 0 ? "" : `${parseInt(mm)} ${parseInt(mm) === 1 ? "minuto" : "minutos"}`;
+    return `${hour} ${minutes}`;
+  };
+
   return (
     <>
-      {simulators?.map((simulator, index) => {
+      {simulatorsDisplay?.map((simulator, index) => { 
         return (
-          <div className={ui.courseCard} key={index}>
-            <div className={ui.cardHeader} onClick={() => handleDisplaySimulator(index)}>
-              <div className={ui.cardTitle}>
+          <div className="bg-[#FAFAFA] mb-2" key={index}>
+            <div
+              className="border-[1px] border-solid border-[#d9d9d9] py-3 px-4 hover:cursor-pointer"
+              onClick={() => handleDisplaySimulator(index)}
+            >
+              <div className="flex flex-row gap-3 justify-start items-center">
                 <img src={ChevronIcon} alt="chevron" width={12} height={12} data-selected={cardDisplay[3]} />
-                <h5>
-                  4.{index + 1} Simulador {simulator[3]}
+
+                <h5 className="poppins-semibold-14">
+                  4.{index + 1} Simulador {simulator?.resource_name}
                 </h5>
               </div>
               <div className={ui.cardDescription}>
-                <p>Practica en nuestro simulador</p>
+                <p className="poppins-regular-14">Practica en nuestro simulador</p>
               </div>
             </div>
-            {simulatorsDisplay[index] && (
-              <div className={ui.cardBody}>
-                <ol className={ui.guideList}>
-                  <li>
-                    Simulador con <strong>50 preguntas.</strong>
+            {simulator?.isDisplayed === true ? (
+              <div className="bg-white p-4 border-solid border-[1px] border-[#d9d9d9] border-t-0">
+                <ul className="ml-2">
+                  <li className="min-h-10 flex flex-row items-center">
+                    <p className="poppins-regulñar-14">
+                      Simulador con{" "}
+                      <strong className="poppins-semibold-14">{simulator?.total_questions} preguntas.</strong>
+                    </p>
                   </li>
-                  <li>
-                    Tiempo para resolverlo: <strong>1 hora 15 minutos.</strong>
+                  <li className="min-h-10 flex flex-row items-center">
+                    <p className="poppins-regulñar-14">
+                      Tiempo para resolverlo:{" "}
+                      <strong className="poppins-semibold-14">{durationSplitted(simulator?.simulator_duration)}</strong>
+                    </p>
                   </li>
-                  <li>
-                    🔥<strong> 5 intentos</strong> permitidos para resolverlo
+                  <li className="min-h-10 flex flex-row items-center">
+                    <p className="poppins-regular-14">
+                      🔥<strong className="poppins-semibold-14"> {simulator.simulator_attempts} intentos</strong>{" "}
+                      permitidos para resolverlo
+                    </p>
                   </li>
-                  <li>
-                    Conoce tus resultados al finalizar presionando <strong>Finish Quiz.</strong>
+                  <li className="min-h-10 flex flex-row items-center">
+                    <p className="poppins-regular-14">
+                      Conoce tus resultados al finalizar presionando{" "}
+                      <strong className="poppins-semibold-14">Finish Quiz.</strong>
+                    </p>
                   </li>
-                </ol>
-                <div className={ui.buttons}>
-                  <Link to={"#"} className={ui.buttonLinkWhite} aria-disabled>
+                </ul>
+                <div className="flex flex-row gap-x-6 py-4 items-center">
+                  <Link
+                    to={
+                      simulator?.user_attempts > 0
+                        ? `/cursoENARM/resultados?plan=1&simulator=${simulator?.simulator_id}`
+                        : "#"
+                    }
+                    className={`max-h-10 min-h-10 rounded-sm border-solid border-[1px] border-[#d9d9d9] ${
+                      simulator?.user_attempts > 0
+                        ? "bg-white cursor-pointer text-black"
+                        : "bg-[#f5f5f5] cursor-default text-[#00000040]"
+                    } py-2 px-4 poppins-regular-14`}
+                  >
                     Ir al panel de resultados
                   </Link>
                   <button
                     type="button"
-                    className={ui.buttonLinkBlue}
+                    className="max-h-10 min-h-10 rounded-sm border-solid border-[1px] border-[#05B2FA] bg-[#05B2FA] text-white poppins-regular-14 py-2 px-4"
                     onClick={() => {
+                      if (simulator?.is_completed === true) {
+                        window.alert("Haz realido todos intentos para este simulador.");
+                        return;
+                      }
                       setOpen(true);
                       setDataQuery({ simulator: simulator[5], plan: plan });
                     }}
@@ -71,7 +111,7 @@ const Simulators = ({ simulators, cardDisplay, plan }) => {
                   </button>
                 </div>
               </div>
-            )}
+            ) : null}
           </div>
         );
       })}

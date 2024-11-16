@@ -67,7 +67,7 @@ const CoursePage = () => {
         resume_data.push(..._array);
       }
       if (resourceItem === "Simulador") {
-        simulator_types.push(_array);
+        simulator_types.push(resourceArray);
       }
     });
     setSimulators(simulator_types);

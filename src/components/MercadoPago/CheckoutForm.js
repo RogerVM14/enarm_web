@@ -22,7 +22,7 @@ const CheckoutForm = () => {
         const newPreferenceId = response.data.body.preferenceId;
         setPreferenceId(newPreferenceId);
       } catch (error) {
-        console.error("Error al obtener el ID de la preferencia:", error);
+        // console.error("Error al obtener el ID de la preferencia:", error);
       }
     };
 

@@ -3,15 +3,16 @@ import DashboardLayout from "../../Layouts/Dashboard";
 import SpecialitiesList from "./components/SpecialitiesList"; 
 import SimulationCardsContainer from "./components/SimulationCardsContainer";
 import { useQuery } from "react-query";
-import { getSpecialties, getResourcesBySpecialty } from "../../../apis/platform";
+import { getSpecialties, getSimulatorsBySpecialty } from "../../../apis/platform";
 import BouncingLoading from "./components/BouncingLoading";
 
 const SimulatorsPage = () => {
   const [displayContainer, setDisplayContainer] = useState(false);
   const [smallDevice, setSmallDevice] = useState(null);
-  const [resourcesContent, setResourcesContent] = useState({});
+  const [simulatorsList, setSimulatorsList] = useState([]);
   const [specialtyPosition, setSpecialtyPosition] = useState(0);
   const { isLoading, isError, data: especialidades } = useQuery("resource-specialties", () => getSpecialties());
+ 
 
   useEffect(() => {
     function getWindowSize() {
@@ -33,8 +34,8 @@ const SimulatorsPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       if (!especialidades || specialtyPosition === 0) return;
-      const list = await getResourcesBySpecialty(especialidades, specialtyPosition);
-      setResourcesContent(list);
+      const list = await getSimulatorsBySpecialty(specialtyPosition); 
+      setSimulatorsList(list);
     };
     fetchData();
   }, [specialtyPosition, especialidades]);
@@ -46,14 +47,14 @@ const SimulatorsPage = () => {
           {isLoading && !isError ? <span>Cargando...</span> : null}
           {!isLoading && isError ? <span>Error...</span> : null}
           {!isLoading && !isError ? <SpecialitiesList {...specialtyListProps} /> : null}
-          {Object?.entries(resourcesContent).length === 0 ? (
+          {Object?.entries(simulatorsList).length === 0 ? (
             <BouncingLoading />
           ) : (
             <SimulationCardsContainer
               displayContainer={displayContainer}
               handleDisplay={() => setDisplayContainer(!displayContainer)}
               smallDevice={smallDevice}
-              resourcesContent={resourcesContent}
+              simulatorsList={simulatorsList}
             />
           )}
         </div>

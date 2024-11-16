@@ -19,13 +19,13 @@ const SpecialitiesList = ({ handleDisplay = () => {}, data, selectSpecialty }) =
   }, [data]);
 
   return (
-    <aside className="border-solid border-[1px] border-[#d9d9d9]">
+    <aside className="border-solid border-[1px] border-[#d9d9d9] h-[calc(100dvh_-_5.5rem)] overflow-y-auto">
       <ul>
       <li className=" bg-white w-full list-none flex h-14 max-h-14 min-h-14 text-start items-center justify-start border-b border-solid border-[#d9d9d9] relative">
           <p className="pl-4 poppins-regular-14 text-gray-400">Especialidades</p>
         </li>
       </ul>
-      <div className="w-full overflow-y-auto h-[calc(100dvh_-_154px)]">
+      <div className="w-full overflow-y-auto h-full">
         <ul>
           {specialities?.map((speciality, index) => {
             const { isActive, name, id } = speciality;

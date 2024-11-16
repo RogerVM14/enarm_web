@@ -4,13 +4,24 @@ import { useState } from "react";
 
 const CardBody = ({ data, count, onSelectSimulator }) => {
   const [display, setDisplay] = useState(false);
+
+  const durationSplitted = () => {
+    const [hh, mm] = data.duration.split(":");
+    const hour = parseInt(hh) === 1 ? "1 hora" : parseInt(hh) === 0 ? "" : `${parseInt(hh)} horas`;
+    const minutes = parseInt(mm) === 0 ? "" : `${parseInt(mm)} ${parseInt(mm) === 1 ? "minuto" : "minutos"}`;
+    return `${hour} ${minutes}`;
+  };
+
   return (
     <div className="bg-[#FAFAFA] mb-2">
-      <div className="border-[1px] border-solid border-[#d9d9d9] py-3 px-4 hover:cursor-pointer" onClick={() => setDisplay(!display)}>
-        <div className="flex flex-row gap-3 justify-start">
+      <div
+        className="border-[1px] border-solid border-[#d9d9d9] py-3 px-4 hover:cursor-pointer"
+        onClick={() => setDisplay(!display)}
+      >
+        <div className="flex flex-row gap-3 justify-start items-center">
           <ChevronIcon />
           <h5 className="poppins-semibold-14">
-            Simulador {data.specialty_name} #{count}
+            Simulador {data.specialtyName} #{count}
           </h5>
         </div>
         <div className={ui.simulatorDescription}>
@@ -19,20 +30,21 @@ const CardBody = ({ data, count, onSelectSimulator }) => {
       </div>
       {display ? (
         <div className="bg-white p-4 border-solid border-[1px] border-[#d9d9d9] border-t-0">
-          <ul className="">
+          <ul className="ml-2">
             <li className="min-h-10 flex flex-row items-center">
               <p className="poppins-regular-14">
-                1. Simulador con <strong className="poppins-bold-14">50 preguntas.</strong>
+                1. Simulador con <strong className="poppins-bold-14">{data.totalQuestions} preguntas.</strong>
               </p>
             </li>
             <li className="min-h-10 flex flex-row items-center">
               <p className="poppins-regular-14">
-                2. Tiempo para resolverlo: <strong className="poppins-bold-14">1 hora 15 minutos.</strong>
+                2. Tiempo para resolverlo: <strong className="poppins-bold-14">{durationSplitted()}</strong>
               </p>
             </li>
             <li className="min-h-10 flex flex-row items-center">
               <p className="poppins-regular-14">
-                3. 🔥<strong className="poppins-bold-14"> 5 intentos</strong> permitidos para resolverlo
+                3. 🔥<strong className="poppins-bold-14"> {data.totalAttempts} intentos</strong> permitidos para
+                resolverlo
               </p>
             </li>
             <li className="min-h-10 flex flex-row items-center">
@@ -43,13 +55,28 @@ const CardBody = ({ data, count, onSelectSimulator }) => {
             </li>
           </ul>
           <div className={ui.buttons}>
-            <Link to={`/cursoENARM/resultados?plan=2&simulator=${data?.id}`} className={ui.buttonLinkWhite} disabled>
+            <Link
+              to={
+                data.userAttempts > 0
+                  ? `/cursoENARM/resultados?plan=1&simulator=${data?.id}&specialty=${data?.specialtyName}`
+                  : "#"
+              }
+              className={`max-h-10 min-h-10 rounded-sm border-solid border-[1px] border-[#d9d9d9] ${
+                data.userAttempts > 0
+                  ? "bg-white cursor-pointer text-black"
+                  : "bg-[#f5f5f5] cursor-default text-[#00000040]"
+              } py-2 px-4 poppins-regular-16`}
+            >
               Ir al panel de resultados
             </Link>
             <button
               type="button"
-              className={ui.buttonLinkBlue}
+              className="max-h-10 min-h-10 rounded-sm border-solid border-[1px] border-[#05B2FA] bg-[#05B2FA] text-white poppins-regular-16 py-2 px-4"
               onClick={() => {
+                if (data?.isCompleted === true) {
+                  window.alert("Has realizado todos los intentos para este simulador.");
+                  return;
+                }
                 onSelectSimulator(data);
               }}
             >

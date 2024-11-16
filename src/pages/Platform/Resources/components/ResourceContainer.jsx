@@ -74,7 +74,7 @@ const ResourceContainer = ({ resourcesContent }) => {
           </div> */}
         </div>
       </header>
-      <div className="p-6 border-r border-b border-l border-[#d9d9d9] bg-white">
+      <div className="p-6 border-r border-b border-l border-[#d9d9d9] bg-white max-h-[calc(100dvh_-_9rem)] overflow-y-auto">
         {resumeData?.map(([specialty, data], index) => {
           return (
             <div key={index}>

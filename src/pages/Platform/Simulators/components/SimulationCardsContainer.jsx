@@ -1,35 +1,32 @@
-import ui from "../index.module.css";
+
 import SimulatorCard from "./CardBody";
-import BackIcon from "../../Assets/Icons/backicon.svg";
+// import BackIcon from "../../Assets/Icons/backicon.svg";
 import { useEffect, useState } from "react";
 import SimulatorsAdvice from "./SimulatorAdvice/SimulatorsAdvice";
-const SimulationCardsContainer = ({ displayContainer, handleDisplay = () => {}, smallDevice, resourcesContent }) => {
+
+const SimulationCardsContainer = ({ displayContainer, handleDisplay = () => {}, smallDevice, simulatorsList }) => {
   const [simulators, setSimulators] = useState([]);
   const [open, setOpen] = useState(false);
   const [dataQuery, setDataQuery] = useState({});
 
   useEffect(() => {
-    if (
-      resourcesContent.length === undefined ||
-      resourcesContent.length === 0 ||
-      !resourcesContent ||
-      resourcesContent === undefined
-    )
-      return;
-    const list = Object.values(resourcesContent[0]).reduce((acc, item) => {
-      item.forEach((element) => {
-        const { type } = element;
-
-        if (!acc[type]) {
-          acc[type] = [];
-        }
-        acc[type].push(element);
-      });
-      return acc;
-    }, {});
-    const [[, array]] = Object.entries(list).filter((element) => element[0] === "Simulador");
-    setSimulators(array);
-  }, [resourcesContent]);
+    if (simulatorsList === undefined || Object.entries(simulatorsList).length === 0) return;
+    const _array = simulatorsList?.map(element => {
+      return {
+        isCompleted: element.is_completed,
+        totalAttempts: element.simulator_attempts,
+        id: element.simulator_id,
+        name: element.simulator_name,
+        userAttempts: element.user_attempts,
+        nextAttempt: element.user_attempts + 1,
+        specialtyName: element.specialty_name,
+        specialtyId: element.specialty_id,
+        totalQuestions: element.total_questions,
+        duration: element.simulator_duration
+      }
+    })
+    setSimulators(_array);
+  }, [simulatorsList]);
 
   const onSelectSimulator = ({ specialty_id }) => {
     setOpen(true);

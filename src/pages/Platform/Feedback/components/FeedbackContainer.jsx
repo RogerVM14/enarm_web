@@ -11,18 +11,21 @@ const FeedbackContainer = ({
   handleOnChangeFeedback = () => {},
   backToFeedbackList = () => {},
   displaySpecial,
-}) => { 
+  attempt,
+}) => {
+  const layer = ["1er Intento", "2do Intento", "3ro Intento", "4to Intento", "5to Intento"];
+
   return (
     <div className={ui.sectionContainer}>
       <header>
         <div className={ui.containerHead} datatype="large">
           <p>
-            {simulatorName} / Panel Simulador / <strong>Retroalimentación Primer Intento</strong>
+            {simulatorName} / Panel Simulador / <strong>{layer[attempt - 1]}</strong>
           </p>
           <ArrowButtons handleOnClick={(e) => handleOnChangeFeedback(e, displaySpecial)} />
         </div>
       </header>
-      <div className={ui.containerBody} style={{height: "calc(100dvh - 10rem)", overflowY: "auto"}}>
+      <div className={ui.containerBody} style={{ height: "calc(100dvh - 10rem)", overflowY: "auto" }}>
         <div className={ui.bodyContent}>
           <div className={ui.contentHead} datatype="small">
             <button type="button" className={ui.backButton} onClick={() => backToFeedbackList()}>

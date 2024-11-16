@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import DashboardLayout from "../../Layouts/Dashboard";
-import SpecialitiesList from "./components/SpecialitiesList"; 
+import SpecialitiesList from "./components/SpecialitiesList";
 import ui from "./index.module.css";
 import { useQuery } from "react-query";
 import { getHeaders } from "../../../utils/auth/cookieSession";
 import axios from "axios";
 import toast from "react-hot-toast";
 import ResourceContainer from "./components/ResourceContainer";
+import { getSpecialties } from "../../../apis/platform";
 
 const { REACT_APP_ENARM_API_GATEWAY_URL: url } = process.env;
 
@@ -15,23 +16,6 @@ const ResourcesPage = () => {
   const [resourcesContent, setResourcesContent] = useState({});
 
   const { isLoading, isError, data: especialidades } = useQuery("resource-specialties", () => getSpecialties());
-
-  const getSpecialties = async () => {
-    try {
-      const endpoint = `${url}specialties/get-specialties`;
-      const headers = getHeaders();
-
-      const { data, status } = await axios.get(endpoint, headers);
-      if (data.status_Message === "there are specialties" && status === 200) {
-        return data.specialty_List;
-      }
-    } catch (error) {
-      toast.error("Error al obtener especialidades.", {
-        position: "bottom-right",
-        duration: 3500,
-      });
-    }
-  };
 
   const specialtyListProps = {
     data: especialidades,
@@ -68,7 +52,7 @@ const ResourcesPage = () => {
 
   return (
     <DashboardLayout>
-      <div className={ui.wrapper}>
+      <div className={`${ui.wrapper} overflow-hidden`}>
         <div className={ui.gridContainer}>
           {isLoading && !isError ? <span>Cargando...</span> : null}
           {!isLoading && isError ? <span>Error al cargar contenido</span> : null}

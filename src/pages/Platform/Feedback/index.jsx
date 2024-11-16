@@ -32,7 +32,7 @@ const FeedbackPage = () => {
   useEffect(() => {
     if (answers === undefined || Object.entries(answers).length === 0) return;
     const { responses } = answers;
-    const array = responses.map((element, index) => ({ ...element, position: index + 1 }));    
+    const array = responses.map((element, index) => ({ ...element, position: index + 1 }));
     setQuestions(array);
     setFilteredQuestions(array);
     setFilters([
@@ -108,7 +108,7 @@ const FeedbackPage = () => {
       return;
     }
   };
- 
+
   return (
     <DashboardLayout>
       <div className={ui.wrapper}>
@@ -135,6 +135,7 @@ const FeedbackPage = () => {
               feed={filteredQuestions[indexPosition]}
               position={filteredQuestions[indexPosition]?.position}
               simulatorName={answers?.simulator_name}
+              attempt={answers?.attempt_count}
               handleOnChangeFeedback={(e) => handleOnChangeFeedback(e)}
               backToFeedbackList={() => {
                 setDisplayFeedback(false);

@@ -106,8 +106,7 @@ const DashboardLeftAside = (props) => {
 
   const userName = useSelector(selectUserEmail);
   const { isShort, handleDashboardAsideMenu } = useContext(DashAsideContext);
-  const { currentPosition, subPosition, handleNavLink, handleNavSubLink } =
-    useContext(AsidePositionContext);
+  const { currentPosition, subPosition, handleNavLink, handleNavSubLink } = useContext(AsidePositionContext);
   const { handleRoutePlan } = useContext(CurrentCourseContext);
 
   const { setRouteString } = useContext(PlanRoutesContext);
@@ -204,8 +203,7 @@ const DashboardLeftAside = (props) => {
     });
   };
 
-  const toggleNavLinkList = (i, type) => {
-    // console.log(type);
+  const toggleNavLinkList = (i, type) => { 
 
     if (type === true) {
       handleNavLink(i);
@@ -287,14 +285,12 @@ const DashboardLeftAside = (props) => {
   };
 
   const navLinkClass = (index, isAct) => {
-    //console.log({index, isAct})
     let isActiveNav = false;
     if ([0, 8, 9, 10].includes(index)) {
       const position = index > 0 ? index - 7 : index;
       isActiveNav = currentPosition[position].active;
     } else {
       const position = index <= 7 ? index - 1 : index - 4;
-      //console.log(subPosition)
       isActiveNav = subPosition[position].active;
     }
 
@@ -318,21 +314,13 @@ const DashboardLeftAside = (props) => {
   return (
     <aside
       className={`platform-el ${deviceType} ${isShort ? "minimized" : ""}`}
-      style={
-        isSmart
-          ? menuActive
-            ? { display: "block" }
-            : { display: "none" }
-          : { display: "block" }
-      }
+      style={isSmart ? (menuActive ? { display: "block" } : { display: "none" }) : { display: "block" }}
     >
       <nav>
         <div className="navigation-wrapper">
           <div className={`logo-name ${deviceType}`}>
             <img src={enarmLogo} alt="logo" className="logo-enarm" />
-            {!isShort && (
-              <span className="semibold-14 sky-blue">Plataforma ENARM</span>
-            )}
+            {!isShort && <span className="semibold-14 sky-blue">Plataforma ENARM</span>}
           </div>
           {isSmart && (
             <div
@@ -358,16 +346,10 @@ const DashboardLeftAside = (props) => {
                   >
                     <div>
                       {item.icon && <img src={item.icon()} alt={item.alt} />}
-                      {!isShort && (
-                        <span className="regular-14"> {item.label} </span>
-                      )}
+                      {!isShort && <span className="regular-14"> {item.label} </span>}
                     </div>
                     {!isShort && item.hasDDL && (
-                      <img
-                        src={arrowOrientation(index)}
-                        alt="ddl"
-                        className="dropdownicon"
-                      />
+                      <img src={arrowOrientation(index)} alt="ddl" className="dropdownicon" />
                     )}
                   </NavLink>
                 </li>
@@ -414,10 +396,7 @@ const DashboardLeftAside = (props) => {
             </div>
           ) : (
             <div className="menu-toggle">
-              <button
-                className="toggle-button-menu"
-                onClick={handleDashboardAsideMenu}
-              >
+              <button className="toggle-button-menu" onClick={handleDashboardAsideMenu}>
                 <img src={MenuToggleIcon} alt="menu" className="menu-icon" />
               </button>
             </div>

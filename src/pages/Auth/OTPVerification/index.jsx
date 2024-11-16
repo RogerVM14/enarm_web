@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./OTPVerification.css";
 import OtpIcon from "../../../assets/icons/otp.svg";
 import {
-  verifyEmailCode,
+  // verifyEmailCode,
   verifyOTPForChangePassword,
 } from "../../../apis/auth/authApi";
 import { useDispatch, useSelector } from "react-redux";
@@ -44,8 +44,7 @@ function OTPVerification() {
   };
 
   const handleSubmitOTPCode = (e) => {
-    e.preventDefault();
-    // console.log(otp);
+    e.preventDefault(); 
     // alert(`OTP enviado: ${otp.join("")}`);
     const confirmCode = otp.join("");
     const payload = {
@@ -63,8 +62,7 @@ function OTPVerification() {
           showToast.error("El código es incorrecto");
         }
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((err) => { 
       });
   };
 

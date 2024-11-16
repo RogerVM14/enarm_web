@@ -110,8 +110,7 @@ const CheckoutPage = () => {
             const { status, status_detail, id } = data;
             const comissions =
               data.transaction_details.total_paid_amount -
-              data.transaction_details.net_received_amount;
-            // console.log(status);
+              data.transaction_details.net_received_amount; 
             if (status === "rejected") {
               setLoading(false);
               showToast.error(

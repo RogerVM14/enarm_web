@@ -8,7 +8,7 @@ const GeneralProvider = (props) => {
   const [simulationOnCourse, setSimulationOnCourse] = useState(false);
   const [menuPlans, setMenuPlans] = useState(true);
   const [menuDocuments, setMenuDocuments] = useState(false);
-  const [globalMenuSelected, setGlobalMenuSelected] = useState(null);
+  const [globalMenuSelected, setGlobalMenuSelected] = useState(0);
   const [answersFromSimulator, setAnswersFromSimulator] = useState({});
   const [simulatorIsActive, setSimulatorIsActive] = useState(false);
   const [simulatorCooldownAdvice, setSimulatorCooldownAdvice] = useState(false);
