@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import DotIcon from "../../icons/DotIcon";
+// import DotIcon from "../../icons/DotIcon";
 
 const GuideContent = ({ resumeData }) => {
   const [especialidades, setEspecialidades] = useState([]);
@@ -37,7 +37,8 @@ const GuideContent = ({ resumeData }) => {
                                 target="_blank"
                                 className="flex flex-row items-center gap-x-2 text-[#1e73be] hover:underline poppins-regular-14"
                               >
-                                <DotIcon />
+                                {/* <DotIcon /> */}
+                                {`${recursoIndex + 1}.-`}
                                 {recurso[3]}
                               </Link>
                             </li>
