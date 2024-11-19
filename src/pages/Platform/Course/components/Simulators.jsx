@@ -31,10 +31,10 @@ const Simulators = ({ simulators, cardDisplay, plan }) => {
     const minutes = parseInt(mm) === 0 ? "" : `${parseInt(mm)} ${parseInt(mm) === 1 ? "minuto" : "minutos"}`;
     return `${hour} ${minutes}`;
   };
-
+ 
   return (
     <>
-      {simulatorsDisplay?.map((simulator, index) => { 
+      {simulatorsDisplay?.map((simulator, index) => {
         return (
           <div className="bg-[#FAFAFA] mb-2" key={index}>
             <div
@@ -95,20 +95,22 @@ const Simulators = ({ simulators, cardDisplay, plan }) => {
                   >
                     Ir al panel de resultados
                   </Link>
-                  <button
-                    type="button"
-                    className="max-h-10 min-h-10 rounded-sm border-solid border-[1px] border-[#05B2FA] bg-[#05B2FA] text-white poppins-regular-14 py-2 px-4"
-                    onClick={() => {
-                      if (simulator?.is_completed === true) {
-                        window.alert("Haz realido todos intentos para este simulador.");
-                        return;
-                      }
-                      setOpen(true);
-                      setDataQuery({ simulator: simulator[5], plan: plan });
-                    }}
-                  >
-                    Comenzar Simulador
-                  </button>
+                  {simulator?.is_completed === true ? null : (
+                    <button
+                      type="button"
+                      className="max-h-10 min-h-10 rounded-sm border-solid border-[1px] border-[#05B2FA] bg-[#05B2FA] text-white poppins-regular-14 py-2 px-4"
+                      onClick={() => {
+                        if (simulator?.is_completed === true) {
+                          window.alert("Haz realido todos intentos para este simulador.");
+                          return;
+                        } 
+                        setOpen(true);
+                        setDataQuery({ simulator: simulator.simulator_id, plan: plan });
+                      }}
+                    >
+                      Comenzar Simulador
+                    </button>
+                  )}
                 </div>
               </div>
             ) : null}
