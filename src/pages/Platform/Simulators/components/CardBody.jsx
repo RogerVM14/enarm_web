@@ -5,6 +5,8 @@ import { useState } from "react";
 const CardBody = ({ data, count, onSelectSimulator }) => {
   const [display, setDisplay] = useState(false);
 
+  console.log({ data });
+
   const durationSplitted = () => {
     const [hh, mm] = data.duration.split(":");
     const hour = parseInt(hh) === 1 ? "1 hora" : parseInt(hh) === 0 ? "" : `${parseInt(hh)} horas`;

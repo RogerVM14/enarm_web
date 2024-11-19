@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ChevronIcon from "../Assets/Icons/chevronicon.svg";
+import ChevronIcon from "../../Assets/Icons/chevronicon.svg";
 import CardBody from "./CardBody";
 import ui from "./index.module.css";
 

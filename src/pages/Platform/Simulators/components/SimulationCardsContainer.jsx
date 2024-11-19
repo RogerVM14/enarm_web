@@ -1,4 +1,3 @@
-
 import SimulatorCard from "./CardBody";
 // import BackIcon from "../../Assets/Icons/backicon.svg";
 import { useEffect, useState } from "react";
@@ -11,7 +10,7 @@ const SimulationCardsContainer = ({ displayContainer, handleDisplay = () => {}, 
 
   useEffect(() => {
     if (simulatorsList === undefined || Object.entries(simulatorsList).length === 0) return;
-    const _array = simulatorsList?.map(element => {
+    const _array = simulatorsList?.map((element) => {
       return {
         isCompleted: element.is_completed,
         totalAttempts: element.simulator_attempts,
@@ -22,15 +21,15 @@ const SimulationCardsContainer = ({ displayContainer, handleDisplay = () => {}, 
         specialtyName: element.specialty_name,
         specialtyId: element.specialty_id,
         totalQuestions: element.total_questions,
-        duration: element.simulator_duration
-      }
-    })
+        duration: element.simulator_duration,
+      };
+    });
     setSimulators(_array);
   }, [simulatorsList]);
 
-  const onSelectSimulator = ({ specialty_id }) => {
+  const onSelectSimulator = ({ id }) => { 
     setOpen(true);
-    setDataQuery({ simulator: specialty_id, plan: 1 });
+    setDataQuery({ simulator: id, plan: 1 });
   };
 
   if (displayContainer === false && smallDevice === true) return null;
