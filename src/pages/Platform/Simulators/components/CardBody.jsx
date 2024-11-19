@@ -69,19 +69,21 @@ const CardBody = ({ data, count, onSelectSimulator }) => {
             >
               Ir al panel de resultados
             </Link>
-            <button
-              type="button"
-              className="max-h-10 min-h-10 rounded-sm border-solid border-[1px] border-[#05B2FA] bg-[#05B2FA] text-white poppins-regular-16 py-2 px-4"
-              onClick={() => {
-                if (data?.isCompleted === true) {
-                  window.alert("Has realizado todos los intentos para este simulador.");
-                  return;
-                }
-                onSelectSimulator(data);
-              }}
-            >
-              Comenzar Simulador
-            </button>
+            {data?.isCompleted === true ? null : (
+              <button
+                type="button"
+                className="max-h-10 min-h-10 rounded-sm border-solid border-[1px] border-[#05B2FA] bg-[#05B2FA] text-white poppins-regular-16 py-2 px-4"
+                onClick={() => {
+                  if (data?.isCompleted === true) {
+                    window.alert("Has realizado todos los intentos para este simulador.");
+                    return;
+                  }
+                  onSelectSimulator(data);
+                }}
+              >
+                Comenzar Simulador
+              </button>
+            )}
           </div>
         </div>
       ) : null}
