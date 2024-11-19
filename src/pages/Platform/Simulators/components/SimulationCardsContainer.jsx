@@ -27,7 +27,7 @@ const SimulationCardsContainer = ({ displayContainer, handleDisplay = () => {}, 
     setSimulators(_array);
   }, [simulatorsList]);
 
-  const onSelectSimulator = ({ id }) => { 
+  const onSelectSimulator = ({ id }) => {
     setOpen(true);
     setDataQuery({ simulator: id, plan: 1 });
   };

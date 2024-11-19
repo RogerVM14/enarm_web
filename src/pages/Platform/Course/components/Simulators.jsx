@@ -31,7 +31,7 @@ const Simulators = ({ simulators, cardDisplay, plan }) => {
     const minutes = parseInt(mm) === 0 ? "" : `${parseInt(mm)} ${parseInt(mm) === 1 ? "minuto" : "minutos"}`;
     return `${hour} ${minutes}`;
   };
-
+ 
   return (
     <>
       {simulatorsDisplay?.map((simulator, index) => {
@@ -103,9 +103,9 @@ const Simulators = ({ simulators, cardDisplay, plan }) => {
                         if (simulator?.is_completed === true) {
                           window.alert("Haz realido todos intentos para este simulador.");
                           return;
-                        }
+                        } 
                         setOpen(true);
-                        setDataQuery({ simulator: simulator[5], plan: plan });
+                        setDataQuery({ simulator: simulator.simulator_id, plan: plan });
                       }}
                     >
                       Comenzar Simulador
