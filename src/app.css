@@ -305,6 +305,12 @@
     line-height: 1.25;
   }
 
+  .text-strikethrough {
+    text-decoration: line-through;
+    text-decoration-thickness: 2px; 
+    text-decoration-color: #ff0000; 
+  }
+  
   .input-label {
     font-family: PoppinsMedium;
     font-size: 14px;
