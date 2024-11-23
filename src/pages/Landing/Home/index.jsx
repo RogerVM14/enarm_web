@@ -9,7 +9,6 @@ import StarBlue from "../../Assets/Icons/StarBlue.png";
 import CheckIcon from "../../Assets/Icons/checkIcon.svg";
 import { Link } from "react-router-dom";
 import DiscountSection from "../../../views/Discount";
-import TestimonialCard from "../../../components/TestimonialCard";
 import ResourcesSection from "../../../views/Resources";
 import ui from "./index.module.css";
 import FadeInTitle from "../../../components/FadeInTitle";
@@ -17,6 +16,7 @@ import { useDispatch } from "react-redux";
 import { resetCheckoutInformation } from "../../../store/reducers/checkout/checkoutInformationSlice";
 import { resetUserInformation } from "../../../store/reducers/user/UserInformationSlice";
 import { ROUTES } from "../../../constants/routes";
+import TestimonialCarousel from "../../../components/TestimonialCarousel";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -105,8 +105,7 @@ const HomePage = () => {
             </h2>
             <div className={ui.titleContainer}>
               <h3 className="section-title text-center white">
-                Experimenta nuestra plataforma con el contenido gratuito que
-                tenemos para ti
+                Registrate y prueba gratis
               </h3>
             </div>
             <div className={ui.containerColumns}>
@@ -248,7 +247,10 @@ const HomePage = () => {
       <section id={ui.testimonials}>
         <div className="full-container">
           <div className="container-section">
-            <TestimonialCard />
+          <div className={ui.titleContainer}>
+              <h2 className="section-title text-center">Nuestros Alumnos</h2>
+            </div>
+            <TestimonialCarousel visibleItems={3} interval={4000} />
             <div className={ui.titleContainer}>
               <h2 className="section-title text-center">¿Estás listo?</h2>
             </div>

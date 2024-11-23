@@ -23,31 +23,59 @@ const DiscountSection = () => {
               )}
             </div>
             <div className={ui.flexInformation}>
-              <h2 className="section-subtitle uppercase text-left blue">Descuento</h2>
+              <h2 className="section-subtitle uppercase text-left blue">
+                Descuento
+              </h2>
               <p className="regular-parraf">
-                Obten una beca del <span className="strong">40% del descuento.</span>
+                Obten una beca del{" "}
+                <span className="strong">40% del descuento.</span>
               </p>
-              <h3 className="section-title" style={{ marginBottom: "2px" }}>
-                MX $6,000
+              <h3
+                className="section-title"
+                style={{
+                  marginBottom: "2px",
+                }}
+              >
+                Valor Normal{" "}
+                <span
+                  className="section-title"
+                  style={{
+                    textDecoration: "line-through",
+                    marginBottom: "20px",
+                  }}
+                >
+                  {" "}
+                  $10,000
+                </span>
               </h3>
               <p
                 className="regular-parraf danger"
-                style={{ textDecorationLine: "strikethrough", marginBottom: "20px" }}
+                style={{
+                  textDecorationLine: "strikethrough",
+                  marginBottom: "20px",
+                }}
               >
-                MX $10,000
+                -40% de descuento, a solo  $6,000 MXN
               </p>
               <ul className={ui.discountList}>
                 <li>
                   <img src={CheckIcon} alt="list-item" />
-                  <p className="regular-parraf">8 de cada 10 estudiantes logran aprobar el ENARM a la primera.</p>
+                  <p className="regular-parraf">
+                    8 de cada 10 estudiantes logran aprobar el ENARM a la
+                    primera.
+                  </p>
                 </li>
                 <li>
                   <img src={CheckIcon} alt="list-item" />
-                  <p className="regular-parraf">Hemos ayudado a más de 20 mil médicos a ser especialistas.</p>
+                  <p className="regular-parraf">
+                    Hemos ayudado a más de 20 mil médicos a ser especialistas.
+                  </p>
                 </li>
                 <li>
                   <img src={CheckIcon} alt="list-item" />
-                  <p className="regular-parraf">Contenido 100% actualizado, original y didáctico.</p>
+                  <p className="regular-parraf">
+                    Contenido 100% actualizado, original y didáctico.
+                  </p>
                 </li>
               </ul>
               <Link to={ROUTES.REGISTRO} className={ui.blueLink}>
