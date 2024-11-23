@@ -57,6 +57,12 @@ section[datatype=sharedSection] .containerFlex {
   background-color: #00A0E2;
   transition: background-color 250ms linear;
 }
+
+.text-strikethrough {
+  text-decoration: line-through;
+  text-decoration-thickness: 2px; /* Opcional: ajusta el grosor */
+  text-decoration-color: #ff0000; /* Opcional: color del tachado */
+}
  
 @media screen and (max-width: 576px) {
 

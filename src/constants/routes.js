@@ -32,3 +32,12 @@ export const ROUTES = {
   PLATAFORMA_DOCUMENTOS_GUIA: "/cursoENARM/documentos/guia",
   PLATAFORMA_DOCUMENTOS_PROGRAMA: "/cursoENARM/documentos/programa_academico",
 };
+
+export const CONTACT_URLS = {
+  HOME: "/",
+  NOSOTROS: "/nosotros",
+  SOBRE_EL_CURSO: "/acerca",
+  CONTACTO: "/contacto",
+  LOGIN: "/iniciar-sesion",
+  REGISTRO: "/registro",
+}
