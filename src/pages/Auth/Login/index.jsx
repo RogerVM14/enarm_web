@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { loginUser } from "../../../apis/auth/authApi";
+import { closeUserRemoteSession, loginUser } from "../../../apis/auth/authApi";
 import doctorImage from "../../../assets/imgs/Dres/stock-photo-surgeon-wearing-blue-uniform-stethoscope-small.png";
 import { ERROR_MESSAGES } from "../../../constants/Messages";
 import { setCookie } from "../../../utils/auth/cookieSession";
@@ -11,9 +11,13 @@ import "./LoginPage.css";
 import ui from "./index.module.css";
 import LandingLayout from "../../Layouts/Landing";
 import { useDispatch } from "react-redux";
-import { setCheckoutUserId, setUserInformation } from "../../../store/reducers/user/UserInformationSlice";
+import {
+  setCheckoutUserId,
+  setUserInformation,
+} from "../../../store/reducers/user/UserInformationSlice";
 import { ROUTES } from "../../../constants/routes";
 import { encryptPassword } from "../../../utils/auth";
+import ConfirmDialogModal from "../../../components/ConfirmDialogModal";
 
 const LoginPage = () => {
   setTimeout(() => {
@@ -52,6 +56,38 @@ const FormLogin = () => {
   const [userPass, setPass] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [emailError, setEmailError] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleAccept = () => {
+    console.log(userEmail, userPass);
+    closeUserRemoteSession({
+      user_email: userEmail,
+      user_password: encryptPassword(userPass),
+      environment: "platform",
+    })
+      .then((res) => {
+        const { status_Message, ...rest } = res.data;
+        if (!rest.has_payments) {
+          showToast.info("No haz realizado tu pago aún, procede a realizarlo");
+          dispatch(setCheckoutUserId(rest.user_id));
+          navigate(ROUTES.CHECKOUT);
+        } else {
+          dispatch(setUserInformation(rest));
+          setCookie("accessToken", rest.auth_token);
+          navigate(ROUTES.PLATAFORMA_DASHBOARD, { replace: true });
+        }
+      })
+      .catch(() => {
+        showToast.error(
+          "Hubo un error al cerrar la otra sesión, intenta nuevamente"
+        );
+        setIsModalOpen(false);
+      });
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   const toggleShowPassword = () => setShowPassword(!showPassword);
 
@@ -68,10 +104,15 @@ const FormLogin = () => {
         environment: "platform",
       })
         .then((res) => {
+          if (res.data.status_Message === "user logged") {
+            setIsModalOpen(true);
+          }
           if (res.data.status_Message === "valid user") {
             const { status_Message, ...rest } = res.data;
             if (!rest.has_payments) {
-              showToast.info("No haz realizado tu pago aún, procede a realizarlo");
+              showToast.info(
+                "No haz realizado tu pago aún, procede a realizarlo"
+              );
               dispatch(setCheckoutUserId(rest.user_id));
               navigate(ROUTES.CHECKOUT);
             } else {
@@ -79,10 +120,9 @@ const FormLogin = () => {
               setCookie("accessToken", rest.auth_token);
               navigate(ROUTES.PLATAFORMA_DASHBOARD, { replace: true });
             }
-          } else if (res.data.status_Message === "invalid user") {
+          }
+          if (res.data.status_Message === "invalid user") {
             showToast.error("El usuario o la contraseña son incorrectos");
-          } else {
-            showToast.error("Hubo un error inesperado");
           }
         })
         .catch((err) => {
@@ -101,63 +141,79 @@ const FormLogin = () => {
   };
 
   return (
-    <div className="form-container reveal-load">
-      <div className={ui.formGroup}>
-        <label className={ui.formLabel} htmlFor="form-user">
-          Usuario o Correo electrónico*
-        </label>
-        <input
-          type="text"
-          name="user"
-          id="form-user"
-          placeholder="Tu usuario o corréo electrónico"
-          onChange={(e) => {
-            setEmail(e.currentTarget.value);
-            setEmailError(false); // Clear error when the user types
-          }}
-          onKeyDown={handleKeyDown} // Detect Enter key
-        />
-        {emailError && <span className={`${ui.formLabel} red`}>Introduce un correo válido</span>}
-      </div>
-      <div className={ui.formGroup}>
-        <label className={ui.formLabel} htmlFor="form-password">
-          Contraseña*
-        </label>
-        <div className="password-input">
+    <>
+      <div className="form-container reveal-load">
+        <div className={ui.formGroup}>
+          <label className={ui.formLabel} htmlFor="form-user">
+            Usuario o Correo electrónico*
+          </label>
           <input
-            type={showPassword ? "text" : "password"}
-            placeholder="Password"
-            value={userPass}
-            onChange={(e) => setPass(e.currentTarget.value)}
+            type="text"
+            name="user"
+            id="form-user"
+            placeholder="Tu usuario o corréo electrónico"
+            onChange={(e) => {
+              setEmail(e.currentTarget.value);
+              setEmailError(false); // Clear error when the user types
+            }}
             onKeyDown={handleKeyDown} // Detect Enter key
           />
-          <div className="password-login-icon" onClick={toggleShowPassword}>
-            {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
+          {emailError && (
+            <span className={`${ui.formLabel} red`}>
+              Introduce un correo válido
+            </span>
+          )}
+        </div>
+        <div className={ui.formGroup}>
+          <label className={ui.formLabel} htmlFor="form-password">
+            Contraseña*
+          </label>
+          <div className="password-input">
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              value={userPass}
+              onChange={(e) => setPass(e.currentTarget.value)}
+              onKeyDown={handleKeyDown} // Detect Enter key
+            />
+            <div className="password-login-icon" onClick={toggleShowPassword}>
+              {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
+            </div>
+          </div>
+          <div className={ui.subGroup}>
+            <Link
+              className={`${ui.linkLabel} sky-blue no-style`}
+              to={ROUTES.FORGOT_PASSWORD}
+            >
+              Olvidé mi contraseña
+            </Link>
           </div>
         </div>
-        <div className={ui.subGroup}>
-          <Link className={`${ui.linkLabel} sky-blue no-style`} to={ROUTES.FORGOT_PASSWORD}>
-            Olvidé mi contraseña
+        <button
+          className="button-rounded-blue-48"
+          type="button"
+          style={{ marginTop: "20px" }}
+          onClick={handleSubmit}
+          disabled={!validateEmailFormat(userEmail) || !userPass}
+        >
+          <span className="button-text">Iniciar Sesión</span>
+        </button>
+        <hr style={{ margin: "2rem 0 1rem 0" }} />
+        <p className="flex-row-nw jc-center gap-8">
+          <span className={ui.linkLabel}>¿Aun no eres miembro?</span>
+          <Link className={`${ui.linkLabel} sky-blue no-style`} to="/registro">
+            Registrate Ahora
           </Link>
-        </div>
+        </p>
       </div>
-      <button
-        className="button-rounded-blue-48"
-        type="button"
-        style={{ marginTop: "20px" }}
-        onClick={handleSubmit}
-        disabled={!validateEmailFormat(userEmail) || !userPass}
-      >
-        <span className="button-text">Iniciar Sesión</span>
-      </button>
-      <hr style={{ margin: "2rem 0 1rem 0" }} />
-      <p className="flex-row-nw jc-center gap-8">
-        <span className={ui.linkLabel}>¿Aun no eres miembro?</span>
-        <Link className={`${ui.linkLabel} sky-blue no-style`} to="/registro">
-          Registrate Ahora
-        </Link>
-      </p>
-    </div>
+      <ConfirmDialogModal
+        isOpen={isModalOpen}
+        onAccept={handleAccept}
+        onCancel={handleCancel}
+        title="Cierre de sesión"
+        description="Hemos detectado una sesión activa, al dar continuar, esta será cerrada automáticamente"
+      />
+    </>
   );
 };
 
