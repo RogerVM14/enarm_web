@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { closeUserRemoteSession, loginUser } from "../../../apis/auth/authApi";
+import { loginUser } from "../../../apis/auth/authApi";
 import doctorImage from "../../../assets/imgs/Dres/stock-photo-surgeon-wearing-blue-uniform-stethoscope-small.png";
 import { ERROR_MESSAGES } from "../../../constants/Messages";
 import { setCookie } from "../../../utils/auth/cookieSession";
@@ -11,13 +11,9 @@ import "./LoginPage.css";
 import ui from "./index.module.css";
 import LandingLayout from "../../Layouts/Landing";
 import { useDispatch } from "react-redux";
-import {
-  setCheckoutUserId,
-  setUserInformation,
-} from "../../../store/reducers/user/UserInformationSlice";
+import { setCheckoutUserId, setUserInformation } from "../../../store/reducers/user/UserInformationSlice";
 import { ROUTES } from "../../../constants/routes";
 import { encryptPassword } from "../../../utils/auth";
-import ConfirmDialogModal from "../../../components/ConfirmDialogModal";
 
 const LoginPage = () => {
   setTimeout(() => {
@@ -56,38 +52,7 @@ const FormLogin = () => {
   const [userPass, setPass] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [emailError, setEmailError] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const handleAccept = () => {
-    console.log(userEmail, userPass);
-    closeUserRemoteSession({
-      user_email: userEmail,
-      user_password: encryptPassword(userPass),
-      environment: "platform",
-    })
-      .then((res) => {
-        const { status_Message, ...rest } = res.data;
-        if (!rest.has_payments) {
-          showToast.info("No haz realizado tu pago aún, procede a realizarlo");
-          dispatch(setCheckoutUserId(rest.user_id));
-          navigate(ROUTES.CHECKOUT);
-        } else {
-          dispatch(setUserInformation(rest));
-          setCookie("accessToken", rest.auth_token);
-          navigate(ROUTES.PLATAFORMA_DASHBOARD, { replace: true });
-        }
-      })
-      .catch(() => {
-        showToast.error(
-          "Hubo un error al cerrar la otra sesión, intenta nuevamente"
-        );
-        setIsModalOpen(false);
-      });
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
+  const [isSubmitting, setIsSubmitting] = useState(false); // Estado para el spinner y el texto del botón
 
   const toggleShowPassword = () => setShowPassword(!showPassword);
 
@@ -98,21 +63,17 @@ const FormLogin = () => {
     const isValidEmail = validateEmailFormat(userEmail);
 
     if (isValidEmail && userPass) {
+      setIsSubmitting(true); // Mostrar spinner y cambiar texto
       loginUser({
         new_user_email: userEmail,
         new_user_password: encryptPassword(userPass),
         environment: "platform",
       })
         .then((res) => {
-          if (res.data.status_Message === "user logged") {
-            setIsModalOpen(true);
-          }
           if (res.data.status_Message === "valid user") {
             const { status_Message, ...rest } = res.data;
             if (!rest.has_payments) {
-              showToast.info(
-                "No haz realizado tu pago aún, procede a realizarlo"
-              );
+              showToast.info("No haz realizado tu pago aún, procede a realizarlo");
               dispatch(setCheckoutUserId(rest.user_id));
               navigate(ROUTES.CHECKOUT);
             } else {
@@ -120,14 +81,18 @@ const FormLogin = () => {
               setCookie("accessToken", rest.auth_token);
               navigate(ROUTES.PLATAFORMA_DASHBOARD, { replace: true });
             }
-          }
-          if (res.data.status_Message === "invalid user") {
+          } else if (res.data.status_Message === "invalid user") {
             showToast.error("El usuario o la contraseña son incorrectos");
+          } else {
+            showToast.error("Hubo un error inesperado");
           }
         })
         .catch((err) => {
           const error = err.response.data.message;
           showToast.error(ERROR_MESSAGES[error]);
+        })
+        .finally(() => {
+          setIsSubmitting(false); // Ocultar spinner y restaurar texto
         });
     } else {
       setEmailError(!isValidEmail);
@@ -141,79 +106,72 @@ const FormLogin = () => {
   };
 
   return (
-    <>
-      <div className="form-container reveal-load">
-        <div className={ui.formGroup}>
-          <label className={ui.formLabel} htmlFor="form-user">
-            Usuario o Correo electrónico*
-          </label>
+    <div className="form-container reveal-load">
+      <div className={ui.formGroup}>
+        <label className={ui.formLabel} htmlFor="form-user">
+          Usuario o Correo electrónico*
+        </label>
+        <input
+          type="text"
+          name="user"
+          id="form-user"
+          placeholder="Tu usuario o corréo electrónico"
+          onChange={(e) => {
+            setEmail(e.currentTarget.value);
+            setEmailError(false); // Clear error when the user types
+          }}
+          onKeyDown={handleKeyDown} // Detect Enter key
+        />
+        {emailError && <span className={`${ui.formLabel} red`}>Introduce un correo válido</span>}
+      </div>
+      <div className={ui.formGroup}>
+        <label className={ui.formLabel} htmlFor="form-password">
+          Contraseña*
+        </label>
+        <div className="password-input">
           <input
-            type="text"
-            name="user"
-            id="form-user"
-            placeholder="Tu usuario o corréo electrónico"
-            onChange={(e) => {
-              setEmail(e.currentTarget.value);
-              setEmailError(false); // Clear error when the user types
-            }}
+            type={showPassword ? "text" : "password"}
+            placeholder="Password"
+            value={userPass}
+            onChange={(e) => setPass(e.currentTarget.value)}
             onKeyDown={handleKeyDown} // Detect Enter key
           />
-          {emailError && (
-            <span className={`${ui.formLabel} red`}>
-              Introduce un correo válido
-            </span>
-          )}
-        </div>
-        <div className={ui.formGroup}>
-          <label className={ui.formLabel} htmlFor="form-password">
-            Contraseña*
-          </label>
-          <div className="password-input">
-            <input
-              type={showPassword ? "text" : "password"}
-              placeholder="Password"
-              value={userPass}
-              onChange={(e) => setPass(e.currentTarget.value)}
-              onKeyDown={handleKeyDown} // Detect Enter key
-            />
-            <div className="password-login-icon" onClick={toggleShowPassword}>
-              {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
-            </div>
-          </div>
-          <div className={ui.subGroup}>
-            <Link
-              className={`${ui.linkLabel} sky-blue no-style`}
-              to={ROUTES.FORGOT_PASSWORD}
-            >
-              Olvidé mi contraseña
-            </Link>
+          <div className="password-login-icon" onClick={toggleShowPassword}>
+            {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
           </div>
         </div>
-        <button
-          className="button-rounded-blue-48"
-          type="button"
-          style={{ marginTop: "20px" }}
-          onClick={handleSubmit}
-          disabled={!validateEmailFormat(userEmail) || !userPass}
-        >
-          <span className="button-text">Iniciar Sesión</span>
-        </button>
-        <hr style={{ margin: "2rem 0 1rem 0" }} />
-        <p className="flex-row-nw jc-center gap-8">
-          <span className={ui.linkLabel}>¿Aun no eres miembro?</span>
-          <Link className={`${ui.linkLabel} sky-blue no-style`} to="/registro">
-            Registrate Ahora
+        <div className={ui.subGroup}>
+          <Link className={`${ui.linkLabel} sky-blue no-style`} to={ROUTES.FORGOT_PASSWORD}>
+            Olvidé mi contraseña
           </Link>
-        </p>
+        </div>
       </div>
-      <ConfirmDialogModal
-        isOpen={isModalOpen}
-        onAccept={handleAccept}
-        onCancel={handleCancel}
-        title="Cierre de sesión"
-        description="Hemos detectado una sesión activa, al dar continuar, esta será cerrada automáticamente"
-      />
-    </>
+      <button
+        className={`button-rounded-blue-48 ${
+          isSubmitting ? "button-rounded-blue-48--disabled" : ""
+        } flex items-center justify-center gap-2`}
+        type="button"
+        style={{ marginTop: "20px" }}
+        onClick={handleSubmit}
+        disabled={isSubmitting || !validateEmailFormat(userEmail) || !userPass} // Deshabilitado durante el envío
+      >
+        {isSubmitting ? (
+          <>
+            <div className="spinner-border animate-spin inline-block w-4 h-4 border-2 rounded-full border-white"></div>
+            <span className="button-text">Iniciando Sesión</span>
+          </>
+        ) : (
+          <span className="button-text">Iniciar Sesión</span>
+        )}
+      </button>
+      <hr style={{ margin: "2rem 0 1rem 0" }} />
+      <p className="flex-row-nw jc-center gap-8">
+        <span className={ui.linkLabel}>¿Aun no eres miembro?</span>
+        <Link className={`${ui.linkLabel} sky-blue no-style`} to="/registro">
+          Registrate Ahora
+        </Link>
+      </p>
+    </div>
   );
 };
 

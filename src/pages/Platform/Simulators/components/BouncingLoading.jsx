@@ -1,10 +1,17 @@
 import React from "react";
 
-const BouncingLoading = () => {
+const BouncingLoading = (props) => {
+  const { message } = props;
   return (
     <section className="flex flex-col justify-center items-center">
-      <span style={{ fontFamily: "PoppinsRegular", fontSize: "2rem", display: "block" }}>
-        Selecciona una especialidad
+      <span
+        style={{
+          fontFamily: "PoppinsRegular",
+          fontSize: "2rem",
+          display: "block",
+        }}
+      >
+        {message}
       </span>
       <div style={{ width: "300px", height: "300px" }}>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
