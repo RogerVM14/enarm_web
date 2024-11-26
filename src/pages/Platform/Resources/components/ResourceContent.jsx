@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import Viewer from "../../../../components/Viewer";
-import { Link } from "react-router-dom";
 
 const ResourceContainer = ({ resourcesContent }) => {
   const [resumeData, setResumeData] = useState([]);
@@ -72,14 +71,13 @@ const ResourceContainer = ({ resourcesContent }) => {
                 <ul className="ml-6 list-disc mb-4">
                   {data?.map((resource) => {
                     return (
-                      <li key={resource.id} className=" marker:text-[#1e73be]">
-                        <Link
-                          target="_blank"
-                          to={resource?.url}
-                          className="text-[#1e73be] cursor-pointer poppins-regular-14 hover:underline"
+                      <li key={resource.id} className="text-[#1e73be] cursor-pointer">
+                        <p
+                          className="poppins-regular-14 hover:underline"
+                          onClick={() => openViewer(resource)} // Abrir el visualizador al hacer clic
                         >
                           {resource.name}
-                        </Link>
+                        </p>
                       </li>
                     );
                   })}

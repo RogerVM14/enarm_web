@@ -17,11 +17,7 @@ const ResourcesPage = () => {
   const [specialtyPosition, setSpecialtyPosition] = useState(0);
   const [resourcesContent, setResourcesContent] = useState({});
   const dispatch = useDispatch();
-  const {
-    isLoading,
-    isError,
-    data: especialidades,
-  } = useQuery("resource-specialties", () => getSpecialties());
+  const { isLoading, isError, data: especialidades } = useQuery("resource-specialties", () => getSpecialties());
 
   if (isLoading) {
     dispatch(setIsLoadingContent(true));
@@ -40,20 +36,16 @@ const ResourcesPage = () => {
     const getResourcesBySpecialty = async () => {
       try {
         if (!especialidades || specialtyPosition === 0) return;
-        const { specialty_id } = especialidades?.find(
-          (item) => item.specialty_id === specialtyPosition
-        );
+        const { specialty_id } = especialidades?.find((item) => item.specialty_id === specialtyPosition);
         const endpoint = `${url}study-plan/get-resources-simulators-by-specialty-id`;
         const headers = getHeaders();
         const body = {
           specialty_id,
         };
         const { data, status } = await axios.post(endpoint, body, headers);
-        if (
-          data.status_Message === "there are resources or simulators" &&
-          status === 200
-        ) {
-          setResourcesContent(data.resources_simulators);
+        const { status_Message: message, resources_simulators } = data;
+        if (message === "there are resources or simulators" && status === 200) {
+          setResourcesContent(resources_simulators);
           return;
         }
         throw new Error();
@@ -72,9 +64,7 @@ const ResourcesPage = () => {
       <div className={`${ui.wrapper} overflow-hidden`}>
         <div className={ui.gridContainer}>
           {/* {isLoading && !isError ? <span>Cargando...</span> : null} */}
-          {!isLoading && isError ? (
-            <span>Error al cargar contenido</span>
-          ) : null}
+          {!isLoading && isError ? <span>Error al cargar contenido</span> : null}
           {!isLoading && !isError ? (
             <>
               <SpecialitiesList {...specialtyListProps} />
