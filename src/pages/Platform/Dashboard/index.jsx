@@ -8,7 +8,10 @@ import DashboardAvisosPic from "../Assets/Images/dashboardAvisos.png";
 import DoctorWithStar from "../Assets/Images/doctorWithStar.png";
 import ModalComplementaryUserInfo from "../../../components/userInfoModal/ModalComplementaryUserInfo";
 import { useSelector } from "react-redux";
-import { selectFullUserName, selectUserInfoComplete } from "../../../store/reducers/user/UserInformationSlice";
+import {
+  selectFullUserName,
+  selectUserInfoComplete,
+} from "../../../store/reducers/user/UserInformationSlice";
 import { saveComplementaryStudentInfo } from "../../../apis/student/studentApi";
 
 const DashboardPage = () => {
@@ -79,8 +82,8 @@ const DashboardPage = () => {
                 </div>
                 <div className={ui.bodyWrapper}>
                   <p>
-                    Mantente al tanto de todo lo relevante dentro de Plataforma ENARM para que tengas una buena
-                    experiencia.
+                    Mantente al tanto de todo lo relevante dentro de Plataforma
+                    ENARM para que tengas una buena experiencia.
                   </p>
                   <p>Dentro de Avisos encontrarás:</p>
                   <ul>
@@ -104,50 +107,73 @@ const DashboardPage = () => {
                   <h5>Novedades</h5>
                 </div>
                 <div className={ui.bodyWrapper}>
-                  <p>Descubre las fechas en que sube el nuevo material a Plataforma ENARM.</p>
+                  <p>
+                    Descubre las fechas en que sube el nuevo material a
+                    Plataforma ENARM.
+                  </p>
                   <ul>
                     <li>
                       <p>
-                        <strong>18 de octubre</strong> para curso en <Link to="/cursoENARM/planes/1">11 meses.</Link>
+                        1 de octubre para curso en <strong>12 meses.</strong>
                       </p>
                     </li>
                     <li>
                       <p>
-                        <strong>1 de noviembre</strong> para curso en <Link to="">10 meses.</Link>
+                        1 de noviembre para curso en <strong>11 meses.</strong>
                       </p>
-                    </li>{" "}
-                    {/*/cursoENARM/planes/2*/}
+                    </li>
                     <li>
                       <p>
-                        <strong>1 de diciembre</strong> para curso en <Link to="">9 meses.</Link>
+                        1 de diciembre para curso en <strong>10 meses.</strong>
                       </p>
-                    </li>{" "}
-                    {/*/cursoENARM/planes/3*/}
+                    </li>
                     <li>
                       <p>
-                        <strong>1 de enero</strong> para curso en <Link to="">8 meses.</Link>
+                        1 de enero para curso en <strong>9 meses.</strong>
                       </p>
-                    </li>{" "}
-                    {/*/cursoENARM/planes/4*/}
+                    </li>
                     <li>
                       <p>
-                        <strong>1 de febrero</strong> para curso en <Link to="">7 meses.</Link>
+                        1 de febrero para curso en <strong>8 meses.</strong>
                       </p>
-                    </li>{" "}
-                    {/*/cursoENARM/planes/5*/}
+                    </li>
                     <li>
                       <p>
-                        <strong>1 de marzo</strong> para curso en <Link to="">6 meses.</Link>
+                        1 de marzo para curso en <strong>7 meses.</strong>
                       </p>
-                    </li>{" "}
-                    {/*/cursoENARM/planes/6*/}
+                    </li>
                     <li>
                       <p>
-                        <strong>1 de abril</strong> para curso en <Link to="">5 meses...</Link>
+                        1 de abril para curso en <strong>6 meses.</strong>
                       </p>
-                    </li>{" "}
-                    {/*/cursoENARM/planes/7*/}
+                    </li>
+                    <li>
+                      <p>
+                        1 de mayo para curso en <strong>5 meses.</strong>
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        1 de junio para curso en <strong>4 meses.</strong>
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        1 de julio para curso en <strong>3 meses.</strong>
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        1 de agosto para curso en <strong>2 meses.</strong>
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        1 de septiembre para <strong>repaso intensivo.</strong>
+                      </p>
+                    </li>
                   </ul>
+
                   <Link to="/cursoENARM/novedades">Ver todas las fechas</Link>
                 </div>
               </div>
@@ -166,9 +192,19 @@ const ResourcesCards = (props) => {
   return (
     <div className={ui.resourceCard}>
       <div className={ui.cardHeader}>
-        <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg
+          width="24px"
+          height="24px"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
           <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-          <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+          <g
+            id="SVGRepo_tracerCarrier"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          ></g>
           <g id="SVGRepo_iconCarrier">
             <path
               d="M14 12.25C13.2583 12.25 12.5333 12.0301 11.9166 11.618C11.2999 11.206 10.8193 10.6203 10.5355 9.93506C10.2516 9.24984 10.1774 8.49584 10.3221 7.76841C10.4668 7.04098 10.8239 6.3728 11.3484 5.84835C11.8728 5.3239 12.541 4.96675 13.2684 4.82206C13.9958 4.67736 14.7498 4.75162 15.4351 5.03545C16.1203 5.31928 16.706 5.79993 17.118 6.41661C17.5301 7.0333 17.75 7.75832 17.75 8.5C17.75 9.49456 17.3549 10.4484 16.6517 11.1517C15.9484 11.8549 14.9946 12.25 14 12.25ZM14 6.25C13.555 6.25 13.12 6.38196 12.75 6.62919C12.38 6.87643 12.0916 7.22783 11.9213 7.63896C11.751 8.0501 11.7064 8.5025 11.7932 8.93895C11.8801 9.37541 12.0943 9.77632 12.409 10.091C12.7237 10.4057 13.1246 10.62 13.561 10.7068C13.9975 10.7936 14.4499 10.749 14.861 10.5787C15.2722 10.4084 15.6236 10.12 15.8708 9.75003C16.118 9.38002 16.25 8.94501 16.25 8.5C16.25 7.90326 16.0129 7.33097 15.591 6.90901C15.169 6.48705 14.5967 6.25 14 6.25Z"

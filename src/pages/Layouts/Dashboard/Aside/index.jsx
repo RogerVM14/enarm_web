@@ -84,13 +84,14 @@ const DashboardAsideTemplate = ({ smallDevice, isMenuActive, handleShowMenu = ()
         <Link
           className={ui.logoContainer}
           style={{ cursor: "pointer" }}
+          to={ROUTES.HOME}
           onClick={() => {
             if (simulatorIsActive) { 
               setSimulatorCooldownAdvice(true);
               return;
             }
             setGlobalMenuSelected(null);
-            navigate("/cursoENARM");
+            navigate(ROUTES.HOME,{ replace: true});
           }}
         >
           <div className={ui.imageContainer}>
