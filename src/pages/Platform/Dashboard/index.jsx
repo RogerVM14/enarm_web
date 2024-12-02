@@ -13,6 +13,7 @@ import {
   selectUserInfoComplete,
 } from "../../../store/reducers/user/UserInformationSlice";
 import { saveComplementaryStudentInfo } from "../../../apis/student/studentApi";
+import { ROUTES } from "../../../constants/routes";
 
 const DashboardPage = () => {
   const userName = useSelector(selectFullUserName);
@@ -92,7 +93,7 @@ const DashboardPage = () => {
                     <li>Preguntas frecuentes.</li>
                     <li>Formas de contacto, y mucho más.</li>
                   </ul>
-                  <Link to="/cursoENARM/novedades">Ver todos los avisos</Link>
+                  <Link to={ROUTES.PLATAFORMA_AVISOS_ENARM}>Ver todos los avisos</Link>
                 </div>
               </div>
             </div>
@@ -174,7 +175,7 @@ const DashboardPage = () => {
                     </li>
                   </ul>
 
-                  <Link to="/cursoENARM/novedades">Ver todas las fechas</Link>
+                  {/* <Link to="/cursoENARM/novedades">Ver todas las fechas</Link> */}
                 </div>
               </div>
             </div>
