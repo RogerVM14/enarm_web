@@ -31,6 +31,7 @@ export const ROUTES = {
   PLATAFORMA_CUENTA: "/cursoENARM/MiCuenta",
   PLATAFORMA_DOCUMENTOS_GUIA: "/cursoENARM/documentos/guia",
   PLATAFORMA_DOCUMENTOS_PROGRAMA: "/cursoENARM/documentos/programa_academico",
+  PLATAFORMA_AVISOS_ENARM: "/cursoENARM/documentos/avisos_enarm",
 };
 
 export const CONTACT_URLS = {

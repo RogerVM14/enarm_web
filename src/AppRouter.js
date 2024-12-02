@@ -311,7 +311,7 @@ const AppRouter = () => {
                 }
               />
               <Route
-                path={ROUTES.PLATAFORMA_DOCUMENTOS_PROGRAMA}
+                path={ROUTES.PLATAFORMA_AVISOS_ENARM}
                 element={
                   <PlatformPrivateRoute>
                     <AcademicProgramPage />

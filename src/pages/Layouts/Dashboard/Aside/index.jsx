@@ -63,7 +63,7 @@ const DashboardAsideTemplate = ({ smallDevice, isMenuActive, handleShowMenu = ()
       inactiveIcon: DocumentsBlackIcon,
       submenu: [
         { route: "/cursoENARM/documentos/guia", label: "Guía de Estudio" },
-        // { route: "/cursoENARM/documentos/programa_academico", label: "Programa Académico" },
+        { route: ROUTES.PLATAFORMA_AVISOS_ENARM, label: "Avisos" },
       ],
     },
   ];
