@@ -55,7 +55,7 @@ const useMenuNavigation = () => {
       alt: "documents",
       list: [
         { route: "/u/documentos/guia", label: "Guía de Estudio", selected: false },
-        { route: "/u/documentos/programa_academico", label: "Programa Académico", selected: false }
+        // { route: "/u/documentos/programa_academico", label: "Programa Académico", selected: false }
       ],
     }
   ]);

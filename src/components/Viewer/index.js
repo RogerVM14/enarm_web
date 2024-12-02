@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { Document, Page, pdfjs } from "react-pdf";
 
+// Configuración del worker de PDF.js
 pdfjs.GlobalWorkerOptions.workerSrc = `${process.env.PUBLIC_URL}/pdfjs/pdf.worker.min.js`;
 
 const Viewer = ({ isOpen, onClose, fileUrl }) => {
@@ -54,7 +55,6 @@ const Viewer = ({ isOpen, onClose, fileUrl }) => {
         ref={containerRef}
         className="relative bg-white w-full h-full max-w-[100%] max-h-[100%] overflow-auto rounded-lg shadow-lg"
       >
-        {/* Botón de cierre */}
         <button
           onClick={onClose}
           className="absolute top-4 right-4 z-50 text-gray-700 hover:text-gray-900 focus:outline-none"
@@ -63,34 +63,26 @@ const Viewer = ({ isOpen, onClose, fileUrl }) => {
           ✕
         </button>
 
-        {/* Contenedor del PDF */}
         <div className="relative">
           <Document
             file={fileUrl}
             onLoadSuccess={onDocumentLoadSuccess}
-            onLoadError={(error) =>
+            onLoadError={() =>
               setError("No se pudo cargar el archivo PDF.")
             }
             className="pdf-document flex justify-center items-center"
-            loading={
-              <div className="absolute inset-0 flex justify-center items-center bg-white bg-opacity-90 z-50 mt-56">
-                <div className="loader border-t-4 border-blue-500 rounded-full w-10 h-10 animate-spin mb-4"></div>
-                <p className="text-gray-600 font-medium text-sm ml-5">
-                  Cargando el documento, espera por favor.
-                </p>
-              </div>
-            }
           >
             <Page
               pageNumber={pageNumber}
               scale={scale}
               className="pdf-page mx-auto shadow-md border rounded-md"
               renderMode="canvas"
+              renderTextLayer={false} // Deshabilita la capa de texto
+              renderAnnotationLayer={false} // Deshabilita la capa de anotaciones
             />
           </Document>
         </div>
 
-        {/* Controles de navegación */}
         {numPages && (
           <div className="flex flex-col items-center w-full p-4 bg-gray-100 border-t fixed bottom-0 left-0">
             <div className="flex justify-between items-center w-full">
@@ -125,15 +117,12 @@ const Viewer = ({ isOpen, onClose, fileUrl }) => {
                 Siguiente
               </button>
             </div>
-
-            {/* Disclaimer */}
             <p className="mt-2 text-gray-500 text-xs text-center">
               Presiona <span className="font-semibold">ESC</span> para cerrar.
             </p>
           </div>
         )}
 
-        {/* Mensaje de error */}
         {error && (
           <div className="absolute inset-0 flex justify-center items-center bg-white">
             <p className="text-red-600 font-medium text-lg">{error}</p>

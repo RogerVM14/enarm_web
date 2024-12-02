@@ -187,11 +187,11 @@ const DashboardLeftAside = (props) => {
       label: "Guía de Estudio",
       hasDDL: false,
     },
-    /* pos: 12 */ {
-      route: "/u/documentos/programa_academico",
-      label: "Programa Académico",
-      hasDDL: false,
-    },
+    // /* pos: 12 */ {
+    //   route: "/u/documentos/programa_academico",
+    //   label: "Programa Académico",
+    //   hasDDL: false,
+    // },
   ];
 
   const toggleArrowed = (index) => {
