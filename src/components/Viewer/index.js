@@ -67,10 +67,16 @@ const Viewer = ({ isOpen, onClose, fileUrl }) => {
           <Document
             file={fileUrl}
             onLoadSuccess={onDocumentLoadSuccess}
-            onLoadError={() =>
-              setError("No se pudo cargar el archivo PDF.")
-            }
+            onLoadError={() => setError("No se pudo cargar el archivo PDF.")}
             className="pdf-document flex justify-center items-center"
+            loading={
+              <div className="absolute inset-0 flex justify-center items-center bg-white bg-opacity-90 z-50 mt-56">
+                <div className="loader border-t-4 border-blue-500 rounded-full w-10 h-10 animate-spin mb-4"></div>
+                <p className="text-gray-600 font-medium text-sm ml-5">
+                  Cargando el documento, espera por favor.
+                </p>
+              </div>
+            }
           >
             <Page
               pageNumber={pageNumber}
@@ -79,6 +85,7 @@ const Viewer = ({ isOpen, onClose, fileUrl }) => {
               renderMode="canvas"
               renderTextLayer={false} // Deshabilita la capa de texto
               renderAnnotationLayer={false} // Deshabilita la capa de anotaciones
+              loading="Cargando.."
             />
           </Document>
         </div>
