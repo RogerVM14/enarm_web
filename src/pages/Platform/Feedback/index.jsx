@@ -7,6 +7,8 @@ import FilterList from "./components/FilterList";
 import { useQuery } from "react-query";
 import { getAnswersSimulatorAttemptByStudent } from "../../../apis/platform";
 import { useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setIsLoadingContent } from "../../../store/reducers/general/general";
 
 const useQueryParams = () => {
   const { search } = useLocation();
@@ -26,11 +28,17 @@ const FeedbackPage = () => {
   const [displaySpecialities, setDisplaySpecialities] = useState(false);
   const [displaySpecialContent, setDisplaySpecialContent] = useState(false);
   const [filters, setFilters] = useState([]);
+  const dispatch = useDispatch()
   const { simulator } = useQueryParams();
   const { data: answers } = useQuery("answers", () => getAnswersSimulatorAttemptByStudent(simulator));
 
   useEffect(() => {
-    if (answers === undefined || Object.entries(answers).length === 0) return;
+    if (answers === undefined || Object.entries(answers).length === 0) {
+      dispatch(setIsLoadingContent(true));
+      return
+    } else {
+      dispatch(setIsLoadingContent(false));
+    }
     const { responses } = answers;
     const array = responses.map((element, index) => ({ ...element, position: index + 1 }));
     setQuestions(array);

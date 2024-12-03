@@ -30,23 +30,9 @@ const ResourceContainer = ({ resourcesContent }) => {
     orderResourceData();
   }, [resourcesContent]);
 
-  const encodeFileUrl = (url) => {
-    try {
-      const urlParts = url.split("/");
-      const encodedFilename = encodeURIComponent(urlParts.pop()); // Codifica el último segmento (nombre del archivo)
-      return `${urlParts.join("/")}/${encodedFilename}`;
-    } catch (error) {
-      console.error("Error codificando la URL:", error);
-      return url; // Devuelve la URL original si hay un error
-    }
-  };
-
-  
-
   const openViewer = (resource) => {
-    const encodedUrl = encodeFileUrl(resource.url); // Codifica la URL del archivo
-    setSelectedResource(encodedUrl); // Guarda la URL codificada
-    setIsViewerOpen(true); // Abre el Viewer
+    setSelectedResource(resource.url); // Establece la URL del recurso seleccionado
+    setIsViewerOpen(true); // Abre el visualizador
   };
 
   const closeViewer = () => {
@@ -61,19 +47,9 @@ const ResourceContainer = ({ resourcesContent }) => {
           <div className="py-4 px-6 border-[1px] bg-white flex flex-row justify-between">
             <div className="poppins-regular-14 flex flex-row gap-x-4">
               <button type="button" className="hidden">
-                <svg
-                  width="14px"
-                  height="14px"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
+                <svg width="14px" height="14px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-                  <g
-                    id="SVGRepo_tracerCarrier"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  ></g>
+                  <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
                   <g id="SVGRepo_iconCarrier">
                     <path
                       d="M4 10L3.29289 10.7071L2.58579 10L3.29289 9.29289L4 10ZM21 18C21 18.5523 20.5523 19 20 19C19.4477 19 19 18.5523 19 18L21 18ZM8.29289 15.7071L3.29289 10.7071L4.70711 9.29289L9.70711 14.2929L8.29289 15.7071ZM3.29289 9.29289L8.29289 4.29289L9.70711 5.70711L4.70711 10.7071L3.29289 9.29289ZM4 9L14 9L14 11L4 11L4 9ZM21 16L21 18L19 18L19 16L21 16ZM14 9C17.866 9 21 12.134 21 16L19 16C19 13.2386 16.7614 11 14 11L14 9Z"
@@ -82,9 +58,7 @@ const ResourceContainer = ({ resourcesContent }) => {
                   </g>
                 </svg>
               </button>
-              <h4 className="poppins-regular-14 !text-[20px]">
-                {specialtiesNames.join(" / ")}
-              </h4>
+              <h4 className="poppins-regular-14 !text-[20px]">{specialtiesNames.join(" / ")}</h4>
               <p className="poppins-regular-14">Recursos</p>
             </div>
           </div>
@@ -97,13 +71,10 @@ const ResourceContainer = ({ resourcesContent }) => {
                 <ul className="ml-6 list-disc mb-4">
                   {data?.map((resource) => {
                     return (
-                      <li
-                        key={resource.id}
-                        className="text-[#1e73be] cursor-pointer"
-                      >
+                      <li key={resource.id} className="text-[#1e73be] cursor-pointer">
                         <p
                           className="poppins-regular-14 hover:underline"
-                          onClick={() => openViewer(resource)} // Abre el visualizador al hacer clic
+                          onClick={() => openViewer(resource)} // Abrir el visualizador al hacer clic
                         >
                           {resource.name}
                         </p>
@@ -117,14 +88,8 @@ const ResourceContainer = ({ resourcesContent }) => {
         </div>
       </section>
 
-      {/* Componente Viewer para visualizar PDFs e imágenes */}
-      {isViewerOpen && (
-        <Viewer
-          isOpen={isViewerOpen}
-          onClose={closeViewer}
-          fileUrl={selectedResource}
-        />
-      )}
+      {/* Visualizador */}
+      {isViewerOpen && <Viewer isOpen={isViewerOpen} onClose={closeViewer} fileUrl={selectedResource} />}
     </>
   ) : (
     <section

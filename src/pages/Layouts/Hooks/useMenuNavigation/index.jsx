@@ -7,6 +7,7 @@ import ResourcesBlackIcon from "../../Assets/Icons/ResourcesBlack.png";
 import ResourcesBlueIcon from "../../Assets/Icons/ResourcesBlue.png"; 
 import SimulatorBlackIcon from "../../Assets/Icons/SimulatorBlack.png";
 import SimulatorBlueIcon from "../../Assets/Icons/SimulatorBlue.png";
+import { ROUTES } from "../../../../constants/routes";
 
 const useMenuNavigation = () => {
 
@@ -55,7 +56,7 @@ const useMenuNavigation = () => {
       alt: "documents",
       list: [
         { route: "/u/documentos/guia", label: "Guía de Estudio", selected: false },
-        { route: "/u/documentos/programa_academico", label: "Programa Académico", selected: false }
+        { route: ROUTES.PLATAFORMA_AVISOS_ENARM, label: "Avisos", selected: false }
       ],
     }
   ]);

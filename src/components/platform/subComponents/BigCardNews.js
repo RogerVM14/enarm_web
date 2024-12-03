@@ -54,7 +54,7 @@ const BigCardNews = (props) => {
               <li><span className="regular-14"><span className="fw500">1 de abril</span> para curso en <span onClick={() => navigationRoute("/u/planes/7", 6)} className="blue pointer noDecor regular-14 fw500">5 meses...</span></span></li>
             </ul>
             <br />
-            <Link className="regular-14 sky-blue noDecor" to="/u/planes/aviso_novedades">Ver todas las fechas</Link>
+            {/* <Link className="regular-14 sky-blue noDecor" to="/u/planes/aviso_novedades">Ver todas las fechas</Link> */}
           </>
           {/* )
           } */}

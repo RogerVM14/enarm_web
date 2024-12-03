@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import cardImage from '../../../assets/imgs/aviso.img.png';
 import '../../../css/platform/components/BigCard.css'
+import { ROUTES } from '../../../constants/routes';
 
 const BigCardAdvice = (props) => {
 
@@ -49,7 +50,7 @@ const BigCardAdvice = (props) => {
               <li><span className='regular-14'>Formas de contacto, y mucho más.</span></li>
             </ul>
             <br />
-            <Link className="regular-14 sky-blue noDecor" to="/u/planes/aviso_novedades">Ver todos los avisos</Link>
+            <Link className="regular-14 sky-blue noDecor" to={ROUTES.PLATAFORMA_AVISOS_ENARM}>Ver todos los avisos</Link>
           </>
           {/* )
           } */}

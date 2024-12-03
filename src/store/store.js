@@ -8,6 +8,7 @@ import thunk from "redux-thunk";
 import userInformationReducer from "./reducers/user/UserInformationSlice";
 import checkoutInformationReducer from "./reducers/checkout/checkoutInformationSlice";
 import forgotPasswordReducer from "./reducers/forgotPassword/forgotPassword";
+import generalReducer from "./reducers/general/general";
 
 const persistConfig = {
   key: "enarm-platform",
@@ -18,6 +19,7 @@ const reducers = combineReducers({
   user: userInformationReducer,
   checkout: checkoutInformationReducer,
   forgotPassword: forgotPasswordReducer,
+  general: generalReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

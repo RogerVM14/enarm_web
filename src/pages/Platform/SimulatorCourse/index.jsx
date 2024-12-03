@@ -4,7 +4,11 @@ import DashboardLayout from "../../Layouts/Dashboard";
 import { useLocation, useNavigate } from "react-router-dom";
 import SimulatorsAdvice from "./components/SimulatorAdvice/SimulatorsAdvice";
 import { useQuery } from "react-query";
-import { getSimulatorQuestions, addAnswerSimulatorByStudent, getSimulatorStatsByStudent } from "../../../apis/platform";
+import {
+  getSimulatorQuestions,
+  addAnswerSimulatorByStudent,
+  getSimulatorStatsByStudent,
+} from "../../../apis/platform";
 import toast from "react-hot-toast";
 import ClinicCaseQuestion from "./components/ClinicCaseQuestion";
 import QuestionsSquaresGroup from "./components/QuestionsSquaresGroup";
@@ -13,6 +17,8 @@ import CountdownTimer from "./components/CountdownTimer";
 import { ChevronRight } from "./icons/ChevronRight";
 import { GeneralContext } from "../../../contexts/GeneralContext";
 import SimulatorCooldownAdvice from "./components/SimulatorCooldownAdvice/SimulatorsAdvice";
+import { useDispatch } from "react-redux";
+import { setIsLoadingContent } from "../../../store/reducers/general/general";
 
 const useQueryParams = () => {
   const { search } = useLocation();
@@ -57,13 +63,27 @@ const SimulatorCoursePage = () => {
     data: simulatorQuestions,
   } = useQuery("questions", () => getSimulatorQuestions(simulator_id));
 
-  const { data: statsAttempts } = useQuery("stats", () => getSimulatorStatsByStudent(simulator_id));
+  const { data: statsAttempts } = useQuery("stats", () =>
+    getSimulatorStatsByStudent(simulator_id)
+  );
 
   useEffect(() => {
     if (statsAttempts === undefined) return;
-    const positions = ["er", "do", "ro", "to", "to", "to", "mo", "vo", "no", "mo"];
+    const positions = [
+      "er",
+      "do",
+      "ro",
+      "to",
+      "to",
+      "to",
+      "mo",
+      "vo",
+      "no",
+      "mo",
+    ];
     const { answer_list } = statsAttempts;
-    const index = Object.entries(answer_list).length === 0 ? 0 : answer_list.length;
+    const index =
+      Object.entries(answer_list).length === 0 ? 0 : answer_list.length;
     const stringAttempt = `${index + 1}${positions[index]}`;
     setTotalAttempts(stringAttempt);
   }, [statsAttempts]);
@@ -71,7 +91,9 @@ const SimulatorCoursePage = () => {
   const pushAnswer = (data) => {
     const { clinic_case_id, questions_case, answerPosition, id } = data;
     const [{ simulator_question_id, answers }] = questions_case;
-    const correct_answer_index = answers.findIndex((element) => element.correct_answer === true);
+    const correct_answer_index = answers.findIndex(
+      (element) => element.correct_answer === true
+    );
     const estructure = {
       clinic_case_id,
       questions: [
@@ -85,7 +107,9 @@ const SimulatorCoursePage = () => {
       id,
     };
     setAnwersSimulator((prev) => {
-      const index = prev?.findIndex((element) => element.clinic_case_id === clinic_case_id);
+      const index = prev?.findIndex(
+        (element) => element.clinic_case_id === clinic_case_id
+      );
       if (index === -1) return [...prev, estructure];
       const updatedAnswers = replaceObjectAtIndex(prev, index, estructure);
       return updatedAnswers;
@@ -134,17 +158,25 @@ const SimulatorCoursePage = () => {
     setSquares((prev) => {
       const newObject = { ...prev[squareSelected], isAnswered: true };
 
-      const updatedAnswers = replaceObjectAtIndex(prev, squareSelected, newObject);
+      const updatedAnswers = replaceObjectAtIndex(
+        prev,
+        squareSelected,
+        newObject
+      );
       return updatedAnswers;
     });
   }, [squareSelected]);
 
   const seeResults = async (onCloseUp = false) => {
     const total_answers = answersSimulator.length;
-    const correct_answers = answersSimulator?.filter(({ questions }) => questions[0].was_correct === true).length;
+    const correct_answers = answersSimulator?.filter(
+      ({ questions }) => questions[0].was_correct === true
+    ).length;
     const total_questions = simulatorQuestions?.questions?.length;
     const rate_percent =
-      total_answers === 50 ? (correct_answers / total_answers) * 100 : (correct_answers / total_questions) * 100;
+      total_answers === 50
+        ? (correct_answers / total_answers) * 100
+        : (correct_answers / total_questions) * 100;
     const objectData = {
       simulator_id: parseInt(simulator_id),
       total_attempts: 5,
@@ -176,6 +208,13 @@ const SimulatorCoursePage = () => {
     }
   };
 
+  const dispatch = useDispatch();
+  if (isLoading) {
+    dispatch(setIsLoadingContent(true));
+  } else {
+    dispatch(setIsLoadingContent(false));
+  }
+
   return (
     <DashboardLayout>
       <div className={ui.wrapper}>
@@ -187,7 +226,10 @@ const SimulatorCoursePage = () => {
                 <h5>{totalAttempts} Intento</h5>
               </div>
               <div className={ui.containerBody}>
-                <CountdownTimer initialTime={duration} isCooldownZero={async () => await seeResults()} />
+                <CountdownTimer
+                  initialTime={duration}
+                  isCooldownZero={async () => await seeResults()}
+                />
                 <div className={ui.questionsWrapper}>
                   <div className={ui.questionsGroup}>
                     <div
@@ -223,7 +265,7 @@ const SimulatorCoursePage = () => {
           <section>
             <div className={ui.sectionContainer}>
               <div className={ui.simulatorQuestions}>
-                {isLoading && !isError && <span>Cargando...</span>}
+                {/* {isLoading && !isError && <span>Cargando...</span>} */}
                 {!isLoading && isError && <span>..Error..</span>}
                 {!isLoading && !isError ? (
                   <>
@@ -253,7 +295,11 @@ const SimulatorCoursePage = () => {
                 ) : null}
               </div>
               <div className={ui.containerFooterButtons}>
-                <button type="button" className={ui.getRetroButton} onClick={() => setOpen(true)}>
+                <button
+                  type="button"
+                  className={ui.getRetroButton}
+                  onClick={() => setOpen(true)}
+                >
                   <span>Obtener retroalimentación</span>
                 </button>
                 {current < 48 ? (
@@ -279,7 +325,9 @@ const SimulatorCoursePage = () => {
                       if (response) {
                         setSimulatorIsActive(false);
                         setTimeout(() => {
-                          navigate(`/cursoENARM/retroalimentacion?plan=${plan}&simulator=${simulator_id}`);
+                          navigate(
+                            `/cursoENARM/retroalimentacion?plan=${plan}&simulator=${simulator_id}`
+                          );
                         }, 1500);
                       }
                     }}

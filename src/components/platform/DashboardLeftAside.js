@@ -19,6 +19,7 @@ import userIcon from "../../assets/icons/platform/default-user-icon.png";
 
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserEmail } from "../../store/reducers/user/UserInformationSlice";
+import { ROUTES } from "../../constants/routes";
 
 const activeStyle = { color: "rgba(30, 115, 190, 1)" };
 const subMenuActiveStyle = {
@@ -188,8 +189,8 @@ const DashboardLeftAside = (props) => {
       hasDDL: false,
     },
     /* pos: 12 */ {
-      route: "/u/documentos/programa_academico",
-      label: "Programa Académico",
+      route:ROUTES.PLATAFORMA_AVISOS_ENARM,
+      label: "Avisos",
       hasDDL: false,
     },
   ];

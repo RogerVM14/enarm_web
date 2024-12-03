@@ -86,3 +86,16 @@ export const reestablishUserPasswordByOTP = (payload) => {
 
   return axios(request);
 };
+
+export const closeUserRemoteSession = (payload) => {
+  const request = {
+    method: "POST",
+    url: `${authUrl}close-session-remotely`,
+    headers: {
+      "content-type": "application/json",
+    },
+    data: payload,
+  };
+
+  return axios(request);
+};

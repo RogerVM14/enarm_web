@@ -33,17 +33,17 @@ const StudyGuidePage = () => {
                 target="_blank"
                 rel="noreferrer"
               >
-                <p className={ui.blueParraf}>Primera parte</p>
+                <p className={ui.blueParraf}>Guía de estudió Parte 1</p>
               </a>
               <a
                 href="https://enarm-assets.s3.us-east-1.amazonaws.com/docs/Guia+ENARM+parte+2.pdf"
                 target="_blank"
                 rel="noreferrer"
               >
-                <p className={ui.blueParraf}>segund parte</p>
+                <p className={ui.blueParraf}>Guía de estudió Parte 2</p>
               </a>
               <br />
-              <p>Introducción</p>
+              {/* <p>Introducción</p>
               <br />
               <p>
                 Estimado Alumno: <br />
@@ -101,7 +101,7 @@ const StudyGuidePage = () => {
                 los aspectos teóricos de la medicina general, sino otros
                 procesos cognitivos útiles como la identificación de ideas
                 clave, razonamiento diagnóstico, toma de decisiones y más...
-              </p>
+              </p> */}
             </div>
             <Link to={"#"} className={ui.documentLink} data-size="sm">
               Descargar versión PDF

@@ -1,18 +1,33 @@
 import React, { useEffect, useState } from "react";
 import DashboardLayout from "../../Layouts/Dashboard";
-import SpecialitiesList from "./components/SpecialitiesList"; 
+import SpecialitiesList from "./components/SpecialitiesList";
 import SimulationCardsContainer from "./components/SimulationCardsContainer";
 import { useQuery } from "react-query";
-import { getSpecialties, getSimulatorsBySpecialty } from "../../../apis/platform";
+import {
+  getSpecialties,
+  getSimulatorsBySpecialty,
+} from "../../../apis/platform";
 import BouncingLoading from "./components/BouncingLoading";
+import { useDispatch } from "react-redux";
+import { setIsLoadingContent } from "../../../store/reducers/general/general";
 
 const SimulatorsPage = () => {
   const [displayContainer, setDisplayContainer] = useState(false);
   const [smallDevice, setSmallDevice] = useState(null);
   const [simulatorsList, setSimulatorsList] = useState([]);
   const [specialtyPosition, setSpecialtyPosition] = useState(0);
-  const { isLoading, isError, data: especialidades } = useQuery("resource-specialties", () => getSpecialties());
- 
+  const dispatch = useDispatch();
+  const {
+    isLoading,
+    isError,
+    data: especialidades,
+  } = useQuery("resource-specialties", () => getSpecialties());
+
+  if (isLoading) {
+    dispatch(setIsLoadingContent(true));
+  } else {
+    dispatch(setIsLoadingContent(false));
+  }
 
   useEffect(() => {
     function getWindowSize() {
@@ -34,8 +49,11 @@ const SimulatorsPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       if (!especialidades || specialtyPosition === 0) return;
-      const list = await getSimulatorsBySpecialty(specialtyPosition); 
-      setSimulatorsList(list);
+      dispatch(setIsLoadingContent(true));
+      getSimulatorsBySpecialty(specialtyPosition).then((list) => {
+        setSimulatorsList(list);
+        dispatch(setIsLoadingContent(false));
+      });
     };
     fetchData();
   }, [specialtyPosition, especialidades]);
@@ -46,9 +64,11 @@ const SimulatorsPage = () => {
         <div className="grid grid-cols-[278px_1fr] gap-x-6">
           {isLoading && !isError ? <span>Cargando...</span> : null}
           {!isLoading && isError ? <span>Error...</span> : null}
-          {!isLoading && !isError ? <SpecialitiesList {...specialtyListProps} /> : null}
+          {!isLoading && !isError ? (
+            <SpecialitiesList {...specialtyListProps} />
+          ) : null}
           {Object?.entries(simulatorsList).length === 0 ? (
-            <BouncingLoading />
+            <BouncingLoading message="Selecciona una especialidad" />
           ) : (
             <SimulationCardsContainer
               displayContainer={displayContainer}

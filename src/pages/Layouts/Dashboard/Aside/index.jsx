@@ -63,7 +63,7 @@ const DashboardAsideTemplate = ({ smallDevice, isMenuActive, handleShowMenu = ()
       inactiveIcon: DocumentsBlackIcon,
       submenu: [
         { route: "/cursoENARM/documentos/guia", label: "Guía de Estudio" },
-        { route: "/cursoENARM/documentos/programa_academico", label: "Programa Académico" },
+        { route: ROUTES.PLATAFORMA_AVISOS_ENARM, label: "Avisos" },
       ],
     },
   ];
@@ -84,13 +84,14 @@ const DashboardAsideTemplate = ({ smallDevice, isMenuActive, handleShowMenu = ()
         <Link
           className={ui.logoContainer}
           style={{ cursor: "pointer" }}
+          to={ROUTES.HOME}
           onClick={() => {
             if (simulatorIsActive) { 
               setSimulatorCooldownAdvice(true);
               return;
             }
             setGlobalMenuSelected(null);
-            navigate("/cursoENARM");
+            navigate(ROUTES.HOME,{ replace: true});
           }}
         >
           <div className={ui.imageContainer}>
