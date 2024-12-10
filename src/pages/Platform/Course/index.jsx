@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import DashboardLayout from "../../Layouts/Dashboard";
 import ui from "./index.module.css";
 import { useQuery } from "react-query";
@@ -8,6 +8,7 @@ import Resumes from "./components/Resumes";
 import Videos from "./components/Videos";
 import Graphics from "./components/Graphics";
 import Simulators from "./components/Simulators";
+import { useDispatch } from "react-redux";
 
 const useQueryParams = () => {
   const { search } = useLocation();
@@ -34,8 +35,10 @@ const CoursePage = () => {
   };
 
   const params = useQueryParams();
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-  const { data: resources } = useQuery("resources", () => getWeekResourcesByWeekAndPlan(params));
+  const { data: resources } = useQuery("resources", () => getWeekResourcesByWeekAndPlan(params, dispatch, navigate));
 
   useEffect(() => {
     if (!resources) return;

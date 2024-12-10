@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import ui from "./index.module.css";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import DashboardLayout from "../../Layouts/Dashboard";
 import GraphicResults from "../Assets/Images/graphicResults.png";
 import { getSimulatorStatsByStudent } from "../../../apis/platform";
 import { useQuery } from "react-query";
 import ArrowLeft from "./ArrowLeft";
 import TryList from "./components/TryList";
+import { useDispatch } from "react-redux";
 
 const useQueryParams = () => {
   const { search } = useLocation();
@@ -18,9 +19,13 @@ const useQueryParams = () => {
   return { plan, simulator, specialty };
 };
 
+
+
 const ResultsPage = () => {
+  const dispatch = useDispatch()
+const navigate = useNavigate()
   const { plan, simulator, specialty } = useQueryParams();
-  const { data: stats } = useQuery(["student-stats"], () => getSimulatorStatsByStudent(simulator));
+  const { data: stats } = useQuery(["student-stats"], () => getSimulatorStatsByStudent(simulator,dispatch, navigate ));
 
   return (
     <DashboardLayout>

@@ -16,6 +16,19 @@ export const CreateNewUser = (payload) => {
   return axios(request);
 };
 
+export const createGuestUser = (payload) => {
+  const request = {
+    method: "POST",
+    url: `${authUrl}signup`,
+    headers: {
+      "content-type": "application/json",
+    },
+    data: payload,
+  };
+
+  return axios(request);
+};
+
 export const loginUser = (payload) => {
   const request = {
     method: "POST",

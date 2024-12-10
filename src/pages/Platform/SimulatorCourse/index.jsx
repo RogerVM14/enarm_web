@@ -57,14 +57,15 @@ const SimulatorCoursePage = () => {
     };
   }, []);
 
+
   const {
     isLoading,
     isError,
     data: simulatorQuestions,
-  } = useQuery("questions", () => getSimulatorQuestions(simulator_id));
+  } = useQuery("questions", () => getSimulatorQuestions(simulator_id, dispatch, navigate));
 
   const { data: statsAttempts } = useQuery("stats", () =>
-    getSimulatorStatsByStudent(simulator_id)
+    getSimulatorStatsByStudent(simulator_id, dispatch, navigate)
   );
 
   useEffect(() => {
@@ -187,7 +188,7 @@ const SimulatorCoursePage = () => {
       answers_simulator: answersSimulator,
       rate_percent: Math.ceil(rate_percent),
     };
-    const response = await addAnswerSimulatorByStudent(objectData);
+    const response = await addAnswerSimulatorByStudent(objectData, dispatch, navigate);
     if (response) {
       if (!onCloseUp) {
         toast.success("Se ha agregado con exito.", {

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import LandingLayout from "../../Layouts/Landing";
 import PlataformaEnarm from "../../Assets/Images/PlataformaEnarm.png";
 import HeroDoctorImage from "../../Assets/Images/HeroDoctorImage.png";
@@ -17,20 +17,29 @@ import { resetCheckoutInformation } from "../../../store/reducers/checkout/check
 import { resetUserInformation } from "../../../store/reducers/user/UserInformationSlice";
 import { ROUTES } from "../../../constants/routes";
 import TestimonialCarousel from "../../../components/TestimonialCarousel";
+import { createGuestUser } from "../../../apis/auth/authApi";
 
 const HomePage = () => {
   const dispatch = useDispatch();
+  const [guestEmail, setGuestEmail] = useState("");
+  const [guestPassword, setGuestPassword] = useState("");
+
   useEffect(() => {
     dispatch(resetCheckoutInformation());
     dispatch(resetUserInformation());
   }, []);
 
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  }, []);
+  // useEffect(() => {
+  //   window.scrollTo({
+  //     top: 0,
+  //     behavior: "smooth",
+  //   });
+  // }, []);
+
+  const handleCreateGuestUser = () => {
+    console.log("create guest");
+    //  createGuestUser()
+  };
 
   const wordsTitle = [
     "¿Te",
@@ -112,17 +121,6 @@ const HomePage = () => {
               <div className={ui.demoForm}>
                 <form>
                   <div className={ui.formInput}>
-                    <label className="input-label white" htmlFor="name">
-                      Nombre completo*
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="Nombre completo"
-                      name="name"
-                    />
-                    {/* <span className="regular-parraf danger">Error</span> */}
-                  </div>
-                  <div className={ui.formInput}>
                     <label className="input-label white" htmlFor="correo">
                       Correo Electrónico*
                     </label>
@@ -130,27 +128,37 @@ const HomePage = () => {
                       type="email"
                       placeholder="Tu correo electrónico"
                       name="email"
+                      value={guestEmail}
+                      onChange={(e) => {
+                        setGuestEmail(e.target.value);
+                      }}
                     />
-                    {/* <span className="regular-parraf danger">Error</span> */}
                   </div>
-                  <div className={ui.formInputColumns}>
-                    <div className={ui.formInput}>
-                      <label className="input-label white" htmlFor="tel">
-                        WhatsApp{" "}
-                        <span className={ui.italicLabel}>(Opcional)</span>
-                      </label>
-                      <input
-                        type="tel"
-                        placeholder="Tu número de WhatsApp"
-                        name="tel"
-                      />
-                      {/* <span className="regular-parraf danger">Error</span> */}
-                    </div>
-                    <Link to={ROUTES.REGISTRO} className={ui.blueLink}>
-                      Quiero mi curso
-                    </Link>
+                  <div className={ui.formInput}>
+                    <label className="input-label white" htmlFor="name">
+                      Contraseña*
+                    </label>
+                    <input
+                      type="password"
+                      placeholder="********"
+                      name="password"
+                      value={guestPassword}
+                      onChange={(e) => {
+                        setGuestPassword(e.target.value);
+                      }}
+                    />
                   </div>
                 </form>
+                <div className={ui.formInputColumns}>
+                  <button
+                    onClick={handleCreateGuestUser}
+                    style={{ cursor: `${!guestEmail || !guestPassword ? "not-allowed" : "pointer"}` }}
+                    className={ui.blueLink}
+                    disabled={!guestEmail || !guestPassword}
+                  >
+                    Quiero mi curso
+                  </button>
+                </div>
               </div>
               <div className={ui.verticalCards}>
                 <div className={ui.cardAdvantage}>
@@ -247,7 +255,7 @@ const HomePage = () => {
       <section id={ui.testimonials}>
         <div className="full-container">
           <div className="container-section">
-          <div className={ui.titleContainer}>
+            <div className={ui.titleContainer}>
               <h2 className="section-title text-center">Nuestros Alumnos</h2>
             </div>
             <TestimonialCarousel visibleItems={3} interval={4000} />
