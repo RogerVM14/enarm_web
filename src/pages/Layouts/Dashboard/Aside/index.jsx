@@ -24,7 +24,7 @@ const DashboardAsideTemplate = ({ smallDevice, isMenuActive, handleShowMenu = ()
   const dispatch = useDispatch()
 
   const [displayTools, setDisplayTools] = useState(false);
-  const { data: studyPlans } = useQuery(["study-plans"], getStudyPlans(dispatch, navigateTo), { staleTime: Infinity });
+  const { data: studyPlans } = useQuery(["study-plans"], () => getStudyPlans(dispatch, navigateTo), { staleTime: Infinity });
 
   const { globalMenuSelected, setGlobalMenuSelected, simulatorIsActive, setSimulatorCooldownAdvice } =
     useContext(GeneralContext);
