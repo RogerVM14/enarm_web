@@ -20,13 +20,16 @@ import { useQuery } from "react-query";
 import { getStudyPlans } from "../../../../apis/platform";
 
 const DashboardAsideTemplate = ({ smallDevice, isMenuActive, handleShowMenu = () => {} }) => {
-  const [displayTools, setDisplayTools] = useState(false);
-  const { data: studyPlans } = useQuery(["study-plans"], getStudyPlans, { staleTime: Infinity });
   const navigateTo = useNavigate();
+  const dispatch = useDispatch()
+
+  const [displayTools, setDisplayTools] = useState(false);
+  const { data: studyPlans } = useQuery(["study-plans"], getStudyPlans(dispatch, navigateTo), { staleTime: Infinity });
+
   const { globalMenuSelected, setGlobalMenuSelected, simulatorIsActive, setSimulatorCooldownAdvice } =
     useContext(GeneralContext);
 
-  const navigate = useNavigate();
+  
 
   const menuPlans = useMemo(() => {
     return studyPlans?.map((plan) => ({
@@ -91,7 +94,7 @@ const DashboardAsideTemplate = ({ smallDevice, isMenuActive, handleShowMenu = ()
               return;
             }
             setGlobalMenuSelected(null);
-            navigate(ROUTES.HOME,{ replace: true});
+            navigateTo(ROUTES.HOME,{ replace: true});
           }}
         >
           <div className={ui.imageContainer}>
@@ -131,7 +134,7 @@ const DashboardAsideTemplate = ({ smallDevice, isMenuActive, handleShowMenu = ()
                               setSimulatorCooldownAdvice(true);
                               return;
                             }
-                            navigate(subItem.route);
+                            navigateTo(subItem.route);
                           }}
                           className={ui.buttonSubMenuItem}
                         >
@@ -162,12 +165,12 @@ const UserTools = React.memo(({ display }) => {
   setSimulatorIsActive(false);
   setSimulatorCooldownAdvice(false);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const navigateTo = useNavigate();
   const handleLogout = useCallback(() => {
     setSimulatorIsActive(false);
     setSimulatorCooldownAdvice(false);
-    logout(dispatch, navigate);
-  }, [dispatch, navigate, setSimulatorIsActive, setSimulatorCooldownAdvice]);
+    logout(dispatch, navigateTo);
+  }, [dispatch, navigateTo, setSimulatorIsActive, setSimulatorCooldownAdvice]);
 
   return display ? (
     <div className={ui.userTools}>

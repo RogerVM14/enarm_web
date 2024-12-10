@@ -6,7 +6,7 @@ import FeedbackList from "./components/FeedbackList";
 import FilterList from "./components/FilterList";
 import { useQuery } from "react-query";
 import { getAnswersSimulatorAttemptByStudent } from "../../../apis/platform";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setIsLoadingContent } from "../../../store/reducers/general/general";
 
@@ -29,8 +29,9 @@ const FeedbackPage = () => {
   const [displaySpecialContent, setDisplaySpecialContent] = useState(false);
   const [filters, setFilters] = useState([]);
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const { simulator } = useQueryParams();
-  const { data: answers } = useQuery("answers", () => getAnswersSimulatorAttemptByStudent(simulator));
+  const { data: answers } = useQuery("answers", () => getAnswersSimulatorAttemptByStudent(simulator, dispatch, navigate));
 
   useEffect(() => {
     if (answers === undefined || Object.entries(answers).length === 0) {

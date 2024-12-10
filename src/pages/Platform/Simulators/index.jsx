@@ -10,6 +10,7 @@ import {
 import BouncingLoading from "./components/BouncingLoading";
 import { useDispatch } from "react-redux";
 import { setIsLoadingContent } from "../../../store/reducers/general/general";
+import { useNavigate } from "react-router-dom";
 
 const SimulatorsPage = () => {
   const [displayContainer, setDisplayContainer] = useState(false);
@@ -17,11 +18,12 @@ const SimulatorsPage = () => {
   const [simulatorsList, setSimulatorsList] = useState([]);
   const [specialtyPosition, setSpecialtyPosition] = useState(0);
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const {
     isLoading,
     isError,
     data: especialidades,
-  } = useQuery("resource-specialties", () => getSpecialties());
+  } = useQuery("resource-specialties", () => getSpecialties(dispatch, navigate));
 
   if (isLoading) {
     dispatch(setIsLoadingContent(true));
@@ -47,10 +49,11 @@ const SimulatorsPage = () => {
   };
 
   useEffect(() => {
+    
     const fetchData = async () => {
       if (!especialidades || specialtyPosition === 0) return;
       dispatch(setIsLoadingContent(true));
-      getSimulatorsBySpecialty(specialtyPosition).then((list) => {
+      getSimulatorsBySpecialty(specialtyPosition, dispatch, navigate).then((list) => {
         setSimulatorsList(list);
         dispatch(setIsLoadingContent(false));
       });

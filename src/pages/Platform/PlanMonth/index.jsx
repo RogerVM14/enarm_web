@@ -5,7 +5,7 @@ import PlanCourseCollapse from "./components/PlanCourseCollapse";
 import ui from "./index.module.css";
 import { useQuery } from "react-query";
 import { getStudyPlanById } from "../../../apis/platform";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setIsLoadingContent } from "../../../store/reducers/general/general";
 
@@ -22,9 +22,9 @@ const PlanMonthPage = () => {
   const [weeksList, setWeekList] = useState([]);
 
   const { plan, name } = useQueryParams();
-  const dispatch = useDispatch();
-
-  const { data: studyplans, isFetching } = useQuery([name], () => getStudyPlanById(plan));
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const { data: studyplans, isFetching } = useQuery([name], () => getStudyPlanById(plan, dispatch, navigate));
 
   // Manejar el estado de carga en un useEffect
   useEffect(() => {
