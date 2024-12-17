@@ -19,7 +19,7 @@ export const CreateNewUser = (payload) => {
 export const createGuestUser = (payload) => {
   const request = {
     method: "POST",
-    url: `${authUrl}signup`,
+    url: `${REACT_APP_ENARM_API_GATEWAY_URL}students/add-guest`,
     headers: {
       "content-type": "application/json",
     },

@@ -5,9 +5,11 @@ import "../css/checkout/CheckoutPageThankful.css";
 import { ROUTES } from "../constants/routes";
 import { savePaymentInformationOnDataBase } from "../apis/Checkout/CardPayment";
 import showToast from "../utils/toasts/commonToasts";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectUserCheckoutInformation } from "../store/reducers/user/UserInformationSlice";
 import { CONFIG } from "../constants/config";
+import { selectIsGuestUser } from "../store/reducers/general/general";
+import { logout } from "../utils/auth";
 
 const CheckoutPageGratification = () => {
   const getWindowWidth = () => {
@@ -25,6 +27,7 @@ const CheckoutPageGratification = () => {
   const userCheckoutInfo = useSelector(selectUserCheckoutInformation);
   const { user_id } = userCheckoutInfo;
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const location = useLocation();
 
   const getQueryParams = () => {
@@ -33,6 +36,8 @@ const CheckoutPageGratification = () => {
     const status = searchParams.get("status");
     return { payment_id, status };
   };
+
+  const isGuestUser = useSelector(selectIsGuestUser);
 
   useEffect(() => {
     window.addEventListener("resize", () => {
@@ -64,9 +69,25 @@ const CheckoutPageGratification = () => {
           showToast.error(
             "Algo sucedio con tu compra, por favor, consulta con soporte."
           );
+        })
+        .finally(() => {
+          setIsLoading(false);
         });
     }
   }, [navigate]);
+
+  const handleNavigateToDashboard = () => {
+    if (isGuestUser) {
+      logout(dispatch, navigate).then((res) => {
+        console.log(res);
+        showToast.success(
+          "¡Muchas gracias por tu compra!, necesitamos que inicies sesión nuevamente."
+        );
+      });
+    } else {
+      navigate(ROUTES.LOGIN);
+    }
+  };
 
   return (
     <>
@@ -79,9 +100,7 @@ const CheckoutPageGratification = () => {
         </span>
         <button
           className="button-rounded-blue-48"
-          onClick={() => {
-            navigate(ROUTES.LOGIN);
-          }}
+          onClick={handleNavigateToDashboard}
         >
           <span className="button-text">Descubre todo Sobre el Curso</span>
         </button>

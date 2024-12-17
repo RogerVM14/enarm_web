@@ -1,53 +1,64 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "../css/VerifyEmailCode.css";
 import verifyIcon from "../assets/icons/verify-email-icon.png";
-import { useSelector } from "react-redux";
-import { selectUserCheckoutInformation } from "../store/reducers/user/UserInformationSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUserCheckoutInformation, setUserInformation } from "../store/reducers/user/UserInformationSlice";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../constants/routes";
-import { verifyEmailCode } from "../apis/auth/authApi";
+import { loginUser, verifyEmailCode } from "../apis/auth/authApi";
 import showToast from "../utils/toasts/commonToasts";
-// import { verifyEmailCode } from "../apis/auth/authApi";
+import { selectIsGuestUser } from "../store/reducers/general/general";
+import { setCookie } from "../utils/auth/cookieSession";
 
 const VerifyEmailCodePage = () => {
   const [values, setValues] = useState(["", "", "", "", "", ""]);
   const [isReadyToVerify, setIsReadyToVerify] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const isGuestUser = useSelector(selectIsGuestUser);
   const navigate = useNavigate();
-  const fields = useRef([
-    React.createRef(),
-    React.createRef(),
-    React.createRef(),
-    React.createRef(),
-    React.createRef(),
-    React.createRef(),
-  ]);
+  const dispatch = useDispatch();
+  const fields = useRef(
+    Array.from({ length: 6 }, () => React.createRef())
+  );
 
-  // const email = useSelector(selectUserCheckoutEmail);
   const userInfo = useSelector(selectUserCheckoutInformation);
-  const { user_email, user_id } = userInfo;
-  const getConcatenatedValues = () => {
-    const concatenatedValues = fields.current
-      .map((fieldRef) => fieldRef?.current?.value)
-      .join("");
-    return concatenatedValues;
-  };
+  const { user_email, user_id, password } = userInfo;
+
+  useEffect(() => {
+    fields.current[0].current.focus();
+  }, []);
+
+  const getConcatenatedValues = () =>
+    fields.current.map((fieldRef) => fieldRef.current.value).join("");
 
   const handleChange = (index, event) => {
     const newValues = [...values];
-    const code = values.join("");
     newValues[index] = event.target.value;
     setValues(newValues);
+
     if (event.target.value.length === 1) {
       if (index + 1 < fields.current.length) {
         fields.current[index + 1].current.focus();
       }
     }
-    if (code.length + 1 === 6) {
+
+    if (newValues.every((value) => value.trim() !== "")) {
       setIsReadyToVerify(true);
     } else {
       setIsReadyToVerify(false);
+    }
+  };
+
+  const handleKeyDown = (index, event) => {
+    if (event.key === "Backspace" && !values[index] && index > 0) {
+      fields.current[index - 1].current.focus();
+    }
+
+    if (event.key === "ArrowLeft" && index > 0) {
+      fields.current[index - 1].current.focus();
+    } else if (event.key === "ArrowRight" && index < fields.current.length - 1) {
+      fields.current[index + 1].current.focus();
     }
   };
 
@@ -62,23 +73,33 @@ const VerifyEmailCodePage = () => {
     };
 
     try {
-      verifyEmailCode(payload).then((res) => {
-        const message = res.data.status_Message;
-        if (message === "authentication expired")
-          setErrorMessage("El código es inválido o ya expiro");
-        if (message === "authentication done") {
-          setErrorMessage("");
-          showToast.success("Tú correo fue verificado");
+      const res = await verifyEmailCode(payload);
+      const message = res.data.status_Message;
+      if (message === "authentication expired") {
+        setErrorMessage("El código es inválido o ya expiró");
+      } else if (message === "authentication done") {
+        setErrorMessage("");
+        showToast.success("Tú correo fue verificado");
+        if (isGuestUser) {
+          const loginResponse = await loginUser({
+            new_user_email: user_email,
+            new_user_password: password,
+            environment: "platform",
+          });
+
+          if (loginResponse.data.status_Message === "valid user") {
+            const { auth_token, ...rest } = loginResponse.data;
+            dispatch(setUserInformation(rest));
+            setCookie("accessToken", auth_token);
+            showToast.success("Bienvenido");
+            navigate(ROUTES.PLATAFORMA_DASHBOARD, { replace: true });
+          } else {
+            showToast.error("El usuario o la contraseña son incorrectos");
+          }
+        } else {
           navigate(ROUTES.CHECKOUT);
         }
- 
-      });
-      // if (res.data.statusCode === 200) {
-      //   setIsSuccess(true);
-      //   navigate(ROUTES.CHECKOUT);
-      // } else {
-      //   setErrorMessage("Código incorrecto o ha expirado. Intenta nuevamente.");
-      // }
+      }
     } catch (error) {
       setErrorMessage(
         "Hubo un error con la verificación. Por favor, inténtalo nuevamente."
@@ -109,13 +130,21 @@ const VerifyEmailCodePage = () => {
           {values.map((value, index) => (
             <div className="input-container" key={index}>
               <input
-                key={index}
                 type="text"
                 value={value}
                 maxLength={1}
-                autoComplete="new-password"
+                autoComplete="off"
                 onChange={(event) => handleChange(index, event)}
+                onKeyDown={(event) => handleKeyDown(index, event)}
                 ref={fields.current[index]}
+                style={{
+                  border: "1px solid #00000026",
+                  fontFamily: "PoppinsLight",
+                  fontSize: "32px",
+                  lineHeight: "48px",
+                  textAlign: "center",
+                  color: "black",
+                }}
               />
             </div>
           ))}

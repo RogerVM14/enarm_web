@@ -187,3 +187,13 @@
   transform: rotate(90deg);
   transition: transform 200ms linear;
 }
+
+.lockedItem {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.lockedItem:hover {
+  background: var(--Neutral-2, #FAFAFA); /* Sin efecto hover */
+  box-shadow: none; /* Desactiva sombra en hover */
+}

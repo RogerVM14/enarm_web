@@ -44,6 +44,7 @@ import PublicRoutes from "./routes/PublicRoutes";
 import ForgotPassword from "./pages/Auth/ForgoPassword";
 import OTPVerification from "./pages/Auth/OTPVerification";
 import PasswordReset from "./pages/Auth/PasswordReset";
+import { selectIsGuestUser } from "./store/reducers/general/general";
 
 const AppRouter = () => {
   useEffect(() => {
@@ -101,6 +102,7 @@ const AppRouter = () => {
   const email_checkout = useSelector(selectUserCheckoutEmail);
   const isIdOnCheckout = user_id !== null && user_id !== undefined && user_id !== "";
   const isEmailOnCheckout = email_checkout !== null && email_checkout !== undefined && email_checkout !== "";
+  const isGuestUser = useSelector(selectIsGuestUser)
 
   return (
     <LandingProvider>
@@ -184,7 +186,7 @@ const AppRouter = () => {
               <Route
                 path={ROUTES.CHECKOUT}
                 element={
-                  <RenderComponenteIf condition={isIdOnCheckout} redirectTo={ROUTES.REGISTRO}>
+                  <RenderComponenteIf condition={isIdOnCheckout || isGuestUser} redirectTo={ROUTES.REGISTRO}>
                     <CheckoutPage />
                   </RenderComponenteIf>
                 }

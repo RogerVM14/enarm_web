@@ -128,6 +128,27 @@ div.email-verify-footer strong {
   text-align: center;
 }
 
+div.input-container input {
+  max-width: 40px;
+  min-height: 50px;
+  border: 1px solid #00000026; /* Borde ligero */
+  font-family: PoppinsLight;
+  font-size: 32px;
+  line-height: 48px;
+  text-align: center;
+  color: black;
+  background-color: #fff; /* Fondo blanco para mayor claridad */
+  border-radius: 4px; /* Borde redondeado opcional */
+  transition: border-color 0.3s ease;
+}
+
+div.input-container input:focus {
+  outline: none !important;
+  border-color: #1e73be; /* Borde más oscuro al enfocar */
+  box-shadow: 0 0 5px rgba(30, 115, 190, 0.5); /* Efecto visual al enfocar */
+}
+
+
 
 /* // Medium devices (tablets, 768px and up) */
 @media screen and (min-width: 750px) {

@@ -1,13 +1,35 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SimulatorsAdvice from "../components/SimulatorsAdvice";
 import ui from "../index.module.css";
 import ChevronIcon from "../../Assets/Icons/chevronicon.svg";
+import { useSelector } from "react-redux";
+import { selectIsGuestUserRole } from "../../../../store/reducers/user/UserInformationSlice";
+import ConfirmDialogModal from "../../../../components/ConfirmDialogModal";
+import { ROUTES } from "../../../../constants/routes";
 
 const Simulators = ({ simulators, cardDisplay, plan }) => {
   const [open, setOpen] = useState(false);
   const [dataQuery, setDataQuery] = useState({});
   const [simulatorsDisplay, setSimulatorsDisplay] = useState([]);
+  const isGuestUser = useSelector(selectIsGuestUserRole)
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const navigate = useNavigate()
+
+  const handleAcceptConfirm = () => {
+    console.log("Aceptar");
+    setIsConfirmModalOpen(false);
+    navigate(ROUTES.CHECKOUT)
+
+  };
+
+  const handleCancelConfirm = () => {
+    console.log("Cancelar");
+    setIsConfirmModalOpen(false);
+  };
+
+
+
 
   useEffect(() => {
     if (simulators?.length === 0 || simulators === undefined) return;
@@ -31,6 +53,7 @@ const Simulators = ({ simulators, cardDisplay, plan }) => {
     const minutes = parseInt(mm) === 0 ? "" : `${parseInt(mm)} ${parseInt(mm) === 1 ? "minuto" : "minutos"}`;
     return `${hour} ${minutes}`;
   };
+  console.log(simulators);
  
   return (
     <>
@@ -100,6 +123,9 @@ const Simulators = ({ simulators, cardDisplay, plan }) => {
                       type="button"
                       className="max-h-10 min-h-10 rounded-sm border-solid border-[1px] border-[#05B2FA] bg-[#05B2FA] text-white poppins-regular-14 py-2 px-4"
                       onClick={() => {
+                        if(isGuestUser && simulator?.user_attempts > 0 ){
+                          setIsConfirmModalOpen(true)
+                        }
                         if (simulator?.is_completed === true) {
                           window.alert("Haz realido todos intentos para este simulador.");
                           return;
@@ -118,6 +144,13 @@ const Simulators = ({ simulators, cardDisplay, plan }) => {
         );
       })}
       <SimulatorsAdvice open={open} onClose={() => setOpen(false)} query={dataQuery} />
+      <ConfirmDialogModal
+        isOpen={isConfirmModalOpen}
+        onAccept={handleAcceptConfirm}
+        onCancel={handleCancelConfirm}
+        title="Realiza tu pago"
+        description="Paga por nuestro curso para poder disfrutar de todo el contenido que tenemos para ti"
+      />
     </>
   );
 };

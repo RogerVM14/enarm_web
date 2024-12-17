@@ -57,12 +57,13 @@ const SimulatorCoursePage = () => {
     };
   }, []);
 
-
   const {
     isLoading,
     isError,
     data: simulatorQuestions,
-  } = useQuery("questions", () => getSimulatorQuestions(simulator_id, dispatch, navigate));
+  } = useQuery("questions", () =>
+    getSimulatorQuestions(simulator_id, dispatch, navigate)
+  );
 
   const { data: statsAttempts } = useQuery("stats", () =>
     getSimulatorStatsByStudent(simulator_id, dispatch, navigate)
@@ -188,7 +189,11 @@ const SimulatorCoursePage = () => {
       answers_simulator: answersSimulator,
       rate_percent: Math.ceil(rate_percent),
     };
-    const response = await addAnswerSimulatorByStudent(objectData, dispatch, navigate);
+    const response = await addAnswerSimulatorByStudent(
+      objectData,
+      dispatch,
+      navigate
+    );
     if (response) {
       if (!onCloseUp) {
         toast.success("Se ha agregado con exito.", {
@@ -210,11 +215,18 @@ const SimulatorCoursePage = () => {
   };
 
   const dispatch = useDispatch();
-  if (isLoading) {
-    dispatch(setIsLoadingContent(true));
-  } else {
-    dispatch(setIsLoadingContent(false));
-  }
+  
+  useEffect(() => {
+    if (isLoading) {
+      dispatch(setIsLoadingContent(true));
+    } else {
+      dispatch(setIsLoadingContent(false));
+    }
+
+    return () => {
+      dispatch(setIsLoadingContent(false));
+    };
+  }, [isLoading]);
 
   return (
     <DashboardLayout>

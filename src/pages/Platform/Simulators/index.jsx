@@ -11,6 +11,7 @@ import BouncingLoading from "./components/BouncingLoading";
 import { useDispatch } from "react-redux";
 import { setIsLoadingContent } from "../../../store/reducers/general/general";
 import { useNavigate } from "react-router-dom";
+import showToast from "../../../utils/toasts/commonToasts";
 
 const SimulatorsPage = () => {
   const [displayContainer, setDisplayContainer] = useState(false);
@@ -18,18 +19,26 @@ const SimulatorsPage = () => {
   const [simulatorsList, setSimulatorsList] = useState([]);
   const [specialtyPosition, setSpecialtyPosition] = useState(0);
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const {
     isLoading,
     isError,
     data: especialidades,
-  } = useQuery("resource-specialties", () => getSpecialties(dispatch, navigate));
+  } = useQuery("resource-specialties", () =>
+    getSpecialties(dispatch, navigate)
+  );
 
-  if (isLoading) {
-    dispatch(setIsLoadingContent(true));
-  } else {
-    dispatch(setIsLoadingContent(false));
-  }
+  useEffect(() => {
+    if (isLoading) {
+      dispatch(setIsLoadingContent(true));
+    } else {
+      dispatch(setIsLoadingContent(false));
+    }
+
+    return () => {
+      dispatch(setIsLoadingContent(false));
+    };
+  }, [isLoading]);
 
   useEffect(() => {
     function getWindowSize() {
@@ -49,14 +58,21 @@ const SimulatorsPage = () => {
   };
 
   useEffect(() => {
-    
     const fetchData = async () => {
       if (!especialidades || specialtyPosition === 0) return;
       dispatch(setIsLoadingContent(true));
-      getSimulatorsBySpecialty(specialtyPosition, dispatch, navigate).then((list) => {
-        setSimulatorsList(list);
-        dispatch(setIsLoadingContent(false));
-      });
+      getSimulatorsBySpecialty(specialtyPosition, dispatch, navigate)
+        .then((list) => {
+          setSimulatorsList(list);
+          dispatch(setIsLoadingContent(false));
+        })
+        .catch(() => {
+          showToast.error("Error al intentar obtener los simuladores");
+          dispatch(setIsLoadingContent(false));
+        })
+        .finally(() => {
+          dispatch(setIsLoadingContent(false));
+        });
     };
     fetchData();
   }, [specialtyPosition, especialidades]);

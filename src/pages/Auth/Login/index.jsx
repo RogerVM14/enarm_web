@@ -112,7 +112,7 @@ const FormLogin = () => {
           }
           if (res.data.status_Message === "valid user") {
             const { status_Message, ...rest } = res.data;
-            if (!rest.has_payments) {
+            if (!rest.has_payments && rest.user_role_id !== 4) {
               showToast.info(
                 "No haz realizado tu pago aún, procede a realizarlo"
               );

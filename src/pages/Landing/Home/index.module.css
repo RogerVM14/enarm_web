@@ -71,11 +71,11 @@ div.backgroundBlue[datatype=small] {
   font-size: 14px;
 }
 
-form>.formInput {
+form>.formInput, form>div>.formInput {
   margin-bottom: 1rem;
 }
 
-.formInput>input {
+.formInput>input, .formInput>div>input {
   border-radius: 10px;
   border: 1px solid var(--gray);
   background: var(--white);
@@ -83,7 +83,7 @@ form>.formInput {
   width: 100%;
 }
 
-.formInput>input::placeholder {
+.formInput>input::placeholder, .formInput>div>input::placeholder {
   color: #96ACBC;
   font-family: PoppinsRegular;
   font-size: 14px;

@@ -34,7 +34,7 @@ const CheckoutPage = () => {
     selectCardInformation
   );
   const userInfo = useSelector(selectUserCheckoutInformation);
-  const { user_email, password, user_id } = userInfo;
+  const { user_id } = userInfo;
 
   const getWindowWidth = () => {
     let x = window.innerWidth;
@@ -82,18 +82,7 @@ const CheckoutPage = () => {
 
     const fechaPago = moment().format("YYYY-MM-DD");
 
-    savePaymentWithCard({
-      nombre_tarjetahabiente: cardOwnerName,
-      tipo_tarjeta: "Visa",
-      numero_tarjeta: sanitizedCardNumber,
-      cvv,
-      fecha_expiracion: `${parseInt(expirationMonth, 10)}/${parseInt(
-        expirationYear.slice(-2),
-        10
-      )}`,
-      fecha_pago: fechaPago,
-    })
-
+   
     createTokenCardForPayment(payload)
       .then((response) => {
         if (response.data.statusCode === 200) {
@@ -103,14 +92,18 @@ const CheckoutPage = () => {
             transactionAmount: CONFIG.PRICE,
             description: "Compra curso ENARM",
             installments: 1,
-            payerEmail: user_checkout_email || "",
+            payerEmail: "rvm2244@gmail.com" || "", 
+            // payerEmail: user_checkout_email || "",
           };
           createPaymentWithCard(createPaymentPayload).then((response) => {
             const data = response?.data.body;
-            const { status, status_detail, id } = data;
-            const comissions =
-              data.transaction_details.total_paid_amount -
-              data.transaction_details.net_received_amount; 
+            const { status, status_detail, id, message, error } = data;
+
+            if(message === "Hubo un error al generar el pago"){
+              if(error === "Payer email forbidden"){
+                showToast.error("Tú email es inválido para realizar la compra")
+              }
+            }
             if (status === "rejected") {
               setLoading(false);
               showToast.error(
@@ -118,12 +111,15 @@ const CheckoutPage = () => {
               );
             }
             if (status === "approved" && status_detail === "accredited") {
+              const comissions =
+              data.transaction_details.total_paid_amount -
+              data.transaction_details.net_received_amount; 
               const paymentInfo = {
                 user_id: user_id,
                 payment_method: "Tarjeta",
                 external_order_id: id,
-                total: data.transaction_details.total_paid_amount || 0,
-                subtotal: data.transaction_details.net_received_amount,
+                total: data.transaction_details?.total_paid_amount || 0,
+                subtotal: data.transaction_details?.net_received_amount| 0,
                 commission: comissions,
                 payment_transaction_status: status,
                 payment_transaction_verification: true,

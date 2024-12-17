@@ -18,61 +18,93 @@ import { logout } from "../../../../utils/auth";
 import { GeneralContext } from "../../../../contexts/GeneralContext";
 import { useQuery } from "react-query";
 import { getStudyPlans } from "../../../../apis/platform";
-
-const DashboardAsideTemplate = ({ smallDevice, isMenuActive, handleShowMenu = () => {} }) => {
+import { useSelector } from "react-redux";
+import { selectIsGuestUserRole } from "../../../../store/reducers/user/UserInformationSlice";
+const DashboardAsideTemplate = ({
+  smallDevice,
+  isMenuActive,
+  handleShowMenu = () => {},
+}) => {
   const navigateTo = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const isGuestUser = useSelector(selectIsGuestUserRole);
 
   const [displayTools, setDisplayTools] = useState(false);
-  const { data: studyPlans } = useQuery(["study-plans"], () => getStudyPlans(dispatch, navigateTo), { staleTime: Infinity });
+  const { data: studyPlans } = useQuery(
+    ["study-plans"],
+    () => getStudyPlans(dispatch, navigateTo),
+    { staleTime: Infinity }
+  );
 
-  const { globalMenuSelected, setGlobalMenuSelected, simulatorIsActive, setSimulatorCooldownAdvice } =
-    useContext(GeneralContext);
-
-  
+  const {
+    globalMenuSelected,
+    setGlobalMenuSelected,
+    simulatorIsActive,
+    setSimulatorCooldownAdvice,
+  } = useContext(GeneralContext);
 
   const menuPlans = useMemo(() => {
+    if (isGuestUser) {
+      return studyPlans?.slice(0, 1).map((plan) => ({
+        id: plan?.study_plan_id,
+        route: `/cursoENARM/planes?id=${plan.study_plan_id}&name=${plan.study_plan_name}`,
+        label: plan?.study_plan_name,
+      }));
+    }
     return studyPlans?.map((plan) => ({
       id: plan?.study_plan_id,
       route: `/cursoENARM/planes?id=${plan.study_plan_id}&name=${plan.study_plan_name}`,
       label: plan?.study_plan_name,
     }));
-  }, [studyPlans]);
+  }, [studyPlans, isGuestUser]);
 
-  const menuItems = [
-    {
-      route: "#",
-      label: "Planes de Estudio",
-      activeIcon: DashboardBlueIcon,
-      inactiveIcon: DashboardBlackIcon,
-      submenu: menuPlans,
-    },
-    {
-      route: "/cursoENARM/recursos",
-      label: "Recursos",
-      activeIcon: ResourcesBlueIcon,
-      inactiveIcon: ResourcesBlackIcon,
-    },
-    {
-      route: "/cursoENARM/simuladores",
-      label: "Simuladores",
-      activeIcon: SimulatorBlueIcon,
-      inactiveIcon: SimulatorBlackIcon,
-    },
-    {
-      route: "/cursoENARM/documentos/guia",
-      label: "Documentos ENARM",
-      activeIcon: DocumentsBlueIcon,
-      inactiveIcon: DocumentsBlackIcon,
-      submenu: [
-        { route: "/cursoENARM/documentos/guia", label: "Guía de Estudio" },
-        { route: ROUTES.PLATAFORMA_AVISOS_ENARM, label: "Avisos" },
-      ],
-    },
-  ];
+  const menuItems = useMemo(() => {
+    if (isGuestUser) {
+      return [
+        {
+          route: "#",
+          label: "Planes de Estudio",
+          activeIcon: DashboardBlueIcon,
+          inactiveIcon: DashboardBlackIcon,
+          submenu: menuPlans,
+        },
+      ];
+    }
+    return [
+      {
+        route: "#",
+        label: "Planes de Estudio",
+        activeIcon: DashboardBlueIcon,
+        inactiveIcon: DashboardBlackIcon,
+        submenu: menuPlans,
+      },
+      {
+        route: "/cursoENARM/recursos",
+        label: "Recursos",
+        activeIcon: ResourcesBlueIcon,
+        inactiveIcon: ResourcesBlackIcon,
+      },
+      {
+        route: "/cursoENARM/simuladores",
+        label: "Simuladores",
+        activeIcon: SimulatorBlueIcon,
+        inactiveIcon: SimulatorBlackIcon,
+      },
+      {
+        route: "/cursoENARM/documentos/guia",
+        label: "Documentos ENARM",
+        activeIcon: DocumentsBlueIcon,
+        inactiveIcon: DocumentsBlackIcon,
+        submenu: [
+          { route: "/cursoENARM/documentos/guia", label: "Guía de Estudio" },
+          { route: ROUTES.PLATAFORMA_AVISOS_ENARM, label: "Avisos" },
+        ],
+      },
+    ];
+  }, [isGuestUser, menuPlans]);
 
   const onClickEventMenu = (index, route) => {
-    if (simulatorIsActive) { 
+    if (simulatorIsActive) {
       setSimulatorCooldownAdvice(true);
       return;
     }
@@ -81,7 +113,11 @@ const DashboardAsideTemplate = ({ smallDevice, isMenuActive, handleShowMenu = ()
   };
 
   return (
-    <aside className={ui.asideStyle} data-portability={smallDevice} data-active={isMenuActive}>
+    <aside
+      className={ui.asideStyle}
+      data-portability={smallDevice}
+      data-active={isMenuActive}
+    >
       <div className={ui.asideBackground}></div>
       <div className={ui.asideContainer}>
         <Link
@@ -89,12 +125,12 @@ const DashboardAsideTemplate = ({ smallDevice, isMenuActive, handleShowMenu = ()
           style={{ cursor: "pointer" }}
           to={ROUTES.HOME}
           onClick={() => {
-            if (simulatorIsActive) { 
+            if (simulatorIsActive) {
               setSimulatorCooldownAdvice(true);
               return;
             }
             setGlobalMenuSelected(null);
-            navigateTo(ROUTES.HOME,{ replace: true});
+            navigateTo(ROUTES.HOME, { replace: true });
           }}
         >
           <div className={ui.imageContainer}>
@@ -105,7 +141,11 @@ const DashboardAsideTemplate = ({ smallDevice, isMenuActive, handleShowMenu = ()
         <nav>
           <ul className={ui.menuList}>
             <li data-portability={smallDevice} style={{ display: "none" }}>
-              <button type="button" className={ui.closeButton} onClick={() => handleShowMenu()}>
+              <button
+                type="button"
+                className={ui.closeButton}
+                onClick={() => handleShowMenu()}
+              >
                 <img src={CloseIcon} alt="close" />
               </button>
             </li>
@@ -118,9 +158,20 @@ const DashboardAsideTemplate = ({ smallDevice, isMenuActive, handleShowMenu = ()
                     }
                     onClickEventMenu(index, item.route);
                   }}
-                  className={globalMenuSelected === index ? ui.buttonMenuItemSelected : ui.buttonMenuItem}
+                  className={
+                    globalMenuSelected === index
+                      ? ui.buttonMenuItemSelected
+                      : ui.buttonMenuItem
+                  }
                 >
-                  <img src={globalMenuSelected === index ? item.activeIcon : item.inactiveIcon} alt={item.label} />
+                  <img
+                    src={
+                      globalMenuSelected === index
+                        ? item.activeIcon
+                        : item.inactiveIcon
+                    }
+                    alt={item.label}
+                  />
                   {item.label}
                 </button>
                 {item.submenu && globalMenuSelected === index && (
@@ -148,8 +199,16 @@ const DashboardAsideTemplate = ({ smallDevice, isMenuActive, handleShowMenu = ()
             ))}
           </ul>
           <div className={ui.asideFooter}>
-            <div className={ui.containerUser} onClick={() => setDisplayTools(!displayTools)}>
-              <img src={UserDefaultIcon} alt="User icon" width="24" height="24" />
+            <div
+              className={ui.containerUser}
+              onClick={() => setDisplayTools(!displayTools)}
+            >
+              <img
+                src={UserDefaultIcon}
+                alt="User icon"
+                width="24"
+                height="24"
+              />
               <p>Username</p>
             </div>
             <UserTools display={displayTools} />
@@ -161,7 +220,8 @@ const DashboardAsideTemplate = ({ smallDevice, isMenuActive, handleShowMenu = ()
 };
 
 const UserTools = React.memo(({ display }) => {
-  const { setSimulatorIsActive, setSimulatorCooldownAdvice } = useContext(GeneralContext);
+  const { setSimulatorIsActive, setSimulatorCooldownAdvice } =
+    useContext(GeneralContext);
   setSimulatorIsActive(false);
   setSimulatorCooldownAdvice(false);
   const dispatch = useDispatch();

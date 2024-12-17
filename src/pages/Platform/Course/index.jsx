@@ -9,6 +9,7 @@ import Videos from "./components/Videos";
 import Graphics from "./components/Graphics";
 import Simulators from "./components/Simulators";
 import { useDispatch } from "react-redux";
+import { setIsLoadingContent } from "../../../store/reducers/general/general";
 
 const useQueryParams = () => {
   const { search } = useLocation();
@@ -38,7 +39,20 @@ const CoursePage = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const { data: resources } = useQuery("resources", () => getWeekResourcesByWeekAndPlan(params, dispatch, navigate));
+  const { isLoading, data: resources } = useQuery("resources", () => getWeekResourcesByWeekAndPlan(params, dispatch, navigate));
+
+
+  useEffect(() => {
+    if (isLoading) {
+      dispatch(setIsLoadingContent(true));
+    } else {
+      dispatch(setIsLoadingContent(false));
+    }
+
+    return () => {
+      dispatch(setIsLoadingContent(false));
+    };
+  }, [isLoading]);
 
   useEffect(() => {
     if (!resources) return;
