@@ -4,7 +4,7 @@ import SectionContact from "../../../components/SectionContact";
 import doctorCoffee from "../../../assets/imgs/monis/einstein-coffee.png";
 import facebookIcon from "../../../assets/icons/facebook-blue.png";
 import telegramIcon from "../../../assets/icons/telegram-blue.png";
-import messengerIcon from "../../../assets/icons/messenger-blue.png";
+// import messengerIcon from "../../../assets/icons/messenger-blue.png";
 import twitterIcon from "../../../assets/icons/twitter-blue.png";
 import pinterestIcon from "../../../assets/icons/pinterest-blue.png";
 import instagramIcon from "../../../assets/icons/instagram-blue.png";

@@ -8,7 +8,6 @@ import Facebook from "./Icons/Facebook.svg";
 import Instagram from "./Icons/Instagram.svg";
 import Pinterest from "./Icons/Pinterest.svg";
 import Twitter from "./Icons/X.svg";
-import Messenger from "./Icons/Messenger.svg";
 import { ROUTES } from "../../../../constants/routes";
 import { SOCIAL_MEDIA_LINKS } from "../../../../constants/generals";
 

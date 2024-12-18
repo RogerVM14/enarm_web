@@ -10,9 +10,7 @@ import ModalComplementaryUserInfo from "../../../components/userInfoModal/ModalC
 import { useSelector } from "react-redux";
 import {
   selectFullUserName,
-  selectUserInfoComplete,
 } from "../../../store/reducers/user/UserInformationSlice";
-import { saveComplementaryStudentInfo } from "../../../apis/student/studentApi";
 import { ROUTES } from "../../../constants/routes";
 
 const DashboardPage = () => {

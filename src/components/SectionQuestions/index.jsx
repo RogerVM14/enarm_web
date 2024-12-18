@@ -8,7 +8,7 @@ import Item5 from "./Items/Item5";
 import Item6 from "./Items/Item6";
 import Item7 from "./Items/Item7";
 import Item8 from "./Items/Item8";
-import Item9 from "./Items/Item9";
+// import Item9 from "./Items/Item9";
 import ui from "./index.module.css";
 
 const questions = [
