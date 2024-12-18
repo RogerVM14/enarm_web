@@ -79,7 +79,7 @@ const CheckoutPageGratification = () => {
   const handleNavigateToDashboard = () => {
     if (isGuestUser) {
       logout(dispatch, navigate).then((res) => {
-        console.log(res);
+        // console.log(res);
         showToast.success(
           "¡Muchas gracias por tu compra!, necesitamos que inicies sesión nuevamente."
         );

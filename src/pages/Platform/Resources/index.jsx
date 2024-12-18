@@ -32,7 +32,6 @@ const ResourcesPage = () => {
   } else {
     dispatch(setIsLoadingContent(false));
   }
-  console.log(isError);
 
   const specialtyListProps = {
     data: especialidades,

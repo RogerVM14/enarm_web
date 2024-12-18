@@ -17,14 +17,12 @@ const Simulators = ({ simulators, cardDisplay, plan }) => {
   const navigate = useNavigate()
 
   const handleAcceptConfirm = () => {
-    console.log("Aceptar");
     setIsConfirmModalOpen(false);
     navigate(ROUTES.CHECKOUT)
 
   };
 
   const handleCancelConfirm = () => {
-    console.log("Cancelar");
     setIsConfirmModalOpen(false);
   };
 
@@ -53,7 +51,7 @@ const Simulators = ({ simulators, cardDisplay, plan }) => {
     const minutes = parseInt(mm) === 0 ? "" : `${parseInt(mm)} ${parseInt(mm) === 1 ? "minuto" : "minutos"}`;
     return `${hour} ${minutes}`;
   };
-  console.log(simulators);
+
  
   return (
     <>

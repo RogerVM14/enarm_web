@@ -21,14 +21,12 @@ const PlanCourseCollapse = ({ weeksList, planID }) => {
   };
   //FALTA COLOCAR LAS FUNCIONES PARA EL PAGO
   const handleAcceptConfirm = () => {
-    console.log("Aceptar");
     setIsConfirmModalOpen(false);
     navigate(ROUTES.CHECKOUT)
 
   };
 
   const handleCancelConfirm = () => {
-    console.log("Cancelar");
     setIsConfirmModalOpen(false);
   };
 

@@ -275,7 +275,7 @@ export const getStudyPlans = async (dispatch, navigate) => {
     const { data, status } = await axios.get(endpoint, headers);
 
     if (data.status_Message === "there are study plans" && status === 200) {
-      console.log(data.study_plans);
+      // console.log(data.study_plans);
       return data.study_plans;
     }
     throw new Error();

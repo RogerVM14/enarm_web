@@ -92,8 +92,8 @@ const CheckoutPage = () => {
             transactionAmount: CONFIG.PRICE,
             description: "Compra curso ENARM",
             installments: 1,
-            payerEmail: "rvm2244@gmail.com" || "", 
-            // payerEmail: user_checkout_email || "",
+            payerEmail: user_checkout_email || "",
+            // payerEmail: "rvm2244@gmail.com" || "",  solo pruebas
           };
           createPaymentWithCard(createPaymentPayload).then((response) => {
             const data = response?.data.body;
