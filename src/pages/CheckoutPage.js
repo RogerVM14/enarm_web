@@ -82,7 +82,6 @@ const CheckoutPage = () => {
 
     const fechaPago = moment().format("YYYY-MM-DD");
 
-   
     createTokenCardForPayment(payload)
       .then((response) => {
         if (response.data.statusCode === 200) {
@@ -93,15 +92,16 @@ const CheckoutPage = () => {
             description: "Compra curso ENARM",
             installments: 1,
             payerEmail: user_checkout_email || "",
-            // payerEmail: "rvm2244@gmail.com" || "",  solo pruebas
+            //solo pruebas
+            // payerEmail: "rvm2244@gmail.com" || "",
           };
           createPaymentWithCard(createPaymentPayload).then((response) => {
             const data = response?.data.body;
             const { status, status_detail, id, message, error } = data;
 
-            if(message === "Hubo un error al generar el pago"){
-              if(error === "Payer email forbidden"){
-                showToast.error("Tú email es inválido para realizar la compra")
+            if (message === "Hubo un error al generar el pago") {
+              if (error === "Payer email forbidden") {
+                showToast.error("Tú email es inválido para realizar la compra");
               }
             }
             if (status === "rejected") {
@@ -112,14 +112,14 @@ const CheckoutPage = () => {
             }
             if (status === "approved" && status_detail === "accredited") {
               const comissions =
-              data.transaction_details.total_paid_amount -
-              data.transaction_details.net_received_amount; 
+                data.transaction_details.total_paid_amount -
+                data.transaction_details.net_received_amount;
               const paymentInfo = {
                 user_id: user_id,
                 payment_method: "Tarjeta",
                 external_order_id: id,
                 total: data.transaction_details?.total_paid_amount || 0,
-                subtotal: data.transaction_details?.net_received_amount| 0,
+                subtotal: data.transaction_details?.net_received_amount | 0,
                 commission: comissions,
                 payment_transaction_status: status,
                 payment_transaction_verification: true,

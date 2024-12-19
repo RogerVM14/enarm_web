@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./userModal.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  selectAuthToken,
   selectUserId,
   selectUserInfoComplete,
   setInfoCompleted,
@@ -9,11 +10,48 @@ import {
 } from "../../store/reducers/user/UserInformationSlice";
 import { saveComplementaryStudentInfo } from "../../apis/student/studentApi";
 import showToast from "../../utils/toasts/commonToasts";
+import { removeSession } from "../../hooks/removeSession";
+import { useNavigate } from "react-router-dom";
 
 const ModalComplementaryUserInfo = ({ isOpen, onClose }) => {
   const isModalOpen = useSelector(selectUserInfoComplete);
-  const [isUserInfoAlreadySaved, setIsUserInfoAlreadySaved] = useState(isModalOpen);
+  const [isUserInfoAlreadySaved, setIsUserInfoAlreadySaved] =
+    useState(isModalOpen);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const specialties = [
+    "Medicina General",
+    "Cardiología",
+    "Dermatología",
+    "Gastroenterología",
+    "Endocrinología",
+    "Pediatría",
+    "Ginecología y Obstetricia",
+    "Neurología",
+    "Psiquiatría",
+    "Traumatología y Ortopedia",
+    "Reumatología",
+    "Oncología",
+    "Oftalmología",
+    "Otorrinolaringología",
+    "Urología",
+    "Nefrología",
+    "Neumología",
+    "Cirugía General",
+    "Cirugía Plástica",
+    "Cirugía Cardiovascular",
+    "Anestesiología",
+    "Hematología",
+    "Medicina Interna",
+    "Medicina de Urgencias",
+    "Medicina del Deporte",
+    "Medicina Física y Rehabilitación",
+    "Patología Clínica",
+    "Radiología",
+    "Geriatría",
+    "Infectología",
+  ];
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -23,15 +61,17 @@ const ModalComplementaryUserInfo = ({ isOpen, onClose }) => {
   });
 
   const user_id = useSelector(selectUserId);
+  const auth_token = useSelector(selectAuthToken);
+
   const handleComplementaryInformation = () => {
     const info = {
       fullname: formData.fullName,
       telephone_number: formData.phone,
-      top_specialties: `${formData.specialty1.trim()}-${formData.specialty2.trim()}`,
+      top_specialties: `${formData.specialty1}-${formData.specialty2}`,
       user_id,
     };
-    
-    saveComplementaryStudentInfo(info)
+
+    saveComplementaryStudentInfo(info, auth_token)
       .then((res) => {
         if (res.data.status_Message === "student info updated") {
           showToast.success("Información guardada");
@@ -42,12 +82,17 @@ const ModalComplementaryUserInfo = ({ isOpen, onClose }) => {
           showToast.error("Hubo un error al guardar tus datos");
         }
       })
-      .catch((err) => {
+      .catch((error) => {
+        if (error.request.status === 401) {
+          removeSession(dispatch, navigate);
+          showToast.error("Hemos detectado una sesión activa");
+        }
         showToast.error("Hubo un error al guardar tus datos");
       });
   };
 
   const [errors, setErrors] = useState({});
+
   const isFormValid = () =>
     formData.fullName &&
     formData.specialty1 &&
@@ -63,7 +108,11 @@ const ModalComplementaryUserInfo = ({ isOpen, onClose }) => {
   const validateField = (name, value) => {
     let errorMsg = "";
     if (!value && name !== "phone") errorMsg = "Este campo es obligatorio.";
-    if (name === "phone" && value && !/^\d+$/.test(value)) errorMsg = "El teléfono debe contener solo números.";
+    if (name === "phone") {
+      if (!/^[0-9]{0,10}$/.test(value))
+        errorMsg =
+          "El teléfono debe contener solo números y máximo 10 dígitos.";
+    }
     setErrors((prevErrors) => ({ ...prevErrors, [name]: errorMsg }));
   };
 
@@ -81,13 +130,16 @@ const ModalComplementaryUserInfo = ({ isOpen, onClose }) => {
   return (
     <div className="user-info-modal-overlay">
       <div className="user-info-modal-container">
-        <h2 className="user-info-modal-title">Llena la información para continuar</h2>
+        <h2 className="user-info-modal-title">
+          Llena la información para continuar
+        </h2>
         <p className="user-info-modal-subtitle">
-          La siguiente información es importante para mantener tu perfil correctamente administrado.
+          La siguiente información es importante para mantener tu perfil
+          correctamente administrado.
         </p>
-        <form onSubmit={handleSubmit} className="user-info-modal-form">
+        <form className="user-info-modal-form">
           <label className="user-info-modal-form-label">
-            Nombre Completo
+            Nombre Completo *
             <input
               type="text"
               name="fullName"
@@ -96,33 +148,51 @@ const ModalComplementaryUserInfo = ({ isOpen, onClose }) => {
               className="user-info-modal-form-input"
               required
             />
-            {errors.fullName && <span className="user-info-modal-error">{errors.fullName}</span>}
+            {errors.fullName && (
+              <span className="user-info-modal-error">{errors.fullName}</span>
+            )}
           </label>
 
           <label className="user-info-modal-form-label">
-            Opción de Especialidad 1
-            <input
-              type="text"
+            Opción de Especialidad 1 *
+            <select
               name="specialty1"
               value={formData.specialty1}
               onChange={handleChange}
               className="user-info-modal-form-input"
               required
-            />
-            {errors.specialty1 && <span className="user-info-modal-error">{errors.specialty1}</span>}
+            >
+              <option value="">Selecciona una especialidad</option>
+              {specialties.map((specialty) => (
+                <option key={specialty} value={specialty}>
+                  {specialty}
+                </option>
+              ))}
+            </select>
+            {errors.specialty1 && (
+              <span className="user-info-modal-error">{errors.specialty1}</span>
+            )}
           </label>
 
           <label className="user-info-modal-form-label">
-            Opción de Especialidad 2
-            <input
-              type="text"
+            Opción de Especialidad 2 *
+            <select
               name="specialty2"
               value={formData.specialty2}
               onChange={handleChange}
               className="user-info-modal-form-input"
               required
-            />
-            {errors.specialty2 && <span className="user-info-modal-error">{errors.specialty2}</span>}
+            >
+              <option value="">Selecciona una especialidad</option>
+              {specialties.map((specialty) => (
+                <option key={specialty} value={specialty}>
+                  {specialty}
+                </option>
+              ))}
+            </select>
+            {errors.specialty2 && (
+              <span className="user-info-modal-error">{errors.specialty2}</span>
+            )}
           </label>
 
           <label className="user-info-modal-form-label">
@@ -133,14 +203,21 @@ const ModalComplementaryUserInfo = ({ isOpen, onClose }) => {
               value={formData.phone}
               onChange={handleChange}
               className="user-info-modal-form-input"
+              maxLength="10"
+              placeholder="Ej: 1234567890"
             />
-            {errors.phone && <span className="user-info-modal-error">{errors.phone}</span>}
+            {errors.phone && (
+              <span className="user-info-modal-error">{errors.phone}</span>
+            )}
           </label>
-
-          <button type="submit" className="user-info-modal-submit-button" disabled={!isFormValid()}>
-            Continuar
-          </button>
         </form>
+        <button
+          onClick={handleSubmit}
+          className="user-info-modal-submit-button"
+          disabled={!isFormValid()}
+        >
+          Continuar
+        </button>
       </div>
     </div>
   );

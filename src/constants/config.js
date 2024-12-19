@@ -1,4 +1,4 @@
 export const CONFIG = {
   // PRICE: 5,
-  PRICE: 7000,
+  PRICE: 6000,
 };

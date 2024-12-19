@@ -73,6 +73,7 @@
   transition: background-color 200ms linear;
   align-self: center;
   width: 100%;
+  margin-top: 20px;
 }
 
 .user-info-modal-submit-button:disabled {
