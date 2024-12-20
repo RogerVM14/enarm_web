@@ -31,7 +31,7 @@ const RegisterPage = () => {
   const handleRegisterInformation = async () => {
     const insertUser = async () => {
       const { email, password } = userInfo;
-      const encryptPass = encryptPassword(password.toLocaleLowerCase());
+      const encryptPass = encryptPassword(password);
       const userInformation = { user_email: email, password: encryptPass };
 
       CreateNewUser(userInformation)

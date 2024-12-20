@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import americanexpress from "../../assets/icons/checkout/americanexpress.png";
 import visa from "../../assets/icons/checkout/visa.png";
 import mastercard from "../../assets/icons/checkout/mastercard.png";
-import mercadoPago from "../../assets/icons/checkout/mercadopago.webp";
+import mercadoPago from "../../assets/icons/checkout/mercadopago.svg";
 import CheckoutForm from "../MercadoPago/CheckoutForm";
 import { useDispatch, useSelector } from "react-redux";
 import {
