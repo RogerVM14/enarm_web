@@ -1,6 +1,5 @@
-import React from "react";
 import ui from "../index.module.css";
-// import FlashCardImage from "../../Assets/Images/Flashcard.png";
+import "react-quill/dist/quill.snow.css";
 
 const letters = ["A", "B", "C", "D"];
 const FeedbackBodyContent = ({ feed, position }) => {
@@ -15,7 +14,7 @@ const FeedbackBodyContent = ({ feed, position }) => {
   };
 
   return (
-    <React.Fragment>
+    <div>
       <h5>Pregunta {position}</h5>
       <p className={ui.feedbackCase}>{feed?.clinic_case}</p>
       <h5>{feed?.questions_case[0]?.simulator_question}</h5>
@@ -29,22 +28,16 @@ const FeedbackBodyContent = ({ feed, position }) => {
           );
         })}
       </ul>
-      <h5>
-        Respuesta{" "}
+      <h5 className="py-6">
+        Respuesta
         {feed?.questions_case[0]?.was_correct === null
           ? "no respondída"
           : feed?.questions_case[0]?.was_correct
           ? "correcta"
           : "incorrecta"}
       </h5>
-      <p className={ui.feedbackResponse}>
-        {feed?.questions_case[0]?.was_correct === null ? "" : feed?.questions_case[0]?.feedback}
-      </p>
-      {/* <p className={ui.feedbackTip}>🔥 Tip ENARM: {}</p> */}
-      {/* <div className={ui.flashCard}>
-        <img src={FlashCardImage} alt="flashcard" />
-      </div> */}
-    </React.Fragment>
+      <div dangerouslySetInnerHTML={{ __html: feed?.questions_case[0]?.feedback }}></div>
+    </div>
   );
 };
 
