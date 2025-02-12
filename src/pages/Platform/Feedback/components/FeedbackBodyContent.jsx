@@ -1,5 +1,5 @@
 import ui from "../index.module.css";
-import "react-quill/dist/quill.snow.css";
+// import "react-quill/dist/quill.snow.css";
 
 const letters = ["A", "B", "C", "D"];
 const FeedbackBodyContent = ({ feed, position }) => {

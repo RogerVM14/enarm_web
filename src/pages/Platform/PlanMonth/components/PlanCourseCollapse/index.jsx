@@ -7,28 +7,28 @@ import { selectIsGuestUserRole } from "../../../../../store/reducers/user/UserIn
 import ConfirmDialogModal from "../../../../../components/ConfirmDialogModal";
 import { ROUTES } from "../../../../../constants/routes";
 
-const PlanCourseCollapse = ({ weeksList, planID }) => {
+const PlanCourseCollapse = ({ weeksList, planID, data }) => {
   const navigate = useNavigate();
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const isGuestUser = useSelector(selectIsGuestUserRole);
 
-  const handleShowBodyContent = (week, isLocked) => {
+  const handleShowBodyContent = (week, isLocked, specialties) => {
+    if(specialties.length === 0 ) return;
     if (isLocked) {
       setIsConfirmModalOpen(true);
       return;
     }
-    navigate(`/cursoENARM/planes_contenido?plan=${planID}&week=${week}`);
+    navigate(`/cursoENARM/planes_contenido?plan=${planID}&week=${week}&specialties=${String(specialties?.join(","))}`);
   };
   //FALTA COLOCAR LAS FUNCIONES PARA EL PAGO
   const handleAcceptConfirm = () => {
     setIsConfirmModalOpen(false);
-    navigate(ROUTES.CHECKOUT)
-
+    navigate(ROUTES.CHECKOUT);
   };
 
   const handleCancelConfirm = () => {
     setIsConfirmModalOpen(false);
-  };
+  }; 
 
   return (
     <section>
@@ -41,9 +41,7 @@ const PlanCourseCollapse = ({ weeksList, planID }) => {
                 type="button"
                 className={`${ui.courseItem} ${isLocked ? ui.lockedItem : ""}`}
                 key={week?.week_id}
-                onClick={() =>
-                  handleShowBodyContent(week?.week_number, isLocked)
-                }
+                onClick={() => handleShowBodyContent(week?.week_number, isLocked, week?.specialties)}
               >
                 <div className={ui.itemContent}>
                   <div className={ui.contentHead}>
@@ -51,8 +49,7 @@ const PlanCourseCollapse = ({ weeksList, planID }) => {
                       <div className={ui.courseWeekTitle}>
                         <DotIcon />
                         <h6 className={ui.courseWeek}>
-                          Semana {week.week_number} -{" "}
-                          {week?.week_names.join(" / ")}
+                          Semana {week.week_number} - {week?.week_names.join(" / ")}
                         </h6>
                       </div>
                     </div>

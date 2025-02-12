@@ -34,7 +34,7 @@ const PlanMonthPage = () => {
   useEffect(() => {
     if (!studyplans) return;
     const resourceList = studyplans?.weeks.map(
-      ({ week_resources, week_names, week_id, week }) => {
+      ({ week_resources, week_names, week_id, week, week_specialty_ids }) => {
         const typeCounts = week_resources.reduce((acc, resource) => {
           acc[resource.type] = (acc[resource.type] || 0) + 1;
           return acc;
@@ -44,6 +44,7 @@ const PlanMonthPage = () => {
           week_names,
           week_id,
           week_number: week,
+          specialties: week_specialty_ids
         };
       }
     );
@@ -56,7 +57,7 @@ const PlanMonthPage = () => {
         <div className={ui.gridContainer}>
           <section>
             <PlanCourse planName={name} />
-            <PlanCourseCollapse weeksList={weeksList} planID={plan} />
+            <PlanCourseCollapse weeksList={weeksList} planID={plan} data={studyplans} />
           </section>
         </div>
       </div>

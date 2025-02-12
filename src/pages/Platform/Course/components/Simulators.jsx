@@ -8,26 +8,22 @@ import { selectIsGuestUserRole } from "../../../../store/reducers/user/UserInfor
 import ConfirmDialogModal from "../../../../components/ConfirmDialogModal";
 import { ROUTES } from "../../../../constants/routes";
 
-const Simulators = ({ simulators, cardDisplay, plan }) => {
+const Simulators = ({ simulators, cardDisplay, plan, tabSelected }) => { 
   const [open, setOpen] = useState(false);
   const [dataQuery, setDataQuery] = useState({});
   const [simulatorsDisplay, setSimulatorsDisplay] = useState([]);
-  const isGuestUser = useSelector(selectIsGuestUserRole)
+  const isGuestUser = useSelector(selectIsGuestUserRole);
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleAcceptConfirm = () => {
     setIsConfirmModalOpen(false);
-    navigate(ROUTES.CHECKOUT)
-
+    navigate(ROUTES.CHECKOUT);
   };
 
   const handleCancelConfirm = () => {
     setIsConfirmModalOpen(false);
   };
-
-
-
 
   useEffect(() => {
     if (simulators?.length === 0 || simulators === undefined) return;
@@ -52,8 +48,7 @@ const Simulators = ({ simulators, cardDisplay, plan }) => {
     return `${hour} ${minutes}`;
   };
 
- 
-  return (
+  return simulators?.filter((e) => e.specialty_name === tabSelected?.name).length > 0 ? (
     <>
       {simulatorsDisplay?.map((simulator, index) => {
         return (
@@ -121,13 +116,13 @@ const Simulators = ({ simulators, cardDisplay, plan }) => {
                       type="button"
                       className="max-h-10 min-h-10 rounded-sm border-solid border-[1px] border-[#05B2FA] bg-[#05B2FA] text-white poppins-regular-14 py-2 px-4"
                       onClick={() => {
-                        if(isGuestUser && simulator?.user_attempts > 0 ){
-                          setIsConfirmModalOpen(true)
+                        if (isGuestUser && simulator?.user_attempts > 0) {
+                          setIsConfirmModalOpen(true);
                         }
                         if (simulator?.is_completed === true) {
                           window.alert("Haz realido todos intentos para este simulador.");
                           return;
-                        } 
+                        }
                         setOpen(true);
                         setDataQuery({ simulator: simulator.simulator_id, plan: plan });
                       }}
@@ -150,7 +145,7 @@ const Simulators = ({ simulators, cardDisplay, plan }) => {
         description="Paga por nuestro curso para poder disfrutar de todo el contenido que tenemos para ti"
       />
     </>
-  );
+  ) : null;
 };
 
 export default Simulators;
