@@ -8,11 +8,11 @@ const PurchaseDetails = ({ size, isMobile, regularText, boldText }) => {
           Detalles de compra
         </h1>
         <p className={regularText()}>
-          Curso: <strong className={boldText()}>Paquete 11 meses</strong>
+           <strong className={boldText()}>Paquete Curso ENARM</strong>
         </p>
-        <p className={regularText()}>
+        {/* <p className={regularText()}>
           Duración: <strong className={boldText()}>11 meses</strong>
-        </p>
+        </p> */}
       </div>
       <hr />
       <div className="details__calculate">
@@ -22,7 +22,7 @@ const PurchaseDetails = ({ size, isMobile, regularText, boldText }) => {
         </div>
         <div>
           <span className={regularText()}>Descuento:</span>
-          <span className={regularText()}>- $3,000.00</span>
+          <span className={regularText()}>- $4,000.00</span>
         </div>
         <div>
           <span className={regularText()}>Tarjeta de Regalo:</span>
