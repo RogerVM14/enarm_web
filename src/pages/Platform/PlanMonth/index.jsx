@@ -22,10 +22,12 @@ const PlanMonthPage = () => {
   const [weeksList, setWeekList] = useState([]);
 
   const { plan, name } = useQueryParams();
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const { data: studyplans, isFetching } = useQuery([name], () => getStudyPlanById(plan, dispatch, navigate));
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
+  console.log({ name });
+  const { data: studyplans, isFetching } = useQuery([name], () => getStudyPlanById(plan, dispatch, navigate));
+  console.log({ studyplans });
   // Manejar el estado de carga en un useEffect
   useEffect(() => {
     dispatch(setIsLoadingContent(isFetching));
@@ -33,21 +35,19 @@ const PlanMonthPage = () => {
 
   useEffect(() => {
     if (!studyplans) return;
-    const resourceList = studyplans?.weeks.map(
-      ({ week_resources, week_names, week_id, week, week_specialty_ids }) => {
-        const typeCounts = week_resources.reduce((acc, resource) => {
-          acc[resource.type] = (acc[resource.type] || 0) + 1;
-          return acc;
-        }, {});
-        return {
-          resources: Object.entries(typeCounts),
-          week_names,
-          week_id,
-          week_number: week,
-          specialties: week_specialty_ids
-        };
-      }
-    );
+    const resourceList = studyplans?.weeks.map(({ week_resources, week_names, week_id, week, week_specialty_ids }) => {
+      const typeCounts = week_resources.reduce((acc, resource) => {
+        acc[resource.type] = (acc[resource.type] || 0) + 1;
+        return acc;
+      }, {});
+      return {
+        resources: Object.entries(typeCounts),
+        week_names,
+        week_id,
+        week_number: week,
+        specialties: week_specialty_ids,
+      };
+    });
     setWeekList(resourceList);
   }, [studyplans]);
 

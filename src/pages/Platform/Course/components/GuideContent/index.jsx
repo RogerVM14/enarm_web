@@ -21,7 +21,7 @@ const GuideContent = ({ resumeData, tabSelected, refetch }) => {
     const types = [...new Set(resumeData.recursos.map((e) => e[1]))];
     setTipos(types);
   }, [resumeData]);
- 
+
   const encodeFileUrl = (url) => {
     try {
       const urlParts = url.split("/");
@@ -45,6 +45,7 @@ const GuideContent = ({ resumeData, tabSelected, refetch }) => {
   };
 
   const handleChangeCompletedStatus = (resource_id) => {
+    setIsReadyUpdate(true);
     setResourcesToChange((prev) => [...prev, resource_id]);
     setRecursos((prev) => {
       return prev.map((e) => {
@@ -69,7 +70,7 @@ const GuideContent = ({ resumeData, tabSelected, refetch }) => {
         position: "top-right",
       });
       setResourcesToChange([]);
-      setIsReadyUpdate(false)
+      setIsReadyUpdate(false);
       await refetch();
     }
   };
@@ -79,28 +80,13 @@ const GuideContent = ({ resumeData, tabSelected, refetch }) => {
       <div className="absolute right-0 top-0 flex flex-row gap-x-2">
         {isReadyToUpdate ? (
           <button
-            onClick={() => setIsReadyUpdate(false)}
+            onClick={async () => await handleSubmitChangeCompleted()}
             type="button"
-            className="border border-slate-400 bg-white rounded-sm hover:bg-slate-100 active:scale-[.98] scale-1 transition-all text-slate-800 py-2 px-8"
+            className="border border-blue-500 bg-blue-500 rounded-sm hover:bg-blue-400 active:scale-[.98] scale-1 transition-all text-white py-2 px-4"
           >
-            Cancelar
+            Actualizar visualización de recursos
           </button>
-        ) : (
-          false
-        )}
-        <button
-          onClick={async () => {
-            if (isReadyToUpdate) {
-              await handleSubmitChangeCompleted();
-            } else {
-              setIsReadyUpdate(!isReadyToUpdate);
-            }
-          }}
-          type="button"
-          className="border border-blue-500 bg-blue-500 rounded-sm hover:bg-blue-400 active:scale-[.98] scale-1 transition-all text-white py-2 px-4"
-        >
-          {isReadyToUpdate ? "Actualizar" : "Actualizar visualización de recursos"}
-        </button>
+        ) : null}
       </div>
       <ul className="list-none">
         {tipos?.map((tipo, tipoIndex) => {
@@ -131,7 +117,6 @@ const GuideContent = ({ resumeData, tabSelected, refetch }) => {
                           <input
                             type="checkbox"
                             id={`resource-${recurso}`}
-                            disabled={!isReadyToUpdate}
                             checked={recurso[2]}
                             onChange={() => handleChangeCompletedStatus(recurso[3])}
                           />

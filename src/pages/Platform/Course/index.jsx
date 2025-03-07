@@ -59,7 +59,7 @@ const CoursePage = () => {
     return () => {
       dispatch(setIsLoadingContent(false));
     };
-  }, [isLoading]);
+  }, [isLoading, dispatch]);
 
   useEffect(() => {
     if (!resources) return;
