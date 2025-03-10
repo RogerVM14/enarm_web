@@ -98,7 +98,7 @@ const CoursePage = () => {
       }
     });
     setSimulators(simulator_types);
-    resume_specialty = [...new Set(resume_specialty.map((resource) => resource[0]))]; 
+    resume_specialty = [...new Set(resume_specialty.map((resource) => resource[0]))];
     setResume({
       especialidades: week_names.split("|").map((e) => e.trim()),
       tipo_recursos: resume_types,
@@ -111,9 +111,9 @@ const CoursePage = () => {
   };
   return (
     <DashboardLayout>
-      <div className="p-6">
-        <div className="grid grid-cols-[1fr_17.375rem] gap-x-6">
-          <div>
+      <div className="p-6 h-screen lg:h-auto ">
+        <div className="grid lg:grid-cols-[1fr_17.375rem]  gap-x-6 w-full">
+          <div className="w-full">
             <header>
               <div className="p-6 bg-white mb-2 border-solid border-[1px] border-[#d9d9d9]">
                 <div className="flex flex-row justify-start gap-x-3 mb-6 items-center">
@@ -170,7 +170,7 @@ const CoursePage = () => {
             </div>
           </div>
 
-          <aside>
+          <aside className="hidden lg:block">
             {/* <section id={ui.advance}>
               <header>
                 <div className={ui.sectionHeader}>
@@ -208,7 +208,7 @@ const CoursePage = () => {
                 </div>
               </header>
               <div className={ui.sectionBody}>
-                <p>¡Aprendizaje de calidad!</p>
+                <p className="poppins-regular-14">¡Aprendizaje de calidad!</p>
                 <div className={ui.methodList}>
                   <div className={ui.method}>
                     <div className={ui.methodNumber}>

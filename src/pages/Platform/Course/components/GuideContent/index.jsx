@@ -77,12 +77,12 @@ const GuideContent = ({ resumeData, tabSelected, refetch }) => {
 
   return (
     <div className="relative">
-      <div className="absolute right-0 top-0 flex flex-row gap-x-2">
+      <div className="relative right-0 top-0 flex flex-row gap-x-2 ml-auto mb-6">
         {isReadyToUpdate ? (
           <button
             onClick={async () => await handleSubmitChangeCompleted()}
             type="button"
-            className="border border-blue-500 bg-blue-500 rounded-sm hover:bg-blue-400 active:scale-[.98] scale-1 transition-all text-white py-2 px-4"
+            className="border border-blue-500 bg-blue-500 rounded-sm hover:bg-blue-400 active:scale-[.98] scale-1 transition-all text-white py-2 px-4 ml-auto"
           >
             Actualizar visualización de recursos
           </button>
@@ -97,21 +97,21 @@ const GuideContent = ({ resumeData, tabSelected, refetch }) => {
                   {tipoIndex + 1}. {tipo}
                 </span>
               </li>
-              <ul className="pl-4 pb-4">
+              <ul className="pb-4">
                 {recursos?.map(
                   (recurso, recursoIndex) =>
                     recurso[1] === tipo && (
-                      <li key={recursoIndex} className="flex flex-row items-center justify-start gap-x-2">
+                      <li key={recursoIndex} className="flex md:flex-row lg:items-center justify-between gap-x-2 hover:bg-[#1e73be1c] py-1 px-4 flex-col items-start">
                         <button
                           onClick={() => openViewer(recurso[5])}
-                          className="flex flex-row items-center gap-x-2 text-[#1e73be] hover:underline poppins-regular-14"
+                          className="flex flex-row items-center gap-x-2 text-[#1e73be] hover:underline poppins-regular-14 text-start"
                         >
                           {`${recursoIndex + 1}.-`}
                           {recurso[4]}
                         </button>
                         <label
                           htmlFor={`resource-${recurso}`}
-                          className="flex flex-row-reverse gap-x-2 items-center text-sm hover:cursor-pointer text-slate-500"
+                          className="flex flex-row-reverse gap-x-2 items-center text-sm hover:cursor-pointer text-slate-500 ml-auto"
                         >
                           {recurso[2] === true ? "Completado" : "Sin completar"}
                           <input
