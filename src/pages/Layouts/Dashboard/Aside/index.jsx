@@ -78,12 +78,12 @@ const DashboardAsideTemplate = ({
         inactiveIcon: DashboardBlackIcon,
         submenu: menuPlans,
       },
-      {
-        route: "/cursoENARM/recursos",
-        label: "Recursos",
-        activeIcon: ResourcesBlueIcon,
-        inactiveIcon: ResourcesBlackIcon,
-      },
+      // {
+      //   route: "/cursoENARM/recursos",
+      //   label: "Recursos",
+      //   activeIcon: ResourcesBlueIcon,
+      //   inactiveIcon: ResourcesBlackIcon,
+      // },
       {
         route: "/cursoENARM/simuladores",
         label: "Simuladores",
