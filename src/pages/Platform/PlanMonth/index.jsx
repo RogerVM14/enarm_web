@@ -25,9 +25,7 @@ const PlanMonthPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  console.log({ name });
   const { data: studyplans, isFetching } = useQuery([name], () => getStudyPlanById(plan, dispatch, navigate));
-  console.log({ studyplans });
   // Manejar el estado de carga en un useEffect
   useEffect(() => {
     dispatch(setIsLoadingContent(isFetching));

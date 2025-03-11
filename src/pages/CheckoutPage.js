@@ -12,7 +12,7 @@ import {
   createPaymentWithCard,
   createTokenCardForPayment,
   savePaymentInformationOnDataBase,
-  savePaymentWithCard,
+  // savePaymentWithCard,
 } from "../apis/Checkout/CardPayment";
 import { ROUTES } from "../constants/routes";
 import PaymentLoader from "../components/loaders/PaymentLoader";
@@ -21,7 +21,7 @@ import {
   selectUserCheckoutInformation,
 } from "../store/reducers/user/UserInformationSlice";
 import showToast from "../utils/toasts/commonToasts";
-import moment from "moment";
+// import moment from "moment";
 import { CONFIG } from "../constants/config";
 
 const CheckoutPage = () => {
@@ -30,7 +30,7 @@ const CheckoutPage = () => {
 
   const [stepDetails] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { cardNumber, cvv, expirationDate, cardOwnerName } = useSelector(
+  const { cardNumber, cvv, expirationDate } = useSelector(
     selectCardInformation
   );
   const userInfo = useSelector(selectUserCheckoutInformation);
@@ -80,7 +80,7 @@ const CheckoutPage = () => {
       docNumber: "123456789012",
     };
 
-    const fechaPago = moment().format("YYYY-MM-DD");
+    // const fechaPago = moment().format("YYYY-MM-DD");
 
     createTokenCardForPayment(payload)
       .then((response) => {
