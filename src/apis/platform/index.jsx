@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getHeaders, removeCookie } from "../../utils/auth/cookieSession";
+import { getHeaders } from "../../utils/auth/cookieSession";
 import toast from "react-hot-toast";
 import { removeSession } from "../../hooks/removeSession";
 
@@ -30,26 +30,16 @@ export const getSpecialties = async (dispatch, navigate) => {
   }
 };
 
-export const getResourcesBySpecialty = async (
-  especialidades,
-  specialtyPosition,
-  dispatch,
-  navigate
-) => {
+export const getResourcesBySpecialty = async (especialidades, specialtyPosition, dispatch, navigate) => {
   try {
-    const { specialty_id } = especialidades?.find(
-      (item) => item.specialty_id === specialtyPosition
-    );
+    const { specialty_id } = especialidades?.find((item) => item.specialty_id === specialtyPosition);
     const endpoint = `${url}study-plan/get-resources-simulators-by-specialty-id`;
     const headers = getHeaders();
     const body = {
       specialty_id,
     };
     const { data, status } = await axios.post(endpoint, body, headers);
-    if (
-      data.status_Message === "there are resources or simulators" &&
-      status === 200
-    ) {
+    if (data.status_Message === "there are resources or simulators" && status === 200) {
       return data.resources_simulators;
     }
     throw new Error();
@@ -76,6 +66,7 @@ export const getWeekResourcesByWeekAndPlan = async (params, dispatch, navigate) 
     const body = {
       study_plan_id: params.plan,
       week: params.week,
+      specialty_id_list: params.specialties,
     };
 
     const { data, status } = await axios.post(endpoint, body, headers);
@@ -183,8 +174,7 @@ export const getAnswersSimulatorAttemptByStudent = async (simulatorID, dispatch,
     const endpoint = `${url}simulators/get-answers-simulator-attempt-by-student`;
     const headers = getHeaders();
 
-    const { attempt_count, attempts_completed, answer_list } =
-      await getSimulatorStatsByStudent(simulatorID);
+    const { attempt_count, attempts_completed, answer_list } = await getSimulatorStatsByStudent(simulatorID);
 
     const body = {
       simulator_id: simulatorID,
@@ -238,6 +228,37 @@ export const getSimulatorsBySpecialty = async (specialty_id, dispatch, navigate)
   }
 };
 
+export const checkResourcesViewed = async (payload, dispatch, navigate) => {
+  try {
+    const endpoint = `${url}students/check-resources-viewed`;
+    const headers = getHeaders();
+    const body = {
+      specialty_id: payload.specialty_id,
+      resource_viewed_list: payload.resource_viewed_list,
+    };
+    const { data, status } = await axios.post(endpoint, body, headers);
+    if (status === 201 && data.status_Message === "resources added") {
+      return true;
+    } else {
+      throw new Error();
+    }
+  } catch (error) {
+    if (error.request.status === 401) {
+      removeSession(dispatch, navigate);
+      toast.error("Hemos detectado una sesión activa, cerraremos esta sesión", {
+        position: "bottom-right",
+        duration: 3500,
+      });
+    } else {
+      toast.error("Error al actualizar visualización de recursos.", {
+        position: "bottom-right",
+        duration: 3500,
+      });
+    }
+    return false;
+  }
+};
+
 export const getSimulatorStatsByStudent = async (simulatorID, dispatch, navigate) => {
   try {
     const endpoint = `${url}simulators/get-simulator-stats-by-student`;
@@ -274,8 +295,7 @@ export const getStudyPlans = async (dispatch, navigate) => {
 
     const { data, status } = await axios.get(endpoint, headers);
 
-    if (data.status_Message === "there are study plans" && status === 200) {
-      // console.log(data.study_plans);
+    if (data.status_Message === "there are study plans" && status === 200) { 
       return data.study_plans;
     }
     throw new Error();

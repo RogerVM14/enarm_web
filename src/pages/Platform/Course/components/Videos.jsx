@@ -2,8 +2,8 @@ import React from "react";
 import VimeoPlayer from "./VimeoPlayer";
 import ChevronIcon from "../icons/ChevronRight";
 
-const Videos = ({ handleDisplayCardBody, cardDisplay, videos }) => {
-  return (
+const Videos = ({ handleDisplayCardBody, cardDisplay, videos, tabSelected }) => { 
+  return videos.filter((e) => e[0] === tabSelected.name).length > 0 ? (
     <div className="mb-2">
       <div
         className="py-3 px-4 bg-[#fafafa] border-solid border-[1px] border-[#d9d9d9]"
@@ -30,7 +30,7 @@ const Videos = ({ handleDisplayCardBody, cardDisplay, videos }) => {
         </div>
       )}
     </div>
-  );
+  ) : null;
 };
 
 export default Videos;

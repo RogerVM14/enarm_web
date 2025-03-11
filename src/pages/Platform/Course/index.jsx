@@ -16,8 +16,10 @@ const useQueryParams = () => {
   const queryParameters = new URLSearchParams(search);
   const plan = parseInt(queryParameters.get("plan"));
   const week = parseInt(queryParameters.get("week"));
+  const specialties = queryParameters.get("specialties").split(",");
+  const list = specialties?.map((e) => parseInt(e));
 
-  return { plan, week };
+  return { plan, week, specialties: list };
 };
 
 const CoursePage = () => {
@@ -25,6 +27,8 @@ const CoursePage = () => {
   const [videos, setVideos] = useState([]);
   const [resume, setResume] = useState([]);
   const [simulators, setSimulators] = useState([]);
+  const [tabulator, setTabulator] = useState([]);
+  const [tabulatorSelected, setTabulatorSelected] = useState(0);
 
   const handleDisplayCardBody = (i) => {
     setCardDisplay((prev) => {
@@ -36,11 +40,14 @@ const CoursePage = () => {
   };
 
   const params = useQueryParams();
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const { isLoading, data: resources } = useQuery("resources", () => getWeekResourcesByWeekAndPlan(params, dispatch, navigate));
-
+  const {
+    isLoading,
+    data: resources,
+    refetch,
+  } = useQuery("resources", () => getWeekResourcesByWeekAndPlan(params, dispatch, navigate));
 
   useEffect(() => {
     if (isLoading) {
@@ -52,21 +59,24 @@ const CoursePage = () => {
     return () => {
       dispatch(setIsLoadingContent(false));
     };
-  }, [isLoading]);
+  }, [isLoading, dispatch]);
 
   useEffect(() => {
     if (!resources) return;
-    const { resource_List } = resources;
+    const { resource_List, week_names } = resources;
     let resume_data = [];
     let resume_specialty = [];
     let resume_types = [];
     let simulator_types = [];
+    const splitedNames = week_names?.split("|").map((e, i) => ({ name: e.trim(), value: params.specialties[i] }));
+    setTabulator(splitedNames);
     Object.values(resource_List).forEach((resource) => {
       const [resourceItem, resourceArray] = Object.entries(resource)[0];
       const _array = resourceArray.map((data) => {
         return [
           data.name,
           data.type,
+          data.is_completed,
           data.resource_id,
           data.resource_name,
           data.resource_url,
@@ -89,14 +99,21 @@ const CoursePage = () => {
     });
     setSimulators(simulator_types);
     resume_specialty = [...new Set(resume_specialty.map((resource) => resource[0]))];
-    setResume({ especialidades: resume_specialty, tipo_recursos: resume_types, recursos: resume_data });
-  }, [resources]);
+    setResume({
+      especialidades: week_names.split("|").map((e) => e.trim()),
+      tipo_recursos: resume_types,
+      recursos: resume_data?.filter((e) => splitedNames[tabulatorSelected].name === e[0]),
+    });
+  }, [resources, tabulatorSelected]);
 
+  const handleChangeTab = (position) => {
+    setTabulatorSelected(position);
+  };
   return (
     <DashboardLayout>
-      <div className="p-6">
-        <div className="grid grid-cols-[1fr_17.375rem] gap-x-6">
-          <div>
+      <div className="p-6 h-screen lg:h-auto ">
+        <div className="grid lg:grid-cols-[1fr_17.375rem]  gap-x-6 w-full">
+          <div className="w-full">
             <header>
               <div className="p-6 bg-white mb-2 border-solid border-[1px] border-[#d9d9d9]">
                 <div className="flex flex-row justify-start gap-x-3 mb-6 items-center">
@@ -114,13 +131,46 @@ const CoursePage = () => {
                 </p>
               </div>
             </header>
-            <Resumes resume={resume} handleDisplayCardBody={handleDisplayCardBody} cardDisplay={cardDisplay[0]} />
-            <Graphics handleDisplayCardBody={handleDisplayCardBody} />
-            <Videos videos={videos} handleDisplayCardBody={handleDisplayCardBody} cardDisplay={cardDisplay[2]} />
-            <Simulators simulators={simulators[0]} cardDisplay={cardDisplay[3]} plan={params?.plan} />
+            <div className="">
+              <div className="flex overflow-x-auto whitespace-nowrap">
+                {tabulator?.map((tab, index) => (
+                  <button
+                    key={tab.value}
+                    onClick={() => handleChangeTab(index)}
+                    className={`inline-flex items-center h-12 px-4 py-2 text-sm text-center ${
+                      tabulatorSelected === index ? "bg-[#05B2FA80]" : "bg-white"
+                    } border border-b-0 border-gray-300 sm:text-base rounded-t-md text-slate-900 whitespace-nowrap focus:outline-none`}
+                  >
+                    {tab.name}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="p-4 bg-white border border-[#d9d9d9]">
+              <Resumes
+                resume={resume}
+                refetch={refetch}
+                tabSelected={tabulator[tabulatorSelected]}
+                handleDisplayCardBody={handleDisplayCardBody}
+                cardDisplay={cardDisplay[0]}
+              />
+              <Graphics handleDisplayCardBody={handleDisplayCardBody} />
+              <Videos
+                videos={videos}
+                tabSelected={tabulator[tabulatorSelected]}
+                handleDisplayCardBody={handleDisplayCardBody}
+                cardDisplay={cardDisplay[2]}
+              />
+              <Simulators
+                simulators={simulators[0]}
+                cardDisplay={cardDisplay[3]}
+                plan={params?.plan}
+                tabSelected={tabulator[tabulatorSelected]}
+              />
+            </div>
           </div>
 
-          <aside>
+          <aside className="hidden lg:block">
             {/* <section id={ui.advance}>
               <header>
                 <div className={ui.sectionHeader}>
@@ -158,7 +208,7 @@ const CoursePage = () => {
                 </div>
               </header>
               <div className={ui.sectionBody}>
-                <p>¡Aprendizaje de calidad!</p>
+                <p className="poppins-regular-14">¡Aprendizaje de calidad!</p>
                 <div className={ui.methodList}>
                   <div className={ui.method}>
                     <div className={ui.methodNumber}>

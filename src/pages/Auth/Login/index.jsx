@@ -112,6 +112,7 @@ const FormLogin = () => {
           }
           if (res.data.status_Message === "valid user") {
             const { status_Message, ...rest } = res.data;
+
             if (!rest.has_payments && rest.user_role_id !== 4) {
               showToast.info(
                 "No haz realizado tu pago aún, procede a realizarlo"
@@ -120,8 +121,12 @@ const FormLogin = () => {
               navigate(ROUTES.CHECKOUT);
             } else {
               dispatch(setUserInformation(rest));
+
               setCookie("accessToken", rest.auth_token);
-              navigate(ROUTES.PLATAFORMA_DASHBOARD, { replace: true });
+
+              setTimeout(() => {
+                window.location.href = ROUTES.PLATAFORMA_DASHBOARD;
+              }, 100);
             }
           }
           if (res.data.status_Message === "invalid user") {
@@ -129,10 +134,12 @@ const FormLogin = () => {
           }
         })
         .catch((err) => {
-          const error = err.response.data.message;
+          const error = err.response?.data?.message || "Error desconocido";
           showToast.error(ERROR_MESSAGES[error]);
         })
-        .finally(() => setIsSubmitting(false)); // Desactivar el spinner
+        .finally(() => {
+          setIsSubmitting(false);
+        });
     } else {
       setEmailError(!isValidEmail);
     }
@@ -200,7 +207,9 @@ const FormLogin = () => {
           type="button"
           style={{ marginTop: "20px" }}
           onClick={handleSubmit}
-          disabled={isSubmitting || !validateEmailFormat(userEmail) || !userPass}
+          disabled={
+            isSubmitting || !validateEmailFormat(userEmail) || !userPass
+          }
         >
           {isSubmitting ? (
             <>

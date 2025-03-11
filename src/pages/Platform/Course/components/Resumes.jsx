@@ -2,7 +2,7 @@ import React from "react";
 import GuideContent from "./GuideContent";
 import ChevronIcon from "../icons/ChevronRight";
 
-const Resumes = ({ handleDisplayCardBody, cardDisplay, resume }) => {
+const Resumes = ({ handleDisplayCardBody, cardDisplay, resume, tabSelected, refetch}) => { 
   return (
     <div className="mb-2">
       <div
@@ -22,7 +22,7 @@ const Resumes = ({ handleDisplayCardBody, cardDisplay, resume }) => {
       </div>
       {!cardDisplay ? null : (
         <div className="p-4 border-solid border-[1px] border-[#d9d9d9] border-t-0 bg-white">
-          <GuideContent resumeData={resume} />
+          <GuideContent resumeData={resume} tabSelected={tabSelected} refetch={refetch}/>
         </div>
       )}
     </div>
