@@ -8,7 +8,8 @@ const extractVimeoId = (url) => {
 };
 
 const VimeoPlayer = ({ videoUrl, title }) => {
-  const videoId = extractVimeoId(videoUrl[4]); 
+  const videoId = extractVimeoId(videoUrl[5]); 
+
 
   if (!videoId) {
     return <div>Error: No se pudo obtener el ID del video de la URL.</div>;
