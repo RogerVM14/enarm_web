@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getHeaders, removeCookie } from "../../utils/auth/cookieSession";
+import { getHeaders } from "../../utils/auth/cookieSession";
 import toast from "react-hot-toast";
 import { removeSession } from "../../hooks/removeSession";
 

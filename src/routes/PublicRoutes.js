@@ -5,7 +5,7 @@ import { getCookie } from "../utils/auth/cookieSession";
 
 const PublicRoutes = ({ children }) => {
   const isAuthenticated = getCookie("accessToken");
-
+  
   return isAuthenticated ? (
     <Navigate to={ROUTES.PLATAFORMA_DASHBOARD} />
   ) : (

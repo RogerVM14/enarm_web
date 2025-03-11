@@ -7,13 +7,16 @@ import Cookies from "js-cookie";
  * @param {string} value
  */
 export const setCookie = (cookiename, value) => {
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
   return Cookies.set(cookiename, value, {
     expires: 1,
-    secure: true,
-    sameSite: "strict",
+    secure: isSafari ? false : true,
+    sameSite: "None",
     path: "/",
   });
 };
+
 
 /**
  *
