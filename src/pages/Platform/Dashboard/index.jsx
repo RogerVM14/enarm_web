@@ -10,12 +10,14 @@ import ModalComplementaryUserInfo from "../../../components/userInfoModal/ModalC
 import { useSelector } from "react-redux";
 import {
   selectFullUserName,
+  selectIsGuestUserRole,
 } from "../../../store/reducers/user/UserInformationSlice";
 import { ROUTES } from "../../../constants/routes";
 
 const DashboardPage = () => {
   const userName = useSelector(selectFullUserName);
   const firstName = userName?.split(" ")[0];
+
 
   return (
     <DashboardLayout>
@@ -187,6 +189,7 @@ const DashboardPage = () => {
 
 const ResourcesCards = (props) => {
   const { title, redirect, route, parraf } = props;
+  const isGuestUser = useSelector(selectIsGuestUserRole);
 
   return (
     <div className={ui.resourceCard}>
@@ -224,7 +227,7 @@ const ResourcesCards = (props) => {
           </g>
         </svg>
         <h2 className={ui.title}>{title}</h2>
-        {redirect ? (
+        {redirect && !isGuestUser ? (
           <Link className={ui.resourceLink} to={route}>
             Ir
           </Link>
