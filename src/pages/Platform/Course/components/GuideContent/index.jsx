@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { checkResourcesViewed } from "../../../../../apis/platform";
 import toast from "react-hot-toast";
 
-const GuideContent = ({ resumeData, tabSelected, refetch }) => {
+const GuideContent = ({ resumeData = { recursos: [], especialidades: [], tipo_recursos: [] }, tabSelected = {}, refetch }) => {
   const [recursos, setRecursos] = useState([]);
   const [resourcesToChange, setResourcesToChange] = useState([]);
   const [tipos, setTipos] = useState([]);
@@ -17,12 +17,15 @@ const GuideContent = ({ resumeData, tabSelected, refetch }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (!resumeData?.recursos) return;
+    
     setRecursos(resumeData.recursos);
     const types = [...new Set(resumeData.recursos.map((e) => e[1]))];
     setTipos(types);
   }, [resumeData]);
 
   const encodeFileUrl = (url) => {
+    if (!url) return '';
     try {
       const urlParts = url.split("/");
       const encodedFilename = encodeURIComponent(urlParts.pop());
@@ -34,6 +37,7 @@ const GuideContent = ({ resumeData, tabSelected, refetch }) => {
   };
 
   const openViewer = (resourceUrl) => {
+    if (!resourceUrl) return;
     const encodedUrl = encodeFileUrl(resourceUrl);
     setSelectedResource(encodedUrl);
     setIsViewerOpen(true);
@@ -45,6 +49,8 @@ const GuideContent = ({ resumeData, tabSelected, refetch }) => {
   };
 
   const handleChangeCompletedStatus = (resource_id) => {
+    if (!resource_id) return;
+    
     setIsReadyUpdate(true);
     setResourcesToChange((prev) => [...prev, resource_id]);
     setRecursos((prev) => {
@@ -59,6 +65,8 @@ const GuideContent = ({ resumeData, tabSelected, refetch }) => {
   };
 
   const handleSubmitChangeCompleted = async () => {
+    if (!tabSelected?.value) return;
+    
     const payload = {
       resource_viewed_list: [...new Set(resourcesToChange)],
       specialty_id: tabSelected.value,
@@ -74,6 +82,10 @@ const GuideContent = ({ resumeData, tabSelected, refetch }) => {
       await refetch();
     }
   };
+
+  if (!recursos || !tipos) {
+    return null;
+  }
 
   return (
     <div className="relative">
@@ -110,13 +122,13 @@ const GuideContent = ({ resumeData, tabSelected, refetch }) => {
                           {recurso[4]}
                         </button>
                         <label
-                          htmlFor={`resource-${recurso}`}
+                          htmlFor={`resource-${recurso[3]}`}
                           className="flex flex-row-reverse gap-x-2 items-center text-sm hover:cursor-pointer text-slate-500 ml-auto"
                         >
                           {recurso[2] === true ? "Completado" : "Sin completar"}
                           <input
                             type="checkbox"
-                            id={`resource-${recurso}`}
+                            id={`resource-${recurso[3]}`}
                             checked={recurso[2]}
                             onChange={() => handleChangeCompletedStatus(recurso[3])}
                           />

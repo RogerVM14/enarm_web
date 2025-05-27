@@ -2,7 +2,11 @@ import React from "react";
 import GuideContent from "./GuideContent";
 import ChevronIcon from "../icons/ChevronRight";
 
-const Resumes = ({ handleDisplayCardBody, cardDisplay, resume, tabSelected, refetch}) => { 
+const Resumes = ({ handleDisplayCardBody, cardDisplay, resume = { recursos: [], especialidades: [], tipo_recursos: [] }, tabSelected = {}, refetch }) => { 
+  if (!resume?.recursos || !Array.isArray(resume.recursos)) {
+    return null;
+  }
+
   return (
     <div className="mb-2">
       <div
@@ -15,7 +19,7 @@ const Resumes = ({ handleDisplayCardBody, cardDisplay, resume, tabSelected, refe
             <h5 className="poppins-bold-14">1. Resúmenes</h5>
             <div className="flex flex-row gap-x-3 items-center">
               <p className="poppins-regular-14">Resúmenes, Flash cards y Tips</p>
-              <span className="poppins-regular-14 text-[#00000073]">{resume?.recursos?.length} recursos</span>
+              <span className="poppins-regular-14 text-[#00000073]">{resume?.recursos?.length || 0} recursos</span>
             </div>
           </div>
         </div>
@@ -28,6 +32,5 @@ const Resumes = ({ handleDisplayCardBody, cardDisplay, resume, tabSelected, refe
     </div>
   );
 };
-
 
 export default Resumes;

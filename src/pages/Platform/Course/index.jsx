@@ -69,7 +69,7 @@ const CoursePage = () => {
     let resume_types = [];
     let simulator_types = [];
     const splitedNames = week_names?.split("|").map((e, i) => ({ name: e.trim(), value: params.specialties[i] }));
-    setTabulator(splitedNames);
+    setTabulator(splitedNames || []);
     Object.values(resource_List).forEach((resource) => {
       const [resourceItem, resourceArray] = Object.entries(resource)[0];
       const _array = resourceArray.map((data) => {
@@ -102,7 +102,7 @@ const CoursePage = () => {
     setResume({
       especialidades: week_names.split("|").map((e) => e.trim()),
       tipo_recursos: resume_types,
-      recursos: resume_data?.filter((e) => splitedNames[tabulatorSelected].name === e[0]),
+      recursos: resume_data?.filter((e) => splitedNames[tabulatorSelected]?.name === e[0]) || [],
     });
   }, [resources, tabulatorSelected]);
 
@@ -147,26 +147,30 @@ const CoursePage = () => {
               </div>
             </div>
             <div className="p-4 bg-white border border-[#d9d9d9]">
-              <Resumes
-                resume={resume}
-                refetch={refetch}
-                tabSelected={tabulator[tabulatorSelected]}
-                handleDisplayCardBody={handleDisplayCardBody}
-                cardDisplay={cardDisplay[0]}
-              />
-              <Graphics handleDisplayCardBody={handleDisplayCardBody} />
-              <Videos
-                videos={videos}
-                tabSelected={tabulator[tabulatorSelected]}
-                handleDisplayCardBody={handleDisplayCardBody}
-                cardDisplay={cardDisplay[2]}
-              />
-              <Simulators
-                simulators={simulators[0]}
-                cardDisplay={cardDisplay[3]}
-                plan={params?.plan}
-                tabSelected={tabulator[tabulatorSelected]}
-              />
+              {tabulator && tabulator.length > 0 && (
+                <>
+                  <Resumes
+                    resume={resume || { recursos: [], especialidades: [], tipo_recursos: [] }}
+                    refetch={refetch}
+                    tabSelected={tabulator[tabulatorSelected] || {}}
+                    handleDisplayCardBody={handleDisplayCardBody}
+                    cardDisplay={cardDisplay[0]}
+                  />
+                  <Graphics handleDisplayCardBody={handleDisplayCardBody} />
+                  <Videos
+                    videos={videos || []}
+                    tabSelected={tabulator[tabulatorSelected] || {}}
+                    handleDisplayCardBody={handleDisplayCardBody}
+                    cardDisplay={cardDisplay[2]}
+                  />
+                  <Simulators
+                    simulators={simulators[0] || []}
+                    cardDisplay={cardDisplay[3]}
+                    plan={params?.plan}
+                    tabSelected={tabulator[tabulatorSelected] || {}}
+                  />
+                </>
+              )}
             </div>
           </div>
 
