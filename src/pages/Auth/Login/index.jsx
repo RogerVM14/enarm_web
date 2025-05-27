@@ -68,7 +68,7 @@ const FormLogin = () => {
     })
       .then((res) => {
         const { status_Message, ...rest } = res.data;
-        if (!rest.has_payments) {
+        if (!rest.has_payments && rest.user_role_id !== 4) {
           showToast.info("No haz realizado tu pago aún, procede a realizarlo");
           dispatch(setCheckoutUserId(rest.user_id));
           navigate(ROUTES.CHECKOUT);
