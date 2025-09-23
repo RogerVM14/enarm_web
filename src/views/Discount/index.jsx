@@ -28,7 +28,7 @@ const DiscountSection = () => {
               </h2>
               <p className="regular-parraf">
                 Obten una beca del{" "}
-                <span className="strong">40% del descuento.</span>
+                <span className="strong">65% del descuento.</span>
               </p>
               <h3
                 className="section-title"
@@ -45,7 +45,7 @@ const DiscountSection = () => {
                   }}
                 >
                   {" "}
-                  $10,000
+                  $18,000
                 </span>
               </h3>
               <p
@@ -55,7 +55,7 @@ const DiscountSection = () => {
                   marginBottom: "20px",
                 }}
               >
-                -40% de descuento, a solo  $6,000 MXN
+                -65% de descuento, a solo  $6,300 MXN
               </p>
               <ul className={ui.discountList}>
                 <li>
