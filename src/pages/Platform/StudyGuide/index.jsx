@@ -27,7 +27,7 @@ const StudyGuidePage = () => {
           </header>
           <div className={ui.containerBody}>
             <div className={ui.guideIntroduction}>
-              <h2>Guía de Preparacíon ENARM 2024</h2>
+              <h2>Guía de Preparacíon ENARM 2026</h2>
               <a
                 href="https://enarm-assets.s3.us-east-1.amazonaws.com/docs/Guia+ENARM+parte+1.pdf"
                 target="_blank"

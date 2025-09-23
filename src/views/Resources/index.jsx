@@ -31,7 +31,7 @@ const ResourcesSection = () => {
                 <div className={ui.imageContainer}>
                   <img src={BulbIcon} alt="card-icon" />
                 </div>
-                <h3 className={ui.cardTitle}>Guía descriptiva del curso 2024</h3>
+                <h3 className={ui.cardTitle}>Guía descriptiva del curso 2026</h3>
                 {/* <Link to="#" className={ui.cardLink}>Descargar</Link> */}
                 <Link to={ROUTES.REGISTRO} className={ui.cardLink}>Iniciar</Link>
               </div>
