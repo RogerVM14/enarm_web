@@ -25,12 +25,12 @@ export const novedades = [
     selected: false
   },
   {
-    h2: "Simulador Pro 2024",
+    h2: "Simulador Pro 2026",
     p: "Experimenta la experiencia más parecida al ENARM con el mismo formato y tiempo cronometrado con más eficacia para practicar antes de tu ENARM.",
     selected: false
   },
   {
-    h2: "Nuevo contenido 2024",
+    h2: "Nuevo contenido 2026",
     p: "Disfruta de la más amplia cobertura de información que tenemos para ti.",
     selected: false
   }

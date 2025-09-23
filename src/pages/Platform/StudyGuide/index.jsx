@@ -57,7 +57,7 @@ const StudyGuidePage = () => {
               </p>
               <br />
               <p>
-                En esta <strong>nueva edición 2024</strong> queremos brindarte
+                En esta <strong>nueva edición 2026</strong> queremos brindarte
                 la más alta seguridad de que{" "}
                 <strong>tendrás éxito en tu próximo ENARM</strong>, es por eso
                 que hemos fortalecido y actualizado las herramientas más
