@@ -18,20 +18,20 @@ const PurchaseDetails = ({ size, isMobile, regularText, boldText }) => {
       <div className="details__calculate">
         <div>
           <span className={regularText()}>Transacción:</span>
-          <span className={regularText()}>$10,000.00</span>
+          <span className={regularText()}>$18,000.00</span>
         </div>
         <div>
           <span className={regularText()}>Descuento:</span>
-          <span className={regularText()}>- $4,000.00</span>
+          <span className={regularText()}>- $11,700.00</span>
         </div>
-        <div>
+        {/* <div>
           <span className={regularText()}>Tarjeta de Regalo:</span>
           <span className={regularText()}>$0.00</span>
-        </div>
+        </div> */}
       </div>
       <div className="details__total">
         <span className={boldText()}>Total:</span>
-        <span className={`bold-${isMobile ? "18" : "20"}`}>$6,000.00</span>
+        <span className={`bold-${isMobile ? "18" : "20"}`}>$6,300.00</span>
       </div>
     </div>
   );
