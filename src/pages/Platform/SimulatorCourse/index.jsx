@@ -18,7 +18,7 @@ import { ChevronRight } from "./icons/ChevronRight";
 import { GeneralContext } from "../../../contexts/GeneralContext";
 import SimulatorCooldownAdvice from "./components/SimulatorCooldownAdvice/SimulatorsAdvice";
 import { useDispatch } from "react-redux";
-import { setIsLoadingContent } from "../../../store/reducers/general/general";
+import { setIsLoadingContent, setSimulatorQuestionQuantity } from "../../../store/reducers/general/general";
 
 const useQueryParams = () => {
   const { search } = useLocation();
@@ -35,6 +35,7 @@ const SimulatorCoursePage = () => {
   const [current, setCurrent] = useState(0);
   const [squares, setSquares] = useState([]);
   const [duration, setDuration] = useState("");
+  const [elapsedTime, setElapsedTime] = useState("00:00:00");
   const [totalAttempts, setTotalAttempts] = useState(0);
   const [squareSelected, setSquareSelected] = useState(null);
   const [answersSimulator, setAnwersSimulator] = useState([]);
@@ -143,6 +144,9 @@ const SimulatorCoursePage = () => {
     setDuration(simulatorQuestions?.simulator_duration);
     setSquares(_array);
     setSimulatorIsActive(true);
+    
+    // Guardar la cantidad total de preguntas en el store
+    dispatch(setSimulatorQuestionQuantity(simulatorQuestions?.question_quantity));
 
     const answeredSimulatorsStructure = _array.map((cases, index) => ({
       clinic_case_id: cases.clinic_case_id,
@@ -173,23 +177,45 @@ const SimulatorCoursePage = () => {
   }, [squareSelected]);
 
   const seeResults = async (onCloseUp = false) => {
-    const total_answers = answersSimulator.length;
-    const correct_answers = answersSimulator?.filter(
-      ({ questions }) => questions[0].was_correct === true
-    ).length;
-    const total_questions = simulatorQuestions?.questions?.length;
-    const rate_percent =
-      total_answers === 50
-        ? (correct_answers / total_answers) * 100
-        : (correct_answers / total_questions) * 100;
+    // Normalizar respuestas: para las no contestadas, calcular correct_answer_index y marcar was_correct=false
+    const normalizedAnswers = answersSimulator.map((caseItem) => {
+      const sourceCase = simulatorQuestions?.questions?.find(
+        (q) => q.clinic_case_id === caseItem.clinic_case_id
+      );
+      const questions = (caseItem.questions || []).map((q) => {
+        if (q.answer_index_selected !== null && q.answer_index_selected !== undefined) return q;
+        const correctIdx = sourceCase?.questions_case
+          ?.find((qq) => qq.simulator_question_id === q.simulator_question_id)
+          ?.answers?.findIndex((a) => a.correct_answer === true);
+        return {
+          ...q,
+          answer_index_selected: null,
+          correct_answer_index: typeof correctIdx === "number" ? correctIdx : null,
+          was_correct: false,
+        };
+      });
+      return { ...caseItem, questions };
+    });
+
+    // Calcular respuestas correctas (contando todas las subpreguntas)
+    const correct_answers = normalizedAnswers.reduce((total, caseItem) => {
+      return total + caseItem.questions.filter(q => q.was_correct === true).length;
+    }, 0);
+
+    // Obtener el total de preguntas del simulador desde question_quantity
+    const total_questions = simulatorQuestions?.question_quantity || 0;
+    const total_answers = total_questions; // Debe ser igual al total de preguntas
+
+    // Calcular porcentaje basado en question_quantity
+    const rate_percent = total_questions > 0 ? (correct_answers / total_questions) * 100 : 0;
+
     const objectData = {
       simulator_id: parseInt(simulator_id),
       total_attempts: 5,
       total_answers,
       correct_answers,
-      total_questions,
-      time_in_simulator: "00:15:00",
-      answers_simulator: answersSimulator,
+      time_in_simulator: elapsedTime, // Usar el tiempo transcurrido real
+      answers_simulator: normalizedAnswers,
       rate_percent: Math.ceil(rate_percent),
     };
     const response = await addAnswerSimulatorByStudent(
@@ -245,6 +271,7 @@ const SimulatorCoursePage = () => {
                 <CountdownTimer
                   initialTime={duration}
                   isCooldownZero={async () => await seeResults()}
+                  onTimeUpdate={setElapsedTime}
                 />
                 <div className={ui.questionsWrapper}>
                   <div className={ui.questionsGroup}>

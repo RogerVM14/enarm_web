@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Clock from "../icons/Clock";
 
-const CountdownTimer = ({ initialTime, isCooldownZero }) => {
+const CountdownTimer = ({ initialTime, isCooldownZero, onTimeUpdate }) => {
   const [timeLeft, setTimeLeft] = useState(null);
 
   const parseTime = (timeString) => {
@@ -21,11 +21,21 @@ const CountdownTimer = ({ initialTime, isCooldownZero }) => {
     }
 
     const intervalId = setInterval(() => {
-      setTimeLeft((prevTime) => prevTime - 1);
+      setTimeLeft((prevTime) => {
+        const newTime = prevTime - 1;
+        // Calcular tiempo transcurrido y notificar al componente padre
+        if (onTimeUpdate && initialTime) {
+          const totalInitialSeconds = parseTime(initialTime);
+          const elapsedSeconds = totalInitialSeconds - newTime;
+          const elapsedTime = formatTime(elapsedSeconds);
+          onTimeUpdate(elapsedTime);
+        }
+        return newTime;
+      });
     }, 1000);
 
     return () => clearInterval(intervalId);
-  }, [timeLeft, isCooldownZero]);
+  }, [timeLeft, isCooldownZero, onTimeUpdate, initialTime]);
 
   const formatTime = (totalSeconds) => {
     const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, "0");
