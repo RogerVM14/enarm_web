@@ -14,7 +14,9 @@ const Resumes = ({ handleDisplayCardBody, cardDisplay, resume = { recursos: [], 
         onClick={() => handleDisplayCardBody(0)}
       >
         <div className="flex flex-row gap-x-3 justify-start items-baseline">
-          <ChevronIcon />
+          <div className={`transition-transform duration-200 ${cardDisplay ? 'rotate-90' : 'rotate-0'}`}>
+            <ChevronIcon />
+          </div>
           <div>
             <h5 className="poppins-bold-14">1. Resúmenes</h5>
             <div className="flex flex-row gap-x-3 items-center">

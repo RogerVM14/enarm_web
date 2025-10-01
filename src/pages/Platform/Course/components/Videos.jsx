@@ -10,7 +10,9 @@ const Videos = ({ handleDisplayCardBody, cardDisplay, videos, tabSelected }) => 
         onClick={() => handleDisplayCardBody(2)}
       >
         <div className="flex flex-row gap-x-3 justify-start items-baseline">
-          <ChevronIcon />
+          <div className={`transition-transform duration-200 ${cardDisplay ? 'rotate-90' : 'rotate-0'}`}>
+            <ChevronIcon />
+          </div>
           <div>
             <h5 className="poppins-bold-14">3. Video-Clases</h5>
             <div className="flex flex-row gap-x-3 items-center">

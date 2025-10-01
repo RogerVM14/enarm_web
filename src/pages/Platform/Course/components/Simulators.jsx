@@ -36,12 +36,14 @@ const Simulators = ({ simulators, cardDisplay, plan, tabSelected }) => {
     (e) => e?.specialty_name === tabSelected?.name
   );
 
-  const handleDisplaySimulator = (position) => {
-    setSimulatorsDisplay((prev) => {
-      return prev.map((element, index) => {
-        return index === position ? { ...element, isDisplayed: !element.isDisplayed } : element;
-      });
-    });
+  const handleDisplaySimulatorById = (simulatorId) => {
+    setSimulatorsDisplay((prev) =>
+      prev.map((element) =>
+        element.simulator_id === simulatorId
+          ? { ...element, isDisplayed: !element.isDisplayed }
+          : element
+      )
+    );
   };
 
   const durationSplitted = (duration) => {
@@ -59,10 +61,17 @@ const Simulators = ({ simulators, cardDisplay, plan, tabSelected }) => {
           <div className="bg-[#FAFAFA] mb-2" key={index}>
             <div
               className="border-[1px] border-solid border-[#d9d9d9] py-3 px-4 hover:cursor-pointer"
-              onClick={() => handleDisplaySimulator(index)}
+              onClick={() => handleDisplaySimulatorById(simulator.simulator_id)}
             >
               <div className="flex flex-row gap-3 justify-start items-center">
-                <img src={ChevronIcon} alt="chevron" width={12} height={12} data-selected={cardDisplay[3]} />
+                <img
+                  src={ChevronIcon}
+                  alt="chevron"
+                  width={12}
+                  height={12}
+                  data-selected={cardDisplay[3]}
+                  className={`transition-transform duration-200 ${simulator?.isDisplayed ? 'rotate-90' : 'rotate-0'}`}
+                />
 
                 <h5 className="poppins-semibold-14">
                   4.{index + 1} Simulador {simulator?.resource_name}
