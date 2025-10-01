@@ -26,11 +26,15 @@ const Simulators = ({ simulators, cardDisplay, plan, tabSelected }) => {
   };
 
   useEffect(() => {
-    if (simulators?.length === 0 || simulators === undefined) return;
-    const _array = simulators?.map((element) => ({ ...element, isDisplayed: false }));
-
-    setSimulatorsDisplay(_array);
+    if (simulators === undefined || simulators?.length === 0) return;
+    const base = simulators?.map((element) => ({ ...element, isDisplayed: false }));
+    setSimulatorsDisplay(base);
   }, [simulators]);
+
+  // Filtrar por la especialidad seleccionada en el tab
+  const filteredSimulators = (simulatorsDisplay || []).filter(
+    (e) => e?.specialty_name === tabSelected?.name
+  );
 
   const handleDisplaySimulator = (position) => {
     setSimulatorsDisplay((prev) => {
@@ -48,9 +52,9 @@ const Simulators = ({ simulators, cardDisplay, plan, tabSelected }) => {
     return `${hour} ${minutes}`;
   };
 
-  return simulators?.filter((e) => e.specialty_name === tabSelected?.name).length > 0 ? (
+  return filteredSimulators.length > 0 ? (
     <>
-      {simulatorsDisplay?.map((simulator, index) => {
+      {filteredSimulators.map((simulator, index) => {
         return (
           <div className="bg-[#FAFAFA] mb-2" key={index}>
             <div

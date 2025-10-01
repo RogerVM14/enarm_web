@@ -9,6 +9,15 @@
   gap: 24px;
 }
 
+/* Mantener el sidebar visible al hacer scroll (solo desktop) */
+@media screen and (min-width: 1024px) {
+  .gridContainer>aside {
+    position: sticky;
+    top: 24px;
+    align-self: start;
+  }
+}
+
 aside .containerHead {
   background: var(--Neutral-1, #FFF);
   box-shadow: 0px -1px 0px 0px #F0F0F0 inset;
@@ -270,7 +279,7 @@ li.answerItem label {
   transition: all 250ms linear;
 }
 
-.containerFooterButtons button[type=button]:hover span {
+.containerFooterButtons button.nextQuestionsButton:hover span {
   color: white;
   transition: all 250ms linear;
 }
@@ -289,6 +298,14 @@ button.getRetroButton {
   background: var(--Neutral-1, #FFF);
   box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.02);
   transition: all 250ms linear;
+}
+
+button.getRetroButton:hover {
+  background: var(--Neutral-3, #F5F5F5);
+}
+
+button.getRetroButton:hover span {
+  color: var(--Black, #000);
 }
 
 button.nextQuestionsButton {

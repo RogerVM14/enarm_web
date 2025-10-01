@@ -91,30 +91,35 @@ const SimulatorCoursePage = () => {
   }, [statsAttempts]);
 
   const pushAnswer = (data) => {
-    const { clinic_case_id, questions_case, answerPosition, id } = data;
-    const [{ simulator_question_id, answers }] = questions_case;
-    const correct_answer_index = answers.findIndex(
-      (element) => element.correct_answer === true
-    );
-    const estructure = {
-      clinic_case_id,
-      questions: [
-        {
-          simulator_question_id,
-          answer_index_selected: answerPosition,
-          was_correct: correct_answer_index === answerPosition,
-          correct_answer_index,
-        },
-      ],
-      id,
-    };
+    const { clinic_case_id, id, answerPosition, questionInfo } = data;
+    const { simulator_question_id, answers } = questionInfo || {};
+    const correct_answer_index = (answers || []).findIndex((e) => e.correct_answer === true);
+
     setAnwersSimulator((prev) => {
-      const index = prev?.findIndex(
-        (element) => element.clinic_case_id === clinic_case_id
-      );
-      if (index === -1) return [...prev, estructure];
-      const updatedAnswers = replaceObjectAtIndex(prev, index, estructure);
-      return updatedAnswers;
+      // Encontrar o crear la entrada del caso clínico
+      const caseIndex = prev.findIndex((e) => e.clinic_case_id === clinic_case_id);
+      const baseCase = caseIndex !== -1 ? prev[caseIndex] : { clinic_case_id, questions: [], id };
+
+      // Remover cualquier respuesta previa de la misma subpregunta
+      const filteredQuestions = baseCase.questions.filter((q) => q.simulator_question_id !== simulator_question_id);
+
+      const updatedCase = {
+        ...baseCase,
+        questions: [
+          ...filteredQuestions,
+          {
+            simulator_question_id,
+            answer_index_selected: answerPosition,
+            was_correct: correct_answer_index === answerPosition,
+            correct_answer_index,
+          },
+        ],
+      };
+
+      if (caseIndex === -1) {
+        return [...prev, updatedCase];
+      }
+      return replaceObjectAtIndex(prev, caseIndex, updatedCase);
     });
   };
 
@@ -141,14 +146,12 @@ const SimulatorCoursePage = () => {
 
     const answeredSimulatorsStructure = _array.map((cases, index) => ({
       clinic_case_id: cases.clinic_case_id,
-      questions: [
-        {
-          simulator_question_id: cases.questions_case[0].simulator_question_id,
-          answer_index_selected: null,
-          was_correct: null,
-          correct_answer_index: null,
-        },
-      ],
+      questions: cases.questions_case.map((q) => ({
+        simulator_question_id: q.simulator_question_id,
+        answer_index_selected: null,
+        was_correct: null,
+        correct_answer_index: null,
+      })),
       id: index + 1,
     }));
 
@@ -251,7 +254,7 @@ const SimulatorCoursePage = () => {
                       data-selected-questions={questionGroup}
                     >
                       <ChevronRight />
-                      <p>Preguntas</p>
+                      <p>Casos clínicos</p>
                     </div>
                     <QuestionsSquaresGroup
                       squares={squares}

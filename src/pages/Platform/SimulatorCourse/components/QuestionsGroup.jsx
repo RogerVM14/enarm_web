@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 const answerLetter = ["A", "B", "C", "D"];
 
-const QuestionsGroup = ({ data, handleSelectAnswer, position }) => {
+const QuestionsGroup = ({ data, handleSelectAnswer, position, idPrefix = "" }) => {
   const [answers, setAnswers] = useState([]);
 
   useEffect(() => {
@@ -15,17 +15,18 @@ const QuestionsGroup = ({ data, handleSelectAnswer, position }) => {
   return (
     <ul className="">
       {answers?.map(({ answer, isChecked }, index, array) => {
+        const uniqueId = `${idPrefix}-answer_${index}-${position}`;
         return (
           <div style={{ marginBottom: array.length - 1 === index ? "1rem" : "0" }} key={index}>
             <label
-              htmlFor={`answer_${index}-${position}`}
+              htmlFor={uniqueId}
               className="flex flex-row justify-start items-center gap-x-2 hover:bg-blue-100 transition-all cursor-pointer py-2 max-w-max rounded-sm"
             >
               {answerLetter[index]}
               <input
                 type="checkbox"
-                name={`answer_${index}-${position}`}
-                id={`answer_${index}-${position}`}
+                name={uniqueId}
+                id={uniqueId}
                 checked={isChecked}
                 className=""
                 onChange={() => {
