@@ -38,6 +38,12 @@ aside .containerBody {
   flex-wrap: nowrap;
   align-items: center;
   padding: 12px 0px;
+  cursor: pointer;
+  transition: all 200ms linear;
+}
+
+.filter:hover {
+  background-color: rgba(5, 178, 250, 0.05);
 }
 
 
@@ -65,6 +71,11 @@ aside .containerBody {
 .filter[data-filter="incorrect"] span {
   color: var(--Dust-Red-6, #F5222D);
   background: var(--Dust-Red-2, #FFCCC7);
+}
+
+.filter[data-filter="unanswered"] span {
+  color: #FA8C16;
+  background: #FFF7E6;
 }
 
 .filter[data-selected=true] h5 {
@@ -114,7 +125,6 @@ aside .containerBody {
 
 .itemContent {
   position: relative;
-  padding-left: 22px;
 }
 
 .itemAnswerValidation {

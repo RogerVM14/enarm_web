@@ -44,14 +44,40 @@ const FeedbackPage = () => {
     const array = responses.map((element, index) => ({ ...element, position: index + 1 }));
     setQuestions(array);
     setFilteredQuestions(array);
+    // Calcular contadores basados en preguntas individuales
+    const totalQuestions = answers?.responses?.reduce((total, caseItem) => {
+      return total + (caseItem.questions_case?.length || 0);
+    }, 0) || 0;
+
+    const correctQuestions = answers?.responses?.reduce((total, caseItem) => {
+      return total + (caseItem.questions_case?.filter(q => q.was_correct === true).length || 0);
+    }, 0) || 0;
+
+    const incorrectQuestions = answers?.responses?.reduce((total, caseItem) => {
+      return total + (caseItem.questions_case?.filter(q => q.was_correct === false).length || 0);
+    }, 0) || 0;
+
+    const unansweredQuestions = answers?.responses?.reduce((total, caseItem) => {
+      return total + (caseItem.questions_case?.filter(q => {
+        const { answer_index_selected, was_correct, correct_answer_index } = q;
+        return answer_index_selected === null || was_correct === null || correct_answer_index === null;
+      }).length || 0);
+    }, 0) || 0;
+
     setFilters([
-      { filter: "all", selected: true, label: "Todas", counter: answers?.total_answers },
-      { filter: "correct", selected: false, label: "Correctas", counter: answers?.correct_answers },
+      { filter: "all", selected: true, label: "Todas", counter: totalQuestions },
+      { filter: "correct", selected: false, label: "Correctas", counter: correctQuestions },
       {
         filter: "incorrect",
         selected: false,
         label: "Incorrectas",
-        counter: answers?.total_answers - answers?.correct_answers,
+        counter: incorrectQuestions,
+      },
+      {
+        filter: "unanswered",
+        selected: false,
+        label: "No respondidas",
+        counter: unansweredQuestions,
       },
       // { filter: "categories", selected: false, label: "Categorias", counter: null },
     ]);
@@ -59,40 +85,84 @@ const FeedbackPage = () => {
 
   useEffect(() => {
     if (filterPosition === 0) {
-      setFilteredQuestions(questions);
+      // Para "Todas", mantener la numeración original
+      setFilteredQuestions(
+        questions.map((question) => ({
+          ...question,
+          questions_case: question?.questions_case?.map((q, originalIndex) => ({
+            ...q,
+            originalIndex: originalIndex + 1 // Mantener la numeración original
+          })) || []
+        }))
+      );
     }
     if (filterPosition === 1) {
+      // Filtrar solo las preguntas correctas, manteniendo la estructura de casos y numeración original
       setFilteredQuestions(
-        questions.filter((question) => {
-          return question?.questions_case[0]?.was_correct && question;
-        })
+        questions.map((question) => {
+          const correctQuestions = question?.questions_case?.map((q, originalIndex) => ({
+            ...q,
+            originalIndex: originalIndex + 1 // Mantener la numeración original
+          })).filter(q => q.was_correct === true) || [];
+          return {
+            ...question,
+            questions_case: correctQuestions
+          };
+        }).filter(question => question.questions_case.length > 0) // Solo casos que tengan preguntas correctas
       );
     }
 
     if (filterPosition === 2) {
+      // Filtrar solo las preguntas incorrectas, manteniendo la estructura de casos y numeración original
       setFilteredQuestions(
-        questions.filter((question) => {
-          return !question?.questions_case[0]?.was_correct && question;
-        })
+        questions.map((question) => {
+          const incorrectQuestions = question?.questions_case?.map((q, originalIndex) => ({
+            ...q,
+            originalIndex: originalIndex + 1 // Mantener la numeración original
+          })).filter(q => q.was_correct === false) || [];
+          return {
+            ...question,
+            questions_case: incorrectQuestions
+          };
+        }).filter(question => question.questions_case.length > 0) // Solo casos que tengan preguntas incorrectas
+      );
+    }
+
+    if (filterPosition === 3) {
+      // Filtrar solo las preguntas no respondidas, manteniendo la estructura de casos y numeración original
+      setFilteredQuestions(
+        questions.map((question) => {
+          const unansweredQuestions = question?.questions_case?.map((q, originalIndex) => ({
+            ...q,
+            originalIndex: originalIndex + 1 // Mantener la numeración original
+          })).filter(q => {
+            const { answer_index_selected, was_correct, correct_answer_index } = q;
+            return answer_index_selected === null || was_correct === null || correct_answer_index === null;
+          }) || [];
+          return {
+            ...question,
+            questions_case: unansweredQuestions
+          };
+        }).filter(question => question.questions_case.length > 0) // Solo casos que tengan preguntas no respondidas
       );
     }
   }, [filterPosition, questions]);
 
   useEffect(() => {
     function handleAsideContent() {
-      if (filterPosition === 3 && displaySpecialities === false) {
+      if (filterPosition === 4 && displaySpecialities === false) {
         setDisplaySpecialities(true);
         return;
       }
 
       if (
-        (filterPosition === 3 && displaySpecialities === true) ||
-        (filterPosition !== 3 && displaySpecialities === false)
+        (filterPosition === 4 && displaySpecialities === true) ||
+        (filterPosition !== 4 && displaySpecialities === false)
       ) {
         return;
       }
 
-      if (filterPosition !== 3 && displaySpecialities === true) {
+      if (filterPosition !== 4 && displaySpecialities === true) {
         setDisplaySpecialities(false);
       }
     }
@@ -118,6 +188,17 @@ const FeedbackPage = () => {
     }
   };
 
+  const handleFilterSelect = (selectedIndex) => {
+    setFilterPosition(selectedIndex);
+    // Actualizar el estado de selección de los filtros
+    setFilters(prevFilters => 
+      prevFilters.map((filter, index) => ({
+        ...filter,
+        selected: index === selectedIndex
+      }))
+    );
+  };
+
   return (
     <DashboardLayout>
       <div className={ui.wrapper}>
@@ -126,7 +207,7 @@ const FeedbackPage = () => {
             <div className={ui.asideContainer}>
               <div className={ui.containerHead}>
                 <div className={ui.filters}>
-                  <FilterList list={filters} handleSelect={(e) => setFilterPosition(e)} />
+                  <FilterList list={filters} handleSelect={handleFilterSelect} />
                 </div>
               </div>
               <div className={ui.containerBody} style={{ maxHeight: "calc(100dvh - 9rem)", overflowY: "auto" }}>

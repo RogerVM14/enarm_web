@@ -3,6 +3,10 @@ import ui from "../index.module.css";
 
 const letters = ["A", "B", "C", "D"];
 const FeedbackBodyContent = ({ feed, position }) => {
+  // Debug: verificar datos recibidos
+  console.log('FeedbackBodyContent - feed:', feed);
+  console.log('FeedbackBodyContent - position:', position);
+  console.log('FeedbackBodyContent - questions_case:', feed?.questions_case);
   const setBackgound = (index, qc) => {
     const { correct_answer_index, answer_index_selected } = qc || {};
     let bg = "bg-transparent";
@@ -37,7 +41,7 @@ const FeedbackBodyContent = ({ feed, position }) => {
       {(feed?.questions_case || []).map((qc, idx) => (
         <div key={qc?.simulator_question_id || idx} className="mb-6">
           <div className="px-4 py-1 bg-[#ad2102] inline-block rounded-sm mb-3">
-            <h6 className="uppercase text-white">Pregunta {position}.{idx + 1}</h6>
+            <h6 className="uppercase text-white">Pregunta {position}.{qc.originalIndex || idx + 1}</h6>
           </div>
           <h5>{qc?.simulator_question}</h5>
           {isUnanswered(qc) && (
