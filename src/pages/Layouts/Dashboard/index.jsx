@@ -7,6 +7,7 @@ import FeedbackAdvice from "../../../components/platform/DialogModal/Simulator/F
 import { GeneralContext } from "../../../contexts/GeneralContext";
 import { useNavigate } from "react-router-dom";
 import MaintenanceBanner from "../../../components/banners/MaintenanceBanner";
+import InfoBanner from "../../../components/banners/InfoBanner";
 
 const DashboardLayout = ({ children }) => {
   const navigation = useNavigate();
@@ -52,6 +53,7 @@ const DashboardLayout = ({ children }) => {
       <DashboardAsideTemplate smallDevice={smallDevice} isMenuActive={smallMenu} handleShowMenu={handleShowMenu} />
       <main className="max-h-[calc(100dvh_-_3rem] min-h-[calc(100dvh_-_3rem] overflow-y-hidden">
         <MaintenanceBanner />
+        <InfoBanner />
         {children}
       </main>
       <ImportantAdvice

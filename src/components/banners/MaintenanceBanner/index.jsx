@@ -1,7 +1,12 @@
 import React from "react";
 import ui from "./index.module.css";
+import { BANNER_CONFIG } from "../../../constants/bannerConfig";
 
 const MaintenanceBanner = () => {
+  // Si el banner está deshabilitado en la configuración, no renderizar nada
+  if (!BANNER_CONFIG.MAINTENANCE_BANNER_ENABLED) {
+    return null;
+  }
   // Obtener la fecha de mañana
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
