@@ -1,77 +1,76 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import AlertIcon from "../../../../assets/icons/alert";
 
 const BodyContent = ({ display }) => {
+  const [showVideo, setShowVideo] = useState(false);
+
   if (display === false) return null;
   return (
     <div className="bg-white p-6">
-      <p className="poppins-regular-14">
-        Los Planes de Estudio estân distribuidos en semanas. Comienza en la primera y ve avanzando hasta terminar.
-        Realiza tus Gráficos revisando los Resúmenes ó bibliografia extra. Si tienes dudas sobre los Gráficos a realizar
-        te recomendamos consultar nuestras
-        <Link
-          to="https://enarm-assets.s3.us-east-1.amazonaws.com/docs/Guia+ENARM+parte+1.pdf"
-          target="_blank"
-          className="poppins-regular-14 text-[#05B2FA] underline
-"
-        >
-          {" "}
-          Guía de Estudio parte 1
-        </Link>{" "}
-        y{" "}
-        <Link
-          to="https://enarm-assets.s3.us-east-1.amazonaws.com/docs/Guia+ENARM+parte+2.pdf"
-          target="_blank"
-          className="poppins-regular-14 text-[#05B2FA] underline
-"
-        >
-          Guía de Estudio parte 2
-        </Link>
-        .
-        <br />
-        Sólo después de realizar tus gráficos deberás ver las Video-Clases. Una vez visto las video clases, repasarás
-        los contenido con los Simuladores. Antes de comenzar, es importante también que veas el ejemplo de nuestro{" "}
-        <Link
-          to="https://enarm-assets.s3.us-east-1.amazonaws.com/docs/Ejemplo+calendario+estudio+.htm"
-          target="_blank"
-          className="poppins-regular-14 text-[#05B2FA] underline
-"
-        >
-          calendario de estudio
-        </Link>
-        , donde podrás observar la manera adecuada de llevar a cabo tu curso.
-      </p>
-      <div className="flex flex-row justify-start gap-x-6 py-2">
-        <AlertIcon />
-        <ul className="list-disc">
-          <li>
-            <p className="poppins-regular-14">
-              Antes de visualizar las Video-Clases es indispensable realizar tus "GRÁFICOS" de los temas que verás.
-            </p>
-          </li>
-          <li>
-            <p className="poppins-regular-14">
-              Los Domingos practicas en tu SimuladorPRO; realiza todos los simulacros de la especialidad que estudiaste
-              durante la semana.
-            </p>
-          </li>
-        </ul>
-      </div>
-      <p className="poppins-regular-14">
-        Al inicio comenzaremos con simulacros de 200 y 250 preguntas. Finalizaremos con Simulacros completos de 450
-        preguntas simulando al ENARM.
-        <br />
-        Nuestros Resúmenes contienen las respuestas que encontrarás como correctas en tu ENARM, no hagas caso a ningún
-        otra bibliografìa mas.
-        <br />
-        <strong className="poppins-semibold-14">
-          8 de cada 10 alumnos que se prepararon con Plataforma ENARM ya son residentes, los otros 2 no le pusieron
-          ganas, tú decides a cuáles quieres pertenecer.
-        </strong>
-        <br />
-        El plan de estudio Intensivo estará disponible 1 mes antes del ENARM (1 Agosto).
-      </p>
+      <ol className="list-decimal pl-6 poppins-regular-14 space-y-2">
+        <li>
+          Revisar la guía de estudio: {" "}
+          <button
+            type="button"
+            onClick={() => setShowVideo(true)}
+            className="underline text-[#05B2FA]"
+          >
+            ver video aquí
+          </button>
+        </li>
+        <li>
+          Realiza tu calendario de estudio a continuación el ejemplo: {" "}
+          <Link
+            to="https://enarm-assets.s3.us-east-1.amazonaws.com/docs/Ejemplo+calendario+estudio+.htm"
+            target="_blank"
+            className="poppins-regular-14 text-[#05B2FA] underline"
+          >
+            calendario de estudio
+          </Link>
+        </li>
+        <li>
+          Sigue en orden semana a semana tu plan de estudio
+        </li>
+        <li>
+          Metodología de estudio
+          <ul className="pl-6 mt-2 space-y-1">
+            <li>a) Inicia leyendo el tema de nuestros resúmenes o bibliografia extra</li>
+            <li>b) después deberás realizar tu gráfico a puño y letra (realiza un mapa mental, tarjeta o resumen)</li>
+            <li>c) posteriormente revisarás las videoclases para complementar tus gráficos</li>
+            <li>d) Al finalizar te pondrás a prueba con el simulador</li>
+            <li>e) Repasa tus gráficos a las 24h, 7 días, 1 mes, 6 meses, 1 mes antes del ENARM</li>
+          </ul>
+        </li>
+        <li>
+          Nuestros Resúmenes contienen las respuestas que encontrarás como correctas en tu ENARM, no hagas caso a ningún otra bibliografìa mas.
+        </li>
+        <li>
+          De cada 10 médicos que se preparan con nuestro curso 8 consiguen su plaza, deberás tener disciplina y constancia para pertenecer a ese grupo selecto.
+        </li>
+      </ol>
+
+      {showVideo && (
+        <div className="fixed inset-0 z-[10000] flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/70" onClick={() => setShowVideo(false)}></div>
+          <div className="relative w-full max-w-4xl mx-4">
+            <button
+              type="button"
+              aria-label="Cerrar"
+              onClick={() => setShowVideo(false)}
+              className="absolute -top-3 -right-3 bg-white text-gray-700 rounded-full w-8 h-8 shadow flex items-center justify-center hover:bg-gray-100"
+            >
+              ×
+            </button>
+            <div style={{ position: "relative", paddingTop: "56.25%" }}>
+              <video
+                controls
+                src="https://player.vimeo.com/progressive_redirect/playback/1132234127/rendition/1080p/file.mp4?loc=external&log_user=0&signature=4424f70db34ec376c4b966bff1ad20117e0cc2ca60155f6fba852611e242a24e"
+                style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
