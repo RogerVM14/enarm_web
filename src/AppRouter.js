@@ -7,6 +7,7 @@ import AboutPage from "./pages/Landing/About";
 // import BlogEntryPage from "./pages/Landing/Blog/Entry";
 // import TestPage from "./pages/Landing/Test";
 import ContactPage from "./pages/Landing/Contact";
+import FreeTrialPage from "./pages/Landing/FreeTrial";
 import LoginPage from "./pages/Auth/Login";
 import RegisterPage from "./pages/Auth/Register";
 import CheckoutPage from "./pages/CheckoutPage";
@@ -180,6 +181,14 @@ const AppRouter = () => {
                 element={
                   <PublicRoutes>
                     <RegisterPage />
+                  </PublicRoutes>
+                }
+              />
+              <Route
+                path={ROUTES.REGISTRO_PRUEBA_ENARM}
+                element={
+                  <PublicRoutes>
+                    <FreeTrialPage />
                   </PublicRoutes>
                 }
               />

@@ -99,8 +99,10 @@ a[data-rounded=true] {
   transition: all 200ms linear;
 }
 
-.navigationHeader[datatype=small],
-.containerNavLinks>div[datatype=small],
+.navigationHeader[datatype=small] {
+  display: none;
+}
+
 a.blueRoundedLink[datatype=small] {
   display: none;
 }
@@ -172,6 +174,14 @@ a.blueRoundedLink[datatype=small] {
     padding: 28px;
   }
 
+  .mobileAuthContainer[datatype=small] {
+    display: flex !important;
+  }
+
+  .containerNavLinks a.blueRoundedLink[datatype=small] {
+    display: block !important;
+  }
+
   .containerNavigation .navigationLinks {
     flex-flow: column nowrap;
     height: 100%;
@@ -222,10 +232,46 @@ a.blueRoundedLink[datatype=small] {
     font-weight: 700;
   }
 
-  .containerNavLinks a.blueRoundedLink[datatype=small] {
+  .mobileAuthContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
     max-width: 480px;
     margin-inline: auto;
     width: 100%;
+  }
+
+  .containerNavLinks a.blueRoundedLink[datatype=small] {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .loginLinkMobile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 0px;
+    color: #000;
+    text-decoration: none;
+    font-family: MontserratRegular;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.32px;
+    transition: color 200ms linear;
+    width: 100%;
+  }
+
+  .loginLinkMobile:hover {
+    color: #05B2FA;
+    transition: color 200ms linear;
+  }
+
+  .loginLinkMobile svg {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
   }
 
   .authLinks {

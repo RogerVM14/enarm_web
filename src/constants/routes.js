@@ -15,6 +15,7 @@ export const ROUTES = {
   CONTACTO: "/contacto",
   LOGIN: "/iniciar-sesion",
   REGISTRO: "/registro",
+  REGISTRO_PRUEBA_ENARM: "/registro-prueba-enarm",
   VERIFY_EMAIL_CODE: "/verify_email_code",
   PLATAFORMA_DASHBOARD: "/cursoENARM", 
   PLATAFORMA_PLANES_ID: "/cursoENARM/planes",

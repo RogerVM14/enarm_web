@@ -1,0 +1,168 @@
+#explorer {
+  display: block;
+  background: var(--dark-blue);
+}
+
+#explorer .containerColumns {
+  gap: 100px;
+}
+
+.containerColumns {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+#explorer .titleContainer {
+  display: block;
+  max-width: 760px;
+  margin-inline: auto;
+  margin-top: 16px;
+  margin-bottom: 80px;
+}
+
+form>.formInput, form>div>.formInput {
+  margin-bottom: 1rem;
+}
+
+.formInput>input, .formInput>div>input {
+  border-radius: 10px;
+  border: 1px solid var(--gray);
+  background: var(--white);
+  padding: 16px;
+  width: 100%;
+}
+
+.formInput>input::placeholder, .formInput>div>input::placeholder {
+  color: #96ACBC;
+  font-family: PoppinsRegular;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.formInputColumns {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 24px;
+}
+
+.formInputColumns .blueLink {
+  padding: 13px 24px;
+  color: var(--White-Text, #FFF);
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+  letter-spacing: 0.36px;
+  border-radius: 50px;
+  background: #05B2FA;
+  text-decoration: none;
+  white-space: nowrap;
+  border: none;
+  display: block;
+  max-width: 216px;
+  cursor: pointer;
+}
+
+.formInputColumns .blueLink:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.verticalCards>.cardAdvantage:not(:last-child) {
+  margin-bottom: 12px;
+}
+
+.cardAdvantage {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  border-radius: 10px;
+  border: 2px solid #05B2FA;
+  padding: 12px 8px;
+}
+
+.cardAdvantage>.imageContainer {
+  width: 100px;
+  height: 100px;
+  display: block;
+}
+
+.cardAdvantage>.imageContainer img {
+  height: inherit;
+  width: inherit;
+  display: inherit;
+}
+
+.demoForm {
+  position: relative;
+}
+
+@media screen and (max-width: 1024px) {
+  #explorer .containerColumns {
+    gap: 20px;
+  }
+
+  .formInputColumns {
+    flex-wrap: wrap;
+  }
+
+  .formInputColumns>* {
+    flex-grow: 1;
+    max-width: unset !important;
+  }
+
+  #explorer .titleContainer {
+    max-width: unset;
+    margin-bottom: 32px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  #explorer .sectionContainer {
+    padding: 0px;
+    padding-bottom: 60px;
+  }
+
+  .cardAdvantage>.imageContainer {
+    width: 70px;
+    height: 70px;
+    display: block;
+  }
+
+  .formInputColumns {
+    flex-direction: column;
+  }
+
+  .formInputColumns>* {
+    width: 100%;
+  }
+
+  .cardAdvantage {
+    gap: 16px;
+  }
+
+  .containerColumns {
+    display: block;
+  }
+
+  #explorer .containerColumns {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 40px;
+  }
+
+  #explorer .titleContainer {
+    margin-bottom: 32px;
+  }
+
+  .formInputColumns .blueLink {
+    width: 100%;
+    max-width: calc(576px - var(--padding-x));
+  }
+}
+

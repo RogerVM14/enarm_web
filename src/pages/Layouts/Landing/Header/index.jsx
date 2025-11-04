@@ -9,7 +9,7 @@ const NavBar = () => {
 
   const navigationLinks = [
     { label: "Inicio", url: ROUTES.HOME },
-    { label: "Iniciar Sesión", url: ROUTES.LOGIN },
+    // { label: "Iniciar Sesión", url: ROUTES.LOGIN },
     { label: "Nosotros", url: ROUTES.NOSOTROS },
     { label: "Sobre el Curso", url: ROUTES.SOBRE_EL_CURSO },
     // { label: "Blog", url: "/blog" },
@@ -53,22 +53,37 @@ const NavBar = () => {
                   setDisplay(false);
                 }}
               />
-              <Link
-                datatype="small"
-                to={ROUTES.REGISTRO}
-                className={ui.blueRoundedLink}
-              >
-                Obtener Curso
-              </Link>
+              <div className={ui.mobileAuthContainer} datatype="small">
+                <Link
+                  to={ROUTES.LOGIN}
+                  className={ui.loginLinkMobile}
+                  onClick={() => {
+                    setDisplay(false);
+                  }}
+                >
+                  <UserIcon />
+                  <span>Iniciar Sesión</span>
+                </Link>
+                <Link
+                  datatype="small"
+                  to={ROUTES.REGISTRO_PRUEBA_ENARM}
+                  className={ui.blueRoundedLink}
+                  onClick={() => {
+                    setDisplay(false);
+                  }}
+                >
+                  prueba curso GRATIS
+                </Link>
+              </div>
             </div>
             <ul className={ui.authLinks}>
               <li>
                 <Link
                   datatype="large"
-                  to={ROUTES.REGISTRO}
+                  to={ROUTES.REGISTRO_PRUEBA_ENARM}
                   className={ui.blueRoundedLink}
                 >
-                  Obtener Curso
+                  prueba curso GRATIS
                 </Link>
               </li>
               <li className={ui.linkWithIcon}>
@@ -98,7 +113,7 @@ const MobileHeaderNavTools = ({ display, handleDisplay }) => {
     <div className={ui.headerTools}>
       <Link
         datatype="small"
-        to={ROUTES.REGISTRO}
+        to={ROUTES.REGISTRO_PRUEBA_ENARM}
         className={ui.blueRoundedLink}
       >
         Obtener Curso
@@ -191,25 +206,27 @@ const UserIcon = () => {
 };
 
 const CloseIcon = () => {
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24px"
-    height="24px"
-    viewBox="0 0 24 24"
-    fill="none"
-  >
-    <g clipPath="url(#clip0_732_13854)">
-      <path
-        d="M12 10.5867L16.95 5.63672L18.364 7.05072L13.414 12.0007L18.364 16.9507L16.95 18.3647L12 13.4147L7.04999 18.3647L5.63599 16.9507L10.586 12.0007L5.63599 7.05072L7.04999 5.63672L12 10.5867Z"
-        fill="black"
-      />
-    </g>
-    <defs>
-      <clipPath id="clip0_732_13854">
-        <rect width="24" height="24" fill="white" />
-      </clipPath>
-    </defs>
-  </svg>;
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24px"
+      height="24px"
+      viewBox="0 0 24 24"
+      fill="none"
+    >
+      <g clipPath="url(#clip0_732_13854)">
+        <path
+          d="M12 10.5867L16.95 5.63672L18.364 7.05072L13.414 12.0007L18.364 16.9507L16.95 18.3647L12 13.4147L7.04999 18.3647L5.63599 16.9507L10.586 12.0007L5.63599 7.05072L7.04999 5.63672L12 10.5867Z"
+          fill="black"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_732_13854">
+          <rect width="24" height="24" fill="white" />
+        </clipPath>
+      </defs>
+    </svg>
+  );
 };
 
 export default NavBar;
