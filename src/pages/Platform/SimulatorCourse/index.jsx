@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import ui from "./index.module.css";
 import DashboardLayout from "../../Layouts/Dashboard";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -40,6 +40,9 @@ const SimulatorCoursePage = () => {
   const [squareSelected, setSquareSelected] = useState(null);
   const [answersSimulator, setAnwersSimulator] = useState([]);
   const [answerResponse, setAnswerResponse] = useState(0);
+  const [isFinishingExam, setIsFinishingExam] = useState(false);
+  const sectionRef = useRef(null);
+  const questionsContainerRef = useRef(null);
 
   const { simulator_id, plan } = useQueryParams();
   const { setSimulatorIsActive } = useContext(GeneralContext);
@@ -305,35 +308,39 @@ const SimulatorCoursePage = () => {
             </div>
           </aside>
 
-          <section>
+          <section ref={sectionRef}>
             <div className={ui.sectionContainer}>
-              <div className={ui.simulatorQuestions}>
+              <div className={ui.simulatorQuestions} ref={questionsContainerRef}>
                 {/* {isLoading && !isError && <span>Cargando...</span>} */}
                 {!isLoading && isError && <span>..Error..</span>}
                 {!isLoading && !isError ? (
                   <>
-                    <ClinicCaseQuestion
-                      handleSelectAnswer={(e) => {
-                        pushAnswer(e);
-                        setSquareSelected(current);
-                        if (answerResponse === 2) return;
-                        setAnswerResponse(answerResponse + 1);
-                      }}
-                      position={0}
-                      data={simulatorQuestions?.questions[current]}
-                      id={current + 1}
-                    />
-                    <ClinicCaseQuestion
-                      handleSelectAnswer={(e) => {
-                        pushAnswer(e);
-                        setSquareSelected(current + 1);
-                        if (answerResponse === 2) return;
-                        setAnswerResponse(answerResponse + 1);
-                      }}
-                      position={1}
-                      data={simulatorQuestions?.questions[current + 1]}
-                      id={current + 2}
-                    />
+                    {simulatorQuestions?.questions[current] && (
+                      <ClinicCaseQuestion
+                        handleSelectAnswer={(e) => {
+                          pushAnswer(e);
+                          setSquareSelected(current);
+                          if (answerResponse === 2) return;
+                          setAnswerResponse(answerResponse + 1);
+                        }}
+                        position={0}
+                        data={simulatorQuestions?.questions[current]}
+                        id={current + 1}
+                      />
+                    )}
+                    {simulatorQuestions?.questions[current + 1] && (
+                      <ClinicCaseQuestion
+                        handleSelectAnswer={(e) => {
+                          pushAnswer(e);
+                          setSquareSelected(current + 1);
+                          if (answerResponse === 2) return;
+                          setAnswerResponse(answerResponse + 1);
+                        }}
+                        position={1}
+                        data={simulatorQuestions?.questions[current + 1]}
+                        id={current + 2}
+                      />
+                    )}
                   </>
                 ) : null}
               </div>
@@ -345,7 +352,16 @@ const SimulatorCoursePage = () => {
                 >
                   <span>Obtener retroalimentación</span>
                 </button>
-                {current < 48 ? (
+                {(() => {
+                  // Calcular el número máximo de casos clínicos disponibles
+                  const totalCases = simulatorQuestions?.questions?.length || 0;
+                  // Se muestran 2 casos a la vez (current y current + 1)
+                  // El límite es cuando current + 1 ya no existe en el array
+                  // Por ejemplo: si hay 15 casos (índices 0-14), el último par válido es [12, 13] cuando current = 12
+                  // Entonces: current + 1 < totalCases
+                  const hasMoreCases = totalCases > 0 && (current + 1) < totalCases;
+                  
+                  return hasMoreCases ? (
                   <button
                     type="button"
                     className={ui.nextQuestionsButton}
@@ -354,6 +370,52 @@ const SimulatorCoursePage = () => {
                     onClick={() => {
                       setCurrent(current + 2);
                       setAnswerResponse(0);
+                      // Scroll suave hacia arriba de la sección después de que React actualice el DOM
+                      requestAnimationFrame(() => {
+                        requestAnimationFrame(() => {
+                          // Buscar el elemento main que tiene el scroll
+                          const mainElement = document.querySelector('main');
+                          const scrollContainer = mainElement || window;
+                          
+                          if (questionsContainerRef.current) {
+                            const element = questionsContainerRef.current;
+                            const elementRect = element.getBoundingClientRect();
+                            const containerRect = mainElement ? mainElement.getBoundingClientRect() : { top: 0 };
+                            const scrollTop = mainElement ? mainElement.scrollTop : window.pageYOffset;
+                            const offsetPosition = elementRect.top - containerRect.top + scrollTop - 100; // 100px de offset
+                            
+                            if (mainElement) {
+                              mainElement.scrollTo({
+                                top: offsetPosition,
+                                behavior: 'smooth'
+                              });
+                            } else {
+                              window.scrollTo({
+                                top: offsetPosition,
+                                behavior: 'smooth'
+                              });
+                            }
+                          } else if (sectionRef.current) {
+                            const element = sectionRef.current;
+                            const elementRect = element.getBoundingClientRect();
+                            const containerRect = mainElement ? mainElement.getBoundingClientRect() : { top: 0 };
+                            const scrollTop = mainElement ? mainElement.scrollTop : window.pageYOffset;
+                            const offsetPosition = elementRect.top - containerRect.top + scrollTop - 100;
+                            
+                            if (mainElement) {
+                              mainElement.scrollTo({
+                                top: offsetPosition,
+                                behavior: 'smooth'
+                              });
+                            } else {
+                              window.scrollTo({
+                                top: offsetPosition,
+                                behavior: 'smooth'
+                              });
+                            }
+                          }
+                        });
+                      });
                     }}
                   >
                     <span>Siguiente</span>
@@ -362,22 +424,38 @@ const SimulatorCoursePage = () => {
                   <button
                     type="button"
                     className={ui.nextQuestionsButton}
-                    style={{ cursor: "pointer" }}
+                    style={{ cursor: isFinishingExam ? "not-allowed" : "pointer" }}
+                    disabled={isFinishingExam}
                     onClick={async () => {
-                      const response = await seeResults(true);
-                      if (response) {
-                        setSimulatorIsActive(false);
-                        setTimeout(() => {
-                          navigate(
-                            `/cursoENARM/retroalimentacion?plan=${plan}&simulator=${simulator_id}`
-                          );
-                        }, 1500);
+                      setIsFinishingExam(true);
+                      try {
+                        const response = await seeResults(true);
+                        if (response) {
+                          setSimulatorIsActive(false);
+                          setTimeout(() => {
+                            navigate(
+                              `/cursoENARM/retroalimentacion?plan=${plan}&simulator=${simulator_id}`
+                            );
+                          }, 1500);
+                        } else {
+                          setIsFinishingExam(false);
+                        }
+                      } catch (error) {
+                        setIsFinishingExam(false);
                       }
                     }}
                   >
-                    <span>Ver resultados</span>
+                    {isFinishingExam ? (
+                      <>
+                        <div className="spinner-border animate-spin inline-block w-4 h-4 border-2 rounded-full border-white mr-2"></div>
+                        <span>Finalizando...</span>
+                      </>
+                    ) : (
+                      <span>Finalizar examen</span>
+                    )}
                   </button>
-                )}
+                );
+                })()}
               </div>
             </div>
             <SimulatorsAdvice

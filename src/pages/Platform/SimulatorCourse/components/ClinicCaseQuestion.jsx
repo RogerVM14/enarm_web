@@ -1,6 +1,9 @@
 import QuestionsGroup from "./QuestionsGroup";
 
 const ClinicCaseQuestion = ({ data, position, handleSelectAnswer = () => {}, id }) => { 
+  // No renderizar si no hay datos
+  if (!data) return null;
+  
   return (
     <div className="">
       <div className="bg-[#1e73be] py-1 px-6 text-center rounded-sm">
