@@ -20,7 +20,7 @@ const FeedbackContainer = ({
       <header>
         <div className={ui.containerHead} datatype="large">
           <p>
-            {simulatorName} / Panel Simulador / <strong>{layer[attempt - 1]}</strong>
+            {simulatorName ?? "Simulador"} / Panel Simulador / <strong>{layer[(attempt ?? 1) - 1]}</strong>
           </p>
           <ArrowButtons handleOnClick={(e) => handleOnChangeFeedback(e, displaySpecial)} />
         </div>
@@ -33,7 +33,16 @@ const FeedbackContainer = ({
             </button>
             <ArrowButtons handleOnClick={(e) => handleOnChangeFeedback(e, displaySpecial)} />
           </div>
-          {displaySpecial === true ? <GraphicBodyContent /> : <FeedbackBodyContent feed={feed} position={position} />}
+          {displaySpecial === true ? (
+            <GraphicBodyContent />
+          ) : feed != null && (position !== undefined && position !== null) ? (
+            <FeedbackBodyContent feed={feed} position={position} />
+          ) : (
+            <div className="flex flex-col items-center justify-center py-12">
+              <div className="spinner-border animate-spin inline-block w-8 h-8 border-2 rounded-full border-[#05B2FA] mb-4"></div>
+              <p className="text-[#595959]">Cargando retroalimentación...</p>
+            </div>
+          )}
           <ArrowButtons handleOnClick={(e) => handleOnChangeFeedback(e, displaySpecial)} />
         </div>
       </div>
