@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 import { CONTACT_URLS } from "../../constants/routes";
 
 const FloatingWhatsAppButton = () => {
-  const whatsappLink = "https://wa.me/524445090543";
+  const whatsappLink = "https://wa.me/524444419307";
   const location = useLocation();
 
   // Obtener las rutas permitidas
