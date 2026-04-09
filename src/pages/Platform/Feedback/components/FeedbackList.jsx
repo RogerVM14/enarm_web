@@ -42,9 +42,11 @@ const FeedbackList = ({ list, filter, handleOnClickFeedback = () => {}, feedback
 
   return (
     <div className={ui.feedbackList}>
-      {list?.map(({ clinic_case, clinic_case_id, questions_case, position }, index) => {
+      {(list ?? []).map((item, index) => {
+        const { clinic_case, clinic_case_id, questions_case, position } = item ?? {};
         const isExpanded = expandedCase === index;
-        
+        if (clinic_case_id == null) return null;
+
         return (
           <div key={clinic_case_id} className="mb-2">
             {/* Header del caso clínico */}
@@ -64,16 +66,16 @@ const FeedbackList = ({ list, filter, handleOnClickFeedback = () => {}, feedback
                     </svg>
                   </div>
                   <div className={ui.itemCase}>
-                    <p>{clinic_case.slice(0, 40)}...</p>
+                    <p>{(clinic_case ?? "").slice(0, 40)}{(clinic_case ?? "").length > 40 ? "..." : ""}</p>
                   </div>
                 </div>
-                <p className={ui.itemNumQuestion}>Caso Clínico {position}</p>
-                <p className={ui.itemQuestion}>{questions_case.length} pregunta{questions_case.length > 1 ? 's' : ''}</p>
+                <p className={ui.itemNumQuestion}>Caso Clínico {position ?? index + 1}</p>
+                <p className={ui.itemQuestion}>{(questions_case?.length ?? 0)} pregunta{(questions_case?.length ?? 0) !== 1 ? 's' : ''}</p>
               </div>
             </div>
 
             {/* Preguntas expandidas */}
-            {isExpanded && (
+            {isExpanded && Array.isArray(questions_case) && (
               <div className="ml-4 mt-2 space-y-2">
                 {questions_case.map((question, qIndex) => {
                   const status = getQuestionStatus(question);
@@ -93,8 +95,8 @@ const FeedbackList = ({ list, filter, handleOnClickFeedback = () => {}, feedback
                         )}
                       </div>
                       <div className="flex-1">
-                        <p className="text-sm font-medium">Pregunta {position}.{question.originalIndex || qIndex + 1}</p>
-                        <p className="text-xs text-gray-600">{question.simulator_question.slice(0, 30)}...</p>
+                        <p className="text-sm font-medium">Pregunta {position ?? index + 1}.{question?.originalIndex ?? qIndex + 1}</p>
+                        <p className="text-xs text-gray-600">{(question?.simulator_question ?? "").slice(0, 30)}{(question?.simulator_question ?? "").length > 30 ? "..." : ""}</p>
                       </div>
                     </div>
                   );

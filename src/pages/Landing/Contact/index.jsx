@@ -48,14 +48,14 @@ const ContactPage = () => {
                         <p className="regular-parraf bold blue">
                           Informes y llamadas
                         </p>
-                        <p className="regular-parraf">444 509 05 43</p>
+                        <p className="regular-parraf">444 441 9307</p>
                       </div>
                     </div>
                     <div className={ui.contactMedia}>
                       <img src={whatsappIcon} alt="phone" />
                       <div>
                         <p className="regular-parraf bold blue">Whatsapp</p>
-                        <p className="regular-parraf">444 509 0543</p>
+                        <p className="regular-parraf">444 441 9307</p>
                       </div>
                     </div>
                   </div>

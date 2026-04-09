@@ -222,10 +222,10 @@ const FeedbackPage = () => {
           </aside>
           <section style={{ height: "min-content" }} id="feedbackSection" data-display={displayFeedback}>
             <FeedbackContainer
-              feed={filteredQuestions[indexPosition]}
-              position={filteredQuestions[indexPosition]?.position}
-              simulatorName={answers?.simulator_name}
-              attempt={answers?.attempt_count}
+              feed={filteredQuestions?.[indexPosition] ?? null}
+              position={filteredQuestions?.[indexPosition]?.position ?? null}
+              simulatorName={answers?.simulator_name ?? ""}
+              attempt={answers?.attempt_count ?? 1}
               handleOnChangeFeedback={(e) => handleOnChangeFeedback(e)}
               backToFeedbackList={() => {
                 setDisplayFeedback(false);

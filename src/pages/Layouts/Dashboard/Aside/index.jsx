@@ -43,20 +43,49 @@ const DashboardAsideTemplate = ({
     setSimulatorCooldownAdvice,
   } = useContext(GeneralContext);
 
+  const getPlanMonths = (planName = "") => {
+    const match = String(planName).match(/\d+/);
+    return match ? Number(match[0]) : null;
+  };
+
+  const normalizePlanLabel = (planName = "") => {
+    const months = getPlanMonths(planName);
+    if (months === null) return String(planName).trim();
+    return `${months} ${months === 1 ? "mes" : "meses"}`;
+  };
+
+  const orderedStudyPlans = useMemo(() => {
+    const plans = Array.isArray(studyPlans) ? [...studyPlans] : [];
+    return plans.sort((a, b) => {
+      const aMonths = getPlanMonths(a?.study_plan_name);
+      const bMonths = getPlanMonths(b?.study_plan_name);
+
+      // Si ambos tienen número, ordenar de mayor a menor.
+      if (aMonths !== null && bMonths !== null) return bMonths - aMonths;
+      // Enviar al final los que no tienen número.
+      if (aMonths === null && bMonths !== null) return 1;
+      if (aMonths !== null && bMonths === null) return -1;
+      // Fallback alfabético para nombres no numéricos.
+      return String(a?.study_plan_name || "").localeCompare(
+        String(b?.study_plan_name || "")
+      );
+    });
+  }, [studyPlans]);
+
   const menuPlans = useMemo(() => {
     if (isGuestUser) {
-      return studyPlans?.slice(0, 1).map((plan) => ({
+      return orderedStudyPlans?.slice(0, 1).map((plan) => ({
         id: plan?.study_plan_id,
         route: `/cursoENARM/planes?id=${plan.study_plan_id}&name=${plan.study_plan_name}`,
-        label: plan?.study_plan_name,
+        label: normalizePlanLabel(plan?.study_plan_name),
       }));
     }
-    return studyPlans?.map((plan) => ({
+    return orderedStudyPlans?.map((plan) => ({
       id: plan?.study_plan_id,
       route: `/cursoENARM/planes?id=${plan.study_plan_id}&name=${plan.study_plan_name}`,
-      label: plan?.study_plan_name,
+      label: normalizePlanLabel(plan?.study_plan_name),
     }));
-  }, [studyPlans, isGuestUser]);
+  }, [orderedStudyPlans, isGuestUser]);
 
   const menuItems = useMemo(() => {
     if (isGuestUser) {
