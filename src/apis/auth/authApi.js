@@ -29,6 +29,28 @@ export const createGuestUser = (payload) => {
   return axios(request);
 };
 
+/**
+ * Login / registro con Google: el backend debe verificar `firebase_id_token` con el Admin SDK
+ * y devolver el mismo formato que `login` o `signup` (auth_token, user_id, status_Message, etc.).
+ * Opcional: `close_other_sessions: true` para cerrar la sesión remota (mismo caso que login con sesión activa).
+ */
+export const authWithGoogleIdToken = (payload) => {
+  const request = {
+    method: "POST",
+    url: `${authUrl}google`,
+    headers: {
+      "content-type": "application/json",
+    },
+    data: {
+      firebase_id_token: payload.firebase_id_token,
+      environment: payload.environment ?? "platform",
+      ...(payload.close_other_sessions ? { close_other_sessions: true } : {}),
+    },
+  };
+
+  return axios(request);
+};
+
 export const loginUser = (payload) => {
   const request = {
     method: "POST",

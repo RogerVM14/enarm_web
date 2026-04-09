@@ -35,13 +35,15 @@ const Hero3 = ({ size, isMobile }) => {
   const wordsTitle = ["Obtén", "un", "seguimiento", "personalizado", "e", "intensivo"]
   const navigate = useNavigate()
   const handleNavigate = () => navigate(ROUTES.REGISTRO)
+  /** Mismo criterio que About/index (lg+ = desktop): título alineado a la izquierda en escritorio */
+  const titleAlign = ["lg", "xl", "xxl"].includes(size) ? "left" : "center"
   return (
     <div className={`hero-3 ${size}`}>
       <div className="hero-3-container">
         <div className="gradient"></div>
         {mobileDevice === false ? (<div className="triangle"></div>) : null}
         <div className="hero-3-container-header reveal-load">
-          <FadeInTitle words={wordsTitle} align="center" />
+          <FadeInTitle words={wordsTitle} align={titleAlign} />
           <p className={mobileDevice ? "regular-14 text-center" : "bold-16"}>
             Este año queremos que más del 85% de nuestros alumnos aprueben el ENARM en su primer intento.
           </p>

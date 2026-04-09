@@ -13,6 +13,8 @@ import { CreateNewUser } from "../../../apis/auth/authApi";
 import showToast from "../../../utils/toasts/commonToasts";
 import { resetCheckoutInformation } from "../../../store/reducers/checkout/checkoutInformationSlice";
 import { encryptPassword } from "../../../utils/auth";
+import { signInWithGoogleInspectPayload, signOutFirebaseAuth } from "../../../firebase";
+import { FcGoogle } from "react-icons/fc";
 
 const EMAIL_REGEX =
   /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -92,6 +94,54 @@ const RegisterForm = ({ handleUserInfo, handleRegister }) => {
   const [passwordError, setPasswordError] = useState(false);
 
   const [passwordComplete, setPasswordComplete] = useState(false);
+  const [isGoogleSubmitting, setIsGoogleSubmitting] = useState(false);
+
+  /**
+   * Registro con Google: solo exploración — imprime en consola todo lo que devuelve Firebase.
+   * No llama a tu API de registro ni mezcla con Redux/checkout.
+   * Tras loguear, cierra sesión en Firebase para no dejar al usuario “colgado” en el cliente.
+   */
+  const handleGoogleRegister = async () => {
+    setIsGoogleSubmitting(true);
+    try {
+      const p = await signInWithGoogleInspectPayload();
+
+      console.group("[Registro Google] Solo inspección — sin backend");
+      console.log("UserCredential completo:", p.userCredential);
+      console.log("user (Firebase User):", p.user);
+      console.log("uid:", p.user?.uid);
+      console.log("email:", p.user?.email);
+      console.log("emailVerified:", p.user?.emailVerified);
+      console.log("displayName:", p.user?.displayName);
+      console.log("photoURL:", p.user?.photoURL);
+      console.log("phoneNumber:", p.user?.phoneNumber);
+      console.log("metadata (creationTime / lastSignInTime):", p.user?.metadata);
+      console.log("providerData:", p.user?.providerData);
+      console.log("providerId (sign-in):", p.providerId);
+      console.log("operationType:", p.operationType);
+      console.log("Google OAuth accessToken (credencial web):", p.googleOAuthAccessToken);
+      console.log("idToken (JWT completo — lo que enviarías al backend):", p.idToken);
+      console.log("idTokenResult:", p.idTokenResult);
+      console.log("claims (incl. firebase + custom):", p.idTokenResult?.claims);
+      console.log("token issuedAt:", p.idTokenResult?.issuedAtTime);
+      console.log("token authTime:", p.idTokenResult?.authTime);
+      console.log("signInProvider:", p.idTokenResult?.signInProvider);
+      console.groupEnd();
+
+      showToast.success("Datos impresos en consola (F12 → Consola). Sesión Firebase cerrada para no mezclar flujos.");
+      await signOutFirebaseAuth();
+    } catch (err) {
+      const code = err?.code;
+      if (code === "auth/popup-closed-by-user" || code === "auth/cancelled-popup-request") {
+        return;
+      }
+      console.error("[Registro Google] Error:", err);
+      showToast.error(err?.message || "Error al conectar con Google");
+      await signOutFirebaseAuth();
+    } finally {
+      setIsGoogleSubmitting(false);
+    }
+  };
 
   const handleClick = async () => {
     if (!isValidEmail()) return;
@@ -157,19 +207,40 @@ const RegisterForm = ({ handleUserInfo, handleRegister }) => {
           {passwordError ? <span className={`${ui.formLabel} red`}>Introduce una contraseña válida</span> : null}
         </div>
         <button
-          disabled={!validFormatEmail || !passwordComplete}
+          disabled={!validFormatEmail || !passwordComplete || isGoogleSubmitting}
           className={ui.submitButton}
           type="button"
           onClick={handleClick}
         >
           <span className="button-text">Registrar</span>
         </button>
-        <p className="flex-row-nw jc-center gap-8">
+        <p className="flex-row-nw jc-center gap-8" style={{ marginTop: "1rem" }}>
           <span className={ui.linkLabel}>¿Ya eres miembro?</span>
           <Link className="regular-14 sky-blue no-style" to={ROUTES.LOGIN}>
             Iniciar Sesión
           </Link>
         </p>
+        <div className={ui.dividerRow}>
+          <span>o</span>
+        </div>
+        <button
+          type="button"
+          className={ui.googleButton}
+          onClick={handleGoogleRegister}
+          disabled={isGoogleSubmitting}
+        >
+          {isGoogleSubmitting ? (
+            <>
+              <div className="spinner-border animate-spin inline-block w-4 h-4 border-2 rounded-full border-[#05B2FA]"></div>
+              <span>Conectando...</span>
+            </>
+          ) : (
+            <>
+              <FcGoogle size={22} />
+              <span>Iniciar sesión con Google</span>
+            </>
+          )}
+        </button>
       </div>
     </div>
   );
