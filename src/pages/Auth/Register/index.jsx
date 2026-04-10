@@ -1,27 +1,33 @@
 /* eslint-disable no-useless-escape */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import doctorImage from "../../../assets/imgs/Dres/stock-photo-doctor-wearing-white-coat-stethoscope-small.png";
 import { ROUTES } from "../../../constants/routes";
-import { resetUserInformation, setCheckoutUserInformation } from "../../../store/reducers/user/UserInformationSlice";
+import {
+  resetUserInformation,
+  setUserInformation,
+} from "../../../store/reducers/user/UserInformationSlice";
 import "./RegisterPage.css";
 import ui from "./index.module.css";
 import LandingLayout from "../../Layouts/Landing";
 import ValidatePassword from "./ValidatePassword";
-import { CreateNewUser } from "../../../apis/auth/authApi";
+import { createGuestUser } from "../../../apis/auth/authApi";
+import { completeGuestSignupAndEnterPlatform } from "../../../utils/auth/completeGuestSignupAndEnterPlatform";
 import showToast from "../../../utils/toasts/commonToasts";
 import { resetCheckoutInformation } from "../../../store/reducers/checkout/checkoutInformationSlice";
 import { encryptPassword } from "../../../utils/auth";
 import { signInWithGoogleInspectPayload, signOutFirebaseAuth } from "../../../firebase";
 import { FcGoogle } from "react-icons/fc";
+import { setIsGuestUser, setIsLoadingContent } from "../../../store/reducers/general/general";
+import { setCookie } from "../../../utils/auth/cookieSession";
+import ConfirmDialogModal from "../../../components/ConfirmDialogModal";
 
 const EMAIL_REGEX =
   /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 const RegisterPage = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(resetCheckoutInformation());
@@ -36,23 +42,26 @@ const RegisterPage = () => {
       const encryptPass = encryptPassword(password);
       const userInformation = { user_email: email, password: encryptPass };
 
-      CreateNewUser(userInformation)
-        .then((res) => {
+      dispatch(setIsLoadingContent(true));
+      createGuestUser(userInformation)
+        .then(async (res) => {
           const message = res.data.status_Message;
           if (message === "email exists") showToast.warning("Este email ya está en uso");
-          if (message === "user was added successfully") {
+          if (message === "guest added") {
             showToast.success("Tu usuario ha sido creado");
-            const checkoutInf = {
-              ...userInformation,
-              user_id: res?.data?.user_id,
-            };
-            dispatch(setCheckoutUserInformation(checkoutInf));
-            navigate(ROUTES.VERIFICAR_CORREO, { replace: true });
+            dispatch(setIsGuestUser(true));
+            await completeGuestSignupAndEnterPlatform(
+              dispatch,
+              email,
+              encryptPass,
+              res.data
+            );
           }
         })
         .catch((err) => {
           showToast.error("Hubo un error al crear tu usuario, intenta nuevamente");
-        });
+        })
+        .finally(() => dispatch(setIsLoadingContent(false)));
     };
     insertUser();
   };
@@ -87,6 +96,8 @@ const RegisterPage = () => {
 };
 
 const RegisterForm = ({ handleUserInfo, handleRegister }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -95,50 +106,136 @@ const RegisterForm = ({ handleUserInfo, handleRegister }) => {
 
   const [passwordComplete, setPasswordComplete] = useState(false);
   const [isGoogleSubmitting, setIsGoogleSubmitting] = useState(false);
+  const [isSessionModalOpen, setIsSessionModalOpen] = useState(false);
+  const pendingGoogleTokenRef = useRef(null);
+
+  const completeSessionAfterAuth = (rest) => {
+    if (!rest?.auth_token) {
+      showToast.error("No se pudo iniciar sesión. Intenta de nuevo.");
+      return;
+    }
+    dispatch(setUserInformation(rest));
+    setCookie("accessToken", rest.auth_token);
+    setTimeout(() => {
+      window.location.href = ROUTES.PLATAFORMA_DASHBOARD;
+    }, 100);
+  };
+
+  const handleGoogleSessionModalAccept = () => {
+    if (!pendingGoogleTokenRef.current) return;
+    createGuestUser({
+      firebase_token: pendingGoogleTokenRef.current,
+      environment: "platform",
+    })
+      .then(async (res) => {
+        const { status_Message, ...rest } = res.data;
+        if (status_Message === "valid user") {
+          await signOutFirebaseAuth();
+          completeSessionAfterAuth(rest);
+        } else {
+          showToast.error("No se pudo cerrar la otra sesión. Intenta de nuevo.");
+        }
+      })
+      .catch(() => {
+        showToast.error("Hubo un error al cerrar la otra sesión, intenta nuevamente");
+      })
+      .finally(() => {
+        setIsSessionModalOpen(false);
+        pendingGoogleTokenRef.current = null;
+      });
+  };
+
+  const handleGoogleSessionModalCancel = () => {
+    setIsSessionModalOpen(false);
+    pendingGoogleTokenRef.current = null;
+  };
 
   /**
-   * Registro con Google: solo exploración — imprime en consola todo lo que devuelve Firebase.
-   * No llama a tu API de registro ni mezcla con Redux/checkout.
-   * Tras loguear, cierra sesión en Firebase para no dejar al usuario “colgado” en el cliente.
+   * Registro con Google: `add-guest` con `{ environment, firebase_token }`.
+   * Respuestas alineadas con login (`valid user`, `user logged`, etc.).
    */
   const handleGoogleRegister = async () => {
     setIsGoogleSubmitting(true);
     try {
       const p = await signInWithGoogleInspectPayload();
+      dispatch(setIsLoadingContent(true));
+      const res = await createGuestUser({
+        firebase_token: p.idToken,
+        environment: "platform",
+      });
+      const { status_Message, ...rest } = res.data;
 
-      console.group("[Registro Google] Solo inspección — sin backend");
-      console.log("UserCredential completo:", p.userCredential);
-      console.log("user (Firebase User):", p.user);
-      console.log("uid:", p.user?.uid);
-      console.log("email:", p.user?.email);
-      console.log("emailVerified:", p.user?.emailVerified);
-      console.log("displayName:", p.user?.displayName);
-      console.log("photoURL:", p.user?.photoURL);
-      console.log("phoneNumber:", p.user?.phoneNumber);
-      console.log("metadata (creationTime / lastSignInTime):", p.user?.metadata);
-      console.log("providerData:", p.user?.providerData);
-      console.log("providerId (sign-in):", p.providerId);
-      console.log("operationType:", p.operationType);
-      console.log("Google OAuth accessToken (credencial web):", p.googleOAuthAccessToken);
-      console.log("idToken (JWT completo — lo que enviarías al backend):", p.idToken);
-      console.log("idTokenResult:", p.idTokenResult);
-      console.log("claims (incl. firebase + custom):", p.idTokenResult?.claims);
-      console.log("token issuedAt:", p.idTokenResult?.issuedAtTime);
-      console.log("token authTime:", p.idTokenResult?.authTime);
-      console.log("signInProvider:", p.idTokenResult?.signInProvider);
-      console.groupEnd();
-
-      showToast.success("Datos impresos en consola (F12 → Consola). Sesión Firebase cerrada para no mezclar flujos.");
+      if (status_Message === "user logged") {
+        pendingGoogleTokenRef.current = p.idToken;
+        setIsSessionModalOpen(true);
+        return;
+      }
+      if (status_Message === "valid user") {
+        await signOutFirebaseAuth();
+        completeSessionAfterAuth(rest);
+        return;
+      }
+      if (status_Message === "invalid user") {
+        showToast.error(
+          "No pudimos crear tu cuenta con Google. Intenta de nuevo o regístrate con correo."
+        );
+        await signOutFirebaseAuth();
+        return;
+      }
+      if (status_Message === "problems with last session") {
+        showToast.error("Hubo un problema al actualizar tu sesión. Intenta de nuevo.");
+        await signOutFirebaseAuth();
+        return;
+      }
+      if (status_Message === "problems with last jwt") {
+        showToast.error("Hubo un problema con la sesión. Intenta de nuevo.");
+        await signOutFirebaseAuth();
+        return;
+      }
+      if (status_Message === "email exists") {
+        if (res.data?.action === "login_to_link_account") {
+          showToast.warning(
+            "Este correo ya tiene cuenta. Inicia sesión con Google para vincularla."
+          );
+        } else {
+          showToast.warning("Este email ya está en uso");
+        }
+        await signOutFirebaseAuth();
+        return;
+      }
+      if (status_Message === "guest added") {
+        showToast.success("Tu usuario ha sido creado");
+        dispatch(setIsGuestUser(true));
+        await signOutFirebaseAuth();
+        if (res.data?.auth_token) {
+          const { status_Message: _sm, ...rest } = res.data;
+          completeSessionAfterAuth(rest);
+        } else {
+          showToast.info("Inicia sesión con Google para entrar a la plataforma.");
+          navigate(ROUTES.LOGIN, { replace: true });
+        }
+        return;
+      }
+      showToast.error("No se pudo completar el registro. Intenta de nuevo.");
       await signOutFirebaseAuth();
     } catch (err) {
       const code = err?.code;
       if (code === "auth/popup-closed-by-user" || code === "auth/cancelled-popup-request") {
         return;
       }
-      console.error("[Registro Google] Error:", err);
-      showToast.error(err?.message || "Error al conectar con Google");
+      const data = err.response?.data;
+      if (data?.status_Message === "Firebase email not verified") {
+        showToast.error("Verifica tu correo en Google antes de continuar.");
+      } else if (data?.status_Message === "Firebase token without sub/uid") {
+        showToast.error("No pudimos validar tu cuenta de Google. Intenta de nuevo.");
+      } else {
+        showToast.error(
+          data?.message || data?.status_Message || err?.message || "Error al registrarte con Google"
+        );
+      }
       await signOutFirebaseAuth();
     } finally {
+      dispatch(setIsLoadingContent(false));
       setIsGoogleSubmitting(false);
     }
   };
@@ -175,6 +272,7 @@ const RegisterForm = ({ handleUserInfo, handleRegister }) => {
     });
   };
   return (
+    <>
     <div className="form-container reveal-load">
       <div>
         <div className={ui.formGroup}>
@@ -194,7 +292,7 @@ const RegisterForm = ({ handleUserInfo, handleRegister }) => {
           />
           {emailError ? <span className={`${ui.formLabel} red`}>Introduce un correo válido</span> : null}
         </div>
-        <div className={ui.formGroup} style={{ marginBottom: "0" }}>
+        <div className={ui.formGroup}>
           <label className={ui.formLabel} htmlFor="form-password">
             Contraseña*
           </label>
@@ -237,12 +335,20 @@ const RegisterForm = ({ handleUserInfo, handleRegister }) => {
           ) : (
             <>
               <FcGoogle size={22} />
-              <span>Iniciar sesión con Google</span>
+              <span>Regístrate con Google</span>
             </>
           )}
         </button>
       </div>
     </div>
+    <ConfirmDialogModal
+      isOpen={isSessionModalOpen}
+      onAccept={handleGoogleSessionModalAccept}
+      onCancel={handleGoogleSessionModalCancel}
+      title="Cierre de sesión"
+      description="Hemos detectado una sesión activa, al dar continuar, esta será cerrada automáticamente"
+    />
+    </>
   );
 };
 

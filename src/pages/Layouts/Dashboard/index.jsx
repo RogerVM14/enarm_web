@@ -8,6 +8,7 @@ import { GeneralContext } from "../../../contexts/GeneralContext";
 import { useNavigate } from "react-router-dom";
 import MaintenanceBanner from "../../../components/banners/MaintenanceBanner";
 import InfoBanner from "../../../components/banners/InfoBanner";
+import GuestLimitedContentModal from "../../../components/GuestLimitedContentModal";
 
 const DashboardLayout = ({ children }) => {
   const navigation = useNavigate();
@@ -66,6 +67,7 @@ const DashboardLayout = ({ children }) => {
         closeFeedbackModal={closeFeedbackModal}
         handleRunFeedback={handleRunFeedback}
       />
+      <GuestLimitedContentModal />
     </div>
   );
 };

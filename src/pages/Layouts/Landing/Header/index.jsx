@@ -66,13 +66,13 @@ const NavBar = () => {
                 </Link>
                 <Link
                   datatype="small"
-                  to={ROUTES.REGISTRO_PRUEBA_ENARM}
+                  to={ROUTES.REGISTRO}
                   className={ui.blueRoundedLink}
                   onClick={() => {
                     setDisplay(false);
                   }}
                 >
-                  prueba curso GRATIS
+                  Regístrate
                 </Link>
               </div>
             </div>
@@ -80,10 +80,10 @@ const NavBar = () => {
               <li>
                 <Link
                   datatype="large"
-                  to={ROUTES.REGISTRO_PRUEBA_ENARM}
+                  to={ROUTES.REGISTRO}
                   className={ui.blueRoundedLink}
                 >
-                  prueba curso GRATIS
+                  Regístrate
                 </Link>
               </li>
               <li className={ui.linkWithIcon}>
@@ -113,10 +113,10 @@ const MobileHeaderNavTools = ({ display, handleDisplay }) => {
     <div className={ui.headerTools}>
       <Link
         datatype="small"
-        to={ROUTES.REGISTRO_PRUEBA_ENARM}
+        to={ROUTES.REGISTRO}
         className={ui.blueRoundedLink}
       >
-        Obtener Curso
+        Regístrate
       </Link>
       <button
         type="button"

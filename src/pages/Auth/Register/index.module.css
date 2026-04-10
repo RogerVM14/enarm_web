@@ -34,8 +34,8 @@
   font-family: PoppinsBold;
   font-style: normal;
   font-weight: 700;
-  font-size: 44px;
-  line-height: 1.5;
+  font-size: 32px;
+  line-height: 1.25;
   text-align: start;
 }
 
@@ -57,10 +57,10 @@
 }
 
 .containerHead {
-  margin-top: 60px;
+  margin-top: 32px;
   position: relative;
   text-align: center;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
 .imageContainer {
@@ -203,6 +203,10 @@
 
   .register {
     overflow-y: hidden;
+  }
+
+  .containerTitle {
+    font-size: 36px;
   }
 
   .containerHead {

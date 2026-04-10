@@ -3,15 +3,10 @@ import LandingLayout from "../../Layouts/Landing";
 import CardPicture1 from "../../Assets/Images/CardPicture1.png";
 import CardPicture2 from "../../Assets/Images/CardPicture2.png";
 import CardPicture3 from "../../Assets/Images/CardPicture3.png";
-import { useNavigate } from "react-router-dom";
 import ui from "./index.module.css";
 import { useDispatch } from "react-redux";
 import { resetCheckoutInformation } from "../../../store/reducers/checkout/checkoutInformationSlice";
-import {
-  resetUserInformation,
-  setCheckoutUserInformation,
-} from "../../../store/reducers/user/UserInformationSlice";
-import { ROUTES } from "../../../constants/routes";
+import { resetUserInformation } from "../../../store/reducers/user/UserInformationSlice";
 import { createGuestUser } from "../../../apis/auth/authApi";
 import showToast from "../../../utils/toasts/commonToasts";
 import {
@@ -19,11 +14,11 @@ import {
   setIsLoadingContent,
 } from "../../../store/reducers/general/general";
 import { encryptPassword } from "../../../utils/auth";
+import { completeGuestSignupAndEnterPlatform } from "../../../utils/auth/completeGuestSignupAndEnterPlatform";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const FreeTrialPage = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(resetCheckoutInformation());
@@ -44,33 +39,40 @@ const FreeTrialPage = () => {
     const [showPassword, setShowPassword] = useState(false);
 
     const handleCreateGuestUser = () => {
+      const encryptedPassword = encryptPassword(guestPassword);
       const payload = {
         user_email: guestEmail,
-        password: encryptPassword(guestPassword),
-        fullname: guestName,
+        password: encryptedPassword,
       };
       dispatch(setIsLoadingContent(true));
       createGuestUser(payload)
-        .then((res) => {
+        .then(async (res) => {
           const message = res.data.status_Message;
           if (message === "email exists")
             showToast.warning("Este email ya está en uso");
           if (message === "guest added") {
             showToast.success("Tu usuario ha sido creado");
-            const checkoutInf = {
-              ...payload,
-              user_id: res?.data?.user_id,
-            };
-            dispatch(setCheckoutUserInformation(checkoutInf));
-            navigate(ROUTES.VERIFICAR_CORREO, { replace: true });
             dispatch(setIsGuestUser(true));
+            await completeGuestSignupAndEnterPlatform(
+              dispatch,
+              guestEmail,
+              encryptedPassword,
+              res.data
+            );
           }
           dispatch(setIsLoadingContent(false));
         })
         .catch((err) => {
-          showToast.error(
-            "Hubo un error al crear tu usuario, intenta nuevamente"
-          );
+          const data = err.response?.data;
+          if (data?.status_Message === "Firebase email not verified") {
+            showToast.error("Verifica tu correo antes de continuar.");
+          } else if (data?.status_Message === "Firebase token without sub/uid") {
+            showToast.error("No pudimos validar tu cuenta. Intenta de nuevo.");
+          } else {
+            showToast.error(
+              "Hubo un error al crear tu usuario, intenta nuevamente"
+            );
+          }
           dispatch(setIsLoadingContent(false));
         })
         .finally(() => {

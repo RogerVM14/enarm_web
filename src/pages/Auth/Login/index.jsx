@@ -1,10 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  authWithGoogleIdToken,
-  closeUserRemoteSession,
-  loginUser,
-} from "../../../apis/auth/authApi";
+import { closeUserRemoteSession, loginUser } from "../../../apis/auth/authApi";
 import { signInWithGoogleAndGetIdToken, signOutFirebaseAuth } from "../../../firebase";
 import doctorImage from "../../../assets/imgs/Dres/stock-photo-surgeon-wearing-blue-uniform-stethoscope-small.png";
 import { ERROR_MESSAGES } from "../../../constants/Messages";
@@ -86,10 +82,9 @@ const FormLogin = () => {
   const handleAccept = () => {
     setIsSubmitting(true);
     if (sessionConflictSource === "google" && pendingGoogleTokenRef.current) {
-      authWithGoogleIdToken({
-        firebase_id_token: pendingGoogleTokenRef.current,
+      loginUser({
+        firebase_token: pendingGoogleTokenRef.current,
         environment: "platform",
-        close_other_sessions: true,
       })
         .then((res) => {
           const { status_Message, ...rest } = res.data;
@@ -185,10 +180,25 @@ const FormLogin = () => {
           if (res.data.status_Message === "invalid user") {
             showToast.error("El usuario o la contraseña son incorrectos");
           }
+          if (res.data.status_Message === "problems with last session") {
+            showToast.error("Hubo un problema al actualizar tu sesión. Intenta de nuevo.");
+          }
+          if (res.data.status_Message === "problems with last jwt") {
+            showToast.error("Hubo un problema con la sesión. Inicia sesión de nuevo.");
+          }
         })
         .catch((err) => {
-          const error = err.response?.data?.message || "Error desconocido";
-          showToast.error(ERROR_MESSAGES[error]);
+          const data = err.response?.data;
+          if (data?.status_Message === "Firebase email not verified") {
+            showToast.error("Verifica tu correo en Google antes de continuar.");
+            return;
+          }
+          if (data?.status_Message === "Firebase token without sub/uid") {
+            showToast.error("No pudimos validar tu cuenta de Google. Intenta de nuevo.");
+            return;
+          }
+          const error = data?.message || "Error desconocido";
+          showToast.error(ERROR_MESSAGES[error] || error);
         })
         .finally(() => {
           setIsSubmitting(false);
@@ -208,8 +218,8 @@ const FormLogin = () => {
     setIsGoogleSubmitting(true);
     try {
       const { idToken } = await signInWithGoogleAndGetIdToken();
-      const res = await authWithGoogleIdToken({
-        firebase_id_token: idToken,
+      const res = await loginUser({
+        firebase_token: idToken,
         environment: "platform",
       });
       const { status_Message, ...rest } = res.data;
@@ -233,13 +243,18 @@ const FormLogin = () => {
       if (code === "auth/popup-closed-by-user" || code === "auth/cancelled-popup-request") {
         return;
       }
-      if (err?.response?.status === 404) {
+      const data = err.response?.data;
+      if (data?.status_Message === "Firebase email not verified") {
+        showToast.error("Verifica tu correo en Google antes de continuar.");
+      } else if (data?.status_Message === "Firebase token without sub/uid") {
+        showToast.error("No pudimos validar tu cuenta de Google. Intenta de nuevo.");
+      } else if (err?.response?.status === 404) {
         showToast.error(
           "El inicio con Google no está disponible aún. Contacta al administrador."
         );
       } else {
-        const msg = err.response?.data?.message || err.message;
-        showToast.error(ERROR_MESSAGES[msg] || "Error al iniciar sesión con Google");
+        const msg = data?.message || data?.status_Message || err.message;
+        showToast.error(ERROR_MESSAGES[msg] || msg || "Error al iniciar sesión con Google");
       }
       await signOutFirebaseAuth();
     } finally {
@@ -333,19 +348,25 @@ const FormLogin = () => {
         </div>
         <button
           type="button"
-          className={ui.googleButton}
+          className={`${ui.googleButton} ${
+            isGoogleSubmitting ? ui.googleButtonBusy : ""
+          }`}
           onClick={handleGoogleLogin}
           disabled={isSubmitting || isGoogleSubmitting}
+          aria-busy={isGoogleSubmitting}
         >
           {isGoogleSubmitting ? (
             <>
-              <div className="spinner-border animate-spin inline-block w-4 h-4 border-2 rounded-full border-[#05B2FA]"></div>
-              <span>Conectando...</span>
+              <div
+                className="spinner-border animate-spin inline-block w-4 h-4 shrink-0 border-2 rounded-full border-[#05B2FA] border-t-transparent"
+                aria-hidden
+              />
+              <span className="button-text">Iniciando sesión</span>
             </>
           ) : (
             <>
-              <FcGoogle size={22} />
-              <span>Iniciar sesión con Google</span>
+              <FcGoogle size={22} className="shrink-0" />
+              <span className="button-text">Iniciar sesión con Google</span>
             </>
           )}
         </button>

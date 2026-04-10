@@ -152,6 +152,18 @@
   cursor: not-allowed;
 }
 
+.googleButtonBusy {
+  pointer-events: none;
+}
+
+.googleButton .button-text {
+  font-family: MontserratBold, Montserrat, sans-serif;
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  color: rgba(0, 0, 0, 0.88);
+}
+
 .triangle {
   display: none;
 }

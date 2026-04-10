@@ -16,56 +16,63 @@ export const CreateNewUser = (payload) => {
   return axios(request);
 };
 
+/**
+ * Alta invitado (`students/add-guest`).
+ * Formulario (correo): el mismo `payload` que envía el caller, p. ej. `{ user_email, password }`.
+ * Google: solo `{ environment, firebase_token }` (no se envían email ni password).
+ */
 export const createGuestUser = (payload) => {
+  const hasFirebase = Boolean(payload?.firebase_token);
+  const data = hasFirebase
+    ? {
+        // environment: payload.environment ?? "platform",
+        firebase_token: payload.firebase_token,
+      }
+    : { ...payload };
+
   const request = {
     method: "POST",
     url: `${REACT_APP_ENARM_API_GATEWAY_URL}students/add-guest`,
     headers: {
       "content-type": "application/json",
     },
-    data: payload,
+    data,
   };
 
   return axios(request);
 };
 
 /**
- * Login / registro con Google: el backend debe verificar `firebase_id_token` con el Admin SDK
- * y devolver el mismo formato que `login` o `signup` (auth_token, user_id, status_Message, etc.).
- * Opcional: `close_other_sessions: true` para cerrar la sesión remota (mismo caso que login con sesión activa).
+ * Login (`auth/login`).
+ * Google: solo `{ environment, firebase_token }`.
+ * Correo/contraseña: el `payload` completo del caller (p. ej. `environment`, `new_user_email`, `new_user_password`).
  */
-export const authWithGoogleIdToken = (payload) => {
-  const request = {
-    method: "POST",
-    url: `${authUrl}google`,
-    headers: {
-      "content-type": "application/json",
-    },
-    data: {
-      firebase_id_token: payload.firebase_id_token,
-      environment: payload.environment ?? "platform",
-      ...(payload.close_other_sessions ? { close_other_sessions: true } : {}),
-    },
-  };
-
-  return axios(request);
-};
-
 export const loginUser = (payload) => {
+  const environment = payload?.environment ?? "platform";
+  const hasFirebase = Boolean(payload?.firebase_token);
+
+  const data = hasFirebase
+    ? {
+        environment,
+        firebase_token: payload.firebase_token,
+      }
+    : {
+        ...payload,
+        environment,
+      };
+
   const request = {
     method: "POST",
     url: `${authUrl}login`,
     headers: {
       "content-type": "application/json",
     },
-    data: payload,
-    // data: {
-    //   new_user_email: "superadmin@enarm.com",
-    //   new_user_password: "superadmin",
-    // },
+    data,
   };
 
-  return axios(request);
+  return axios(request).then((res) => {
+    return res;
+  });
 };
 
 export const verifyEmailCode = (payload) => {

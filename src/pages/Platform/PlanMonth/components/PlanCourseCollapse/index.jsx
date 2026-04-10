@@ -75,8 +75,17 @@ const PlanCourseCollapse = ({ weeksList, planID, data }) => {
         isOpen={isConfirmModalOpen}
         onAccept={handleAcceptConfirm}
         onCancel={handleCancelConfirm}
-        title="Realiza tu pago"
-        description="Paga por nuestro curso para poder disfrutar de todo el contenido que tenemos para ti"
+        title="Desbloquea este contenido"
+        description={
+          <>
+            <p className="m-0">Este contenido forma parte del programa completo.</p>
+            <p className="m-0">
+              Accede a todas las lecciones, simuladores y recursos diseñados para el ENARM.
+            </p>
+          </>
+        }
+        acceptText="Ver todo el curso"
+        cancelText="Seguir explorando"
       />
     </section>
   );

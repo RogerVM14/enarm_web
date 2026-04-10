@@ -15,11 +15,10 @@ import enarmLogo from "../../assets/imgs/enarm-platform-logo.jpg";
 import { AsidePositionContext } from "../../contexts/platform/AsideLeftPositionContext";
 import { CurrentCourseContext } from "../../contexts/platform/CurrentCourseContext";
 import { PlanRoutesContext } from "../../contexts/platform/PlanRoutesContext";
-import userIcon from "../../assets/icons/platform/default-user-icon.png";
-
-import { useDispatch, useSelector } from "react-redux";
-import { selectUserEmail } from "../../store/reducers/user/UserInformationSlice";
+import { useDispatch } from "react-redux";
 import { ROUTES } from "../../constants/routes";
+import { logout } from "../../utils/auth";
+import { HiOutlineLogout } from "react-icons/hi";
 
 const activeStyle = { color: "rgba(30, 115, 190, 1)" };
 const subMenuActiveStyle = {
@@ -102,10 +101,8 @@ const DashboardLeftAside = (props) => {
   const [docsMenu, setDocsMenu] = useState(false);
   const [docsTopMenu, setDocsTopMenu] = useState(false);
   const [selected, setSelected] = useState(navlinks_arrow);
-  const [isShowingSessionTools, setSessionTools] = useState(false);
   const { deviceType, isSmart, menuActive } = props;
 
-  const userName = useSelector(selectUserEmail);
   const { isShort, handleDashboardAsideMenu } = useContext(DashAsideContext);
   const { currentPosition, subPosition, handleNavLink, handleNavSubLink } = useContext(AsidePositionContext);
   const { handleRoutePlan } = useContext(CurrentCourseContext);
@@ -361,39 +358,25 @@ const DashboardLeftAside = (props) => {
         <div className="aside-footer">
           {isSmart ? (
             <div className="session-user smart">
-              <div
-                className="user-info"
-                onClick={() => {
-                  setSessionTools(!isShowingSessionTools);
+              <button
+                type="button"
+                className="roboto-14 black session-logout-only"
+                onClick={handleLogout}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  width: "100%",
+                  padding: "12px 16px",
+                  border: "none",
+                  background: "transparent",
+                  textAlign: "left",
+                  cursor: "pointer",
                 }}
               >
-                <img src={userIcon} alt="user-img" className="user-icon" />
-                <span className="roboto-14 black">{userName}</span>
-                <i
-                  className="material-icons"
-                  style={{
-                    fontSize: "16px",
-                    marginLeft: "auto",
-                    fontWeight: "bold",
-                  }}
-                >
-                  expand_less
-                </i>
-              </div>
-              {isShowingSessionTools && (
-                <div className="session-container-tools">
-                  <div>
-                    <i className="material-icons">settings</i>
-                    <span className="roboto-14">Mi cuenta</span>
-                  </div>
-                  <div onClick={handleLogout}>
-                    <i className="material-icons">logout</i>
-                    <span className="roboto-14" style={{ fontWeight: "400" }}>
-                      Cerrar Sesión
-                    </span>
-                  </div>
-                </div>
-              )}
+                <HiOutlineLogout size={20} aria-hidden />
+                <span>Cerrar Sesión</span>
+              </button>
             </div>
           ) : (
             <div className="menu-toggle">
