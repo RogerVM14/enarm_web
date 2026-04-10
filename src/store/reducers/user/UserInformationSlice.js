@@ -67,6 +67,15 @@ export const selectUserInfoComplete = (state) => state.user.userInformation.info
 export const selectFullUserName = (state) => state.user.userInformation.fullname;
 export const selectCheckoutUserId = (state) => state.user.userRegisterInformation.user_id;
 export const selectUserId = (state) => state.user.userInformation.user_id;
+
+/** id para checkout: primero el de registro/login previo a pago; si no, sesión (ej. invitado desde plataforma). */
+export const selectEffectiveCheckoutUserId = (state) => {
+  const regId = state.user.userRegisterInformation.user_id;
+  if (regId !== null && regId !== undefined && regId !== "") return regId;
+  const sessionId = state.user.userInformation.user_id;
+  if (sessionId !== null && sessionId !== undefined && sessionId !== "") return sessionId;
+  return "";
+};
 export const selectAuthToken = (state) => state.user.userInformation.auth_token;
 export const selectIsGuestUserRole = (state) => state.user.userInformation.role_name === "Invitado";
 
