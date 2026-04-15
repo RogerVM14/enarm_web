@@ -2,8 +2,12 @@ import React, { useRef, useState, useEffect } from "react";
 import "../css/VerifyEmailCode.css";
 import verifyIcon from "../assets/icons/verify-email-icon.png";
 import { useDispatch, useSelector } from "react-redux";
-import { selectUserCheckoutInformation, setUserInformation } from "../store/reducers/user/UserInformationSlice";
-import { useNavigate } from "react-router-dom";
+import {
+  selectUserCheckoutInformation,
+  setUserInformation,
+  setCheckoutUserInformation,
+} from "../store/reducers/user/UserInformationSlice";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { ROUTES } from "../constants/routes";
 import { loginUser, verifyEmailCode } from "../apis/auth/authApi";
 import showToast from "../utils/toasts/commonToasts";
@@ -17,6 +21,7 @@ const VerifyEmailCodePage = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const isGuestUser = useSelector(selectIsGuestUser);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const dispatch = useDispatch();
   const fields = useRef(
     Array.from({ length: 6 }, () => React.createRef())
@@ -79,25 +84,40 @@ const VerifyEmailCodePage = () => {
         setErrorMessage("El código es inválido o ya expiró");
       } else if (message === "authentication done") {
         setErrorMessage("");
-        showToast.success("Tú correo fue verificado");
-        if (isGuestUser) {
-          const loginResponse = await loginUser({
-            new_user_email: user_email,
-            new_user_password: password,
-            environment: "platform",
-          });
-
-          if (loginResponse.data.status_Message === "valid user") {
-            const { auth_token, ...rest } = loginResponse.data;
-            dispatch(setUserInformation(rest));
-            setCookie("accessToken", auth_token);
-            showToast.success("Bienvenido");
-            navigate(ROUTES.PLATAFORMA_DASHBOARD, { replace: true });
-          } else {
-            showToast.error("El usuario o la contraseña son incorrectos");
-          }
+        const source = searchParams.get("source");
+        if (source === "register") {
+          dispatch(
+            setCheckoutUserInformation({
+              user_email: "",
+              password: "",
+              user_id: "",
+            })
+          );
+          showToast.success(
+            "Correo verificado. Inicia sesión con tu correo y contraseña."
+          );
+          navigate(ROUTES.LOGIN, { replace: true });
         } else {
-          navigate(ROUTES.CHECKOUT);
+          showToast.success("Tu correo fue verificado");
+          if (isGuestUser) {
+            const loginResponse = await loginUser({
+              new_user_email: user_email,
+              new_user_password: password,
+              environment: "platform",
+            });
+
+            if (loginResponse.data.status_Message === "valid user") {
+              const { status_Message, auth_token, ...rest } = loginResponse.data;
+              dispatch(setUserInformation(rest));
+              setCookie("accessToken", auth_token);
+              showToast.success("Bienvenido");
+              navigate(ROUTES.PLATAFORMA_DASHBOARD, { replace: true });
+            } else {
+              showToast.error("El usuario o la contraseña son incorrectos");
+            }
+          } else {
+            navigate(ROUTES.CHECKOUT);
+          }
         }
       }
     } catch (error) {

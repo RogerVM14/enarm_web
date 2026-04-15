@@ -7,13 +7,13 @@ import { ROUTES } from "../../../constants/routes";
 import {
   resetUserInformation,
   setUserInformation,
+  setCheckoutUserInformation,
 } from "../../../store/reducers/user/UserInformationSlice";
 import "./RegisterPage.css";
 import ui from "./index.module.css";
 import LandingLayout from "../../Layouts/Landing";
 import ValidatePassword from "./ValidatePassword";
 import { createGuestUser } from "../../../apis/auth/authApi";
-import { completeGuestSignupAndEnterPlatform } from "../../../utils/auth/completeGuestSignupAndEnterPlatform";
 import showToast from "../../../utils/toasts/commonToasts";
 import { resetCheckoutInformation } from "../../../store/reducers/checkout/checkoutInformationSlice";
 import { encryptPassword } from "../../../utils/auth";
@@ -28,6 +28,7 @@ const EMAIL_REGEX =
 
 const RegisterPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(resetCheckoutInformation());
@@ -44,22 +45,37 @@ const RegisterPage = () => {
 
       dispatch(setIsLoadingContent(true));
       createGuestUser(userInformation)
-        .then(async (res) => {
+        .then((res) => {
           const message = res.data.status_Message;
-          if (message === "email exists") showToast.warning("Este email ya está en uso");
+          if (message === "email exists") {
+            showToast.warning("Este email ya está en uso");
+            return;
+          }
           if (message === "guest added") {
-            showToast.success("Tu usuario ha sido creado");
-            dispatch(setIsGuestUser(true));
-            await completeGuestSignupAndEnterPlatform(
-              dispatch,
-              email,
-              encryptPass,
-              res.data
+            const uid = res.data.user_id;
+            const uemail = res.data.user_email || email;
+            dispatch(
+              setCheckoutUserInformation({
+                user_email: uemail,
+                user_id: uid,
+                password: encryptPass,
+              })
             );
+            showToast.success(
+              "Te enviamos un código de verificación a tu correo. Revísalo (y spam) para continuar."
+            );
+            navigate(`${ROUTES.VERIFY_EMAIL_CODE}?source=register`, { replace: true });
           }
         })
         .catch((err) => {
-          showToast.error("Hubo un error al crear tu usuario, intenta nuevamente");
+          const data = err.response?.data;
+          if (data?.status_Message === "Firebase email not verified") {
+            showToast.error("Verifica tu correo en Google antes de continuar.");
+          } else if (data?.status_Message === "Firebase token without sub/uid") {
+            showToast.error("No pudimos validar tu cuenta. Intenta de nuevo.");
+          } else {
+            showToast.error("Hubo un error al crear tu usuario, intenta nuevamente");
+          }
         })
         .finally(() => dispatch(setIsLoadingContent(false)));
     };
@@ -150,10 +166,6 @@ const RegisterForm = ({ handleUserInfo, handleRegister }) => {
     pendingGoogleTokenRef.current = null;
   };
 
-  /**
-   * Registro con Google: `add-guest` con `{ environment, firebase_token }`.
-   * Respuestas alineadas con login (`valid user`, `user logged`, etc.).
-   */
   const handleGoogleRegister = async () => {
     setIsGoogleSubmitting(true);
     try {

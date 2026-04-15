@@ -1,16 +1,12 @@
 import { useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import {
+  passwordMeetsRegistrationPolicy,
+  REGISTRATION_PASSWORD_HINT,
+} from "../../../../utils/auth/passwordPolicy";
 import "./ValidatePassword.css";
 
 const PASSWORD_HINT_ID = "register-password-hint";
-
-const PASSWORD_RULES = [
-  /(?=.{8,})/,
-  /\d+/,
-  /[!@#$%^&*(),.?":{}|<>]+/,
-  /[A-Z]+/,
-  /[a-z]+/,
-];
 
 function ValidatePasswordInput(props) {
   const { password, setPassword, handleChange, passwordReady } = props;
@@ -20,8 +16,7 @@ function ValidatePasswordInput(props) {
     const value = event.target.value;
     setPassword(value);
     handleChange(event);
-    const ok = PASSWORD_RULES.every((re) => re.test(value));
-    passwordReady(ok);
+    passwordReady(passwordMeetsRegistrationPolicy(value));
   };
 
   return (
@@ -48,8 +43,7 @@ function ValidatePasswordInput(props) {
         </button>
       </div>
       <p id={PASSWORD_HINT_ID} className="password-hint">
-        Mínimo 8 caracteres, con número, un símbolo (!@#$…), una mayúscula y una
-        minúscula.
+        {REGISTRATION_PASSWORD_HINT}
       </p>
     </div>
   );

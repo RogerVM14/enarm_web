@@ -2,6 +2,318 @@
   padding: 24px;
 }
 
+.accountContainer {
+  max-width: 920px;
+  margin-inline: auto;
+}
+
+.articleContainer {
+  margin-bottom: 0;
+}
+
+/* —— Perfil —— */
+.profileArticle {
+  margin-bottom: 24px;
+}
+
+.profileMuted {
+  color: rgba(0, 0, 0, 0.45);
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.profileLayout {
+  max-width: 640px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.profileField {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.profileFieldLabel {
+  font-family: PoppinsMedium, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.55);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.profileEmailLine {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+}
+
+.profileEmailText {
+  font-family: PoppinsRegular, sans-serif;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.88);
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.profileValueText {
+  font-family: PoppinsRegular, sans-serif;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.88);
+  line-height: 1.4;
+}
+
+.profileValueMuted {
+  font-family: PoppinsRegular, sans-serif;
+  font-size: 15px;
+  color: rgba(0, 0, 0, 0.35);
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  font-family: PoppinsMedium, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+  line-height: 1.2;
+}
+
+.tagVerified {
+  background: rgba(4, 180, 62, 0.12);
+  color: #047857;
+  border: 1px solid rgba(4, 180, 62, 0.35);
+}
+
+.tagPending {
+  background: rgba(0, 0, 0, 0.04);
+  color: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: PoppinsMedium, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  line-height: 1.25;
+  width: fit-content;
+}
+
+.pillRole {
+  background: rgba(30, 115, 190, 0.12);
+  color: #1e73be;
+  border: 1px solid rgba(30, 115, 190, 0.35);
+}
+
+.pillRoleGuest {
+  background: rgba(245, 158, 11, 0.14);
+  color: #b45309;
+  border: 1px solid rgba(245, 158, 11, 0.45);
+}
+
+.signInBlock {
+  margin-top: 0.25rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.signInHeading {
+  font-family: PoppinsMedium, sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.85);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.signInHint {
+  font-family: PoppinsRegular, sans-serif;
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.45);
+  margin: 0 0 0.85rem;
+  line-height: 1.45;
+}
+
+.pillGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.pillGoogle {
+  background: rgba(5, 178, 250, 0.1);
+  color: #0284c7;
+  border: 1px solid rgba(5, 178, 250, 0.45);
+}
+
+.pillEnarm {
+  background: rgba(30, 115, 190, 0.08);
+  color: #1e4d7a;
+  border: 1px solid rgba(30, 115, 190, 0.28);
+}
+
+.pillIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.15rem;
+  height: 1.15rem;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.85);
+  font-size: 10px;
+  font-weight: 800;
+  color: #0284c7;
+}
+
+/* Establecer contraseña (UI) */
+.setPasswordCard {
+  margin-top: 0.5rem;
+  padding: 1.25rem 1.35rem;
+  border-radius: 12px;
+  border: 1px dashed rgba(30, 115, 190, 0.35);
+  background: linear-gradient(180deg, rgba(5, 178, 250, 0.06) 0%, rgba(255, 255, 255, 0.9) 100%);
+}
+
+.setPasswordHeader {
+  margin-bottom: 1rem;
+}
+
+.setPasswordTitle {
+  font-family: PoppinsMedium, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.88);
+  margin: 0 0 0.35rem;
+}
+
+.setPasswordDesc {
+  font-family: PoppinsRegular, sans-serif;
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.55);
+  margin: 0;
+  line-height: 1.5;
+  max-width: 52ch;
+}
+
+.setPasswordFields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+.setPasswordPolicyHint {
+  font-family: PoppinsRegular, sans-serif;
+  font-size: 12px;
+  line-height: 1.45;
+  color: rgba(0, 0, 0, 0.5);
+  margin: 0 0 0.25rem;
+  max-width: 52ch;
+}
+
+.setPasswordRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.setPasswordLabel {
+  font-family: PoppinsMedium, sans-serif;
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.setPasswordInput {
+  font-family: PoppinsRegular, sans-serif;
+  font-size: 14px;
+  padding: 0.55rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.85);
+  max-width: 360px;
+}
+
+.setPasswordInput:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  background: rgba(245, 245, 245, 0.95);
+}
+
+.setPasswordTrigger {
+  font-family: PoppinsMedium, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 0.55rem 1.35rem;
+  border-radius: 999px;
+  border: 2px solid #05b2fa;
+  background: #fff;
+  color: #05b2fa;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.setPasswordTrigger:hover {
+  background: rgba(5, 178, 250, 0.1);
+}
+
+.setPasswordActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.setPasswordCancel {
+  font-family: PoppinsMedium, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 0.55rem 1.15rem;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background: #fff;
+  color: rgba(0, 0, 0, 0.65);
+  cursor: pointer;
+}
+
+.setPasswordCancel:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.setPasswordCta {
+  font-family: PoppinsMedium, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 0.55rem 1.25rem;
+  border-radius: 999px;
+  border: none;
+  background: #05b2fa;
+  color: #fff;
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity 0.15s ease, background 0.15s ease;
+}
+
+.setPasswordCta:hover:not(:disabled) {
+  background: #0397d6;
+}
+
+.setPasswordCta:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
 .containerHeader {
   border: 1px solid var(--Neutral-5, #D9D9D9);
   background: var(--Neutral-1, #FFF);
@@ -44,88 +356,6 @@
   border-left: 1px solid var(--Neutral-5, #D9D9D9);
   border-bottom: 1px solid var(--Neutral-5, #D9D9D9);
   border-right: 1px solid var(--Neutral-5, #D9D9D9);
-}
-
-.containerBody form {
-  display: flex;
-  flex-flow: row wrap;
-  max-width: 824px;
-  column-gap: 24px;
-  margin-inline: auto;
-}
-
-.formInput {
-  padding-bottom: 32px;
-  width: 100%;
-  max-width: 400px;
-}
-
-.formInput label {
-  margin-bottom: 8px;
-  display: block;
-}
-
-.formInput input:disabled {
-  background-color: rgba(245, 245, 245, 1);
-  outline: none;
-}
-
-.formInput input {
-  width: inherit;
-  min-height: 24px;
-  padding: 5px 12px;
-  border-radius: 2px;
-  border: 1px solid rgba(217, 217, 217, 1);
-}
-
-.formInput p {
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 20px;
-  font-family: Roboto, sans-serif;
-  color: rgba(0, 0, 0, 0.45);
-}
-
-.formButton {
-  display: block;
-  width: 100%;
-  text-align: end;
-  padding: 12px 0;
-}
-
-.formButton button {
-  padding: 8px 12px;
-  border-radius: 4px;
-  border: 1px solid rgba(217, 217, 217, 1);
-  background: var(--dark-blue);
-}
-
-.formButton button span {
-  font-size: 16px;
-  line-height: 24px;
-  font-family: PoppinsRegular;
-  font-weight: 400;
-  color: white;
-}
-
-.formButton button:disabled {
-  background-color: rgba(245, 245, 245, 1);
-  cursor: unset;
-}
-
-.formButton button:disabled span {
-  color: rgba(0, 0, 0, 0.25);
-}
-
-.formInput[data-position="left"] {
-  margin-left: auto;
-}
-
-@media screen and (max-width: 1120px) {
-
-  .formInput[data-position="left"] {
-    margin-left: unset;
-  }
 }
 
 @media screen and (max-width: 576px) {

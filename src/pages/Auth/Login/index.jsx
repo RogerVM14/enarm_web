@@ -19,6 +19,7 @@ import {
 import { ROUTES } from "../../../constants/routes";
 import { encryptPassword } from "../../../utils/auth";
 import ConfirmDialogModal from "../../../components/ConfirmDialogModal";
+import LinkGoogleAccountModal from "../../../components/Auth/LinkGoogleAccountModal";
 import { FcGoogle } from "react-icons/fc";
 
 const LoginPage = () => {
@@ -58,12 +59,14 @@ const FormLogin = () => {
   const [userPass, setPass] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [emailError, setEmailError] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false); // Estado de carga
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isGoogleSubmitting, setIsGoogleSubmitting] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  /** "email" | "google" — origen del conflicto de sesión activa */
   const [sessionConflictSource, setSessionConflictSource] = useState(null);
   const pendingGoogleTokenRef = useRef(null);
+  const [linkGoogleModalOpen, setLinkGoogleModalOpen] = useState(false);
+  const [linkGoogleEmail, setLinkGoogleEmail] = useState("");
+  const linkPendingFirebaseTokenRef = useRef(null);
 
   const completeSessionAfterAuth = (rest) => {
     if (!rest.has_payments && rest.user_role_id !== 4) {
@@ -136,6 +139,20 @@ const FormLogin = () => {
     setIsModalOpen(false);
     setSessionConflictSource(null);
     pendingGoogleTokenRef.current = null;
+  };
+
+  const closeLinkGoogleModal = () => {
+    setLinkGoogleModalOpen(false);
+    setLinkGoogleEmail("");
+    linkPendingFirebaseTokenRef.current = null;
+    signOutFirebaseAuth().catch(() => {});
+  };
+
+  const handleLinkGoogleSuccess = (sessionRest) => {
+    setLinkGoogleModalOpen(false);
+    setLinkGoogleEmail("");
+    linkPendingFirebaseTokenRef.current = null;
+    completeSessionAfterAuth(sessionRest);
   };
 
   const toggleShowPassword = () => setShowPassword(!showPassword);
@@ -232,6 +249,13 @@ const FormLogin = () => {
       }
       if (status_Message === "valid user") {
         completeSessionAfterAuth(rest);
+        return;
+      }
+      if (status_Message === "need to link") {
+        const email = res.data.user_email || "";
+        linkPendingFirebaseTokenRef.current = idToken;
+        setLinkGoogleEmail(email);
+        setLinkGoogleModalOpen(true);
         return;
       }
       if (status_Message === "invalid user") {
@@ -377,6 +401,14 @@ const FormLogin = () => {
         onCancel={handleCancel}
         title="Cierre de sesión"
         description="Hemos detectado una sesión activa, al dar continuar, esta será cerrada automáticamente"
+      />
+      <LinkGoogleAccountModal
+        isOpen={linkGoogleModalOpen}
+        onClose={closeLinkGoogleModal}
+        enarmEmail={linkGoogleEmail}
+        firebaseIdTokenRef={linkPendingFirebaseTokenRef}
+        onLinkedSuccess={handleLinkGoogleSuccess}
+        signOutFirebaseAuth={signOutFirebaseAuth}
       />
     </>
   );

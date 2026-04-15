@@ -1,4 +1,6 @@
 import axios from "axios";
+import { encryptPassword } from "../../utils/auth";
+
 const { REACT_APP_ENARM_API_GATEWAY_URL } = process.env;
 
 const authUrl = `${REACT_APP_ENARM_API_GATEWAY_URL}auth/`;
@@ -16,18 +18,10 @@ export const CreateNewUser = (payload) => {
   return axios(request);
 };
 
-/**
- * Alta invitado (`students/add-guest`).
- * Formulario (correo): el mismo `payload` que envía el caller, p. ej. `{ user_email, password }`.
- * Google: solo `{ environment, firebase_token }` (no se envían email ni password).
- */
 export const createGuestUser = (payload) => {
   const hasFirebase = Boolean(payload?.firebase_token);
   const data = hasFirebase
-    ? {
-        // environment: payload.environment ?? "platform",
-        firebase_token: payload.firebase_token,
-      }
+    ? { firebase_token: payload.firebase_token }
     : { ...payload };
 
   const request = {
@@ -42,11 +36,6 @@ export const createGuestUser = (payload) => {
   return axios(request);
 };
 
-/**
- * Login (`auth/login`).
- * Google: solo `{ environment, firebase_token }`.
- * Correo/contraseña: el `payload` completo del caller (p. ej. `environment`, `new_user_email`, `new_user_password`).
- */
 export const loginUser = (payload) => {
   const environment = payload?.environment ?? "platform";
   const hasFirebase = Boolean(payload?.firebase_token);
@@ -70,8 +59,30 @@ export const loginUser = (payload) => {
     data,
   };
 
-  return axios(request).then((res) => {
-    return res;
+  return axios(request);
+};
+
+export const linkGoogleToEnarmAccount = (firebaseToken, authToken) => {
+  return axios({
+    method: "POST",
+    url: `${authUrl}link-google`,
+    headers: {
+      "content-type": "application/json",
+      auth_token: authToken,
+    },
+    data: { firebase_token: firebaseToken },
+  });
+};
+
+export const setInitialEnarmPassword = (plainPassword, authToken) => {
+  return axios({
+    method: "POST",
+    url: `${authUrl}set-password`,
+    headers: {
+      "content-type": "application/json",
+      auth_token: authToken,
+    },
+    data: { password: encryptPassword(plainPassword) },
   });
 };
 
