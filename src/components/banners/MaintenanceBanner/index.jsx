@@ -40,7 +40,7 @@ const MaintenanceBanner = () => {
           <p className={ui.message}>
             Con el fin de mejorar nuestro servicio y entregar el mejor contenido, 
             nuestra plataforma entrará en mantenimiento el día <strong>{formattedDate}</strong> 
-            a partir de las 8:00 PM por actualización de nuevo contenido que tenemos para ti.
+            a partir de las 12:00 PM por actualización de nuevo contenido que tenemos para ti.
           </p>
           <p className={ui.apology}>
             Esperamos que esta actualización no cause inconvenientes en tu experiencia de estudio. 
