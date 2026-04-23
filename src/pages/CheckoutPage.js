@@ -17,8 +17,8 @@ import {
 import { ROUTES } from "../constants/routes";
 import PaymentLoader from "../components/loaders/PaymentLoader";
 import {
+  selectEffectiveCheckoutUserId,
   selectUserCheckoutEmail,
-  selectUserCheckoutInformation,
 } from "../store/reducers/user/UserInformationSlice";
 import showToast from "../utils/toasts/commonToasts";
 // import moment from "moment";
@@ -33,8 +33,7 @@ const CheckoutPage = () => {
   const { cardNumber, cvv, expirationDate } = useSelector(
     selectCardInformation
   );
-  const userInfo = useSelector(selectUserCheckoutInformation);
-  const { user_id } = userInfo;
+  const user_id = useSelector(selectEffectiveCheckoutUserId);
 
   const getWindowWidth = () => {
     let x = window.innerWidth;

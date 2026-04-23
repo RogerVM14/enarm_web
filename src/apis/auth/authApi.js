@@ -1,4 +1,6 @@
 import axios from "axios";
+import { encryptPassword } from "../../utils/auth";
+
 const { REACT_APP_ENARM_API_GATEWAY_URL } = process.env;
 
 const authUrl = `${REACT_APP_ENARM_API_GATEWAY_URL}auth/`;
@@ -17,33 +19,71 @@ export const CreateNewUser = (payload) => {
 };
 
 export const createGuestUser = (payload) => {
+  const hasFirebase = Boolean(payload?.firebase_token);
+  const data = hasFirebase
+    ? { firebase_token: payload.firebase_token }
+    : { ...payload };
+
   const request = {
     method: "POST",
     url: `${REACT_APP_ENARM_API_GATEWAY_URL}students/add-guest`,
     headers: {
       "content-type": "application/json",
     },
-    data: payload,
+    data,
   };
 
   return axios(request);
 };
 
 export const loginUser = (payload) => {
+  const environment = payload?.environment ?? "platform";
+  const hasFirebase = Boolean(payload?.firebase_token);
+
+  const data = hasFirebase
+    ? {
+        environment,
+        firebase_token: payload.firebase_token,
+      }
+    : {
+        ...payload,
+        environment,
+      };
+
   const request = {
     method: "POST",
     url: `${authUrl}login`,
     headers: {
       "content-type": "application/json",
     },
-    data: payload,
-    // data: {
-    //   new_user_email: "superadmin@enarm.com",
-    //   new_user_password: "superadmin",
-    // },
+    data,
   };
 
   return axios(request);
+};
+
+export const linkGoogleToEnarmAccount = (firebaseToken, authToken) => {
+  return axios({
+    method: "POST",
+    url: `${authUrl}link-google`,
+    headers: {
+      "content-type": "application/json",
+      auth_token: authToken,
+    },
+    data: { firebase_token: firebaseToken },
+  });
+};
+
+export const setInitialEnarmPassword = (plainPassword, authToken) => {
+  return axios({
+    method: "POST",
+    url: `${authUrl}set-password`,
+    headers: {
+      "content-type": "application/json",
+      auth_token: authToken,
+    },
+    data: { password: encryptPassword(plainPassword) },
+  });
 };
 
 export const verifyEmailCode = (payload) => {

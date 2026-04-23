@@ -9,6 +9,9 @@ import SearchBarSmart from "./subComponents/SearchBarSmart";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserEmail } from "../../store/reducers/user/UserInformationSlice";
 import { useNavigate } from "react-router-dom";
+import { HiOutlineLogout } from "react-icons/hi";
+import { logout } from "../../utils/auth";
+import navUi from "./DashboardNavbar.module.css";
 
 const DashboardNavbar = (props) => {
   const [usermodal, setUserModal] = useState(false);
@@ -21,6 +24,7 @@ const DashboardNavbar = (props) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
+    setUserModal(false);
     logout(dispatch, navigate);
   };
 
@@ -30,7 +34,7 @@ const DashboardNavbar = (props) => {
       onMouseLeave={() => setUserModal(false)}
     >
       <nav className={`header-nav ${device}`}>
-        <div className={`navbar-tools ${device}`}>
+        <div className={`navbar-tools ${device}`} style={{ position: "relative" }}>
           {device === "smart" ? (
             <>
               <NavbarContentSmall
@@ -61,19 +65,17 @@ const DashboardNavbar = (props) => {
 
           {usermodal && (
             <div
-              className="u-modal-user"
+              className={navUi.userDropdown}
               onMouseLeave={() => setUserModal(false)}
             >
-              <div className="u-modal-container">
-                <div>
-                  <i className="material-icons">settings</i>
-                  <span className="roboto-14">Mi cuenta</span>
-                </div>
-                <div onClick={handleLogout}>
-                  <i className="material-icons">logout</i>
-                  <span className="roboto-14">Cerrar Sesión</span>
-                </div>
-              </div>
+              <button
+                type="button"
+                className={navUi.logoutButton}
+                onClick={handleLogout}
+              >
+                <HiOutlineLogout className={navUi.logoutIcon} size={20} aria-hidden />
+                <span>Cerrar Sesión</span>
+              </button>
             </div>
           )}
         </div>

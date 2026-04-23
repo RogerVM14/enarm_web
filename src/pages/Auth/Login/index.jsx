@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { closeUserRemoteSession, loginUser } from "../../../apis/auth/authApi";
+import { signInWithGoogleAndGetIdToken, signOutFirebaseAuth } from "../../../firebase";
 import doctorImage from "../../../assets/imgs/Dres/stock-photo-surgeon-wearing-blue-uniform-stethoscope-small.png";
 import { ERROR_MESSAGES } from "../../../constants/Messages";
 import { setCookie } from "../../../utils/auth/cookieSession";
@@ -18,6 +19,8 @@ import {
 import { ROUTES } from "../../../constants/routes";
 import { encryptPassword } from "../../../utils/auth";
 import ConfirmDialogModal from "../../../components/ConfirmDialogModal";
+import LinkGoogleAccountModal from "../../../components/Auth/LinkGoogleAccountModal";
+import { FcGoogle } from "react-icons/fc";
 
 const LoginPage = () => {
   setTimeout(() => {
@@ -56,11 +59,56 @@ const FormLogin = () => {
   const [userPass, setPass] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [emailError, setEmailError] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false); // Estado de carga
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isGoogleSubmitting, setIsGoogleSubmitting] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [sessionConflictSource, setSessionConflictSource] = useState(null);
+  const pendingGoogleTokenRef = useRef(null);
+  const [linkGoogleModalOpen, setLinkGoogleModalOpen] = useState(false);
+  const [linkGoogleEmail, setLinkGoogleEmail] = useState("");
+  const linkPendingFirebaseTokenRef = useRef(null);
+
+  const completeSessionAfterAuth = (rest) => {
+    if (!rest.has_payments && rest.user_role_id !== 4) {
+      showToast.info("No haz realizado tu pago aún, procede a realizarlo");
+      dispatch(setCheckoutUserId(rest.user_id));
+      navigate(ROUTES.CHECKOUT);
+    } else {
+      dispatch(setUserInformation(rest));
+      setCookie("accessToken", rest.auth_token);
+      setTimeout(() => {
+        window.location.href = ROUTES.PLATAFORMA_DASHBOARD;
+      }, 100);
+    }
+  };
 
   const handleAccept = () => {
     setIsSubmitting(true);
+    if (sessionConflictSource === "google" && pendingGoogleTokenRef.current) {
+      loginUser({
+        firebase_token: pendingGoogleTokenRef.current,
+        environment: "platform",
+      })
+        .then((res) => {
+          const { status_Message, ...rest } = res.data;
+          if (status_Message === "valid user") {
+            completeSessionAfterAuth(rest);
+          } else {
+            showToast.error("No se pudo cerrar la otra sesión. Intenta de nuevo.");
+          }
+        })
+        .catch(() => {
+          showToast.error("Hubo un error al cerrar la otra sesión, intenta nuevamente");
+        })
+        .finally(() => {
+          setIsSubmitting(false);
+          setIsModalOpen(false);
+          setSessionConflictSource(null);
+          pendingGoogleTokenRef.current = null;
+        });
+      return;
+    }
+
     closeUserRemoteSession({
       user_email: userEmail,
       user_password: encryptPassword(userPass),
@@ -89,6 +137,22 @@ const FormLogin = () => {
 
   const handleCancel = () => {
     setIsModalOpen(false);
+    setSessionConflictSource(null);
+    pendingGoogleTokenRef.current = null;
+  };
+
+  const closeLinkGoogleModal = () => {
+    setLinkGoogleModalOpen(false);
+    setLinkGoogleEmail("");
+    linkPendingFirebaseTokenRef.current = null;
+    signOutFirebaseAuth().catch(() => {});
+  };
+
+  const handleLinkGoogleSuccess = (sessionRest) => {
+    setLinkGoogleModalOpen(false);
+    setLinkGoogleEmail("");
+    linkPendingFirebaseTokenRef.current = null;
+    completeSessionAfterAuth(sessionRest);
   };
 
   const toggleShowPassword = () => setShowPassword(!showPassword);
@@ -108,6 +172,7 @@ const FormLogin = () => {
       })
         .then((res) => {
           if (res.data.status_Message === "user logged") {
+            setSessionConflictSource("email");
             setIsModalOpen(true);
           }
           if (res.data.status_Message === "valid user") {
@@ -132,10 +197,25 @@ const FormLogin = () => {
           if (res.data.status_Message === "invalid user") {
             showToast.error("El usuario o la contraseña son incorrectos");
           }
+          if (res.data.status_Message === "problems with last session") {
+            showToast.error("Hubo un problema al actualizar tu sesión. Intenta de nuevo.");
+          }
+          if (res.data.status_Message === "problems with last jwt") {
+            showToast.error("Hubo un problema con la sesión. Inicia sesión de nuevo.");
+          }
         })
         .catch((err) => {
-          const error = err.response?.data?.message || "Error desconocido";
-          showToast.error(ERROR_MESSAGES[error]);
+          const data = err.response?.data;
+          if (data?.status_Message === "Firebase email not verified") {
+            showToast.error("Verifica tu correo en Google antes de continuar.");
+            return;
+          }
+          if (data?.status_Message === "Firebase token without sub/uid") {
+            showToast.error("No pudimos validar tu cuenta de Google. Intenta de nuevo.");
+            return;
+          }
+          const error = data?.message || "Error desconocido";
+          showToast.error(ERROR_MESSAGES[error] || error);
         })
         .finally(() => {
           setIsSubmitting(false);
@@ -151,18 +231,74 @@ const FormLogin = () => {
     }
   };
 
+  const handleGoogleLogin = async () => {
+    setIsGoogleSubmitting(true);
+    try {
+      const { idToken } = await signInWithGoogleAndGetIdToken();
+      const res = await loginUser({
+        firebase_token: idToken,
+        environment: "platform",
+      });
+      const { status_Message, ...rest } = res.data;
+
+      if (status_Message === "user logged") {
+        pendingGoogleTokenRef.current = idToken;
+        setSessionConflictSource("google");
+        setIsModalOpen(true);
+        return;
+      }
+      if (status_Message === "valid user") {
+        completeSessionAfterAuth(rest);
+        return;
+      }
+      if (status_Message === "need to link") {
+        const email = res.data.user_email || "";
+        linkPendingFirebaseTokenRef.current = idToken;
+        setLinkGoogleEmail(email);
+        setLinkGoogleModalOpen(true);
+        return;
+      }
+      if (status_Message === "invalid user") {
+        showToast.error("No encontramos una cuenta con este correo. Regístrate primero.");
+        await signOutFirebaseAuth();
+      }
+    } catch (err) {
+      const code = err?.code;
+      if (code === "auth/popup-closed-by-user" || code === "auth/cancelled-popup-request") {
+        return;
+      }
+      const data = err.response?.data;
+      if (data?.status_Message === "Firebase email not verified") {
+        showToast.error("Verifica tu correo en Google antes de continuar.");
+      } else if (data?.status_Message === "Firebase token without sub/uid") {
+        showToast.error("No pudimos validar tu cuenta de Google. Intenta de nuevo.");
+      } else if (err?.response?.status === 404) {
+        showToast.error(
+          "El inicio con Google no está disponible aún. Contacta al administrador."
+        );
+      } else {
+        const msg = data?.message || data?.status_Message || err.message;
+        showToast.error(ERROR_MESSAGES[msg] || msg || "Error al iniciar sesión con Google");
+      }
+      await signOutFirebaseAuth();
+    } finally {
+      setIsGoogleSubmitting(false);
+    }
+  };
+
   return (
     <>
       <div className="form-container reveal-load">
         <div className={ui.formGroup}>
           <label className={ui.formLabel} htmlFor="form-user">
-            Usuario o Correo electrónico*
+            Correo electrónico*
           </label>
           <input
             type="text"
             name="user"
             id="form-user"
-            placeholder="Tu usuario o corréo electrónico"
+            placeholder="maria.garcia@correo.com"
+            autoComplete="email"
             onChange={(e) => {
               setEmail(e.currentTarget.value);
               setEmailError(false);
@@ -182,7 +318,9 @@ const FormLogin = () => {
           <div className="password-input">
             <input
               type={showPassword ? "text" : "password"}
-              placeholder="Password"
+              id="form-password"
+              placeholder="*******"
+              autoComplete="current-password"
               value={userPass}
               onChange={(e) => setPass(e.currentTarget.value)}
               onKeyDown={handleKeyDown}
@@ -208,7 +346,10 @@ const FormLogin = () => {
           style={{ marginTop: "20px" }}
           onClick={handleSubmit}
           disabled={
-            isSubmitting || !validateEmailFormat(userEmail) || !userPass
+            isSubmitting ||
+            isGoogleSubmitting ||
+            !validateEmailFormat(userEmail) ||
+            !userPass
           }
         >
           {isSubmitting ? (
@@ -220,13 +361,39 @@ const FormLogin = () => {
             <span className="button-text">Iniciar Sesión</span>
           )}
         </button>
-        <hr style={{ margin: "2rem 0 1rem 0" }} />
-        <p className="flex-row-nw jc-center gap-8">
+        <p className="flex-row-nw jc-center gap-8" style={{ marginTop: "1rem" }}>
           <span className={ui.linkLabel}>¿Aun no eres miembro?</span>
           <Link className={`${ui.linkLabel} sky-blue no-style`} to="/registro">
             Registrate Ahora
           </Link>
         </p>
+        <div className={ui.dividerRow}>
+          <span>o</span>
+        </div>
+        <button
+          type="button"
+          className={`${ui.googleButton} ${
+            isGoogleSubmitting ? ui.googleButtonBusy : ""
+          }`}
+          onClick={handleGoogleLogin}
+          disabled={isSubmitting || isGoogleSubmitting}
+          aria-busy={isGoogleSubmitting}
+        >
+          {isGoogleSubmitting ? (
+            <>
+              <div
+                className="spinner-border animate-spin inline-block w-4 h-4 shrink-0 border-2 rounded-full border-[#05B2FA] border-t-transparent"
+                aria-hidden
+              />
+              <span className="button-text">Iniciando sesión</span>
+            </>
+          ) : (
+            <>
+              <FcGoogle size={22} className="shrink-0" />
+              <span className="button-text">Iniciar sesión con Google</span>
+            </>
+          )}
+        </button>
       </div>
       <ConfirmDialogModal
         isOpen={isModalOpen}
@@ -234,6 +401,14 @@ const FormLogin = () => {
         onCancel={handleCancel}
         title="Cierre de sesión"
         description="Hemos detectado una sesión activa, al dar continuar, esta será cerrada automáticamente"
+      />
+      <LinkGoogleAccountModal
+        isOpen={linkGoogleModalOpen}
+        onClose={closeLinkGoogleModal}
+        enarmEmail={linkGoogleEmail}
+        firebaseIdTokenRef={linkPendingFirebaseTokenRef}
+        onLinkedSuccess={handleLinkGoogleSuccess}
+        signOutFirebaseAuth={signOutFirebaseAuth}
       />
     </>
   );

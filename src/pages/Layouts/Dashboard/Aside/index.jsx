@@ -6,15 +6,15 @@ import ResourcesBlackIcon from "../../../Layouts/Assets/Icons/ResourcesBlack.png
 import ResourcesBlueIcon from "../../../Layouts/Assets/Icons/ResourcesBlue.png";
 import SimulatorBlackIcon from "../../../Layouts/Assets/Icons/SimulatorBlack.png";
 import SimulatorBlueIcon from "../../../Layouts/Assets/Icons/SimulatorBlue.png";
-import React, { useContext, useMemo, useCallback, useState } from "react";
+import React, { useContext, useMemo, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import EnarmLogo from "../../Assets/Images/EnarmLogo.jpg";
 import CloseIcon from "../../Assets/Icons/CloseIcon.svg";
-import UserDefaultIcon from "../../Assets/Icons/DefaultUser.png";
 import ui from "../index.module.css";
 import { ROUTES } from "../../../../constants/routes";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../../utils/auth";
+import { HiOutlineLogout } from "react-icons/hi";
 import { GeneralContext } from "../../../../contexts/GeneralContext";
 import { useQuery } from "react-query";
 import { getStudyPlans } from "../../../../apis/platform";
@@ -29,7 +29,6 @@ const DashboardAsideTemplate = ({
   const dispatch = useDispatch();
   const isGuestUser = useSelector(selectIsGuestUserRole);
 
-  const [displayTools, setDisplayTools] = useState(false);
   const { data: studyPlans } = useQuery(
     ["study-plans"],
     () => getStudyPlans(dispatch, navigateTo),
@@ -40,6 +39,7 @@ const DashboardAsideTemplate = ({
     globalMenuSelected,
     setGlobalMenuSelected,
     simulatorIsActive,
+    setSimulatorIsActive,
     setSimulatorCooldownAdvice,
   } = useContext(GeneralContext);
 
@@ -141,6 +141,12 @@ const DashboardAsideTemplate = ({
     navigateTo(route);
   };
 
+  const handleAsideLogout = useCallback(() => {
+    setSimulatorIsActive(false);
+    setSimulatorCooldownAdvice(false);
+    logout(dispatch, navigateTo);
+  }, [dispatch, navigateTo, setSimulatorIsActive, setSimulatorCooldownAdvice]);
+
   return (
     <aside
       className={ui.asideStyle}
@@ -228,47 +234,19 @@ const DashboardAsideTemplate = ({
             ))}
           </ul>
           <div className={ui.asideFooter}>
-            <div
-              className={ui.containerUser}
-              onClick={() => setDisplayTools(!displayTools)}
+            <button
+              type="button"
+              className={ui.asideLogoutButton}
+              onClick={handleAsideLogout}
             >
-              <img
-                src={UserDefaultIcon}
-                alt="User icon"
-                width="24"
-                height="24"
-              />
-              <p>Username</p>
-            </div>
-            <UserTools display={displayTools} />
+              <HiOutlineLogout className={ui.asideLogoutIcon} size={20} aria-hidden />
+              <span>Cerrar Sesión</span>
+            </button>
           </div>
         </nav>
       </div>
     </aside>
   );
 };
-
-const UserTools = React.memo(({ display }) => {
-  const { setSimulatorIsActive, setSimulatorCooldownAdvice } =
-    useContext(GeneralContext);
-  setSimulatorIsActive(false);
-  setSimulatorCooldownAdvice(false);
-  const dispatch = useDispatch();
-  const navigateTo = useNavigate();
-  const handleLogout = useCallback(() => {
-    setSimulatorIsActive(false);
-    setSimulatorCooldownAdvice(false);
-    logout(dispatch, navigateTo);
-  }, [dispatch, navigateTo, setSimulatorIsActive, setSimulatorCooldownAdvice]);
-
-  return display ? (
-    <div className={ui.userTools}>
-      <Link to="/cursoENARM/MiCuenta">Mi cuenta</Link>
-      <Link to={ROUTES.LOGIN} onClick={handleLogout}>
-        Cerrar Sesión
-      </Link>
-    </div>
-  ) : null;
-});
 
 export default DashboardAsideTemplate;

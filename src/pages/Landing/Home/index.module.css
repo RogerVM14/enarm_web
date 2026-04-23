@@ -16,6 +16,83 @@
   gap: 100px;
 }
 
+.explorerDescription {
+  max-width: 640px;
+  margin: 0 auto 40px;
+  text-align: center;
+  font-family: PoppinsRegular, sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.explorerCardsRow {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  align-items: stretch;
+}
+
+.explorerCardsRow .cardAdvantage {
+  flex-direction: column;
+  text-align: center;
+  height: 100%;
+  margin-bottom: 0;
+}
+
+.explorerCardsRow .cardAdvantage .imageContainer {
+  margin: 0 auto;
+}
+
+.explorerCardsRow .cardDescription {
+  flex: 1;
+}
+
+.explorerCtaWrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.explorerRegLink {
+  max-width: 280px;
+  width: 100%;
+}
+
+/* Flecha que aparece al hover / focus en CTAs a registro */
+.ctaHoverArrow {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 0;
+}
+
+.ctaArrowIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateX(-6px);
+  transition:
+    max-width 0.28s ease,
+    opacity 0.22s ease,
+    margin 0.28s ease,
+    transform 0.28s ease;
+  margin-left: 0;
+}
+
+.ctaHoverArrow:hover .ctaArrowIcon,
+.ctaHoverArrow:focus-visible .ctaArrowIcon {
+  max-width: 28px;
+  opacity: 1;
+  margin-left: 10px;
+  transform: translateX(0);
+}
+
 .containerColumns {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -61,7 +138,7 @@ div.backgroundBlue[datatype=small] {
   max-width: 760px;
   margin-inline: auto;
   margin-top: 16px;
-  margin-bottom: 80px;
+  margin-bottom: 20px;
 }
 
 .italicLabel {
@@ -101,7 +178,8 @@ form>.formInput, form>div>.formInput {
 
 .formInputColumns .blueLink,
 #testimonials .blueLink,
-.columnInformation .blueLink {
+.columnInformation .blueLink,
+#explorer .explorerCtaWrap .blueLink {
   padding: 13px 24px;
   color: var(--White-Text, #FFF);
   text-align: center;
@@ -118,6 +196,11 @@ form>.formInput, form>div>.formInput {
   border: none;
   display: block;
   max-width: 216px;
+}
+
+/* Hero CTA: texto más largo ("Prueba gratis el curso") + flecha en hover */
+#hero .columnInformation .blueLink {
+  max-width: 340px;
 }
 
 .verticalCards>.cardAdvantage:not(:last-child) {
@@ -327,7 +410,16 @@ form>.formInput, form>div>.formInput {
 
   #explorer .titleContainer {
     max-width: unset;
-    margin-bottom: 32px;
+    margin-bottom: 20px;
+  }
+
+  .explorerDescription {
+    margin-bottom: 28px;
+    padding-inline: 8px;
+  }
+
+  .explorerCtaWrap {
+    margin-top: 28px;
   }
 
   .gridCards>.card {
@@ -346,6 +438,14 @@ form>.formInput, form>div>.formInput {
   .gridCards>.card:first-child>a {
     max-width: unset !important;
     width: 100%;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .explorerCardsRow {
+    grid-template-columns: 1fr;
+    max-width: 440px;
+    margin-inline: auto;
   }
 }
 
@@ -453,7 +553,8 @@ form>.formInput, form>div>.formInput {
 
   .formInputColumns .blueLink,
   #testimonials .blueLink,
-  .columnInformation .blueLink {
+  .columnInformation .blueLink,
+  #explorer .explorerCtaWrap .blueLink {
     width: 100%;
     max-width: calc(576px - var(--padding-x));
   }

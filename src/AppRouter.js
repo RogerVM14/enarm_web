@@ -38,7 +38,10 @@ import "./css/App.css";
 import CheckoutPaymentFailed from "./pages/CheckoutPaymentFailed";
 import PlatformPrivateRoute from "./routes/PlatformPrivateRoute";
 import { useSelector } from "react-redux";
-import { selectCheckoutUserId, selectUserCheckoutEmail } from "./store/reducers/user/UserInformationSlice";
+import {
+  selectEffectiveCheckoutUserId,
+  selectUserCheckoutEmail,
+} from "./store/reducers/user/UserInformationSlice";
 import RenderComponenteIf from "./routes/RenderComponentIf";
 // import PageNotFound from "./pages/PageNotFound";
 import PublicRoutes from "./routes/PublicRoutes";
@@ -99,9 +102,10 @@ const AppRouter = () => {
     );
   }, []);
 
-  const user_id = useSelector(selectCheckoutUserId);
+  const checkoutUserId = useSelector(selectEffectiveCheckoutUserId);
   const email_checkout = useSelector(selectUserCheckoutEmail);
-  const isIdOnCheckout = user_id !== null && user_id !== undefined && user_id !== "";
+  const isIdOnCheckout =
+    checkoutUserId !== null && checkoutUserId !== undefined && checkoutUserId !== "";
   const isEmailOnCheckout = email_checkout !== null && email_checkout !== undefined && email_checkout !== "";
   const isGuestUser = useSelector(selectIsGuestUser)
 

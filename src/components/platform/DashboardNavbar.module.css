@@ -1,0 +1,38 @@
+.userDropdown {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  margin-top: 4px;
+  min-width: 168px;
+  padding: 8px 0;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  z-index: 2100;
+}
+
+.logoutButton {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 16px;
+  border: none;
+  background: transparent;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.88);
+  text-align: left;
+  cursor: pointer;
+}
+
+.logoutIcon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+}
+
+.logoutButton:hover {
+  background: rgba(0, 0, 0, 0.04);
+}

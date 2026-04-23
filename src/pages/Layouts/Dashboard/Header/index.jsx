@@ -10,6 +10,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectFullUserName } from "../../../../store/reducers/user/UserInformationSlice";
 import { logout } from "../../../../utils/auth";
+import { ROUTES } from "../../../../constants/routes";
 
 const DashboardHeaderTemplate = ({ handleShowMenu }) => {
   const [open, setOpen] = useState(false);
@@ -99,11 +100,11 @@ const UserDialogMenu = ({ open, handleFocus = () => {} }) => {
   return open ? (
     <div onMouseLeave={handleFocus} className={ui.dropDownMenu}>
       <ul>
-        {/* <li>
-          <Link to="/cursoENARM/MiCuenta" className="regular-parraf-14">
-            Mi cuenta
+        <li>
+          <Link to={ROUTES.PLATAFORMA_CUENTA} className="regular-parraf-14">
+            Perfil
           </Link>
-        </li> */}
+        </li>
         <li>
           <Link to="/" onClick={handleLogout} className="regular-parraf-14">
             Cerrar Sesión

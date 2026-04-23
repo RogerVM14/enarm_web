@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import "./firebase";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { persistStore } from "redux-persist";

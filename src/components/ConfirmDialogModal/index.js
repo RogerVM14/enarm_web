@@ -59,9 +59,17 @@ const ConfirmDialogModal = ({
             <h3 className="mb-4 text-base sm:text-lg font-medium text-gray-500 dark:text-gray-400">
               {title}
             </h3>
-            <p className="mb-4 text-sm sm:text-base text-gray-500 dark:text-gray-400">
-              {description}
-            </p>
+            <div
+              className={`mb-4 text-sm sm:text-base text-gray-500 dark:text-gray-400 ${
+                typeof description !== "string" ? "space-y-2" : ""
+              }`}
+            >
+              {typeof description === "string" ? (
+                <p className="m-0">{description}</p>
+              ) : (
+                description
+              )}
+            </div>
             <div className="flex justify-center gap-2">
               <button
                 onClick={onAccept}
