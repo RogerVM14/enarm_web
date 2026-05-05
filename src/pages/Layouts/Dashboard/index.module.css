@@ -388,8 +388,7 @@ aside[data-portability="false"] {
   white-space: nowrap;
 }
 
-.buttonMenuItemSelected, 
-.buttonSunenuItemSelected {
+.buttonMenuItemSelected {
   background-color: #e6f7ff;
   color: #05b2fa;
 }
@@ -404,4 +403,12 @@ a.buttonMenuItem {
 }
 .buttonSubMenuItem {
   padding: 0 0 0 2rem;
+}
+
+.buttonSubMenuItemSelected {
+  background-color: #e6f7ff;
+  color: #05b2fa;
+  font-weight: 500;
+  border-left: 3px solid #05b2fa;
+  padding-left: calc(2rem - 3px);
 }

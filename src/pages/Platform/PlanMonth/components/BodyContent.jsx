@@ -1,10 +1,23 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { isClasesVirtualesEnarmPlan } from "../clasesVirtualesEnarmPlan.js";
 
-const BodyContent = ({ display }) => {
+const BodyContent = ({ display, planId }) => {
   const [showVideo, setShowVideo] = useState(false);
 
   if (display === false) return null;
+
+  if (isClasesVirtualesEnarmPlan(planId)) {
+    return (
+      <div className="bg-white p-6 poppins-regular-14 text-[#000000cc] space-y-4">
+        <p>
+        Bienvenido a tu espacio de Clases Virtuales ENARM. Este es tu plan de estudio semana a semana, pensado para acompañarte en cada etapa de tu preparación. Iremos liberando las clases conforme avances, para que mantengas el ritmo y nunca dudes qué sigue.
+        </p>
+       
+      </div>
+    );
+  }
+
   return (
     <div className="bg-white p-6">
       <ol className="list-decimal pl-6 poppins-regular-14 space-y-2">

@@ -8,6 +8,8 @@ import { getStudyPlanById } from "../../../apis/platform";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setIsLoadingContent } from "../../../store/reducers/general/general";
+import CourseBreadcrumb from "../../../components/platform/CourseBreadcrumb";
+import { ROUTES } from "../../../constants/routes";
 
 const useQueryParams = () => {
   const { search } = useLocation();
@@ -49,13 +51,21 @@ const PlanMonthPage = () => {
     setWeekList(resourceList);
   }, [studyplans]);
 
+  const planTitle = name?.trim() || "Plan de estudio";
+
   return (
     <DashboardLayout>
       <div className={ui.wrapper}>
         <div className={ui.gridContainer}>
           <section>
-            <PlanCourse planName={name} />
-            <PlanCourseCollapse weeksList={weeksList} planID={plan} data={studyplans} />
+            <CourseBreadcrumb
+              items={[
+                { label: "Inicio", to: ROUTES.PLATAFORMA_DASHBOARD },
+                { label: planTitle },
+              ]}
+            />
+            <PlanCourse planId={plan} planName={name} />
+            <PlanCourseCollapse weeksList={weeksList} planID={plan} planName={name} data={studyplans} />
           </section>
         </div>
       </div>

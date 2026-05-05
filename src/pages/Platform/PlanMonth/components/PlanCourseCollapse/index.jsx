@@ -7,7 +7,7 @@ import { selectIsGuestUserRole } from "../../../../../store/reducers/user/UserIn
 import ConfirmDialogModal from "../../../../../components/ConfirmDialogModal";
 import { ROUTES } from "../../../../../constants/routes";
 
-const PlanCourseCollapse = ({ weeksList, planID, data }) => {
+const PlanCourseCollapse = ({ weeksList, planID, planName, data }) => {
   const navigate = useNavigate();
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const isGuestUser = useSelector(selectIsGuestUserRole);
@@ -18,7 +18,13 @@ const PlanCourseCollapse = ({ weeksList, planID, data }) => {
       setIsConfirmModalOpen(true);
       return;
     }
-    navigate(`/cursoENARM/planes_contenido?plan=${planID}&week=${week}&specialties=${String(specialties?.join(","))}`);
+    const qs = new URLSearchParams({
+      plan: String(planID),
+      week: String(week),
+      specialties: String(specialties?.join(",")),
+    });
+    if (planName) qs.set("planName", planName);
+    navigate(`${ROUTES.PLATAFORMA_PLANES_CONTENIDO}?${qs.toString()}`);
   };
   //FALTA COLOCAR LAS FUNCIONES PARA EL PAGO
   const handleAcceptConfirm = () => {

@@ -6,8 +6,8 @@ import ResourcesBlackIcon from "../../../Layouts/Assets/Icons/ResourcesBlack.png
 import ResourcesBlueIcon from "../../../Layouts/Assets/Icons/ResourcesBlue.png";
 import SimulatorBlackIcon from "../../../Layouts/Assets/Icons/SimulatorBlack.png";
 import SimulatorBlueIcon from "../../../Layouts/Assets/Icons/SimulatorBlue.png";
-import React, { useContext, useMemo, useCallback } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useContext, useMemo, useCallback, useEffect } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import EnarmLogo from "../../Assets/Images/EnarmLogo.jpg";
 import CloseIcon from "../../Assets/Icons/CloseIcon.svg";
 import ui from "../index.module.css";
@@ -26,6 +26,7 @@ const DashboardAsideTemplate = ({
   handleShowMenu = () => {},
 }) => {
   const navigateTo = useNavigate();
+  const location = useLocation();
   const dispatch = useDispatch();
   const isGuestUser = useSelector(selectIsGuestUserRole);
 
@@ -42,6 +43,25 @@ const DashboardAsideTemplate = ({
     setSimulatorIsActive,
     setSimulatorCooldownAdvice,
   } = useContext(GeneralContext);
+
+  const activeStudyPlanId = useMemo(() => {
+    const search = new URLSearchParams(location.search);
+    if (location.pathname === ROUTES.PLATAFORMA_PLANES_CONTENIDO) {
+      const plan = parseInt(search.get("plan"), 10);
+      return Number.isNaN(plan) ? null : plan;
+    }
+    if (location.pathname === ROUTES.PLATAFORMA_PLANES_ID) {
+      const id = parseInt(search.get("id"), 10);
+      return Number.isNaN(id) ? null : id;
+    }
+    return null;
+  }, [location.pathname, location.search]);
+
+  useEffect(() => {
+    if (activeStudyPlanId !== null) {
+      setGlobalMenuSelected(0);
+    }
+  }, [activeStudyPlanId, setGlobalMenuSelected]);
 
   const getPlanMonths = (planName = "") => {
     const match = String(planName).match(/\d+/);
@@ -211,23 +231,35 @@ const DashboardAsideTemplate = ({
                 </button>
                 {item.submenu && globalMenuSelected === index && (
                   <ul className={ui.submenuList}>
-                    {item.submenu.map((subItem, subIndex) => (
-                      <li key={subIndex}>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            if (simulatorIsActive) {
-                              setSimulatorCooldownAdvice(true);
-                              return;
+                    {item.submenu.map((subItem, subIndex) => {
+                      const planId = Number(subItem.id);
+                      const isActivePlan =
+                        activeStudyPlanId !== null &&
+                        !Number.isNaN(planId) &&
+                        planId === activeStudyPlanId;
+                      return (
+                        <li key={subIndex}>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              if (simulatorIsActive) {
+                                setSimulatorCooldownAdvice(true);
+                                return;
+                              }
+                              navigateTo(subItem.route);
+                            }}
+                            className={
+                              isActivePlan
+                                ? `${ui.buttonSubMenuItem} ${ui.buttonSubMenuItemSelected}`
+                                : ui.buttonSubMenuItem
                             }
-                            navigateTo(subItem.route);
-                          }}
-                          className={ui.buttonSubMenuItem}
-                        >
-                          {subItem.label}
-                        </button>
-                      </li>
-                    ))}
+                            aria-current={isActivePlan ? "page" : undefined}
+                          >
+                            {subItem.label}
+                          </button>
+                        </li>
+                      );
+                    })}
                   </ul>
                 )}
               </li>

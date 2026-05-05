@@ -10,16 +10,20 @@ import Graphics from "./components/Graphics";
 import Simulators from "./components/Simulators";
 import { useDispatch } from "react-redux";
 import { setIsLoadingContent } from "../../../store/reducers/general/general";
+import { getCourseContenidoWelcomeCopy, isClasesVirtualesEnarmPlan } from "../PlanMonth/clasesVirtualesEnarmPlan.js";
+import CourseBreadcrumb from "../../../components/platform/CourseBreadcrumb";
+import { ROUTES } from "../../../constants/routes";
 
 const useQueryParams = () => {
   const { search } = useLocation();
   const queryParameters = new URLSearchParams(search);
-  const plan = parseInt(queryParameters.get("plan"));
-  const week = parseInt(queryParameters.get("week"));
-  const specialties = queryParameters.get("specialties").split(",");
-  const list = specialties?.map((e) => parseInt(e));
+  const plan = parseInt(queryParameters.get("plan"), 10);
+  const week = parseInt(queryParameters.get("week"), 10);
+  const specRaw = queryParameters.get("specialties");
+  const specialties = specRaw ? specRaw.split(",").map((e) => parseInt(e, 10)) : [];
+  const planName = queryParameters.get("planName") || "";
 
-  return { plan, week, specialties: list };
+  return { plan, week, specialties, planName };
 };
 
 const CoursePage = () => {
@@ -109,11 +113,37 @@ const CoursePage = () => {
   const handleChangeTab = (position) => {
     setTabulatorSelected(position);
   };
+
+  const weekNamesSplit = resources?.week_names?.split("|")?.map((e) => e.trim()) ?? [];
+  const specialtyDisplay =
+    tabulator?.[tabulatorSelected]?.name ||
+    weekNamesSplit[tabulatorSelected] ||
+    weekNamesSplit[0] ||
+    "";
+  const { beforeSpecialty, afterSpecialty } = getCourseContenidoWelcomeCopy(params.plan);
+
+  const hasPlanId = !Number.isNaN(params.plan);
+  const planQs = new URLSearchParams();
+  if (hasPlanId) planQs.set("id", String(params.plan));
+  if (params.planName) planQs.set("name", params.planName);
+  const planBackPath = hasPlanId
+    ? `${ROUTES.PLATAFORMA_PLANES_ID}?${planQs.toString()}`
+    : ROUTES.PLATAFORMA_DASHBOARD;
+  const planCrumbLabel = params.planName?.trim() || "Mi plan de estudio";
+  const weekLabel = Number.isNaN(params.week) ? "Contenido" : `Semana ${params.week} · Contenido`;
+
   return (
     <DashboardLayout>
       <div className="p-6 h-screen lg:h-auto ">
         <div className="grid lg:grid-cols-[1fr_17.375rem]  gap-x-6 w-full">
           <div className="w-full">
+            <CourseBreadcrumb
+              items={[
+                { label: "Inicio", to: ROUTES.PLATAFORMA_DASHBOARD },
+                { label: planCrumbLabel, to: planBackPath },
+                { label: weekLabel },
+              ]}
+            />
             <header>
               <div className="p-6 bg-white mb-2 border-solid border-[1px] border-[#d9d9d9]">
                 <div className="flex flex-row justify-start gap-x-3 mb-6 items-center">
@@ -121,13 +151,9 @@ const CoursePage = () => {
                   <p className="poppins-regular-14 text-[#00000073]">Contenido</p>
                 </div>
                 <p className="poppins-regular-14">
-                  Bienvenido al contenido de{" "}
-                  <strong className="poppins-bold-14">
-                    {resume === undefined || resume.length === 0 ? "" : resume?.especialidades[0]}
-                  </strong>
-                  . A continuación tendrás acceso a los contenidos que tenemos preparados especialmente para ti. Es
-                  importante que revises cada uno de ellos en el orden en el que se presentan para asegurar el éxito de
-                  este curso.
+                  {beforeSpecialty}
+                  <strong className="poppins-bold-14">{specialtyDisplay}</strong>
+                  {afterSpecialty}
                 </p>
               </div>
             </header>
@@ -149,31 +175,39 @@ const CoursePage = () => {
             <div className="p-4 bg-white border border-[#d9d9d9]">
               {tabulator && tabulator.length > 0 && (
                 <>
-                  <Resumes
-                    resume={resume || { recursos: [], especialidades: [], tipo_recursos: [] }}
-                    refetch={refetch}
-                    tabSelected={tabulator[tabulatorSelected] || {}}
-                    handleDisplayCardBody={handleDisplayCardBody}
-                    cardDisplay={cardDisplay[0]}
-                  />
-                  <Graphics handleDisplayCardBody={handleDisplayCardBody} />
+                  {!isClasesVirtualesEnarmPlan(params.plan) && (
+                    <>
+                      <Resumes
+                        resume={resume || { recursos: [], especialidades: [], tipo_recursos: [] }}
+                        refetch={refetch}
+                        tabSelected={tabulator[tabulatorSelected] || {}}
+                        handleDisplayCardBody={handleDisplayCardBody}
+                        cardDisplay={cardDisplay[0]}
+                      />
+                      <Graphics handleDisplayCardBody={handleDisplayCardBody} />
+                    </>
+                  )}
                   <Videos
                     videos={videos || []}
                     tabSelected={tabulator[tabulatorSelected] || {}}
                     handleDisplayCardBody={handleDisplayCardBody}
                     cardDisplay={cardDisplay[2]}
+                    planId={params.plan}
                   />
-                  <Simulators
-                    simulators={simulators[0] || []}
-                    cardDisplay={cardDisplay[3]}
-                    plan={params?.plan}
-                    tabSelected={tabulator[tabulatorSelected] || {}}
-                  />
+                  {!isClasesVirtualesEnarmPlan(params.plan) && (
+                    <Simulators
+                      simulators={simulators[0] || []}
+                      cardDisplay={cardDisplay[3]}
+                      plan={params?.plan}
+                      tabSelected={tabulator[tabulatorSelected] || {}}
+                    />
+                  )}
                 </>
               )}
             </div>
           </div>
 
+          {!isClasesVirtualesEnarmPlan(params.plan) && (
           <aside className="hidden lg:block">
             {/* <section id={ui.advance}>
               <header>
@@ -254,6 +288,7 @@ const CoursePage = () => {
               </div>
             </section>
           </aside>
+          )}
         </div>
       </div>
     </DashboardLayout>
