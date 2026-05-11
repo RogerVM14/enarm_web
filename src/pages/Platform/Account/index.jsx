@@ -13,15 +13,9 @@ import {
 import showToast from "../../../utils/toasts/commonToasts";
 import ui from "./index.module.css";
 
-function deriveSignInMode(u) {
-  const opt = u?.sign_in_options;
-  if (opt === "both" || opt === "google" || opt === "enarm") return opt;
-  const hasG = Boolean(u.methods[0]?.is_linked);
-  const hasP = Boolean(u?.has_password);
-  if (hasG && hasP) return "both";
-  if (hasG && !hasP) return "google";
-  if (!hasG && hasP) return "enarm";
-  return null;
+/** Backend envía `methods` fijo: [0]=Google, [1]=Facebook, [2]=Apple. `is_linked` es 0/1. */
+function isLinked(entry) {
+  return Boolean(Number(entry?.is_linked));
 }
 
 function UserProfileSection() {
@@ -32,20 +26,20 @@ function UserProfileSection() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordSubmitting, setPasswordSubmitting] = useState(false);
 
-  console.log(user);
-
   const {
     email,
     fullname,
     role_name,
     is_verified,
     showSetPassword,
-    signInMode,
+    linkedGoogle,
+    linkedFacebook,
+    hasPassword,
   } = useMemo(() => {
     const u = user && typeof user === "object" ? user : {};
-    const mode = deriveSignInMode(u);
-    const hasG = Boolean(u.methods[0]?.is_linked);
-    const hasF = Boolean(u.methods[1]?.is_linked);
+    const methods = Array.isArray(u.methods) ? u.methods : [];
+    const hasG = isLinked(methods[0]);
+    const hasF = isLinked(methods[1]);
     const hasP = Boolean(u.has_password);
     return {
       email: u.email || "",
@@ -53,7 +47,9 @@ function UserProfileSection() {
       role_name: u.role_name || "",
       is_verified: Boolean(u.is_verified),
       showSetPassword: (hasG || hasF) && !hasP,
-      signInMode: mode,
+      linkedGoogle: hasG,
+      linkedFacebook: hasF,
+      hasPassword: hasP,
     };
   }, [user]);
 
@@ -101,10 +97,12 @@ function UserProfileSection() {
             setUserInformation({
               ...user,
               has_password: true,
-              sign_in_options:
-                user.sign_in_options === "google" || !user.sign_in_options
+              /* sign_in_options:
+                user.sign_in_options === "google" ||
+                user.sign_in_options === "facebook" ||
+                !user.sign_in_options
                   ? "both"
-                  : user.sign_in_options,
+                  : user.sign_in_options, */
             }),
           );
           showToast.success(
@@ -224,7 +222,7 @@ function UserProfileSection() {
                 Métodos con los que puedes acceder a tu cuenta.
               </p>
               <div className={ui.pillGroup}>
-                {(signInMode === "both" || signInMode === "google") && (
+                {linkedGoogle && (
                   <span className={`${ui.pill} ${ui.pillGoogle}`}>
                     <span className={ui.pillIcon} aria-hidden>
                       G
@@ -232,12 +230,22 @@ function UserProfileSection() {
                     Google
                   </span>
                 )}
-                {(signInMode === "both" || signInMode === "enarm") && (
+                {linkedFacebook && (
+                  <span className={`${ui.pill} ${ui.pillFacebook}`}>
+                    <span className={ui.pillIconFacebook} aria-hidden>
+                      f
+                    </span>
+                    Facebook
+                  </span>
+                )}
+                {hasPassword && (
                   <span className={`${ui.pill} ${ui.pillEnarm}`}>
                     Correo y contraseña
                   </span>
                 )}
-                {!signInMode && <span className={ui.profileValueMuted}>—</span>}
+                {!linkedGoogle && !linkedFacebook && !hasPassword && (
+                  <span className={ui.profileValueMuted}>—</span>
+                )}
               </div>
             </div>
 
@@ -246,8 +254,9 @@ function UserProfileSection() {
                 <div className={ui.setPasswordHeader}>
                   <h6 className={ui.setPasswordTitle}>Establecer contraseña</h6>
                   <p className={ui.setPasswordDesc}>
-                    Tu cuenta usa Google. Puedes crear una contraseña de ENARM
-                    para entrar también con correo y contraseña.
+                    Tu cuenta usa un inicio de sesión social (Google o
+                    Facebook). Puedes crear una contraseña de ENARM para entrar
+                    también con correo y contraseña.
                   </p>
                 </div>
                 {!setPasswordFormOpen ? (

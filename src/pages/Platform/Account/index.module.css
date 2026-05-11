@@ -158,6 +158,12 @@
   border: 1px solid rgba(5, 178, 250, 0.45);
 }
 
+.pillFacebook {
+  background: rgba(24, 119, 242, 0.1);
+  color: #166fe5;
+  border: 1px solid rgba(24, 119, 242, 0.4);
+}
+
 .pillEnarm {
   background: rgba(30, 115, 190, 0.08);
   color: #1e4d7a;
@@ -175,6 +181,19 @@
   font-size: 10px;
   font-weight: 800;
   color: #0284c7;
+}
+
+.pillIconFacebook {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.15rem;
+  height: 1.15rem;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.85);
+  font-size: 10px;
+  font-weight: 800;
+  color: #166fe5;
 }
 
 /* Establecer contraseña (UI) */
