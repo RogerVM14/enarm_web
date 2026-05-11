@@ -1,7 +1,10 @@
 import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { closeUserRemoteSession, loginUser } from "../../../apis/auth/authApi";
-import { signInWithGoogleAndGetIdToken, signOutFirebaseAuth } from "../../../firebase";
+import {
+  signInWithGoogleAndGetIdToken,
+  signOutFirebaseAuth,
+} from "../../../firebase";
 import doctorImage from "../../../assets/imgs/Dres/stock-photo-surgeon-wearing-blue-uniform-stethoscope-small.png";
 import { ERROR_MESSAGES } from "../../../constants/Messages";
 import { setCookie } from "../../../utils/auth/cookieSession";
@@ -94,11 +97,15 @@ const FormLogin = () => {
           if (status_Message === "valid user") {
             completeSessionAfterAuth(rest);
           } else {
-            showToast.error("No se pudo cerrar la otra sesión. Intenta de nuevo.");
+            showToast.error(
+              "No se pudo cerrar la otra sesión. Intenta de nuevo.",
+            );
           }
         })
         .catch(() => {
-          showToast.error("Hubo un error al cerrar la otra sesión, intenta nuevamente");
+          showToast.error(
+            "Hubo un error al cerrar la otra sesión, intenta nuevamente",
+          );
         })
         .finally(() => {
           setIsSubmitting(false);
@@ -128,7 +135,7 @@ const FormLogin = () => {
       })
       .catch(() => {
         showToast.error(
-          "Hubo un error al cerrar la otra sesión, intenta nuevamente"
+          "Hubo un error al cerrar la otra sesión, intenta nuevamente",
         );
         setIsModalOpen(false);
       })
@@ -180,7 +187,7 @@ const FormLogin = () => {
 
             if (!rest.has_payments && rest.user_role_id !== 4) {
               showToast.info(
-                "No haz realizado tu pago aún, procede a realizarlo"
+                "No haz realizado tu pago aún, procede a realizarlo",
               );
               dispatch(setCheckoutUserId(rest.user_id));
               navigate(ROUTES.CHECKOUT);
@@ -198,10 +205,14 @@ const FormLogin = () => {
             showToast.error("El usuario o la contraseña son incorrectos");
           }
           if (res.data.status_Message === "problems with last session") {
-            showToast.error("Hubo un problema al actualizar tu sesión. Intenta de nuevo.");
+            showToast.error(
+              "Hubo un problema al actualizar tu sesión. Intenta de nuevo.",
+            );
           }
           if (res.data.status_Message === "problems with last jwt") {
-            showToast.error("Hubo un problema con la sesión. Inicia sesión de nuevo.");
+            showToast.error(
+              "Hubo un problema con la sesión. Inicia sesión de nuevo.",
+            );
           }
         })
         .catch((err) => {
@@ -211,7 +222,9 @@ const FormLogin = () => {
             return;
           }
           if (data?.status_Message === "Firebase token without sub/uid") {
-            showToast.error("No pudimos validar tu cuenta de Google. Intenta de nuevo.");
+            showToast.error(
+              "No pudimos validar tu cuenta de Google. Intenta de nuevo.",
+            );
             return;
           }
           const error = data?.message || "Error desconocido";
@@ -259,26 +272,42 @@ const FormLogin = () => {
         return;
       }
       if (status_Message === "invalid user") {
-        showToast.error("No encontramos una cuenta con este correo. Regístrate primero.");
+        showToast.error(
+          "No encontramos una cuenta con este correo. Regístrate primero.",
+        );
         await signOutFirebaseAuth();
       }
     } catch (err) {
       const code = err?.code;
-      if (code === "auth/popup-closed-by-user" || code === "auth/cancelled-popup-request") {
+      if (
+        code === "auth/popup-closed-by-user" ||
+        code === "auth/cancelled-popup-request"
+      ) {
         return;
       }
       const data = err.response?.data;
       if (data?.status_Message === "Firebase email not verified") {
         showToast.error("Verifica tu correo en Google antes de continuar.");
       } else if (data?.status_Message === "Firebase token without sub/uid") {
-        showToast.error("No pudimos validar tu cuenta de Google. Intenta de nuevo.");
+        showToast.error(
+          "No pudimos validar tu cuenta de Google. Intenta de nuevo.",
+        );
+      } else if (
+        data?.status_Message === "Unsupported Firebase sign-in provider" ||
+        data?.status_Message === "provider not found"
+      ) {
+        showToast.error(
+          "El inicio con Google no está disponible aún. Contacta al administrador.",
+        );
       } else if (err?.response?.status === 404) {
         showToast.error(
-          "El inicio con Google no está disponible aún. Contacta al administrador."
+          "El inicio con Google no está disponible aún. Contacta al administrador.",
         );
       } else {
         const msg = data?.message || data?.status_Message || err.message;
-        showToast.error(ERROR_MESSAGES[msg] || msg || "Error al iniciar sesión con Google");
+        showToast.error(
+          ERROR_MESSAGES[msg] || msg || "Error al iniciar sesión con Google",
+        );
       }
       await signOutFirebaseAuth();
     } finally {
@@ -361,7 +390,10 @@ const FormLogin = () => {
             <span className="button-text">Iniciar Sesión</span>
           )}
         </button>
-        <p className="flex-row-nw jc-center gap-8" style={{ marginTop: "1rem" }}>
+        <p
+          className="flex-row-nw jc-center gap-8"
+          style={{ marginTop: "1rem" }}
+        >
           <span className={ui.linkLabel}>¿Aun no eres miembro?</span>
           <Link className={`${ui.linkLabel} sky-blue no-style`} to="/registro">
             Registrate Ahora
