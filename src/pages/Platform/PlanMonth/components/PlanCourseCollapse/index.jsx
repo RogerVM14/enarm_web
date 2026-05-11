@@ -13,7 +13,7 @@ const PlanCourseCollapse = ({ weeksList, planID, planName, data }) => {
   const isGuestUser = useSelector(selectIsGuestUserRole);
 
   const handleShowBodyContent = (week, isLocked, specialties) => {
-    if(specialties.length === 0 ) return;
+    if (specialties.length === 0) return;
     if (isLocked) {
       setIsConfirmModalOpen(true);
       return;
@@ -34,7 +34,7 @@ const PlanCourseCollapse = ({ weeksList, planID, planName, data }) => {
 
   const handleCancelConfirm = () => {
     setIsConfirmModalOpen(false);
-  }; 
+  };
 
   return (
     <section>
@@ -47,7 +47,13 @@ const PlanCourseCollapse = ({ weeksList, planID, planName, data }) => {
                 type="button"
                 className={`${ui.courseItem} ${isLocked ? ui.lockedItem : ""}`}
                 key={week?.week_id}
-                onClick={() => handleShowBodyContent(week?.week_number, isLocked, week?.specialties)}
+                onClick={() =>
+                  handleShowBodyContent(
+                    week?.week_number,
+                    isLocked,
+                    week?.specialties,
+                  )
+                }
               >
                 <div className={ui.itemContent}>
                   <div className={ui.contentHead}>
@@ -55,7 +61,8 @@ const PlanCourseCollapse = ({ weeksList, planID, planName, data }) => {
                       <div className={ui.courseWeekTitle}>
                         <DotIcon />
                         <h6 className={ui.courseWeek}>
-                          Semana {week.week_number} - {week?.week_names.join(" / ")}
+                          Semana {index + 1} -{" "}
+                          {week?.week_names.join(" / ")}
                         </h6>
                       </div>
                     </div>
@@ -84,9 +91,12 @@ const PlanCourseCollapse = ({ weeksList, planID, planName, data }) => {
         title="Desbloquea este contenido"
         description={
           <>
-            <p className="m-0">Este contenido forma parte del programa completo.</p>
             <p className="m-0">
-              Accede a todas las lecciones, simuladores y recursos diseñados para el ENARM.
+              Este contenido forma parte del programa completo.
+            </p>
+            <p className="m-0">
+              Accede a todas las lecciones, simuladores y recursos diseñados
+              para el ENARM.
             </p>
           </>
         }
