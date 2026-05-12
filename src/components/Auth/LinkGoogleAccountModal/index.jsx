@@ -3,19 +3,21 @@ import { linkGoogleToEnarmAccount, loginUser } from "../../../apis/auth/authApi"
 import { encryptPassword } from "../../../utils/auth";
 import showToast from "../../../utils/toasts/commonToasts";
 
-const linkErrorToast = (data, httpStatus) => {
+const linkErrorToast = (data, httpStatus, providerDisplayName = "Google") => {
   const sm = data?.status_Message;
   if (sm === "firebase link failed") {
     const d = data?.description || "";
     const byDesc = {
-      email_mismatch: "El correo de Google no coincide con tu cuenta ENARM.",
-      firebase_sub_in_use: "Esta cuenta de Google ya está vinculada a otro usuario.",
-      account_already_linked: "Tu cuenta ENARM ya tiene Google vinculado.",
+      email_mismatch: `El correo de ${providerDisplayName} no coincide con tu cuenta ENARM.`,
+      firebase_sub_in_use: `Esta cuenta de ${providerDisplayName} ya está vinculada a otro usuario.`,
+      account_already_linked: `Tu cuenta ENARM ya tiene ${providerDisplayName} vinculado.`,
       user_not_found: "No encontramos tu usuario. Inicia sesión de nuevo.",
       invalid_user_id: "No pudimos vincular. Intenta de nuevo.",
-      invalid_firebase_sub: "Token de Google inválido. Intenta de nuevo.",
+      invalid_firebase_sub: `Token de ${providerDisplayName} inválido. Intenta de nuevo.`,
     };
-    showToast.error(byDesc[d] || data?.error_code || "No se pudo vincular Google.");
+    showToast.error(
+      byDesc[d] || data?.error_code || `No se pudo vincular ${providerDisplayName}.`,
+    );
     return;
   }
   const messages = {
@@ -23,11 +25,11 @@ const linkErrorToast = (data, httpStatus) => {
     "Token expired": "Tu sesión expiró. Inicia sesión de nuevo.",
     "Invalid token": "Sesión inválida. Inicia sesión de nuevo.",
     "re-login is required": "Debes iniciar sesión de nuevo para continuar.",
-    "Firebase token expired": "La sesión de Google expiró. Cierra este mensaje e intenta con Google otra vez.",
-    "incorrect role for firebase link": "Tu tipo de cuenta no permite vincular Google.",
-    "Invalid Firebase token": "No pudimos validar Google. Intenta de nuevo.",
-    "Firebase email not verified": "Verifica tu correo en Google antes de continuar.",
-    "Firebase token without sub/uid": "No pudimos validar tu cuenta de Google.",
+    "Firebase token expired": `La sesión de ${providerDisplayName} expiró. Cierra este mensaje e intenta con ${providerDisplayName} otra vez.`,
+    "incorrect role for firebase link": `Tu tipo de cuenta no permite vincular ${providerDisplayName}.`,
+    "Invalid Firebase token": `No pudimos validar ${providerDisplayName}. Intenta de nuevo.`,
+    "Firebase email not verified": `Verifica tu correo en ${providerDisplayName} antes de continuar.`,
+    "Firebase token without sub/uid": `No pudimos validar tu cuenta de ${providerDisplayName}.`,
   };
   if (sm && messages[sm]) {
     showToast.error(messages[sm]);
@@ -47,6 +49,7 @@ const LinkGoogleAccountModal = ({
   firebaseIdTokenRef,
   onLinkedSuccess,
   signOutFirebaseAuth,
+  providerDisplayName = "Google",
 }) => {
   const [step, setStep] = useState(1);
   const [linkPassword, setLinkPassword] = useState("");
@@ -73,7 +76,9 @@ const LinkGoogleAccountModal = ({
     }
     const idToken = firebaseIdTokenRef?.current;
     if (!idToken) {
-      showToast.error("La sesión de Google expiró. Intenta de nuevo con el botón de Google.");
+      showToast.error(
+        `La sesión de ${providerDisplayName} expiró. Intenta de nuevo con el botón de ${providerDisplayName}.`,
+      );
       onClose();
       return;
     }
@@ -112,22 +117,23 @@ const LinkGoogleAccountModal = ({
               return;
             }
             signOutFirebaseAuth().catch(() => {});
-            showToast.success("Tu cuenta quedó vinculada con Google.");
+            showToast.success(`Tu cuenta quedó vinculada con ${providerDisplayName}.`);
             onLinkedSuccess(passwordSession);
           })
           .catch((err) => {
             const st = err.response?.status;
             const data = err.response?.data;
-            if (data) linkErrorToast(data, st);
-            else showToast.error("No se pudo vincular Google. Intenta de nuevo.");
+            if (data) linkErrorToast(data, st, providerDisplayName);
+            else
+              showToast.error(`No se pudo vincular ${providerDisplayName}. Intenta de nuevo.`);
           });
       })
       .catch((err) => {
         const data = err.response?.data;
         if (data?.status_Message === "Firebase email not verified") {
-          showToast.error("Verifica tu correo en Google antes de continuar.");
+          showToast.error(`Verifica tu correo en ${providerDisplayName} antes de continuar.`);
         } else if (data?.status_Message === "Firebase token without sub/uid") {
-          showToast.error("No pudimos validar tu cuenta de Google.");
+          showToast.error(`No pudimos validar tu cuenta de ${providerDisplayName}.`);
         } else {
           showToast.error("Error al iniciar sesión. Revisa tu contraseña.");
         }
@@ -142,7 +148,7 @@ const LinkGoogleAccountModal = ({
       className="fixed inset-0 z-[2100] flex items-center justify-center overflow-y-auto p-4"
       role="dialog"
       aria-modal="true"
-      aria-labelledby="link-google-modal-title"
+      aria-labelledby="link-social-modal-title"
     >
       <button
         type="button"
@@ -151,8 +157,8 @@ const LinkGoogleAccountModal = ({
         onClick={handleCancel}
       />
       <div className="relative w-full max-w-md rounded-xl bg-white p-6 shadow-xl text-left text-gray-900">
-        <h2 id="link-google-modal-title" className="text-lg font-semibold text-gray-900 mb-4">
-          Conecta tu cuenta con Google
+        <h2 id="link-social-modal-title" className="text-lg font-semibold text-gray-900 mb-4">
+          Conecta tu cuenta con {providerDisplayName}
         </h2>
 
         {step === 1 ? (
@@ -161,7 +167,8 @@ const LinkGoogleAccountModal = ({
               Ya tienes una cuenta con tu correo.
             </p>
             <p className="text-sm text-gray-600 mb-4 leading-relaxed">
-              Puedes vincularla con Google para iniciar sesión más rápido con un solo clic.
+              Puedes vincularla con {providerDisplayName} para iniciar sesión más rápido con un solo
+              clic.
             </p>
             <p className="text-sm font-semibold text-gray-900 mb-5 leading-relaxed rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5">
               Seguirás pudiendo entrar con tu correo y contraseña como siempre.

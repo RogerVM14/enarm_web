@@ -1,4 +1,10 @@
-import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
+import {
+  FacebookAuthProvider,
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
 import { getFirebaseApp } from "./config";
 
 export function getFirebaseAuthInstance() {
@@ -19,6 +25,22 @@ export async function signInWithGoogleAndGetIdToken() {
   const provider = new GoogleAuthProvider();
   provider.addScope("email");
   provider.setCustomParameters({ prompt: "select_account" });
+  const result = await signInWithPopup(auth, provider);
+  const idToken = await result.user.getIdToken();
+  return { idToken, user: result.user };
+}
+
+/**
+ * Abre el flujo de Facebook y devuelve el ID token de Firebase para enviarlo al backend.
+ */
+export async function signInWithFacebookAndGetIdToken() {
+  const app = getFirebaseApp();
+  if (!app) {
+    throw new Error("Firebase no está configurado. Revisa las variables REACT_APP_FIREBASE_* en .env");
+  }
+  const auth = getAuth(app);
+  const provider = new FacebookAuthProvider();
+  provider.addScope("email");
   const result = await signInWithPopup(auth, provider);
   const idToken = await result.user.getIdToken();
   return { idToken, user: result.user };

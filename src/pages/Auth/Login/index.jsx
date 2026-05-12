@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { closeUserRemoteSession, loginUser } from "../../../apis/auth/authApi";
 import {
+  signInWithFacebookAndGetIdToken,
   signInWithGoogleAndGetIdToken,
   signOutFirebaseAuth,
 } from "../../../firebase";
@@ -23,6 +24,7 @@ import { ROUTES } from "../../../constants/routes";
 import { encryptPassword } from "../../../utils/auth";
 import ConfirmDialogModal from "../../../components/ConfirmDialogModal";
 import LinkGoogleAccountModal from "../../../components/Auth/LinkGoogleAccountModal";
+import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 
 const LoginPage = () => {
@@ -64,11 +66,13 @@ const FormLogin = () => {
   const [emailError, setEmailError] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isGoogleSubmitting, setIsGoogleSubmitting] = useState(false);
+  const [isFacebookSubmitting, setIsFacebookSubmitting] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [sessionConflictSource, setSessionConflictSource] = useState(null);
-  const pendingGoogleTokenRef = useRef(null);
+  const pendingSocialFirebaseTokenRef = useRef(null);
   const [linkGoogleModalOpen, setLinkGoogleModalOpen] = useState(false);
   const [linkGoogleEmail, setLinkGoogleEmail] = useState("");
+  const [linkModalProviderName, setLinkModalProviderName] = useState("Google");
   const linkPendingFirebaseTokenRef = useRef(null);
 
   const completeSessionAfterAuth = (rest) => {
@@ -87,9 +91,13 @@ const FormLogin = () => {
 
   const handleAccept = () => {
     setIsSubmitting(true);
-    if (sessionConflictSource === "google" && pendingGoogleTokenRef.current) {
+    if (
+      (sessionConflictSource === "google" ||
+        sessionConflictSource === "facebook") &&
+      pendingSocialFirebaseTokenRef.current
+    ) {
       loginUser({
-        firebase_token: pendingGoogleTokenRef.current,
+        firebase_token: pendingSocialFirebaseTokenRef.current,
         environment: "platform",
       })
         .then((res) => {
@@ -111,7 +119,7 @@ const FormLogin = () => {
           setIsSubmitting(false);
           setIsModalOpen(false);
           setSessionConflictSource(null);
-          pendingGoogleTokenRef.current = null;
+          pendingSocialFirebaseTokenRef.current = null;
         });
       return;
     }
@@ -145,12 +153,13 @@ const FormLogin = () => {
   const handleCancel = () => {
     setIsModalOpen(false);
     setSessionConflictSource(null);
-    pendingGoogleTokenRef.current = null;
+    pendingSocialFirebaseTokenRef.current = null;
   };
 
   const closeLinkGoogleModal = () => {
     setLinkGoogleModalOpen(false);
     setLinkGoogleEmail("");
+    setLinkModalProviderName("Google");
     linkPendingFirebaseTokenRef.current = null;
     signOutFirebaseAuth().catch(() => {});
   };
@@ -158,6 +167,7 @@ const FormLogin = () => {
   const handleLinkGoogleSuccess = (sessionRest) => {
     setLinkGoogleModalOpen(false);
     setLinkGoogleEmail("");
+    setLinkModalProviderName("Google");
     linkPendingFirebaseTokenRef.current = null;
     completeSessionAfterAuth(sessionRest);
   };
@@ -255,19 +265,22 @@ const FormLogin = () => {
       const { status_Message, ...rest } = res.data;
 
       if (status_Message === "user logged") {
-        pendingGoogleTokenRef.current = idToken;
+        pendingSocialFirebaseTokenRef.current = idToken;
         setSessionConflictSource("google");
         setIsModalOpen(true);
         return;
       }
-      if (status_Message === "valid user") {
+       if (status_Message === "valid user") {
         completeSessionAfterAuth(rest);
         return;
       }
+      console.log(status_Message);
+
       if (status_Message === "need to link") {
         const email = res.data.user_email || "";
         linkPendingFirebaseTokenRef.current = idToken;
         setLinkGoogleEmail(email);
+        setLinkModalProviderName("Google");
         setLinkGoogleModalOpen(true);
         return;
       }
@@ -312,6 +325,78 @@ const FormLogin = () => {
       await signOutFirebaseAuth();
     } finally {
       setIsGoogleSubmitting(false);
+    }
+  };
+
+  const handleFacebookLogin = async () => {
+    setIsFacebookSubmitting(true);
+    try {
+      const { idToken } = await signInWithFacebookAndGetIdToken();
+      const res = await loginUser({
+        firebase_token: idToken,
+        environment: "platform",
+      });
+      const { status_Message, ...rest } = res.data;
+
+      if (status_Message === "user logged") {
+        pendingSocialFirebaseTokenRef.current = idToken;
+        setSessionConflictSource("facebook");
+        setIsModalOpen(true);
+        return;
+      }
+      if (status_Message === "valid user") {
+        completeSessionAfterAuth(rest);
+        return;
+      }
+      if (status_Message === "need to link") {
+        const email = res.data.user_email || "";
+        linkPendingFirebaseTokenRef.current = idToken;
+        setLinkGoogleEmail(email);
+        setLinkModalProviderName("Facebook");
+        setLinkGoogleModalOpen(true);
+        return;
+      }
+      if (status_Message === "invalid user") {
+        showToast.error(
+          "No encontramos una cuenta con este correo. Regístrate primero.",
+        );
+        await signOutFirebaseAuth();
+      }
+    } catch (err) {
+      const code = err?.code;
+      if (
+        code === "auth/popup-closed-by-user" ||
+        code === "auth/cancelled-popup-request"
+      ) {
+        return;
+      }
+      const data = err.response?.data;
+      if (data?.status_Message === "Firebase email not verified") {
+        showToast.error("Verifica tu correo en Facebook antes de continuar.");
+      } else if (data?.status_Message === "Firebase token without sub/uid") {
+        showToast.error(
+          "No pudimos validar tu cuenta de Facebook. Intenta de nuevo.",
+        );
+      } else if (
+        data?.status_Message === "Unsupported Firebase sign-in provider" ||
+        data?.status_Message === "provider not found"
+      ) {
+        showToast.error(
+          "El inicio con Facebook no está disponible aún. Contacta al administrador.",
+        );
+      } else if (err?.response?.status === 404) {
+        showToast.error(
+          "El inicio con Facebook no está disponible aún. Contacta al administrador.",
+        );
+      } else {
+        const msg = data?.message || data?.status_Message || err.message;
+        showToast.error(
+          ERROR_MESSAGES[msg] || msg || "Error al iniciar sesión con Facebook",
+        );
+      }
+      await signOutFirebaseAuth();
+    } finally {
+      setIsFacebookSubmitting(false);
     }
   };
 
@@ -377,6 +462,7 @@ const FormLogin = () => {
           disabled={
             isSubmitting ||
             isGoogleSubmitting ||
+            isFacebookSubmitting ||
             !validateEmailFormat(userEmail) ||
             !userPass
           }
@@ -408,7 +494,7 @@ const FormLogin = () => {
             isGoogleSubmitting ? ui.googleButtonBusy : ""
           }`}
           onClick={handleGoogleLogin}
-          disabled={isSubmitting || isGoogleSubmitting}
+          disabled={isSubmitting || isGoogleSubmitting || isFacebookSubmitting}
           aria-busy={isGoogleSubmitting}
         >
           {isGoogleSubmitting ? (
@@ -423,6 +509,30 @@ const FormLogin = () => {
             <>
               <FcGoogle size={22} className="shrink-0" />
               <span className="button-text">Iniciar sesión con Google</span>
+            </>
+          )}
+        </button>
+        <button
+          type="button"
+          className={`${ui.facebookButton} ${
+            isFacebookSubmitting ? ui.facebookButtonBusy : ""
+          }`}
+          onClick={handleFacebookLogin}
+          disabled={isSubmitting || isGoogleSubmitting || isFacebookSubmitting}
+          aria-busy={isFacebookSubmitting}
+        >
+          {isFacebookSubmitting ? (
+            <>
+              <div
+                className="spinner-border animate-spin inline-block w-4 h-4 shrink-0 border-2 rounded-full border-white border-t-transparent"
+                aria-hidden
+              />
+              <span className="button-text">Iniciando sesión</span>
+            </>
+          ) : (
+            <>
+              <FaFacebook size={22} className="shrink-0" aria-hidden />
+              <span className="button-text">Iniciar sesión con Facebook</span>
             </>
           )}
         </button>
@@ -441,6 +551,7 @@ const FormLogin = () => {
         firebaseIdTokenRef={linkPendingFirebaseTokenRef}
         onLinkedSuccess={handleLinkGoogleSuccess}
         signOutFirebaseAuth={signOutFirebaseAuth}
+        providerDisplayName={linkModalProviderName}
       />
     </>
   );
