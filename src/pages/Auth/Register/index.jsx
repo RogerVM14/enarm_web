@@ -17,9 +17,15 @@ import { createGuestUser } from "../../../apis/auth/authApi";
 import showToast from "../../../utils/toasts/commonToasts";
 import { resetCheckoutInformation } from "../../../store/reducers/checkout/checkoutInformationSlice";
 import { encryptPassword } from "../../../utils/auth";
-import { signInWithGoogleInspectPayload, signOutFirebaseAuth } from "../../../firebase";
+import {
+  signInWithGoogleInspectPayload,
+  signOutFirebaseAuth,
+} from "../../../firebase";
 import { FcGoogle } from "react-icons/fc";
-import { setIsGuestUser, setIsLoadingContent } from "../../../store/reducers/general/general";
+import {
+  setIsGuestUser,
+  setIsLoadingContent,
+} from "../../../store/reducers/general/general";
 import { setCookie } from "../../../utils/auth/cookieSession";
 import ConfirmDialogModal from "../../../components/ConfirmDialogModal";
 
@@ -59,22 +65,28 @@ const RegisterPage = () => {
                 user_email: uemail,
                 user_id: uid,
                 password: encryptPass,
-              })
+              }),
             );
             showToast.success(
-              "Te enviamos un código de verificación a tu correo. Revísalo (y spam) para continuar."
+              "Te enviamos un código de verificación a tu correo. Revísalo (y spam) para continuar.",
             );
-            navigate(`${ROUTES.VERIFY_EMAIL_CODE}?source=register`, { replace: true });
+            navigate(`${ROUTES.VERIFY_EMAIL_CODE}?source=register`, {
+              replace: true,
+            });
           }
         })
         .catch((err) => {
           const data = err.response?.data;
           if (data?.status_Message === "Firebase email not verified") {
             showToast.error("Verifica tu correo en Google antes de continuar.");
-          } else if (data?.status_Message === "Firebase token without sub/uid") {
+          } else if (
+            data?.status_Message === "Firebase token without sub/uid"
+          ) {
             showToast.error("No pudimos validar tu cuenta. Intenta de nuevo.");
           } else {
-            showToast.error("Hubo un error al crear tu usuario, intenta nuevamente");
+            showToast.error(
+              "Hubo un error al crear tu usuario, intenta nuevamente",
+            );
           }
         })
         .finally(() => dispatch(setIsLoadingContent(false)));
@@ -98,7 +110,10 @@ const RegisterPage = () => {
               </h1>
             </div>
             <div className="container-body">
-              <RegisterForm handleUserInfo={setUserInfo} handleRegister={handleRegisterInformation} />
+              <RegisterForm
+                handleUserInfo={setUserInfo}
+                handleRegister={handleRegisterInformation}
+              />
             </div>
           </div>
           <div className={ui.imageContainer}>
@@ -149,11 +164,15 @@ const RegisterForm = ({ handleUserInfo, handleRegister }) => {
           await signOutFirebaseAuth();
           completeSessionAfterAuth(rest);
         } else {
-          showToast.error("No se pudo cerrar la otra sesión. Intenta de nuevo.");
+          showToast.error(
+            "No se pudo cerrar la otra sesión. Intenta de nuevo.",
+          );
         }
       })
       .catch(() => {
-        showToast.error("Hubo un error al cerrar la otra sesión, intenta nuevamente");
+        showToast.error(
+          "Hubo un error al cerrar la otra sesión, intenta nuevamente",
+        );
       })
       .finally(() => {
         setIsSessionModalOpen(false);
@@ -189,13 +208,15 @@ const RegisterForm = ({ handleUserInfo, handleRegister }) => {
       }
       if (status_Message === "invalid user") {
         showToast.error(
-          "No pudimos crear tu cuenta con Google. Intenta de nuevo o regístrate con correo."
+          "No pudimos crear tu cuenta con Google. Intenta de nuevo o regístrate con correo.",
         );
         await signOutFirebaseAuth();
         return;
       }
       if (status_Message === "problems with last session") {
-        showToast.error("Hubo un problema al actualizar tu sesión. Intenta de nuevo.");
+        showToast.error(
+          "Hubo un problema al actualizar tu sesión. Intenta de nuevo.",
+        );
         await signOutFirebaseAuth();
         return;
       }
@@ -207,7 +228,7 @@ const RegisterForm = ({ handleUserInfo, handleRegister }) => {
       if (status_Message === "email exists") {
         if (res.data?.action === "login_to_link_account") {
           showToast.warning(
-            "Este correo ya tiene cuenta. Inicia sesión con Google para vincularla."
+            "Este correo ya tiene cuenta. Inicia sesión con Google para vincularla.",
           );
         } else {
           showToast.warning("Este email ya está en uso");
@@ -223,7 +244,9 @@ const RegisterForm = ({ handleUserInfo, handleRegister }) => {
           const { status_Message: _sm, ...rest } = res.data;
           completeSessionAfterAuth(rest);
         } else {
-          showToast.info("Inicia sesión con Google para entrar a la plataforma.");
+          showToast.info(
+            "Inicia sesión con Google para entrar a la plataforma.",
+          );
           navigate(ROUTES.LOGIN, { replace: true });
         }
         return;
@@ -232,17 +255,31 @@ const RegisterForm = ({ handleUserInfo, handleRegister }) => {
       await signOutFirebaseAuth();
     } catch (err) {
       const code = err?.code;
-      if (code === "auth/popup-closed-by-user" || code === "auth/cancelled-popup-request") {
+      if (
+        code === "auth/popup-closed-by-user" ||
+        code === "auth/cancelled-popup-request"
+      ) {
         return;
       }
       const data = err.response?.data;
       if (data?.status_Message === "Firebase email not verified") {
         showToast.error("Verifica tu correo en Google antes de continuar.");
       } else if (data?.status_Message === "Firebase token without sub/uid") {
-        showToast.error("No pudimos validar tu cuenta de Google. Intenta de nuevo.");
+        showToast.error(
+          "No pudimos validar tu cuenta de Google. Intenta de nuevo.",
+        );
+      } else if (
+        data?.status_Message === "Unsupported Firebase sign-in provider"
+      ) {
+        showToast.error(
+          "El inicio con Facebook no está disponible aún. Contacta al administrador.",
+        );
       } else {
         showToast.error(
-          data?.message || data?.status_Message || err?.message || "Error al registrarte con Google"
+          data?.message ||
+            data?.status_Message ||
+            err?.message ||
+            "Error al registrarte con Google",
         );
       }
       await signOutFirebaseAuth();
@@ -285,81 +322,94 @@ const RegisterForm = ({ handleUserInfo, handleRegister }) => {
   };
   return (
     <>
-    <div className="form-container reveal-load">
-      <div>
-        <div className={ui.formGroup}>
-          <label className={ui.formLabel} htmlFor="form-user">
-            Correo electrónico*
-          </label>
-          <input
-            type="text"
-            name="email"
-            id="form-email"
-            autoComplete="off"
-            placeholder="Correo electrónico"
-            onChange={(e) => {
-              handleChangeUserInformation(e);
-              setEmail(e.target.value);
-            }}
-          />
-          {emailError ? <span className={`${ui.formLabel} red`}>Introduce un correo válido</span> : null}
+      <div className="form-container reveal-load">
+        <div>
+          <div className={ui.formGroup}>
+            <label className={ui.formLabel} htmlFor="form-user">
+              Correo electrónico*
+            </label>
+            <input
+              type="text"
+              name="email"
+              id="form-email"
+              autoComplete="off"
+              placeholder="Correo electrónico"
+              onChange={(e) => {
+                handleChangeUserInformation(e);
+                setEmail(e.target.value);
+              }}
+            />
+            {emailError ? (
+              <span className={`${ui.formLabel} red`}>
+                Introduce un correo válido
+              </span>
+            ) : null}
+          </div>
+          <div className={ui.formGroup}>
+            <label className={ui.formLabel} htmlFor="form-password">
+              Contraseña*
+            </label>
+            <ValidatePassword
+              password={password}
+              setPassword={setPassword}
+              handleChange={handleChangeUserInformation}
+              passwordReady={setPasswordComplete}
+            />
+            {passwordError ? (
+              <span className={`${ui.formLabel} red`}>
+                Introduce una contraseña válida
+              </span>
+            ) : null}
+          </div>
+          <button
+            disabled={
+              !validFormatEmail || !passwordComplete || isGoogleSubmitting
+            }
+            className={ui.submitButton}
+            type="button"
+            onClick={handleClick}
+          >
+            <span className="button-text">Registrar</span>
+          </button>
+          <p
+            className="flex-row-nw jc-center gap-8"
+            style={{ marginTop: "1rem" }}
+          >
+            <span className={ui.linkLabel}>¿Ya eres miembro?</span>
+            <Link className="regular-14 sky-blue no-style" to={ROUTES.LOGIN}>
+              Iniciar Sesión
+            </Link>
+          </p>
+          <div className={ui.dividerRow}>
+            <span>o</span>
+          </div>
+          <button
+            type="button"
+            className={ui.googleButton}
+            onClick={handleGoogleRegister}
+            disabled={isGoogleSubmitting}
+          >
+            {isGoogleSubmitting ? (
+              <>
+                <div className="spinner-border animate-spin inline-block w-4 h-4 border-2 rounded-full border-[#05B2FA]"></div>
+                <span>Conectando...</span>
+              </>
+            ) : (
+              <>
+                <FcGoogle size={22} />
+                <span>Regístrate con Google</span>
+              </>
+            )}
+          </button>
         </div>
-        <div className={ui.formGroup}>
-          <label className={ui.formLabel} htmlFor="form-password">
-            Contraseña*
-          </label>
-          <ValidatePassword
-            password={password}
-            setPassword={setPassword}
-            handleChange={handleChangeUserInformation}
-            passwordReady={setPasswordComplete}
-          />
-          {passwordError ? <span className={`${ui.formLabel} red`}>Introduce una contraseña válida</span> : null}
-        </div>
-        <button
-          disabled={!validFormatEmail || !passwordComplete || isGoogleSubmitting}
-          className={ui.submitButton}
-          type="button"
-          onClick={handleClick}
-        >
-          <span className="button-text">Registrar</span>
-        </button>
-        <p className="flex-row-nw jc-center gap-8" style={{ marginTop: "1rem" }}>
-          <span className={ui.linkLabel}>¿Ya eres miembro?</span>
-          <Link className="regular-14 sky-blue no-style" to={ROUTES.LOGIN}>
-            Iniciar Sesión
-          </Link>
-        </p>
-        <div className={ui.dividerRow}>
-          <span>o</span>
-        </div>
-        <button
-          type="button"
-          className={ui.googleButton}
-          onClick={handleGoogleRegister}
-          disabled={isGoogleSubmitting}
-        >
-          {isGoogleSubmitting ? (
-            <>
-              <div className="spinner-border animate-spin inline-block w-4 h-4 border-2 rounded-full border-[#05B2FA]"></div>
-              <span>Conectando...</span>
-            </>
-          ) : (
-            <>
-              <FcGoogle size={22} />
-              <span>Regístrate con Google</span>
-            </>
-          )}
-        </button>
       </div>
-    </div>
-    <ConfirmDialogModal
-      isOpen={isSessionModalOpen}
-      onAccept={handleGoogleSessionModalAccept}
-      onCancel={handleGoogleSessionModalCancel}
-      title="Cierre de sesión"
-      description="Hemos detectado una sesión activa, al dar continuar, esta será cerrada automáticamente"
-    />
+      <ConfirmDialogModal
+        isOpen={isSessionModalOpen}
+        onAccept={handleGoogleSessionModalAccept}
+        onCancel={handleGoogleSessionModalCancel}
+        title="Cierre de sesión"
+        description="Hemos detectado una sesión activa, al dar continuar, esta será cerrada automáticamente"
+      />
     </>
   );
 };
