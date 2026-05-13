@@ -16,5 +16,8 @@ export {
   signInWithGoogleInspectPayload,
   signInWithFacebookAndGetIdToken,
   signInWithFacebookInspectPayload,
+  shouldUseFacebookSignInRedirect,
+  startFacebookSignInWithRedirect,
+  consumeFacebookRedirectResult,
   signOutFirebaseAuth,
 } from "./auth";

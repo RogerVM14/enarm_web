@@ -1,10 +1,13 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { closeUserRemoteSession, loginUser } from "../../../apis/auth/authApi";
 import {
   signInWithFacebookAndGetIdToken,
   signInWithGoogleAndGetIdToken,
   signOutFirebaseAuth,
+  shouldUseFacebookSignInRedirect,
+  startFacebookSignInWithRedirect,
+  consumeFacebookRedirectResult,
 } from "../../../firebase";
 import doctorImage from "../../../assets/imgs/Dres/stock-photo-surgeon-wearing-blue-uniform-stethoscope-small.png";
 import { ERROR_MESSAGES } from "../../../constants/Messages";
@@ -254,6 +257,109 @@ const FormLogin = () => {
     }
   };
 
+  const finalizeFacebookLoginWithIdToken = async (idToken) => {
+    const res = await loginUser({
+      firebase_token: idToken,
+      environment: "platform",
+    });
+    const { status_Message, ...rest } = res.data;
+
+    if (status_Message === "user logged") {
+      pendingSocialFirebaseTokenRef.current = idToken;
+      setSessionConflictSource("facebook");
+      setIsModalOpen(true);
+      return;
+    }
+    if (status_Message === "valid user") {
+      completeSessionAfterAuth(rest);
+      return;
+    }
+    if (status_Message === "need to link") {
+      const email = res.data.user_email || "";
+      linkPendingFirebaseTokenRef.current = idToken;
+      setLinkGoogleEmail(email);
+      setLinkModalProviderName("Facebook");
+      setLinkGoogleModalOpen(true);
+      return;
+    }
+    if (status_Message === "invalid user") {
+      showToast.error(
+        "No encontramos una cuenta con este correo. Regístrate primero.",
+      );
+      await signOutFirebaseAuth();
+    }
+  };
+
+  const handleFacebookLoginCatch = async (err) => {
+    const code = err?.code;
+    if (
+      code === "auth/popup-closed-by-user" ||
+      code === "auth/cancelled-popup-request"
+    ) {
+      return;
+    }
+    if (code && String(code).startsWith("auth/") && !err?.response) {
+      const msg =
+        code === "auth/web-storage-unsupported"
+          ? "Tu navegador bloqueó el inicio con Facebook. Permite almacenamiento o intenta con otro navegador."
+          : "No pudimos completar el inicio con Facebook. Intenta de nuevo.";
+      showToast.error(msg);
+      await signOutFirebaseAuth();
+      return;
+    }
+    const data = err.response?.data;
+    if (data?.status_Message === "Firebase email not verified") {
+      showToast.error("Verifica tu correo en Facebook antes de continuar.");
+    } else if (data?.status_Message === "Firebase token without sub/uid") {
+      showToast.error(
+        "No pudimos validar tu cuenta de Facebook. Intenta de nuevo.",
+      );
+    } else if (
+      data?.status_Message === "Unsupported Firebase sign-in provider" ||
+      data?.status_Message === "provider not found"
+    ) {
+      showToast.error(
+        "El inicio con Facebook no está disponible aún. Contacta al administrador.",
+      );
+    } else if (err?.response?.status === 404) {
+      showToast.error(
+        "El inicio con Facebook no está disponible aún. Contacta al administrador.",
+      );
+    } else {
+      const msg = data?.message || data?.status_Message || err.message;
+      showToast.error(
+        ERROR_MESSAGES[msg] || msg || "Error al iniciar sesión con Facebook",
+      );
+    }
+    await signOutFirebaseAuth();
+  };
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      const outcome = await consumeFacebookRedirectResult("login");
+      if (cancelled) return;
+      if (outcome.kind === "none") return;
+      if (outcome.kind === "error") {
+        await handleFacebookLoginCatch(outcome.error);
+        return;
+      }
+      setIsFacebookSubmitting(true);
+      try {
+        await finalizeFacebookLoginWithIdToken(outcome.idToken);
+      } catch (err) {
+        await handleFacebookLoginCatch(err);
+      } finally {
+        if (!cancelled) setIsFacebookSubmitting(false);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+    // Solo al montar: completar redirect OAuth de Facebook en móvil.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const handleGoogleLogin = async () => {
     setIsGoogleSubmitting(true);
     try {
@@ -331,70 +437,14 @@ const FormLogin = () => {
   const handleFacebookLogin = async () => {
     setIsFacebookSubmitting(true);
     try {
+      if (shouldUseFacebookSignInRedirect()) {
+        await startFacebookSignInWithRedirect("login");
+        return;
+      }
       const { idToken } = await signInWithFacebookAndGetIdToken();
-      const res = await loginUser({
-        firebase_token: idToken,
-        environment: "platform",
-      });
-      const { status_Message, ...rest } = res.data;
-
-      if (status_Message === "user logged") {
-        pendingSocialFirebaseTokenRef.current = idToken;
-        setSessionConflictSource("facebook");
-        setIsModalOpen(true);
-        return;
-      }
-      if (status_Message === "valid user") {
-        completeSessionAfterAuth(rest);
-        return;
-      }
-      if (status_Message === "need to link") {
-        const email = res.data.user_email || "";
-        linkPendingFirebaseTokenRef.current = idToken;
-        setLinkGoogleEmail(email);
-        setLinkModalProviderName("Facebook");
-        setLinkGoogleModalOpen(true);
-        return;
-      }
-      if (status_Message === "invalid user") {
-        showToast.error(
-          "No encontramos una cuenta con este correo. Regístrate primero.",
-        );
-        await signOutFirebaseAuth();
-      }
+      await finalizeFacebookLoginWithIdToken(idToken);
     } catch (err) {
-      const code = err?.code;
-      if (
-        code === "auth/popup-closed-by-user" ||
-        code === "auth/cancelled-popup-request"
-      ) {
-        return;
-      }
-      const data = err.response?.data;
-      if (data?.status_Message === "Firebase email not verified") {
-        showToast.error("Verifica tu correo en Facebook antes de continuar.");
-      } else if (data?.status_Message === "Firebase token without sub/uid") {
-        showToast.error(
-          "No pudimos validar tu cuenta de Facebook. Intenta de nuevo.",
-        );
-      } else if (
-        data?.status_Message === "Unsupported Firebase sign-in provider" ||
-        data?.status_Message === "provider not found"
-      ) {
-        showToast.error(
-          "El inicio con Facebook no está disponible aún. Contacta al administrador.",
-        );
-      } else if (err?.response?.status === 404) {
-        showToast.error(
-          "El inicio con Facebook no está disponible aún. Contacta al administrador.",
-        );
-      } else {
-        const msg = data?.message || data?.status_Message || err.message;
-        showToast.error(
-          ERROR_MESSAGES[msg] || msg || "Error al iniciar sesión con Facebook",
-        );
-      }
-      await signOutFirebaseAuth();
+      await handleFacebookLoginCatch(err);
     } finally {
       setIsFacebookSubmitting(false);
     }

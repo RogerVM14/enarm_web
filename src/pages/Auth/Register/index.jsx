@@ -21,6 +21,9 @@ import {
   signInWithGoogleInspectPayload,
   signInWithFacebookInspectPayload,
   signOutFirebaseAuth,
+  shouldUseFacebookSignInRedirect,
+  startFacebookSignInWithRedirect,
+  consumeFacebookRedirectResult,
 } from "../../../firebase";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
@@ -216,102 +219,156 @@ const RegisterForm = ({ handleUserInfo, handleRegister }) => {
     },
   };
 
-  const handleOAuthRegister = async (provider) => {
+  const handleOAuthRegisterCatch = async (err, provider) => {
     const copy = OAUTH_REGISTER_COPY[provider];
+    const code = err?.code;
+    if (
+      code === "auth/popup-closed-by-user" ||
+      code === "auth/cancelled-popup-request"
+    ) {
+      return;
+    }
+    if (code && String(code).startsWith("auth/") && !err?.response) {
+      showToast.error(
+        provider === "facebook"
+          ? "No pudimos completar el registro con Facebook. Intenta de nuevo."
+          : copy.genericError,
+      );
+      await signOutFirebaseAuth();
+      return;
+    }
+    const data = err.response?.data;
+    if (data?.status_Message === "Firebase email not verified") {
+      showToast.error(copy.firebaseVerify);
+    } else if (data?.status_Message === "Firebase token without sub/uid") {
+      showToast.error(copy.tokenValidate);
+    } else if (
+      data?.status_Message === "Unsupported Firebase sign-in provider"
+    ) {
+      showToast.error(
+        "Este método de inicio no está disponible aún. Contacta al administrador.",
+      );
+    } else {
+      showToast.error(
+        data?.message ||
+          data?.status_Message ||
+          err?.message ||
+          copy.genericError,
+      );
+    }
+    await signOutFirebaseAuth();
+  };
+
+  const completeOAuthRegisterWithPayload = async (provider, p) => {
+    const copy = OAUTH_REGISTER_COPY[provider];
+    const res = await createGuestUser({
+      firebase_token: p.idToken,
+      environment: "platform",
+    });
+    const { status_Message, ...rest } = res.data;
+
+    if (status_Message === "user logged") {
+      pendingOAuthTokenRef.current = p.idToken;
+      setIsSessionModalOpen(true);
+      return;
+    }
+    if (status_Message === "valid user") {
+      await signOutFirebaseAuth();
+      completeSessionAfterAuth(rest);
+      return;
+    }
+    if (status_Message === "invalid user") {
+      showToast.error(copy.invalidUser);
+      await signOutFirebaseAuth();
+      return;
+    }
+    if (status_Message === "problems with last session") {
+      showToast.error(
+        "Hubo un problema al actualizar tu sesión. Intenta de nuevo.",
+      );
+      await signOutFirebaseAuth();
+      return;
+    }
+    if (status_Message === "problems with last jwt") {
+      showToast.error("Hubo un problema con la sesión. Intenta de nuevo.");
+      await signOutFirebaseAuth();
+      return;
+    }
+    if (status_Message === "email exists") {
+      if (res.data?.action === "login_to_link_account") {
+        showToast.warning(copy.emailExistsLink);
+      } else {
+        showToast.warning("Este email ya está en uso");
+      }
+      await signOutFirebaseAuth();
+      return;
+    }
+    if (status_Message === "guest added") {
+      showToast.success("Tu usuario ha sido creado");
+      dispatch(setIsGuestUser(true));
+      await signOutFirebaseAuth();
+      if (res.data?.auth_token) {
+        const { status_Message: _sm, ...restGuest } = res.data;
+        completeSessionAfterAuth(restGuest);
+      } else {
+        showToast.info(copy.guestLoginHint);
+        navigate(ROUTES.LOGIN, { replace: true });
+      }
+      return;
+    }
+    showToast.error("No se pudo completar el registro. Intenta de nuevo.");
+    await signOutFirebaseAuth();
+  };
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      const outcome = await consumeFacebookRedirectResult("register");
+      if (cancelled) return;
+      if (outcome.kind === "none") return;
+      if (outcome.kind === "error") {
+        await handleOAuthRegisterCatch(outcome.error, "facebook");
+        return;
+      }
+      setIsFacebookSubmitting(true);
+      dispatch(setIsLoadingContent(true));
+      try {
+        await completeOAuthRegisterWithPayload(
+          "facebook",
+          outcome.inspectPayload,
+        );
+      } catch (err) {
+        await handleOAuthRegisterCatch(err, "facebook");
+      } finally {
+        if (!cancelled) {
+          dispatch(setIsLoadingContent(false));
+          setIsFacebookSubmitting(false);
+        }
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleOAuthRegister = async (provider) => {
     const setBusy =
       provider === "google" ? setIsGoogleSubmitting : setIsFacebookSubmitting;
     setBusy(true);
     try {
+      if (provider === "facebook" && shouldUseFacebookSignInRedirect()) {
+        await startFacebookSignInWithRedirect("register");
+        return;
+      }
       const p =
         provider === "google"
           ? await signInWithGoogleInspectPayload()
           : await signInWithFacebookInspectPayload();
       dispatch(setIsLoadingContent(true));
-      const res = await createGuestUser({
-        firebase_token: p.idToken,
-        environment: "platform",
-      });
-      const { status_Message, ...rest } = res.data;
-
-      if (status_Message === "user logged") {
-        pendingOAuthTokenRef.current = p.idToken;
-        setIsSessionModalOpen(true);
-        return;
-      }
-      if (status_Message === "valid user") {
-        await signOutFirebaseAuth();
-        completeSessionAfterAuth(rest);
-        return;
-      }
-      if (status_Message === "invalid user") {
-        showToast.error(copy.invalidUser);
-        await signOutFirebaseAuth();
-        return;
-      }
-      if (status_Message === "problems with last session") {
-        showToast.error(
-          "Hubo un problema al actualizar tu sesión. Intenta de nuevo.",
-        );
-        await signOutFirebaseAuth();
-        return;
-      }
-      if (status_Message === "problems with last jwt") {
-        showToast.error("Hubo un problema con la sesión. Intenta de nuevo.");
-        await signOutFirebaseAuth();
-        return;
-      }
-      if (status_Message === "email exists") {
-        if (res.data?.action === "login_to_link_account") {
-          showToast.warning(copy.emailExistsLink);
-        } else {
-          showToast.warning("Este email ya está en uso");
-        }
-        await signOutFirebaseAuth();
-        return;
-      }
-      if (status_Message === "guest added") {
-        showToast.success("Tu usuario ha sido creado");
-        dispatch(setIsGuestUser(true));
-        await signOutFirebaseAuth();
-        if (res.data?.auth_token) {
-          const { status_Message: _sm, ...restGuest } = res.data;
-          completeSessionAfterAuth(restGuest);
-        } else {
-          showToast.info(copy.guestLoginHint);
-          navigate(ROUTES.LOGIN, { replace: true });
-        }
-        return;
-      }
-      showToast.error("No se pudo completar el registro. Intenta de nuevo.");
-      await signOutFirebaseAuth();
+      await completeOAuthRegisterWithPayload(provider, p);
     } catch (err) {
-      const code = err?.code;
-      if (
-        code === "auth/popup-closed-by-user" ||
-        code === "auth/cancelled-popup-request"
-      ) {
-        return;
-      }
-      const data = err.response?.data;
-      if (data?.status_Message === "Firebase email not verified") {
-        showToast.error(copy.firebaseVerify);
-      } else if (data?.status_Message === "Firebase token without sub/uid") {
-        showToast.error(copy.tokenValidate);
-      } else if (
-        data?.status_Message === "Unsupported Firebase sign-in provider"
-      ) {
-        showToast.error(
-          "Este método de inicio no está disponible aún. Contacta al administrador.",
-        );
-      } else {
-        showToast.error(
-          data?.message ||
-            data?.status_Message ||
-            err?.message ||
-            copy.genericError,
-        );
-      }
-      await signOutFirebaseAuth();
+      await handleOAuthRegisterCatch(err, provider);
     } finally {
       dispatch(setIsLoadingContent(false));
       setBusy(false);
