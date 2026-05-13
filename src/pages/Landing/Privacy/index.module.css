@@ -1,0 +1,52 @@
+#hero {
+  padding-top: 48px;
+  padding-bottom: 32px;
+}
+
+.intro {
+  max-width: 720px;
+  margin-bottom: 40px;
+}
+
+.content {
+  max-width: 800px;
+  margin: 0 auto 80px;
+}
+
+.content section {
+  margin-bottom: 40px;
+}
+
+.content h2 {
+  margin-bottom: 16px;
+}
+
+.content p,
+.content li {
+  margin-bottom: 12px;
+}
+
+.list {
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+
+.list li {
+  margin-bottom: 8px;
+}
+
+.meta {
+  font-size: 0.95rem;
+  opacity: 0.85;
+  margin-bottom: 8px;
+}
+
+@media screen and (max-width: 576px) {
+  #hero {
+    padding-top: 32px;
+  }
+
+  .intro {
+    margin-bottom: 28px;
+  }
+}

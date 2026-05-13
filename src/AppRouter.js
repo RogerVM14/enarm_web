@@ -7,6 +7,7 @@ import AboutPage from "./pages/Landing/About";
 // import BlogEntryPage from "./pages/Landing/Blog/Entry";
 // import TestPage from "./pages/Landing/Test";
 import ContactPage from "./pages/Landing/Contact";
+import PrivacyPage from "./pages/Landing/Privacy";
 import FreeTrialPage from "./pages/Landing/FreeTrial";
 import LoginPage from "./pages/Auth/Login";
 import RegisterPage from "./pages/Auth/Register";
@@ -169,6 +170,14 @@ const AppRouter = () => {
                 element={
                   <PublicRoutes>
                     <ContactPage />
+                  </PublicRoutes>
+                }
+              />
+              <Route
+                path={ROUTES.POLITICA_PRIVACIDAD}
+                element={
+                  <PublicRoutes>
+                    <PrivacyPage />
                   </PublicRoutes>
                 }
               />

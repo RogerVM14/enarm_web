@@ -13,6 +13,7 @@ export const ROUTES = {
   // BLOG_ENTRADA: "/blog/:id",
   PRUEBA: "/prueba",
   CONTACTO: "/contacto",
+  POLITICA_PRIVACIDAD: "/politica-de-privacidad",
   LOGIN: "/iniciar-sesion",
   REGISTRO: "/registro",
   REGISTRO_PRUEBA_ENARM: "/registro-prueba-enarm",
@@ -40,6 +41,7 @@ export const CONTACT_URLS = {
   NOSOTROS: "/nosotros",
   SOBRE_EL_CURSO: "/acerca",
   CONTACTO: "/contacto",
+  POLITICA_PRIVACIDAD: "/politica-de-privacidad",
   LOGIN: "/iniciar-sesion",
   REGISTRO: "/registro",
 }
