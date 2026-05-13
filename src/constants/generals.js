@@ -1,3 +1,6 @@
+/** Correo para soporte, privacidad y solicitudes de eliminación de datos. */
+export const SUPPORT_EMAIL = "plataformaenarm@gmail.com";
+
 export const TYPE_USER = {
     USER_PREMIUM : "1",
     USER_DEMO : "2",

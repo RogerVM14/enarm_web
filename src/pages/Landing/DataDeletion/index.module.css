@@ -1,0 +1,69 @@
+#hero {
+  padding-top: 48px;
+  padding-bottom: 32px;
+}
+
+.intro {
+  max-width: 720px;
+  margin-bottom: 40px;
+}
+
+.content {
+  max-width: 800px;
+  margin: 0 auto 80px;
+}
+
+.content section {
+  margin-bottom: 40px;
+}
+
+.content h2 {
+  margin-bottom: 16px;
+}
+
+.content p,
+.content li {
+  margin-bottom: 12px;
+}
+
+.list {
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+
+.list li {
+  margin-bottom: 8px;
+}
+
+.meta {
+  font-size: 0.95rem;
+  opacity: 0.85;
+  margin-bottom: 8px;
+}
+
+.callout {
+  padding: 20px 24px;
+  border-radius: 12px;
+  background: rgba(0, 86, 179, 0.06);
+  border: 1px solid rgba(0, 86, 179, 0.12);
+  margin-top: 8px;
+}
+
+.callout p:last-child {
+  margin-bottom: 0;
+}
+
+.emailLink {
+  font-weight: 600;
+  word-break: break-all;
+}
+
+@media screen and (max-width: 576px) {
+  #hero {
+    padding-top: 32px;
+  }
+
+  .intro {
+    margin-bottom: 28px;
+  }
+}

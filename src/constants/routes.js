@@ -14,6 +14,7 @@ export const ROUTES = {
   PRUEBA: "/prueba",
   CONTACTO: "/contacto",
   POLITICA_PRIVACIDAD: "/politica-de-privacidad",
+  ELIMINACION_DATOS_FACEBOOK: "/eliminacion-datos-facebook",
   LOGIN: "/iniciar-sesion",
   REGISTRO: "/registro",
   REGISTRO_PRUEBA_ENARM: "/registro-prueba-enarm",
@@ -42,6 +43,7 @@ export const CONTACT_URLS = {
   SOBRE_EL_CURSO: "/acerca",
   CONTACTO: "/contacto",
   POLITICA_PRIVACIDAD: "/politica-de-privacidad",
+  ELIMINACION_DATOS_FACEBOOK: "/eliminacion-datos-facebook",
   LOGIN: "/iniciar-sesion",
   REGISTRO: "/registro",
 }
