@@ -114,6 +114,21 @@ export const requestOTPForPasswordChange = (email) => {
   return axios(request);
 };
 
+export const sendOTPByEmail = (userEmail) => {
+  const request = {
+    method: "POST",
+    url: `${authUrl}send-otp`,
+    headers: {
+      "content-type": "application/json",
+    },
+    data: {
+      user_email: userEmail,
+    },
+  };
+
+  return axios(request);
+};
+
 export const verifyOTPForChangePassword = (payload) => {
   const request = {
     method: "POST",

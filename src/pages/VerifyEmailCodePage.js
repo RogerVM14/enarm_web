@@ -9,7 +9,7 @@ import {
 } from "../store/reducers/user/UserInformationSlice";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { ROUTES } from "../constants/routes";
-import { loginUser, verifyEmailCode } from "../apis/auth/authApi";
+import { loginUser, sendOTPByEmail, verifyEmailCode } from "../apis/auth/authApi";
 import showToast from "../utils/toasts/commonToasts";
 import { selectIsGuestUser } from "../store/reducers/general/general";
 import { setCookie } from "../utils/auth/cookieSession";
@@ -18,6 +18,7 @@ const VerifyEmailCodePage = () => {
   const [values, setValues] = useState(["", "", "", "", "", ""]);
   const [isReadyToVerify, setIsReadyToVerify] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isResendingCode, setIsResendingCode] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const isGuestUser = useSelector(selectIsGuestUser);
   const navigate = useNavigate();
@@ -129,6 +130,55 @@ const VerifyEmailCodePage = () => {
     }
   };
 
+  const handleResendCode = async () => {
+    if (!user_email || isResendingCode) return;
+
+    setIsResendingCode(true);
+    try {
+      const res = await sendOTPByEmail(user_email);
+      const message = res.data?.status_Message;
+
+      if (message === "otp sent") {
+        setValues(["", "", "", "", "", ""]);
+        setIsReadyToVerify(false);
+        setErrorMessage("");
+        fields.current[0].current.focus();
+        showToast.success(
+          "Te enviamos un nuevo código de verificación. Revisa tu correo y spam."
+        );
+        return;
+      }
+
+      if (message === "email not found") {
+        showToast.error("No encontramos una cuenta asociada a ese correo.");
+        return;
+      }
+
+      if (message === "user already verified") {
+        showToast.info("Tu correo ya está verificado.");
+        return;
+      }
+
+      showToast.error("No pudimos reenviar el código. Intenta nuevamente.");
+    } catch (error) {
+      const message = error?.response?.data?.status_Message;
+      if (
+        message === "missing required field: user_email" ||
+        message === "user_email is required"
+      ) {
+        showToast.error("No se encontró el correo para reenviar el código.");
+      } else if (message === "database error") {
+        showToast.error(
+          "Hubo un problema al generar el código. Intenta nuevamente."
+        );
+      } else {
+        showToast.error("No pudimos reenviar el código. Intenta nuevamente.");
+      }
+    } finally {
+      setIsResendingCode(false);
+    }
+  };
+
   return (
     <div className="main-container">
       <div className="verify-email-container">
@@ -190,9 +240,16 @@ const VerifyEmailCodePage = () => {
         <div className="email-verify-footer">
           <p>Puede tomar un minuto el recibir el código.</p>
           <p>¿No has recibido el código?</p>
-          <p style={{ marginTop: "10px" }}>
-            <strong>Reenviar nuevo código</strong>
-          </p>
+          <button
+            type="button"
+            className="resend-code-button"
+            onClick={handleResendCode}
+            disabled={isResendingCode}
+          >
+            <strong>
+              {isResendingCode ? "Reenviando código..." : "Reenviar nuevo código"}
+            </strong>
+          </button>
         </div>
       </div>
     </div>
