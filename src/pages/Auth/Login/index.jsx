@@ -512,7 +512,7 @@ const FormLogin = () => {
             </>
           )}
         </button>
-        {/* <button
+        <button
           type="button"
           className={`${ui.facebookButton} ${
             isFacebookSubmitting ? ui.facebookButtonBusy : ""
@@ -535,7 +535,7 @@ const FormLogin = () => {
               <span className="button-text">Iniciar sesión con Facebook</span>
             </>
           )}
-        </button> */}
+        </button>
       </div>
       <ConfirmDialogModal
         isOpen={isModalOpen}

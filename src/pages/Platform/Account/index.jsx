@@ -97,12 +97,6 @@ function UserProfileSection() {
             setUserInformation({
               ...user,
               has_password: true,
-              /* sign_in_options:
-                user.sign_in_options === "google" ||
-                user.sign_in_options === "facebook" ||
-                !user.sign_in_options
-                  ? "both"
-                  : user.sign_in_options, */
             }),
           );
           showToast.success(

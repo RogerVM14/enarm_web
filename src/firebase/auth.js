@@ -1,7 +1,7 @@
 import {
-  FacebookAuthProvider,
   getAuth,
   GoogleAuthProvider,
+  FacebookAuthProvider,
   signInWithPopup,
   signOut,
 } from "firebase/auth";
@@ -31,22 +31,6 @@ export async function signInWithGoogleAndGetIdToken() {
 }
 
 /**
- * Abre el flujo de Facebook y devuelve el ID token de Firebase para enviarlo al backend.
- */
-export async function signInWithFacebookAndGetIdToken() {
-  const app = getFirebaseApp();
-  if (!app) {
-    throw new Error("Firebase no está configurado. Revisa las variables REACT_APP_FIREBASE_* en .env");
-  }
-  const auth = getAuth(app);
-  const provider = new FacebookAuthProvider();
-  provider.addScope("email");
-  const result = await signInWithPopup(auth, provider);
-  const idToken = await result.user.getIdToken();
-  return { idToken, user: result.user };
-}
-
-/**
  * Mismo flujo que signInWithGoogleAndGetIdToken pero devuelve todo lo útil
  * para inspección (sin enviar nada al backend).
  */
@@ -69,6 +53,51 @@ export async function signInWithGoogleInspectPayload() {
     userCredential,
     user,
     googleOAuthAccessToken: googleCredential?.accessToken ?? null,
+    idToken,
+    idTokenResult,
+    providerId: userCredential.providerId,
+    operationType: userCredential.operationType,
+  };
+}
+
+/**
+ * Abre el flujo de Facebook y devuelve el ID token de Firebase para enviarlo al backend.
+ */
+export async function signInWithFacebookAndGetIdToken() {
+  const app = getFirebaseApp();
+  if (!app) {
+    throw new Error("Firebase no está configurado. Revisa las variables REACT_APP_FIREBASE_* en .env");
+  }
+  const auth = getAuth(app);
+  const provider = new FacebookAuthProvider();
+  provider.addScope("email");
+  const result = await signInWithPopup(auth, provider);
+  const idToken = await result.user.getIdToken();
+  return { idToken, user: result.user };
+}
+
+/**
+ * Mismo flujo que signInWithFacebookAndGetIdToken pero devuelve todo lo útil
+ * para inspección (sin enviar nada al backend).
+ */
+export async function signInWithFacebookInspectPayload() {
+  const app = getFirebaseApp();
+  if (!app) {
+    throw new Error("Firebase no está configurado. Revisa las variables REACT_APP_FIREBASE_* en .env");
+  }
+  const auth = getAuth(app);
+  const provider = new FacebookAuthProvider();
+  provider.addScope("email");
+  const userCredential = await signInWithPopup(auth, provider);
+  const facebookCredential = FacebookAuthProvider.credentialFromResult(userCredential);
+  const user = userCredential.user;
+  const idToken = await user.getIdToken();
+  const idTokenResult = await user.getIdTokenResult();
+
+  return {
+    userCredential,
+    user,
+    facebookOAuthAccessToken: facebookCredential?.accessToken ?? null,
     idToken,
     idTokenResult,
     providerId: userCredential.providerId,

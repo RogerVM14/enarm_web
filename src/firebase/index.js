@@ -12,8 +12,9 @@
 export { firebaseApp, getFirebaseApp, firebaseConfig } from "./config";
 export {
   getFirebaseAuthInstance,
-  signInWithFacebookAndGetIdToken,
   signInWithGoogleAndGetIdToken,
   signInWithGoogleInspectPayload,
+  signInWithFacebookAndGetIdToken,
+  signInWithFacebookInspectPayload,
   signOutFirebaseAuth,
 } from "./auth";

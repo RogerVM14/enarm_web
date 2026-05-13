@@ -19,9 +19,11 @@ import { resetCheckoutInformation } from "../../../store/reducers/checkout/check
 import { encryptPassword } from "../../../utils/auth";
 import {
   signInWithGoogleInspectPayload,
+  signInWithFacebookInspectPayload,
   signOutFirebaseAuth,
 } from "../../../firebase";
 import { FcGoogle } from "react-icons/fc";
+import { FaFacebook } from "react-icons/fa";
 import {
   setIsGuestUser,
   setIsLoadingContent,
@@ -137,8 +139,11 @@ const RegisterForm = ({ handleUserInfo, handleRegister }) => {
 
   const [passwordComplete, setPasswordComplete] = useState(false);
   const [isGoogleSubmitting, setIsGoogleSubmitting] = useState(false);
+  const [isFacebookSubmitting, setIsFacebookSubmitting] = useState(false);
   const [isSessionModalOpen, setIsSessionModalOpen] = useState(false);
-  const pendingGoogleTokenRef = useRef(null);
+  const pendingOAuthTokenRef = useRef(null);
+  const oauthSubmitting =
+    isGoogleSubmitting || isFacebookSubmitting;
 
   const completeSessionAfterAuth = (rest) => {
     if (!rest?.auth_token) {
@@ -152,10 +157,10 @@ const RegisterForm = ({ handleUserInfo, handleRegister }) => {
     }, 100);
   };
 
-  const handleGoogleSessionModalAccept = () => {
-    if (!pendingGoogleTokenRef.current) return;
+  const handleOAuthSessionModalAccept = () => {
+    if (!pendingOAuthTokenRef.current) return;
     createGuestUser({
-      firebase_token: pendingGoogleTokenRef.current,
+      firebase_token: pendingOAuthTokenRef.current,
       environment: "platform",
     })
       .then(async (res) => {
@@ -176,19 +181,51 @@ const RegisterForm = ({ handleUserInfo, handleRegister }) => {
       })
       .finally(() => {
         setIsSessionModalOpen(false);
-        pendingGoogleTokenRef.current = null;
+        pendingOAuthTokenRef.current = null;
       });
   };
 
-  const handleGoogleSessionModalCancel = () => {
+  const handleOAuthSessionModalCancel = () => {
     setIsSessionModalOpen(false);
-    pendingGoogleTokenRef.current = null;
+    pendingOAuthTokenRef.current = null;
   };
 
-  const handleGoogleRegister = async () => {
-    setIsGoogleSubmitting(true);
+  const OAUTH_REGISTER_COPY = {
+    google: {
+      invalidUser:
+        "No pudimos crear tu cuenta con Google. Intenta de nuevo o regístrate con correo.",
+      emailExistsLink:
+        "Este correo ya tiene cuenta. Inicia sesión con Google para vincularla.",
+      guestLoginHint: "Inicia sesión con Google para entrar a la plataforma.",
+      firebaseVerify: "Verifica tu correo en Google antes de continuar.",
+      tokenValidate:
+        "No pudimos validar tu cuenta de Google. Intenta de nuevo.",
+      genericError: "Error al registrarte con Google",
+    },
+    facebook: {
+      invalidUser:
+        "No pudimos crear tu cuenta con Facebook. Intenta de nuevo o regístrate con correo.",
+      emailExistsLink:
+        "Este correo ya tiene cuenta. Inicia sesión con Facebook para vincularla.",
+      guestLoginHint:
+        "Inicia sesión con Facebook para entrar a la plataforma.",
+      firebaseVerify: "Verifica tu correo en Facebook antes de continuar.",
+      tokenValidate:
+        "No pudimos validar tu cuenta de Facebook. Intenta de nuevo.",
+      genericError: "Error al registrarte con Facebook",
+    },
+  };
+
+  const handleOAuthRegister = async (provider) => {
+    const copy = OAUTH_REGISTER_COPY[provider];
+    const setBusy =
+      provider === "google" ? setIsGoogleSubmitting : setIsFacebookSubmitting;
+    setBusy(true);
     try {
-      const p = await signInWithGoogleInspectPayload();
+      const p =
+        provider === "google"
+          ? await signInWithGoogleInspectPayload()
+          : await signInWithFacebookInspectPayload();
       dispatch(setIsLoadingContent(true));
       const res = await createGuestUser({
         firebase_token: p.idToken,
@@ -197,7 +234,7 @@ const RegisterForm = ({ handleUserInfo, handleRegister }) => {
       const { status_Message, ...rest } = res.data;
 
       if (status_Message === "user logged") {
-        pendingGoogleTokenRef.current = p.idToken;
+        pendingOAuthTokenRef.current = p.idToken;
         setIsSessionModalOpen(true);
         return;
       }
@@ -207,9 +244,7 @@ const RegisterForm = ({ handleUserInfo, handleRegister }) => {
         return;
       }
       if (status_Message === "invalid user") {
-        showToast.error(
-          "No pudimos crear tu cuenta con Google. Intenta de nuevo o regístrate con correo.",
-        );
+        showToast.error(copy.invalidUser);
         await signOutFirebaseAuth();
         return;
       }
@@ -227,9 +262,7 @@ const RegisterForm = ({ handleUserInfo, handleRegister }) => {
       }
       if (status_Message === "email exists") {
         if (res.data?.action === "login_to_link_account") {
-          showToast.warning(
-            "Este correo ya tiene cuenta. Inicia sesión con Google para vincularla.",
-          );
+          showToast.warning(copy.emailExistsLink);
         } else {
           showToast.warning("Este email ya está en uso");
         }
@@ -241,12 +274,10 @@ const RegisterForm = ({ handleUserInfo, handleRegister }) => {
         dispatch(setIsGuestUser(true));
         await signOutFirebaseAuth();
         if (res.data?.auth_token) {
-          const { status_Message: _sm, ...rest } = res.data;
-          completeSessionAfterAuth(rest);
+          const { status_Message: _sm, ...restGuest } = res.data;
+          completeSessionAfterAuth(restGuest);
         } else {
-          showToast.info(
-            "Inicia sesión con Google para entrar a la plataforma.",
-          );
+          showToast.info(copy.guestLoginHint);
           navigate(ROUTES.LOGIN, { replace: true });
         }
         return;
@@ -263,29 +294,27 @@ const RegisterForm = ({ handleUserInfo, handleRegister }) => {
       }
       const data = err.response?.data;
       if (data?.status_Message === "Firebase email not verified") {
-        showToast.error("Verifica tu correo en Google antes de continuar.");
+        showToast.error(copy.firebaseVerify);
       } else if (data?.status_Message === "Firebase token without sub/uid") {
-        showToast.error(
-          "No pudimos validar tu cuenta de Google. Intenta de nuevo.",
-        );
+        showToast.error(copy.tokenValidate);
       } else if (
         data?.status_Message === "Unsupported Firebase sign-in provider"
       ) {
         showToast.error(
-          "El inicio con Facebook no está disponible aún. Contacta al administrador.",
+          "Este método de inicio no está disponible aún. Contacta al administrador.",
         );
       } else {
         showToast.error(
           data?.message ||
             data?.status_Message ||
             err?.message ||
-            "Error al registrarte con Google",
+            copy.genericError,
         );
       }
       await signOutFirebaseAuth();
     } finally {
       dispatch(setIsLoadingContent(false));
-      setIsGoogleSubmitting(false);
+      setBusy(false);
     }
   };
 
@@ -363,7 +392,7 @@ const RegisterForm = ({ handleUserInfo, handleRegister }) => {
           </div>
           <button
             disabled={
-              !validFormatEmail || !passwordComplete || isGoogleSubmitting
+              !validFormatEmail || !passwordComplete || oauthSubmitting
             }
             className={ui.submitButton}
             type="button"
@@ -386,8 +415,8 @@ const RegisterForm = ({ handleUserInfo, handleRegister }) => {
           <button
             type="button"
             className={ui.googleButton}
-            onClick={handleGoogleRegister}
-            disabled={isGoogleSubmitting}
+            onClick={() => handleOAuthRegister("google")}
+            disabled={oauthSubmitting}
           >
             {isGoogleSubmitting ? (
               <>
@@ -401,12 +430,30 @@ const RegisterForm = ({ handleUserInfo, handleRegister }) => {
               </>
             )}
           </button>
+          <button
+            type="button"
+            className={ui.facebookButton}
+            onClick={() => handleOAuthRegister("facebook")}
+            disabled={oauthSubmitting}
+          >
+            {isFacebookSubmitting ? (
+              <>
+                <div className="spinner-border animate-spin inline-block w-4 h-4 border-2 rounded-full border-white border-t-transparent"></div>
+                <span>Conectando...</span>
+              </>
+            ) : (
+              <>
+                <FaFacebook size={22} />
+                <span>Regístrate con Facebook</span>
+              </>
+            )}
+          </button>
         </div>
       </div>
       <ConfirmDialogModal
         isOpen={isSessionModalOpen}
-        onAccept={handleGoogleSessionModalAccept}
-        onCancel={handleGoogleSessionModalCancel}
+        onAccept={handleOAuthSessionModalAccept}
+        onCancel={handleOAuthSessionModalCancel}
         title="Cierre de sesión"
         description="Hemos detectado una sesión activa, al dar continuar, esta será cerrada automáticamente"
       />
