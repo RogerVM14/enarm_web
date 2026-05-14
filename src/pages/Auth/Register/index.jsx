@@ -430,7 +430,7 @@ const RegisterForm = ({ handleUserInfo, handleRegister }) => {
               </>
             )}
           </button>
-          <button
+          {/* <button
             type="button"
             className={ui.facebookButton}
             onClick={() => handleOAuthRegister("facebook")}
@@ -447,7 +447,7 @@ const RegisterForm = ({ handleUserInfo, handleRegister }) => {
                 <span>Regístrate con Facebook</span>
               </>
             )}
-          </button>
+          </button> */}
         </div>
       </div>
       <ConfirmDialogModal
