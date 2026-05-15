@@ -3,10 +3,7 @@
 export const BANNER_CONFIG = {
   // Banner informativo general
   INFO_BANNER_ENABLED: false,
-  
-  // Banner de mantenimiento (Aviso de Mantenimiento)
-  MAINTENANCE_BANNER_ENABLED: false,
-  
+
   // Configuración del mensaje del banner informativo
   BANNER_MESSAGE: "🚧 La plataforma estará fuera de servicio el Jueves 23 de Abril de 12:00 PM a 10:00 PM por actualizaciones.",
   
