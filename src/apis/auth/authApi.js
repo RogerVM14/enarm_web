@@ -21,7 +21,10 @@ export const CreateNewUser = (payload) => {
 export const createGuestUser = (payload) => {
   const hasFirebase = Boolean(payload?.firebase_token);
   const data = hasFirebase
-    ? { firebase_token: payload.firebase_token }
+    ? {
+        firebase_token: payload.firebase_token,
+        ...(payload.user_email ? { user_email: payload.user_email } : {}),
+      }
     : { ...payload };
 
   const request = {
@@ -44,6 +47,7 @@ export const loginUser = (payload) => {
     ? {
         environment,
         firebase_token: payload.firebase_token,
+        ...(payload.user_email ? { user_email: payload.user_email } : {}),
       }
     : {
         ...payload,
