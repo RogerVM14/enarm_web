@@ -142,6 +142,7 @@ const RegisterForm = ({ handleUserInfo, handleRegister }) => {
   const [isFacebookSubmitting, setIsFacebookSubmitting] = useState(false);
   const [isSessionModalOpen, setIsSessionModalOpen] = useState(false);
   const pendingOAuthTokenRef = useRef(null);
+  const pendingOAuthEmailRef = useRef(null);
   const oauthSubmitting =
     isGoogleSubmitting || isFacebookSubmitting;
 
@@ -162,6 +163,9 @@ const RegisterForm = ({ handleUserInfo, handleRegister }) => {
     createGuestUser({
       firebase_token: pendingOAuthTokenRef.current,
       environment: "platform",
+      ...(pendingOAuthEmailRef.current
+        ? { user_email: pendingOAuthEmailRef.current }
+        : {}),
     })
       .then(async (res) => {
         const { status_Message, ...rest } = res.data;
@@ -182,12 +186,14 @@ const RegisterForm = ({ handleUserInfo, handleRegister }) => {
       .finally(() => {
         setIsSessionModalOpen(false);
         pendingOAuthTokenRef.current = null;
+        pendingOAuthEmailRef.current = null;
       });
   };
 
   const handleOAuthSessionModalCancel = () => {
     setIsSessionModalOpen(false);
     pendingOAuthTokenRef.current = null;
+    pendingOAuthEmailRef.current = null;
   };
 
   const OAUTH_REGISTER_COPY = {
@@ -226,15 +232,29 @@ const RegisterForm = ({ handleUserInfo, handleRegister }) => {
         provider === "google"
           ? await signInWithGoogleInspectPayload()
           : await signInWithFacebookInspectPayload();
+
+      if (provider === "google" && !p.resolvedEmail) {
+        showToast.error(
+          "Google no devolvió un correo en esta cuenta. Usa otro método de registro (correo y contraseña) o revisa tu cuenta/grupo.",
+        );
+        await signOutFirebaseAuth();
+        return;
+      }
+
       dispatch(setIsLoadingContent(true));
       const res = await createGuestUser({
         firebase_token: p.idToken,
         environment: "platform",
+        ...(provider === "google" && p.resolvedEmail
+          ? { user_email: p.resolvedEmail }
+          : {}),
       });
       const { status_Message, ...rest } = res.data;
 
       if (status_Message === "user logged") {
         pendingOAuthTokenRef.current = p.idToken;
+        pendingOAuthEmailRef.current =
+          provider === "google" ? p.resolvedEmail || null : null;
         setIsSessionModalOpen(true);
         return;
       }

@@ -70,6 +70,7 @@ const FormLogin = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [sessionConflictSource, setSessionConflictSource] = useState(null);
   const pendingSocialFirebaseTokenRef = useRef(null);
+  const pendingSocialFirebaseEmailRef = useRef(null);
   const [linkGoogleModalOpen, setLinkGoogleModalOpen] = useState(false);
   const [linkGoogleEmail, setLinkGoogleEmail] = useState("");
   const [linkModalProviderName, setLinkModalProviderName] = useState("Google");
@@ -99,6 +100,9 @@ const FormLogin = () => {
       loginUser({
         firebase_token: pendingSocialFirebaseTokenRef.current,
         environment: "platform",
+        ...(pendingSocialFirebaseEmailRef.current
+          ? { user_email: pendingSocialFirebaseEmailRef.current }
+          : {}),
       })
         .then((res) => {
           const { status_Message, ...rest } = res.data;
@@ -120,6 +124,7 @@ const FormLogin = () => {
           setIsModalOpen(false);
           setSessionConflictSource(null);
           pendingSocialFirebaseTokenRef.current = null;
+          pendingSocialFirebaseEmailRef.current = null;
         });
       return;
     }
@@ -154,6 +159,7 @@ const FormLogin = () => {
     setIsModalOpen(false);
     setSessionConflictSource(null);
     pendingSocialFirebaseTokenRef.current = null;
+    pendingSocialFirebaseEmailRef.current = null;
   };
 
   const closeLinkGoogleModal = () => {
@@ -257,15 +263,24 @@ const FormLogin = () => {
   const handleGoogleLogin = async () => {
     setIsGoogleSubmitting(true);
     try {
-      const { idToken } = await signInWithGoogleAndGetIdToken();
+      const { idToken, resolvedEmail } = await signInWithGoogleAndGetIdToken();
+      if (!resolvedEmail) {
+        showToast.error(
+          "Google no devolvió un correo para esta cuenta. Prueba iniciar sesión con correo y contraseña o con otra cuenta de Google.",
+        );
+        await signOutFirebaseAuth();
+        return;
+      }
       const res = await loginUser({
         firebase_token: idToken,
         environment: "platform",
+        user_email: resolvedEmail,
       });
       const { status_Message, ...rest } = res.data;
 
       if (status_Message === "user logged") {
         pendingSocialFirebaseTokenRef.current = idToken;
+        pendingSocialFirebaseEmailRef.current = resolvedEmail || null;
         setSessionConflictSource("google");
         setIsModalOpen(true);
         return;
@@ -340,6 +355,7 @@ const FormLogin = () => {
 
       if (status_Message === "user logged") {
         pendingSocialFirebaseTokenRef.current = idToken;
+        pendingSocialFirebaseEmailRef.current = null;
         setSessionConflictSource("facebook");
         setIsModalOpen(true);
         return;
