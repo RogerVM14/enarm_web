@@ -17,5 +17,7 @@ export {
   signInWithGoogleInspectPayload,
   signInWithFacebookAndGetIdToken,
   signInWithFacebookInspectPayload,
+  signInWithAppleAndGetIdToken,
+  signInWithAppleInspectPayload,
   signOutFirebaseAuth,
 } from "./auth";

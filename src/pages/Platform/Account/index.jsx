@@ -11,6 +11,7 @@ import {
   REGISTRATION_PASSWORD_HINT,
 } from "../../../utils/auth/passwordPolicy";
 import showToast from "../../../utils/toasts/commonToasts";
+import { FaApple } from "react-icons/fa";
 import ui from "./index.module.css";
 
 /** Backend envía `methods` fijo: [0]=Google, [1]=Facebook, [2]=Apple. `is_linked` es 0/1. */
@@ -34,21 +35,24 @@ function UserProfileSection() {
     showSetPassword,
     linkedGoogle,
     linkedFacebook,
+    linkedApple,
     hasPassword,
   } = useMemo(() => {
     const u = user && typeof user === "object" ? user : {};
     const methods = Array.isArray(u.methods) ? u.methods : [];
     const hasG = isLinked(methods[0]);
     const hasF = isLinked(methods[1]);
+    const hasA = isLinked(methods[2]);
     const hasP = Boolean(u.has_password);
     return {
       email: u.email || "",
       fullname: u.fullname || "",
       role_name: u.role_name || "",
       is_verified: Boolean(u.is_verified),
-      showSetPassword: (hasG || hasF) && !hasP,
+      showSetPassword: (hasG || hasF || hasA) && !hasP,
       linkedGoogle: hasG,
       linkedFacebook: hasF,
+      linkedApple: hasA,
       hasPassword: hasP,
     };
   }, [user]);
@@ -232,12 +236,20 @@ function UserProfileSection() {
                     Facebook
                   </span>
                 )}
+                {linkedApple && (
+                  <span className={`${ui.pill} ${ui.pillApple}`}>
+                    <span className={ui.pillIconApple} aria-hidden>
+                      <FaApple size={11} />
+                    </span>
+                    Apple
+                  </span>
+                )}
                 {hasPassword && (
                   <span className={`${ui.pill} ${ui.pillEnarm}`}>
                     Correo y contraseña
                   </span>
                 )}
-                {!linkedGoogle && !linkedFacebook && !hasPassword && (
+                {!linkedGoogle && !linkedFacebook && !linkedApple && !hasPassword && (
                   <span className={ui.profileValueMuted}>—</span>
                 )}
               </div>
@@ -248,9 +260,9 @@ function UserProfileSection() {
                 <div className={ui.setPasswordHeader}>
                   <h6 className={ui.setPasswordTitle}>Establecer contraseña</h6>
                   <p className={ui.setPasswordDesc}>
-                    Tu cuenta usa un inicio de sesión social (Google o
-                    Facebook). Puedes crear una contraseña de ENARM para entrar
-                    también con correo y contraseña.
+                    Tu cuenta usa un inicio de sesión social (Google,
+                    Facebook o Apple). Puedes crear una contraseña de ENARM
+                    para entrar también con correo y contraseña.
                   </p>
                 </div>
                 {!setPasswordFormOpen ? (

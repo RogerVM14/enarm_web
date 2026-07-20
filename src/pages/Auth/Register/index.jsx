@@ -20,10 +20,11 @@ import { encryptPassword } from "../../../utils/auth";
 import {
   signInWithGoogleInspectPayload,
   signInWithFacebookInspectPayload,
+  signInWithAppleInspectPayload,
   signOutFirebaseAuth,
 } from "../../../firebase";
 import { FcGoogle } from "react-icons/fc";
-import { FaFacebook } from "react-icons/fa";
+import { FaFacebook, FaApple } from "react-icons/fa";
 import {
   setIsGuestUser,
   setIsLoadingContent,
@@ -140,11 +141,12 @@ const RegisterForm = ({ handleUserInfo, handleRegister }) => {
   const [passwordComplete, setPasswordComplete] = useState(false);
   const [isGoogleSubmitting, setIsGoogleSubmitting] = useState(false);
   const [isFacebookSubmitting, setIsFacebookSubmitting] = useState(false);
+  const [isAppleSubmitting, setIsAppleSubmitting] = useState(false);
   const [isSessionModalOpen, setIsSessionModalOpen] = useState(false);
   const pendingOAuthTokenRef = useRef(null);
   const pendingOAuthEmailRef = useRef(null);
   const oauthSubmitting =
-    isGoogleSubmitting || isFacebookSubmitting;
+    isGoogleSubmitting || isFacebookSubmitting || isAppleSubmitting;
 
   const completeSessionAfterAuth = (rest) => {
     if (!rest?.auth_token) {
@@ -220,22 +222,44 @@ const RegisterForm = ({ handleUserInfo, handleRegister }) => {
         "No pudimos validar tu cuenta de Facebook. Intenta de nuevo.",
       genericError: "Error al registrarte con Facebook",
     },
+    apple: {
+      invalidUser:
+        "No pudimos crear tu cuenta con Apple. Intenta de nuevo o regístrate con correo.",
+      emailExistsLink:
+        "Este correo ya tiene cuenta. Inicia sesión con Apple para vincularla.",
+      guestLoginHint: "Inicia sesión con Apple para entrar a la plataforma.",
+      firebaseVerify: "Verifica tu correo en Apple antes de continuar.",
+      tokenValidate:
+        "No pudimos validar tu cuenta de Apple. Intenta de nuevo.",
+      genericError: "Error al registrarte con Apple",
+    },
   };
+
+  const OAUTH_INSPECT_BY_PROVIDER = {
+    google: signInWithGoogleInspectPayload,
+    facebook: signInWithFacebookInspectPayload,
+    apple: signInWithAppleInspectPayload,
+  };
+
+  const OAUTH_BUSY_SETTER_BY_PROVIDER = {
+    google: setIsGoogleSubmitting,
+    facebook: setIsFacebookSubmitting,
+    apple: setIsAppleSubmitting,
+  };
+
+  const requiresResolvedEmail = (provider) =>
+    provider === "google" || provider === "apple";
 
   const handleOAuthRegister = async (provider) => {
     const copy = OAUTH_REGISTER_COPY[provider];
-    const setBusy =
-      provider === "google" ? setIsGoogleSubmitting : setIsFacebookSubmitting;
+    const setBusy = OAUTH_BUSY_SETTER_BY_PROVIDER[provider];
     setBusy(true);
     try {
-      const p =
-        provider === "google"
-          ? await signInWithGoogleInspectPayload()
-          : await signInWithFacebookInspectPayload();
+      const p = await OAUTH_INSPECT_BY_PROVIDER[provider]();
 
-      if (provider === "google" && !p.resolvedEmail) {
+      if (requiresResolvedEmail(provider) && !p.resolvedEmail) {
         showToast.error(
-          "Google no devolvió un correo en esta cuenta. Usa otro método de registro (correo y contraseña) o revisa tu cuenta/grupo.",
+          `${provider === "google" ? "Google" : "Apple"} no devolvió un correo en esta cuenta. Usa otro método de registro (correo y contraseña) o revisa tu cuenta/grupo.`,
         );
         await signOutFirebaseAuth();
         return;
@@ -245,7 +269,7 @@ const RegisterForm = ({ handleUserInfo, handleRegister }) => {
       const res = await createGuestUser({
         firebase_token: p.idToken,
         environment: "platform",
-        ...(provider === "google" && p.resolvedEmail
+        ...(requiresResolvedEmail(provider) && p.resolvedEmail
           ? { user_email: p.resolvedEmail }
           : {}),
       });
@@ -253,8 +277,9 @@ const RegisterForm = ({ handleUserInfo, handleRegister }) => {
 
       if (status_Message === "user logged") {
         pendingOAuthTokenRef.current = p.idToken;
-        pendingOAuthEmailRef.current =
-          provider === "google" ? p.resolvedEmail || null : null;
+        pendingOAuthEmailRef.current = requiresResolvedEmail(provider)
+          ? p.resolvedEmail || null
+          : null;
         setIsSessionModalOpen(true);
         return;
       }
@@ -447,6 +472,24 @@ const RegisterForm = ({ handleUserInfo, handleRegister }) => {
               <>
                 <FcGoogle size={22} />
                 <span>Regístrate con Google</span>
+              </>
+            )}
+          </button>
+          <button
+            type="button"
+            className={ui.appleButton}
+            onClick={() => handleOAuthRegister("apple")}
+            disabled={oauthSubmitting}
+          >
+            {isAppleSubmitting ? (
+              <>
+                <div className="spinner-border animate-spin inline-block w-4 h-4 border-2 rounded-full border-white border-t-transparent"></div>
+                <span>Conectando...</span>
+              </>
+            ) : (
+              <>
+                <FaApple size={22} />
+                <span>Regístrate con Apple</span>
               </>
             )}
           </button>

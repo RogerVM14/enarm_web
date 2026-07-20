@@ -2,6 +2,7 @@ import {
   getAuth,
   GoogleAuthProvider,
   FacebookAuthProvider,
+  OAuthProvider,
   signInWithPopup,
   signOut,
   getAdditionalUserInfo,
@@ -9,13 +10,14 @@ import {
 import { getFirebaseApp } from "./config";
 
 const GOOGLE_PROVIDER_ID = GoogleAuthProvider.PROVIDER_ID;
+const APPLE_PROVIDER_ID = "apple.com";
 
 /**
- * Intenta obtener el correo del flujo Google + Firebase por todas las vías habituales.
+ * Intenta obtener el correo del flujo social + Firebase por todas las vías habituales.
  * A veces user.email llega vacío pero sí está en providerData o en el perfil OAuth.
  */
-function emailFromProviderData(user) {
-  const entry = user?.providerData?.find((p) => p.providerId === GOOGLE_PROVIDER_ID);
+function emailFromProviderData(user, providerId = GOOGLE_PROVIDER_ID) {
+  const entry = user?.providerData?.find((p) => p.providerId === providerId);
   const e = entry?.email?.trim();
   return e || null;
 }
@@ -152,6 +154,56 @@ export async function signInWithFacebookInspectPayload() {
     facebookOAuthAccessToken: facebookCredential?.accessToken ?? null,
     idToken,
     idTokenResult,
+    providerId: userCredential.providerId,
+    operationType: userCredential.operationType,
+  };
+}
+
+/**
+ * Abre el flujo de Apple y devuelve el ID token de Firebase para enviarlo al backend.
+ */
+export async function signInWithAppleAndGetIdToken() {
+  const app = getFirebaseApp();
+  if (!app) {
+    throw new Error("Firebase no está configurado. Revisa las variables REACT_APP_FIREBASE_* en .env");
+  }
+  const auth = getAuth(app);
+  const provider = new OAuthProvider("apple.com");
+  provider.addScope("email");
+  provider.addScope("name");
+  const userCredential = await signInWithPopup(auth, provider);
+  const user = userCredential.user;
+  const idToken = await user.getIdToken(true);
+  const resolvedEmail = user?.email?.trim() || emailFromProviderData(user, APPLE_PROVIDER_ID) || null;
+
+  return { idToken, user, resolvedEmail };
+}
+
+/**
+ * Mismo flujo que signInWithAppleAndGetIdToken pero devuelve todo lo útil
+ * para inspección (sin enviar nada al backend).
+ */
+export async function signInWithAppleInspectPayload() {
+  const app = getFirebaseApp();
+  if (!app) {
+    throw new Error("Firebase no está configurado. Revisa las variables REACT_APP_FIREBASE_* en .env");
+  }
+  const auth = getAuth(app);
+  const provider = new OAuthProvider("apple.com");
+  provider.addScope("email");
+  provider.addScope("name");
+  const userCredential = await signInWithPopup(auth, provider);
+  const appleCredential = OAuthProvider.credentialFromResult(userCredential);
+  const user = userCredential.user;
+  const idToken = await user.getIdToken(true);
+  const resolvedEmail = user?.email?.trim() || emailFromProviderData(user, APPLE_PROVIDER_ID) || null;
+
+  return {
+    userCredential,
+    user,
+    appleOAuthAccessToken: appleCredential?.accessToken ?? null,
+    idToken,
+    resolvedEmail,
     providerId: userCredential.providerId,
     operationType: userCredential.operationType,
   };

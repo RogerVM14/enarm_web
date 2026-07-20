@@ -4,6 +4,7 @@ import { closeUserRemoteSession, loginUser } from "../../../apis/auth/authApi";
 import {
   signInWithFacebookAndGetIdToken,
   signInWithGoogleAndGetIdToken,
+  signInWithAppleAndGetIdToken,
   signOutFirebaseAuth,
 } from "../../../firebase";
 import doctorImage from "../../../assets/imgs/Dres/stock-photo-surgeon-wearing-blue-uniform-stethoscope-small.png";
@@ -24,7 +25,7 @@ import { ROUTES } from "../../../constants/routes";
 import { encryptPassword } from "../../../utils/auth";
 import ConfirmDialogModal from "../../../components/ConfirmDialogModal";
 import LinkGoogleAccountModal from "../../../components/Auth/LinkGoogleAccountModal";
-import { FaFacebook } from "react-icons/fa";
+import { FaFacebook, FaApple } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 
 const LoginPage = () => {
@@ -67,6 +68,7 @@ const FormLogin = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isGoogleSubmitting, setIsGoogleSubmitting] = useState(false);
   const [isFacebookSubmitting, setIsFacebookSubmitting] = useState(false);
+  const [isAppleSubmitting, setIsAppleSubmitting] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [sessionConflictSource, setSessionConflictSource] = useState(null);
   const pendingSocialFirebaseTokenRef = useRef(null);
@@ -94,7 +96,8 @@ const FormLogin = () => {
     setIsSubmitting(true);
     if (
       (sessionConflictSource === "google" ||
-        sessionConflictSource === "facebook") &&
+        sessionConflictSource === "facebook" ||
+        sessionConflictSource === "apple") &&
       pendingSocialFirebaseTokenRef.current
     ) {
       loginUser({
@@ -416,6 +419,80 @@ const FormLogin = () => {
     }
   };
 
+  const handleAppleLogin = async () => {
+    setIsAppleSubmitting(true);
+    try {
+      const { idToken, resolvedEmail } = await signInWithAppleAndGetIdToken();
+      const res = await loginUser({
+        firebase_token: idToken,
+        environment: "platform",
+        ...(resolvedEmail ? { user_email: resolvedEmail } : {}),
+      });
+      const { status_Message, ...rest } = res.data;
+
+      if (status_Message === "user logged") {
+        pendingSocialFirebaseTokenRef.current = idToken;
+        pendingSocialFirebaseEmailRef.current = resolvedEmail || null;
+        setSessionConflictSource("apple");
+        setIsModalOpen(true);
+        return;
+      }
+      if (status_Message === "valid user") {
+        completeSessionAfterAuth(rest);
+        return;
+      }
+      if (status_Message === "need to link") {
+        const email = res.data.user_email || "";
+        linkPendingFirebaseTokenRef.current = idToken;
+        setLinkGoogleEmail(email);
+        setLinkModalProviderName("Apple");
+        setLinkGoogleModalOpen(true);
+        return;
+      }
+      if (status_Message === "invalid user") {
+        showToast.error(
+          "No encontramos una cuenta con este correo. Regístrate primero.",
+        );
+        await signOutFirebaseAuth();
+      }
+    } catch (err) {
+      const code = err?.code;
+      if (
+        code === "auth/popup-closed-by-user" ||
+        code === "auth/cancelled-popup-request"
+      ) {
+        return;
+      }
+      const data = err.response?.data;
+      if (data?.status_Message === "Firebase email not verified") {
+        showToast.error("Verifica tu correo en Apple antes de continuar.");
+      } else if (data?.status_Message === "Firebase token without sub/uid") {
+        showToast.error(
+          "No pudimos validar tu cuenta de Apple. Intenta de nuevo.",
+        );
+      } else if (
+        data?.status_Message === "Unsupported Firebase sign-in provider" ||
+        data?.status_Message === "provider not found"
+      ) {
+        showToast.error(
+          "El inicio con Apple no está disponible aún. Contacta al administrador.",
+        );
+      } else if (err?.response?.status === 404) {
+        showToast.error(
+          "El inicio con Apple no está disponible aún. Contacta al administrador.",
+        );
+      } else {
+        const msg = data?.message || data?.status_Message || err.message;
+        showToast.error(
+          ERROR_MESSAGES[msg] || msg || "Error al iniciar sesión con Apple",
+        );
+      }
+      await signOutFirebaseAuth();
+    } finally {
+      setIsAppleSubmitting(false);
+    }
+  };
+
   return (
     <>
       <div className="form-container reveal-load">
@@ -479,6 +556,7 @@ const FormLogin = () => {
             isSubmitting ||
             isGoogleSubmitting ||
             isFacebookSubmitting ||
+            isAppleSubmitting ||
             !validateEmailFormat(userEmail) ||
             !userPass
           }
@@ -510,7 +588,12 @@ const FormLogin = () => {
             isGoogleSubmitting ? ui.googleButtonBusy : ""
           }`}
           onClick={handleGoogleLogin}
-          disabled={isSubmitting || isGoogleSubmitting || isFacebookSubmitting}
+          disabled={
+            isSubmitting ||
+            isGoogleSubmitting ||
+            isFacebookSubmitting ||
+            isAppleSubmitting
+          }
           aria-busy={isGoogleSubmitting}
         >
           {isGoogleSubmitting ? (
@@ -525,6 +608,35 @@ const FormLogin = () => {
             <>
               <FcGoogle size={22} className="shrink-0" />
               <span className="button-text">Iniciar sesión con Google</span>
+            </>
+          )}
+        </button>
+        <button
+          type="button"
+          className={`${ui.appleButton} ${
+            isAppleSubmitting ? ui.appleButtonBusy : ""
+          }`}
+          onClick={handleAppleLogin}
+          disabled={
+            isSubmitting ||
+            isGoogleSubmitting ||
+            isFacebookSubmitting ||
+            isAppleSubmitting
+          }
+          aria-busy={isAppleSubmitting}
+        >
+          {isAppleSubmitting ? (
+            <>
+              <div
+                className="spinner-border animate-spin inline-block w-4 h-4 shrink-0 border-2 rounded-full border-white border-t-transparent"
+                aria-hidden
+              />
+              <span className="button-text">Iniciando sesión</span>
+            </>
+          ) : (
+            <>
+              <FaApple size={22} className="shrink-0" aria-hidden />
+              <span className="button-text">Iniciar sesión con Apple</span>
             </>
           )}
         </button>
