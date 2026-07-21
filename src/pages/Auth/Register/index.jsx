@@ -314,6 +314,12 @@ const RegisterForm = ({ handleUserInfo, handleRegister }) => {
         await signOutFirebaseAuth();
         return;
       }
+      if (status_Message === "firebase account already registered") {
+        showToast.warning(copy.emailExistsLink);
+        await signOutFirebaseAuth();
+        navigate(ROUTES.LOGIN, { replace: true });
+        return;
+      }
       if (status_Message === "guest added") {
         showToast.success("Tu usuario ha sido creado");
         dispatch(setIsGuestUser(true));

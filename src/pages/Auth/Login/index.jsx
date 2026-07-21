@@ -170,7 +170,7 @@ const FormLogin = () => {
     setLinkGoogleEmail("");
     setLinkModalProviderName("Google");
     linkPendingFirebaseTokenRef.current = null;
-    signOutFirebaseAuth().catch(() => {});
+    signOutFirebaseAuth().catch(() => { });
   };
 
   const handleLinkGoogleSuccess = (sessionRest) => {
@@ -288,11 +288,10 @@ const FormLogin = () => {
         setIsModalOpen(true);
         return;
       }
-       if (status_Message === "valid user") {
+      if (status_Message === "valid user") {
         completeSessionAfterAuth(rest);
         return;
       }
-      console.log(status_Message);
 
       if (status_Message === "need to link") {
         const email = res.data.user_email || "";
@@ -546,9 +545,8 @@ const FormLogin = () => {
           </div>
         </div>
         <button
-          className={`button-rounded-blue-48 ${
-            isSubmitting ? "button-rounded-blue-48--disabled" : ""
-          } flex items-center justify-center gap-2`}
+          className={`button-rounded-blue-48 ${isSubmitting ? "button-rounded-blue-48--disabled" : ""
+            } flex items-center justify-center gap-2`}
           type="button"
           style={{ marginTop: "20px" }}
           onClick={handleSubmit}
@@ -584,9 +582,8 @@ const FormLogin = () => {
         </div>
         <button
           type="button"
-          className={`${ui.googleButton} ${
-            isGoogleSubmitting ? ui.googleButtonBusy : ""
-          }`}
+          className={`${ui.googleButton} ${isGoogleSubmitting ? ui.googleButtonBusy : ""
+            }`}
           onClick={handleGoogleLogin}
           disabled={
             isSubmitting ||
@@ -613,9 +610,8 @@ const FormLogin = () => {
         </button>
         <button
           type="button"
-          className={`${ui.appleButton} ${
-            isAppleSubmitting ? ui.appleButtonBusy : ""
-          }`}
+          className={`${ui.appleButton} ${isAppleSubmitting ? ui.appleButtonBusy : ""
+            }`}
           onClick={handleAppleLogin}
           disabled={
             isSubmitting ||
