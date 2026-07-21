@@ -152,17 +152,8 @@ const PrivacyPage = () => {
                     autenticación y infraestructura en la nube.
                   </li>
                   <li>
-                    Meta (Facebook) cuando elijas iniciar sesión o registrarte con
-                    esa opción. Si usaste Facebook y deseas solicitar la
-                    eliminación de los datos asociados a ese inicio de sesión,
-                    consulta la página de{" "}
-                    <Link
-                      to={ROUTES.ELIMINACION_DATOS_FACEBOOK}
-                      className="link-blue"
-                    >
-                      eliminación de datos (Facebook)
-                    </Link>
-                    .
+                    Meta (Facebook) y Apple cuando elijas iniciar sesión o
+                    registrarte con esa opción.
                   </li>
                   <li>
                     Pasarelas de pago (por ejemplo Mercado Pago y Conekta) para
@@ -219,6 +210,13 @@ const PrivacyPage = () => {
                   en la página de{" "}
                   <Link to={ROUTES.CONTACTO} className="link-blue">
                     contacto
+                  </Link>
+                  . Si deseas solicitar la eliminación de tu cuenta,
+                  independientemente de si iniciaste sesión con Google,
+                  Facebook, Apple o con correo y contraseña, consulta el
+                  procedimiento en la página de{" "}
+                  <Link to={ROUTES.ELIMINACION_CUENTA} className="link-blue">
+                    eliminación de cuenta
                   </Link>
                   . Podremos pedirte información razonable para verificar tu
                   identidad antes de atender tu solicitud.

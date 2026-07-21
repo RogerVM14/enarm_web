@@ -8,7 +8,7 @@ import AboutPage from "./pages/Landing/About";
 // import TestPage from "./pages/Landing/Test";
 import ContactPage from "./pages/Landing/Contact";
 import PrivacyPage from "./pages/Landing/Privacy";
-import DataDeletionPage from "./pages/Landing/DataDeletion";
+import AccountDeletionPage from "./pages/Landing/AccountDeletion";
 import FreeTrialPage from "./pages/Landing/FreeTrial";
 import LoginPage from "./pages/Auth/Login";
 import RegisterPage from "./pages/Auth/Register";
@@ -183,10 +183,10 @@ const AppRouter = () => {
                 }
               />
               <Route
-                path={ROUTES.ELIMINACION_DATOS_FACEBOOK}
+                path={ROUTES.ELIMINACION_CUENTA}
                 element={
                   <PublicRoutes>
-                    <DataDeletionPage />
+                    <AccountDeletionPage />
                   </PublicRoutes>
                 }
               />
