@@ -104,6 +104,9 @@
 .asideContainer {
   height: 100%;
   box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .asideContainer * {
@@ -112,12 +115,17 @@
 
 .asideContainer nav {
   font-family: PoppinsRegular;
-  height: inherit;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .asideFooter {
-  position: absolute;
-  bottom: 0;
+  flex-shrink: 0;
+  background: #fff;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .logoContainer {
@@ -130,6 +138,7 @@
   align-items: center;
   padding: 8px 10px;
   justify-content: space-between;
+  flex-shrink: 0;
 }
 
 .logoContainer .imageContainer {
@@ -245,6 +254,13 @@ nav[data-size="sm"] .navContainer {
   display: flex;
   flex-direction: column;
   row-gap: 0.5rem;
+}
+
+.menuList {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding-bottom: 0.5rem;
 }
 
 .asideBackground {
