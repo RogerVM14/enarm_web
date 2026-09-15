@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { isClasesVirtualesEnarmPlan } from "../clasesVirtualesEnarmPlan.js";
+import {
+  isClasesVirtualesEnarmPlan,
+  isIntensivoPlan,
+} from "../clasesVirtualesEnarmPlan.js";
 
-const BodyContent = ({ display, planId }) => {
+const BodyContent = ({ display, planId, planName }) => {
   const [showVideo, setShowVideo] = useState(false);
 
   if (display === false) return null;
@@ -14,6 +17,22 @@ const BodyContent = ({ display, planId }) => {
         Bienvenido a tu espacio de Clases Virtuales ENARM. Este es tu plan de estudio semana a semana, pensado para acompañarte en cada etapa de tu preparación. Iremos liberando las clases conforme avances, para que mantengas el ritmo y nunca dudes qué sigue.
         </p>
        
+      </div>
+    );
+  }
+
+  if (isIntensivoPlan(planName)) {
+    return (
+      <div className="bg-white p-6 poppins-regular-14 text-[#000000cc] space-y-4">
+        <p>
+          Médico, aquí encontrarás el Curso Intensivo para el ENARM, construido
+          con los temas que año con año se repiten en el examen. Durante más de
+          10 años hemos recopilado y analizado estos contenidos para ayudarte a
+          estudiar con estrategia. Son los temas que debes dominar para llegar
+          preparado y responder con seguridad. Si no los dominas, son puntos que
+          dejas ir; si los dominas, conviertes tu esfuerzo en resultados. ¡Este
+          año, vas por tu ENARM con ventaja con el curso Intensivo!
+        </p>
       </div>
     );
   }

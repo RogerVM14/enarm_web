@@ -19,7 +19,7 @@ const PlanCourse = ({ planId, planName }) => {
           <span className="poppins-regular-14 text-[#00000073]">Para comenzar</span>
         </div>
       </div>
-      <BodyContent display={display} planId={planId} />
+      <BodyContent display={display} planId={planId} planName={planName} />
     </section>
   );
 };

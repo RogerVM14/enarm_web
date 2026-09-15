@@ -7,10 +7,15 @@ export const CLASES_VIRTUALES_ENARM_PLAN_ID = 21;
 export const isClasesVirtualesEnarmPlan = (planId) =>
   Number(planId) === CLASES_VIRTUALES_ENARM_PLAN_ID;
 
-export const getPlanCourseHeading = (planId, planName) =>
-  isClasesVirtualesEnarmPlan(planId)
-    ? "Clases Virtuales ENARM"
-    : `Plan de Estudio de ${planName ?? ""}`;
+/** Plan "Intensivo" / "Curso Intensivo" (detectado por nombre). */
+export const isIntensivoPlan = (planName = "") =>
+  String(planName).toLowerCase().includes("intensivo");
+
+export const getPlanCourseHeading = (planId, planName) => {
+  if (isClasesVirtualesEnarmPlan(planId)) return "Clases Virtuales ENARM";
+  if (isIntensivoPlan(planName)) return "Curso Intensivo";
+  return `Plan de Estudio de ${planName ?? ""}`;
+};
 
 /** Texto del párrafo de bienvenida en /cursoENARM/planes_contenido (especialidad va en negrita entre ambas partes). */
 export const getCourseContenidoWelcomeCopy = (planId) => {
