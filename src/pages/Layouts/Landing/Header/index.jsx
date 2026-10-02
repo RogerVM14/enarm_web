@@ -72,7 +72,7 @@ const NavBar = () => {
                     setDisplay(false);
                   }}
                 >
-                  Regístrate
+                  Inscribirme
                 </Link>
               </div>
             </div>
@@ -83,7 +83,7 @@ const NavBar = () => {
                   to={ROUTES.REGISTRO}
                   className={ui.blueRoundedLink}
                 >
-                  Regístrate
+                  Inscribirme
                 </Link>
               </li>
               <li className={ui.linkWithIcon}>
@@ -116,7 +116,7 @@ const MobileHeaderNavTools = ({ display, handleDisplay }) => {
         to={ROUTES.REGISTRO}
         className={ui.blueRoundedLink}
       >
-        Regístrate
+        Inscribirme
       </Link>
       <button
         type="button"
